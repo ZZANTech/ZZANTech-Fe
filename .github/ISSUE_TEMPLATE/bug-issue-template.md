@@ -20,14 +20,14 @@ assignees: NHJeans
 4. (예: 오류 메시지 확인)
 
 
-📝 Expected Behavior
+## 📝 Expected Behavior
 (예상되는 올바른 동작)
 
 - 버그가 발생하지 않았을 경우의 예상되는 정상 동작을 설명해주세요.
 - 예: 회원가입이 정상적으로 완료되고, 환영 메시지가 출력됩니다.
 
 
-## 💡 Possible Solution
+💡 Possible Solution
 (버그 수정에 도움이 될 수 있는 아이디어나 제안)
 - (구체적인 해결 방안이 있다면 작성해주세요)
 - 예: API 요청 시 인증 토큰 확인
