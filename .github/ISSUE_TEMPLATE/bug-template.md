@@ -1,5 +1,5 @@
 ---
-name: Bug issue template
+name: Bug Template
 about: 버그 이슈 템플릿
 title: "[BUG]"
 labels: bug
