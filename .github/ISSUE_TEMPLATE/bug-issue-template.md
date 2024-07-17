@@ -7,13 +7,13 @@ assignees: NHJeans
 
 ---
 
-🐞 Description
+## 🐞 Description
 (발생한 버그의 배경 및 현상 설명)
 - 버그가 발생한 배경을 설명해주세요.
 - 어떤 상황에서 버그가 발생하는지, 어떤 현상이 나타나는지 구체적으로 설명해주세요.
 
 
-🔍 Steps to Reproduce
+## 🔍 Steps to Reproduce
 1. (버그 재현을 위한 구체적인 단계)
 2. (예: 홈페이지 접속)
 3. (예: 회원가입 버튼 클릭)
@@ -27,12 +27,12 @@ assignees: NHJeans
 - 예: 회원가입이 정상적으로 완료되고, 환영 메시지가 출력됩니다.
 
 
-💡 Possible Solution
+## 💡 Possible Solution
 (버그 수정에 도움이 될 수 있는 아이디어나 제안)
 - (구체적인 해결 방안이 있다면 작성해주세요)
 - 예: API 요청 시 인증 토큰 확인
 
-✅ Todo
+## ✅ Todo
 
  - [ ] (구체적인 작업 목록을 작성해주세요)
  - [ ] (예: 오류 로그 분석)
