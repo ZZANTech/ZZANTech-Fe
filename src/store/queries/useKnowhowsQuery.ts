@@ -1,11 +1,11 @@
 import { getKnowhows } from "@/apis/knowhow";
-import { TKnowhow } from "@/types/knowhow.type";
+import { TKnowhow, TKnowhowsResponse } from "@/types/knowhow.type";
 import { useQuery } from "@tanstack/react-query";
 
-const useKnowhowsQuery = () => {
-  return useQuery<TKnowhow[], Error>({
-    queryKey: ["knowhows"],
-    queryFn: getKnowhows
+const useKnowhowsQuery = (page: number, limit: number, sortOrder: string) => {
+  return useQuery<TKnowhowsResponse, Error>({
+    queryKey: ["knowhows", { page, limit, sortOrder }],
+    queryFn: () => getKnowhows(page, limit, sortOrder)
   });
 };
 
