@@ -1,5 +1,8 @@
+import KnowhowContainer from "./_components/KnowhowContainer";
+
 function KnowhowPage() {
-  return <></>;
+  return <KnowhowContainer />;
 }
 
 export default KnowhowPage;
+
