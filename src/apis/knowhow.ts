@@ -1,5 +1,6 @@
 import { BASE_URL } from "@/constants";
 import { TKnowhow } from "@/types/knowhow.type";
+import { createClient } from "@/utils/supabase/server";
 
 export const getKnowhows = async (
   page: number,
@@ -17,8 +18,6 @@ export const getKnowhows = async (
 
 export const getKnowhow = async (knowhowId: TKnowhow["tip_post_id"]) => {
   const res = await fetch(`${BASE_URL}/api/knowhow/posts/${knowhowId}`);
-  console.log(res);
   const knowhow = await res.json();
-  console.log(knowhow);
   return knowhow;
 };

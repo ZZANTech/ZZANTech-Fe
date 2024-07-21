@@ -1,5 +1,18 @@
-function KnowhowDetailPage() {
-  return <></>;
+import { getKnowhow } from "@/apis/knowhow";
+import CommentsContainer from "../../_components/Comments/CommentsContainer";
+import PostContent from "./_components/PostContent";
+import PostActions from "./_components/PostActions";
+
+async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowId: string } }) {
+  const knowhow = await getKnowhow(knowhowId);
+
+  return (
+    <main>
+      <PostContent />
+      <PostActions />
+      <CommentsContainer />
+    </main>
+  );
 }
 
 export default KnowhowDetailPage;
