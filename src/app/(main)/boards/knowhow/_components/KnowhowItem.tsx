@@ -10,17 +10,19 @@ type knowhowItemProps = {
 
 dayjs.extend(relativeTime);
 dayjs.locale("ko");
+
 function KnowhowItem({ knowhow }: knowhowItemProps) {
-  const formattedCreatedAt = dayjs(knowhow.created_at).fromNow();
+  const { title, content, nickname, created_at, comments_count, likes_count } = knowhow;
+  const formattedCreatedAt = dayjs(created_at).fromNow();
   return (
     <li className="w-[1080px] h-[220px] border rounded-xl">
       <Link href={`/boards/knowhow/${knowhow.tip_post_id}`}>
-        <div>제목: {knowhow.title}</div>
-        <div>내용: {knowhow.content}</div>
-        <div>작성자 닉네임: {knowhow.nickname}</div>
+        <div>제목: {title}</div>
+        <div>내용: {content}</div>
+        <div>작성자 닉네임: {nickname}</div>
         <div>{formattedCreatedAt}</div>
-        <div>댓글 수 {knowhow.comments_count}</div>
-        <div>좋아요 수 {knowhow.likes_count}</div>
+        <div>댓글 수 {comments_count}</div>
+        <div>좋아요 수 {likes_count}</div>
       </Link>
     </li>
   );

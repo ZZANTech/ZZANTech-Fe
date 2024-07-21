@@ -3,7 +3,6 @@ import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
 export const GET = async (req: Request) => {
-  console.log("hello");
   const supabase = createClient();
   const url = new URL(req.url);
   const page = parseInt(url.searchParams.get("page") || "1");
@@ -12,19 +11,11 @@ export const GET = async (req: Request) => {
   const selectedSearchOption = url.searchParams.get("searchOption") || SEARCH_TITLECONTENT;
   const searchKeyword = url.searchParams.get("search") || "";
   const offset = (page - 1) * limit;
-  console.log(searchKeyword);
-  console.log(selectedSearchOption);
 
   try {
     let baseQuery = supabase
       .from("tip_posts")
-      .select(
-        `
-        *
-
-      `,
-        { count: "exact" }
-      )
+      .select("*", { count: "exact" })
       .order(sortOrder === SORT_POPULAR ? "likes_count" : "created_at", { ascending: false });
 
     if (selectedSearchOption === SEARCH_AUTHOR) {

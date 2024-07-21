@@ -1,6 +1,6 @@
 import { getKnowhows } from "@/apis/knowhow";
-import { TKnowhow, TKnowhowsResponse } from "@/types/knowhow.type";
-import { useQuery } from "@tanstack/react-query";
+import { TKnowhowsResponse } from "@/types/knowhow.type";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const useKnowhowsQuery = (
   page: number,
@@ -9,11 +9,10 @@ const useKnowhowsQuery = (
   selectedSearchOption: string,
   searchKeyword: string
 ) => {
-  console.log(selectedSearchOption);
-  console.log(searchKeyword);
   return useQuery<TKnowhowsResponse, Error>({
     queryKey: ["knowhows", { page, limit, sortOrder, selectedSearchOption, searchKeyword }],
-    queryFn: () => getKnowhows(page, limit, sortOrder, selectedSearchOption, searchKeyword)
+    queryFn: () => getKnowhows(page, limit, sortOrder, selectedSearchOption, searchKeyword),
+    placeholderData: keepPreviousData
   });
 };
 

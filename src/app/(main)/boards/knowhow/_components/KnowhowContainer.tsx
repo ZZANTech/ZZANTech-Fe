@@ -1,28 +1,24 @@
 "use client";
 import useKnowhowsQuery from "@/store/queries/useKnowhowsQuery";
-
 import KnowhowFilter from "./KnowhowFilter";
 import KnowhowList from "./KnowhowList";
 import KnowhowPagination from "./KnowhowPagination";
 import { useState } from "react";
-import { SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "../_constants";
-
-const itemsPerPage = 2;
+import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "../_constants";
 
 function KnowhowContainer() {
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const { data: knowhows } = useKnowhowsQuery(
     currentPage,
-    itemsPerPage,
+    ITEMS_PER_PAGE,
     sortOrder,
     selectedSearchOption,
     searchKeyword
   );
-  console.log(selectedSearchOption);
-  console.log(searchKeyword);
+
   const handleSortOrderChange = (value: TOption["value"]) => {
     setSortOrder(value);
     setCurrentPage(1);
@@ -53,7 +49,7 @@ function KnowhowContainer() {
       <KnowhowList knowhows={knowhows?.posts} />
       <KnowhowPagination
         currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
+        itemsPerPage={ITEMS_PER_PAGE}
         totalItems={knowhows?.totalItems || 0}
         onPageChange={handlePageChange}
       />
