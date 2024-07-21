@@ -40,7 +40,6 @@ function KnowhowContainer() {
   return (
     <section>
       <KnowhowFilter
-        sortOrder={sortOrder}
         selectedSearchOption={selectedSearchOption}
         onSortOrderChange={handleSortOrderChange}
         onSearchOptionChange={handleSearchOptionChange}
