@@ -19,7 +19,7 @@ function KnowhowItem({ knowhow }: knowhowItemProps) {
         <div>내용: {knowhow.content}</div>
         <div>작성자 닉네임: {knowhow.nickname}</div>
         <div>{formattedCreatedAt}</div>
-        <div>댓글 수 {knowhow.commentsCount}</div>
+        <div>댓글 수 {knowhow.comments_count}</div>
         <div>좋아요 수 {knowhow.likes_count}</div>
       </Link>
     </li>

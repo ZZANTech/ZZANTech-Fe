@@ -5,34 +5,35 @@ import KnowhowFilter from "./KnowhowFilter";
 import KnowhowList from "./KnowhowList";
 import KnowhowPagination from "./KnowhowPagination";
 import { useState } from "react";
+import { SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "../_constants";
 
-export type TSortOption = {
-  value: string;
-  label: string;
-};
-
-export const SORT_OPTIONS = [
-  { value: "latest", label: "최신순" },
-  { value: "popular", label: "좋아요순" }
-];
+const itemsPerPage = 2;
 
 function KnowhowContainer() {
-  const [sortOrder, setSortOrder] = useState<TSortOption["value"]>(SORT_OPTIONS[0].value);
+  const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
+  const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
+  const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 2;
-  const { data: knowhows, isPending, error } = useKnowhowsQuery(currentPage, itemsPerPage, sortOrder);
-  // const sortedKnowhows = knowhows?.sort((a, b) => {
-  //   if (sortOrder === "latest") {
-  //     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
-  //   } else if (sortOrder === "popular") {
-  //     return b.likesCount - a.likesCount;
-  //   }
-  //   return 0;
-  // });
-  // 여기서 fetching 후 filtering 후 list로 보내주기
-  knowhows && console.log(knowhows);
-  const handleSortOrderChange = (value: TSortOption["value"]) => {
+  const { data: knowhows } = useKnowhowsQuery(
+    currentPage,
+    itemsPerPage,
+    sortOrder,
+    selectedSearchOption,
+    searchKeyword
+  );
+  console.log(selectedSearchOption);
+  console.log(searchKeyword);
+  const handleSortOrderChange = (value: TOption["value"]) => {
     setSortOrder(value);
+    setCurrentPage(1);
+  };
+
+  const handleSearchOptionChange = (value: TOption["value"]) => {
+    setSelectedSearchOption(value);
+  };
+
+  const handleSearch = (keyword: string) => {
+    setSearchKeyword(keyword);
     setCurrentPage(1);
   };
 
@@ -42,7 +43,13 @@ function KnowhowContainer() {
 
   return (
     <section>
-      <KnowhowFilter sortOrder={sortOrder} onSortOrderChange={handleSortOrderChange} />
+      <KnowhowFilter
+        sortOrder={sortOrder}
+        selectedSearchOption={selectedSearchOption}
+        onSortOrderChange={handleSortOrderChange}
+        onSearchOptionChange={handleSearchOptionChange}
+        onSearch={handleSearch}
+      />
       <KnowhowList knowhows={knowhows?.posts} />
       <KnowhowPagination
         currentPage={currentPage}

@@ -306,30 +306,36 @@ export type Database = {
       }
       tip_posts: {
         Row: {
+          comments_count: number
           content: string
           created_at: string
           image_url: string | null
           likes_count: number
+          nickname: string
           tip_post_id: string
           title: string
           updated_at: string | null
           user_id: string
         }
         Insert: {
+          comments_count?: number
           content: string
           created_at?: string
           image_url?: string | null
-          likes_count: number
+          likes_count?: number
+          nickname?: string
           tip_post_id?: string
           title: string
           updated_at?: string | null
           user_id?: string
         }
         Update: {
+          comments_count?: number
           content?: string
           created_at?: string
           image_url?: string | null
           likes_count?: number
+          nickname?: string
           tip_post_id?: string
           title?: string
           updated_at?: string | null
