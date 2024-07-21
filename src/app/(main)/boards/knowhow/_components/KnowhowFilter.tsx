@@ -29,11 +29,7 @@ function KnowhowFilter({
     <div className=" flex">
       <div>
         {SORT_OPTIONS.map((option) => (
-          <button
-            key={option.value}
-            onClick={() => onSortOrderChange(option.value)}
-            className={sortOrder === option.value ? "active" : ""}
-          >
+          <button key={option.value} onClick={() => onSortOrderChange(option.value)}>
             {option.label}
           </button>
         ))}
