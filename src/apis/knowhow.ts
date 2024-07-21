@@ -13,11 +13,12 @@ export const getKnowhows = async (
     `${BASE_URL}/api/knowhow/posts?page=${page}&limit=${limit}&sortOrder=${sortOrder}&searchOption=${selectedSearchOption}&search=${searchKeyword}`
   );
   const knowhows = await res.json();
-  return knowhows;
+  return knowhows.post;
 };
 
 export const getKnowhow = async (knowhowId: TKnowhow["tip_post_id"]) => {
   const res = await fetch(`${BASE_URL}/api/knowhow/posts/${knowhowId}`);
   const knowhow = await res.json();
-  return knowhow;
+  const knowhowPost: TKnowhow = knowhow.post;
+  return knowhowPost;
 };
