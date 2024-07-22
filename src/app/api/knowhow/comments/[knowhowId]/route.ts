@@ -1,9 +1,10 @@
 import { createClient } from "@/utils/supabase/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: Request) => {
+export const GET = async (req: NextRequest) => {
   const supabase = createClient();
   const url = new URL(req.url);
+
   const knowhowId = url.pathname.split("/").pop();
 
   try {
@@ -30,6 +31,29 @@ export const GET = async (req: Request) => {
         };
       });
       return NextResponse.json({ comments: commentsWithNickname || [] });
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      return NextResponse.json({ error: e.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
+    }
+  }
+};
+
+export const POST = async (req: NextRequest) => {
+  const supabase = createClient();
+  const url = new URL(req.url);
+
+  const knowhowId = url.pathname.split("/").pop();
+  const newComment = await req.json();
+  console.log(newComment);
+  console.log(knowhowId);
+
+  try {
+    if (knowhowId) {
+      const { status, statusText } = await supabase.from("knowhow_comments").insert(newComment).single();
+      return NextResponse.json({ status, statusText });
     }
   } catch (e) {
     if (e instanceof Error) {
