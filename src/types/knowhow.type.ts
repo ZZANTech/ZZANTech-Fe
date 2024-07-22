@@ -5,4 +5,8 @@ export type TKnowhowsResponse = {
   totalItems: number;
 };
 
-export type TKnowhow = Tables<"knowhow_posts">;
+export type TKnowhow = Tables<"knowhow_posts"> & {
+  nickname: Tables<"users">["nickname"];
+  likes_count: number;
+  comments_count: number;
+};
