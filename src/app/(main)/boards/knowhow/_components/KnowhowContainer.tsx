@@ -18,7 +18,6 @@ function KnowhowContainer() {
     selectedSearchOption,
     searchKeyword
   );
-  knowhows && console.log(knowhows);
   const handleSortOrderChange = (value: TOption["value"]) => {
     setSortOrder(value);
     setCurrentPage(1);
