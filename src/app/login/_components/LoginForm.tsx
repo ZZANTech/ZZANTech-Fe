@@ -1,21 +1,70 @@
 "use client";
 
-import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 function LoginForm() {
+  const [userId, setUserId] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+
+  const handleLogin = () => {
+    console.log("userId / password >>", userId, password);
+    router.replace("/");
+  };
+
   return (
-    <>
-      <div>로고</div>
-      <div>
-        <label>아이디</label>
-        <input placeholder="아이디 입력해주세요" />
+    <div className="flex flex-col items-center w-[800px] mx-auto my-10 p-10">
+      <Link href="/">짠테크 로고</Link>
+      <form>
+        <div className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
+          <label>아이디</label>
+          <input
+            type="text"
+            value={userId}
+            placeholder="아이디를 입력해주세요"
+            className="w-[436px] h-[56px] p-[16px] border"
+            onChange={(e) => {
+              setUserId(e.target.value);
+            }}
+          />
+          <p className="text-red-500 text-xs">아이디가 옳지 않습니다.</p>
+        </div>
+
+        <div className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
+          <label>비밀번호</label>
+          <input
+            type="text"
+            value={password}
+            placeholder="비밀번호를 입력해주세요"
+            className="w-[436px] h-[56px] p-[16px] border"
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+          />
+          <p className="text-red-500 text-xs">비밀번호가 옳지 않습니다.</p>
+        </div>
+      </form>
+
+      <div className="flex flex-col w-[500px] gap-2.5 p-2.5 items-center">
+        <button className="w-[400px] p-2.5 text-center text-white bg-black" onClick={handleLogin}>
+          로그인
+        </button>
+        <Link href="/signIn" className="w-[400px] p-2.5 text-center text-white bg-yellow-500">
+          카카오로 계속하기
+        </Link>
+        <Link href="/signIn" className="w-[400px] p-2.5 text-center text-white bg-blue-500">
+          Google로 계속하기
+        </Link>
+        <div className="flex flex-row gap-2.5">
+          <p>아직 회원이 아니신가요?</p>
+          <Link href="/signIn" className="text-blue-500">
+            회원가입
+          </Link>
+        </div>
       </div>
-      <div>비밀번호</div>
-      <div>로그인</div>
-      <div>카카오로 계속하기</div>
-      <div>Google로 계속하기</div>
-      <div>회원가입</div>
-    </>
+    </div>
   );
 }
 
