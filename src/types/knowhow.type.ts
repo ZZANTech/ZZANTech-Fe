@@ -10,3 +10,7 @@ export type TKnowhow = Tables<"knowhow_posts"> & {
   likes_count?: number;
   comments_count?: number;
 };
+
+export type TKnowhowComment = Tables<"knowhow_comments"> & {
+  nickname?: Tables<"users">["nickname"];
+};
