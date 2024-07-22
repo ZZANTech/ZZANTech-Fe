@@ -1,4 +1,4 @@
-function CommentForm() {
+function CommentForm({}) {
   return <></>;
 }
 
