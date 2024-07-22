@@ -1,5 +1,5 @@
-function KnowhowPage() {
+function KnowhowDetailPage() {
   return <></>;
 }
 
-export default KnowhowPage;
+export default KnowhowDetailPage;
