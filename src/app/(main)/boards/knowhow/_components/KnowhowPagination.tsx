@@ -8,6 +8,7 @@ type KnowhowPaginationProps = {
 
 function KnowhowPagination({ currentPage, itemsPerPage, totalItems, onPageChange }: KnowhowPaginationProps) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
+
   return (
     <div>
       <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>

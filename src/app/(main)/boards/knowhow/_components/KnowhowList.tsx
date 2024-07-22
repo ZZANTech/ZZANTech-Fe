@@ -8,7 +8,7 @@ type knowhowListProps = {
 function KnowhowList({ knowhows }: knowhowListProps) {
   return (
     <ul className="flex flex-col gap-8">
-      {knowhows?.map((knowhow) => <KnowhowItem key={knowhow.tip_post_id} knowhow={knowhow} />)}
+      {knowhows?.map((knowhow) => <KnowhowItem key={knowhow.knowhow_postId} knowhow={knowhow} />)}
     </ul>
   );
 }

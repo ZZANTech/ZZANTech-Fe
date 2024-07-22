@@ -11,23 +11,23 @@ export type Database = {
     Tables: {
       answers: {
         Row: {
-          answer_id: number
+          answer: boolean
+          answerId: number
           created_at: string
-          is_answer: boolean
           quiz_id: number
           user_id: string
         }
         Insert: {
-          answer_id?: number
+          answer: boolean
+          answerId?: number
           created_at?: string
-          is_answer: boolean
           quiz_id: number
           user_id: string
         }
         Update: {
-          answer_id?: number
+          answer?: boolean
+          answerId?: number
           created_at?: string
-          is_answer?: boolean
           quiz_id?: number
           user_id?: string
         }
@@ -37,14 +37,130 @@ export type Database = {
             columns: ["quiz_id"]
             isOneToOne: false
             referencedRelation: "quizzes"
-            referencedColumns: ["quiz_id"]
+            referencedColumns: ["quizId"]
           },
           {
             foreignKeyName: "answers_user_id_fkey"
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
-            referencedColumns: ["user_id"]
+            referencedColumns: ["userId"]
+          },
+        ]
+      }
+      knowhow_comments: {
+        Row: {
+          content: string
+          created_at: string
+          knowhow_commentId: number
+          knowhow_post_id: number
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          knowhow_commentId?: number
+          knowhow_post_id: number
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          knowhow_commentId?: number
+          knowhow_post_id?: number
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowhow_comments_knowhow_post_id_fkey"
+            columns: ["knowhow_post_id"]
+            isOneToOne: false
+            referencedRelation: "knowhow_posts"
+            referencedColumns: ["knowhow_postId"]
+          },
+          {
+            foreignKeyName: "knowhow_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["userId"]
+          },
+        ]
+      }
+      knowhow_likes: {
+        Row: {
+          created_at: string
+          knowhow_likeId: number
+          knowhow_post_id: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          knowhow_likeId?: number
+          knowhow_post_id: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          knowhow_likeId?: number
+          knowhow_post_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowhow_likes_knowhow_post_id_fkey"
+            columns: ["knowhow_post_id"]
+            isOneToOne: false
+            referencedRelation: "knowhow_posts"
+            referencedColumns: ["knowhow_postId"]
+          },
+          {
+            foreignKeyName: "knowhow_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["userId"]
+          },
+        ]
+      }
+      knowhow_posts: {
+        Row: {
+          content: string
+          created_at: string
+          image_url: string | null
+          knowhow_postId: number
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          image_url?: string | null
+          knowhow_postId?: number
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          image_url?: string | null
+          knowhow_postId?: number
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowhow_posts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["userId"]
           },
         ]
       }
@@ -52,19 +168,22 @@ export type Database = {
         Row: {
           created_at: string
           point: number
-          point_id: number
+          pointId: number
+          reason: string
           user_id: string
         }
         Insert: {
           created_at?: string
-          point: number
-          point_id?: number
+          point?: number
+          pointId?: number
+          reason: string
           user_id: string
         }
         Update: {
           created_at?: string
           point?: number
-          point_id?: number
+          pointId?: number
+          reason?: string
           user_id?: string
         }
         Relationships: [
@@ -73,7 +192,7 @@ export type Database = {
             columns: ["user_id"]
             isOneToOne: false
             referencedRelation: "users"
-            referencedColumns: ["user_id"]
+            referencedColumns: ["userId"]
           },
         ]
       }
@@ -84,7 +203,7 @@ export type Database = {
           is_correct: boolean
           issue_date: string
           question: string
-          quiz_id: number
+          quizId: number
         }
         Insert: {
           created_at?: string
@@ -92,7 +211,7 @@ export type Database = {
           is_correct: boolean
           issue_date: string
           question: string
-          quiz_id?: number
+          quizId?: number
         }
         Update: {
           created_at?: string
@@ -100,256 +219,9 @@ export type Database = {
           is_correct?: boolean
           issue_date?: string
           question?: string
-          quiz_id?: number
+          quizId?: number
         }
         Relationships: []
-      }
-      spending_comments: {
-        Row: {
-          content: string
-          created_at: string
-          spending_comment_id: string
-          spending_post_id: string
-          user_id: string
-        }
-        Insert: {
-          content: string
-          created_at?: string
-          spending_comment_id?: string
-          spending_post_id: string
-          user_id: string
-        }
-        Update: {
-          content?: string
-          created_at?: string
-          spending_comment_id?: string
-          spending_post_id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "spending_comments_spending_post_id_fkey"
-            columns: ["spending_post_id"]
-            isOneToOne: false
-            referencedRelation: "spending_posts"
-            referencedColumns: ["spending_post_id"]
-          },
-          {
-            foreignKeyName: "spending_comments_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-      spending_likes: {
-        Row: {
-          created_at: string
-          is_upvote: boolean
-          spending_like_id: string
-          spending_post_id: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          is_upvote: boolean
-          spending_like_id?: string
-          spending_post_id: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          is_upvote?: boolean
-          spending_like_id?: string
-          spending_post_id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "spending_likes_spending_post_id_fkey"
-            columns: ["spending_post_id"]
-            isOneToOne: false
-            referencedRelation: "spending_posts"
-            referencedColumns: ["spending_post_id"]
-          },
-          {
-            foreignKeyName: "spending_likes_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-      spending_posts: {
-        Row: {
-          content: string
-          created_at: string
-          image_url: string
-          product_name: string
-          product_price: number
-          spending_post_id: string
-          title: string
-          updated_at: string | null
-          user_id: string
-        }
-        Insert: {
-          content: string
-          created_at?: string
-          image_url: string
-          product_name: string
-          product_price: number
-          spending_post_id?: string
-          title: string
-          updated_at?: string | null
-          user_id: string
-        }
-        Update: {
-          content?: string
-          created_at?: string
-          image_url?: string
-          product_name?: string
-          product_price?: number
-          spending_post_id?: string
-          title?: string
-          updated_at?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "spending_posts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-      tip_comments: {
-        Row: {
-          content: string
-          created_at: string
-          tip_comment_id: string
-          tip_post_id: string
-          updated_at: string | null
-          user_id: string
-        }
-        Insert: {
-          content: string
-          created_at?: string
-          tip_comment_id?: string
-          tip_post_id: string
-          updated_at?: string | null
-          user_id: string
-        }
-        Update: {
-          content?: string
-          created_at?: string
-          tip_comment_id?: string
-          tip_post_id?: string
-          updated_at?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "tip_comments_tip_post_id_fkey"
-            columns: ["tip_post_id"]
-            isOneToOne: false
-            referencedRelation: "tip_posts"
-            referencedColumns: ["tip_post_id"]
-          },
-          {
-            foreignKeyName: "tip_comments_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-      tip_likes: {
-        Row: {
-          created_at: string
-          tip_like_id: string
-          tip_post_id: string
-          user_id: string
-        }
-        Insert: {
-          created_at?: string
-          tip_like_id?: string
-          tip_post_id: string
-          user_id: string
-        }
-        Update: {
-          created_at?: string
-          tip_like_id?: string
-          tip_post_id?: string
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "tip_likes_tip_post_id_fkey"
-            columns: ["tip_post_id"]
-            isOneToOne: false
-            referencedRelation: "tip_posts"
-            referencedColumns: ["tip_post_id"]
-          },
-          {
-            foreignKeyName: "tip_likes_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["user_id"]
-          },
-        ]
-      }
-      tip_posts: {
-        Row: {
-          comments_count: number
-          content: string
-          created_at: string
-          image_url: string | null
-          likes_count: number
-          nickname: string
-          tip_post_id: string
-          title: string
-          updated_at: string | null
-          user_id: string
-        }
-        Insert: {
-          comments_count?: number
-          content: string
-          created_at?: string
-          image_url?: string | null
-          likes_count?: number
-          nickname?: string
-          tip_post_id?: string
-          title: string
-          updated_at?: string | null
-          user_id?: string
-        }
-        Update: {
-          comments_count?: number
-          content?: string
-          created_at?: string
-          image_url?: string | null
-          likes_count?: number
-          nickname?: string
-          tip_post_id?: string
-          title?: string
-          updated_at?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "tip_posts_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "users"
-            referencedColumns: ["user_id"]
-          },
-        ]
       }
       users: {
         Row: {
@@ -359,16 +231,18 @@ export type Database = {
           nickname: string
           provider: string
           total_point: number
-          user_id: string
+          updated_at: string | null
+          userId: string
         }
         Insert: {
           created_at?: string
-          current_point: number
+          current_point?: number
           email: string
           nickname: string
           provider: string
-          total_point: number
-          user_id?: string
+          total_point?: number
+          updated_at?: string | null
+          userId?: string
         }
         Update: {
           created_at?: string
@@ -377,15 +251,131 @@ export type Database = {
           nickname?: string
           provider?: string
           total_point?: number
-          user_id?: string
+          updated_at?: string | null
+          userId?: string
         }
         Relationships: [
           {
-            foreignKeyName: "users_user_id_fkey"
-            columns: ["user_id"]
+            foreignKeyName: "users_userId_fkey"
+            columns: ["userId"]
             isOneToOne: true
             referencedRelation: "users"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      vote_comments: {
+        Row: {
+          content: string
+          created_at: string
+          updated_at: string | null
+          user_id: string
+          vote_commentId: number
+          vote_post_id: number
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          updated_at?: string | null
+          user_id: string
+          vote_commentId?: number
+          vote_post_id: number
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          updated_at?: string | null
+          user_id?: string
+          vote_commentId?: number
+          vote_post_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vote_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["userId"]
+          },
+          {
+            foreignKeyName: "vote_comments_vote_post_id_fkey"
+            columns: ["vote_post_id"]
+            isOneToOne: false
+            referencedRelation: "vote_posts"
+            referencedColumns: ["vote_postId"]
+          },
+        ]
+      }
+      vote_likes: {
+        Row: {
+          created_at: string
+          is_upvote: boolean
+          user_id: string
+          vote_likeId: number
+        }
+        Insert: {
+          created_at?: string
+          is_upvote: boolean
+          user_id: string
+          vote_likeId?: number
+        }
+        Update: {
+          created_at?: string
+          is_upvote?: boolean
+          user_id?: string
+          vote_likeId?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vote_likes_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["userId"]
+          },
+        ]
+      }
+      vote_posts: {
+        Row: {
+          content: string
+          created_at: string
+          image_url: string
+          product_name: string
+          product_price: number
+          title: string
+          updated_at: string | null
+          user_id: string
+          vote_postId: number
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          image_url: string
+          product_name: string
+          product_price?: number
+          title: string
+          updated_at?: string | null
+          user_id: string
+          vote_postId?: number
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          image_url?: string
+          product_name?: string
+          product_price?: number
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+          vote_postId?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vote_posts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["userId"]
           },
         ]
       }
@@ -394,7 +384,47 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_posts_with_likes_and_nickname:
+        | {
+            Args: {
+              limit_param: number
+              offset_param: number
+              search_option: string
+              search_keyword: string
+              sort_order: string
+            }
+            Returns: {
+              knowhow_postId: number
+              title: string
+              content: string
+              image_url: string
+              created_at: string
+              updated_at: string
+              user_id: string
+              nickname: string
+              likes_count: number
+              comments_count: number
+            }[]
+          }
+        | {
+            Args: {
+              limit_param: number
+              offset_param: number
+              sort_order: string
+            }
+            Returns: {
+              knowhow_postId: number
+              title: string
+              content: string
+              image_url: string
+              created_at: string
+              updated_at: string
+              user_id: string
+              nickname: string
+              likes_count: number
+              comments_count: number
+            }[]
+          }
     }
     Enums: {
       [_ in never]: never
