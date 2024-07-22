@@ -59,7 +59,7 @@ function LoginForm() {
         </Link>
         <div className="flex flex-row gap-2.5">
           <p>아직 회원이 아니신가요?</p>
-          <Link href="/signIn" className="text-blue-500">
+          <Link href="/signUp" className="text-blue-500">
             회원가입
           </Link>
         </div>
