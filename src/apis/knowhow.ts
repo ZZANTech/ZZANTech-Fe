@@ -1,6 +1,5 @@
 import { BASE_URL } from "@/constants";
 import { TKnowhow } from "@/types/knowhow.type";
-import { createClient } from "@/utils/supabase/server";
 
 export const getKnowhows = async (
   page: number,

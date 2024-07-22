@@ -7,7 +7,7 @@ type ButtonProps =
       children: ReactNode;
     });
 
-export default function Button({ children, ...props }: ButtonProps) {
+function Button({ children, ...props }: ButtonProps) {
   const buttonBaseStyle = "px-4 py-2 border border-black";
   if (props.href) {
     return (
@@ -23,3 +23,5 @@ export default function Button({ children, ...props }: ButtonProps) {
     );
   }
 }
+
+export default Button;
