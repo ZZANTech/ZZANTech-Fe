@@ -11,8 +11,15 @@ const SignUpForm = () => {
   const [recheckPassword, setRecheckPassword] = useState("");
   const router = useRouter();
 
+  const isDuplicate = () => {
+    /**
+     * 1. supabase의 회원 목록 조회 : userId
+     * 2. current email과 등일한 이메일이 있는지 확인 : boolean
+     */
+  };
+
   const handleSignUp = () => {
-    console.log("userId/nickname/password/recheckPassword >> ", userId, nickname, password, recheckPassword);
+    // supabase auth signup api
     router.replace("/login");
   };
 
