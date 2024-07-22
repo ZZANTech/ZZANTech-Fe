@@ -1,6 +1,11 @@
+import { TVote } from "@/types/vote.type";
 import Link from "next/link";
 
-function VoteItem() {
+type voteItemProps = {
+  vote: TVote;
+};
+
+function VoteItem({ vote }: voteItemProps) {
   return (
     <li>
       <Link href="">
@@ -8,7 +13,7 @@ function VoteItem() {
           <img src="" alt="" />
         </div>
         <div>
-          <h2>제목</h2>
+          <h2>{vote.title}</h2>
           <p>닉네임</p>
           <div>
             <span>투표수</span>

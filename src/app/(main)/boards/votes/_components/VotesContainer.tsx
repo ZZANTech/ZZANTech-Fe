@@ -9,7 +9,7 @@ function VotesContainer() {
     <section>
       {/* 글쓰기 버튼 */}
       {/* 정렬 버튼 */}
-      <VotesList />
+      <VotesList votes={votes?.data} />
     </section>
   );
 }

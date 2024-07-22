@@ -3,7 +3,7 @@ import { TVotesResponse } from "@/types/vote.type";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 const useVotesQuery = () => {
-  return useQuery<TVotesResponse>({
+  return useQuery<TVotesResponse, Error>({
     queryKey: ["votes"],
     queryFn: () => getVotes(),
     placeholderData: keepPreviousData
