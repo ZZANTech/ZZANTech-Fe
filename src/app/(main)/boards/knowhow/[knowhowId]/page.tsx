@@ -4,13 +4,13 @@ import PostContent from "./_components/PostContent";
 import PostActions from "./_components/PostActions";
 
 async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowId: string } }) {
-  const knowhow = await getKnowhow(knowhowId);
+  // const knowhow = await getKnowhow(knowhowId);
 
   return (
     <main>
-      <PostContent knowhow={knowhow} />
+      {/* <PostContent knowhow={knowhow} />
       <PostActions />
-      <CommentsContainer />
+      <CommentsContainer /> */}
     </main>
   );
 }
