@@ -5,4 +5,4 @@ export type TKnowhowsResponse = {
   totalItems: number;
 };
 
-export type TKnowhow = Tables<"tip_posts">;
+export type TKnowhow = Tables<"knowhow_posts">;
