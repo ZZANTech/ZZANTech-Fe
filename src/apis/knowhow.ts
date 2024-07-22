@@ -1,4 +1,5 @@
 import { BASE_URL } from "@/constants";
+import { TKnowhow } from "@/types/knowhow.type";
 
 export const getKnowhows = async (
   page: number,
@@ -12,4 +13,19 @@ export const getKnowhows = async (
   );
   const knowhows = await res.json();
   return knowhows;
+};
+
+export const getKnowhow = async (knowhowId: TKnowhow["knowhow_postId"]) => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/posts/${knowhowId}`);
+  const knowhow = await res.json();
+  const knowhowPost: TKnowhow = knowhow.post;
+  return knowhowPost;
+};
+
+export const getKnowhowComments = async (knowhowId: TKnowhow["knowhow_postId"]) => {
+  console.log(knowhowId);
+  const res = await fetch(`${BASE_URL}/api/knowhow/comments/${knowhowId}`);
+  const data = await res.json();
+  const comments = data.comments;
+  return comments;
 };
