@@ -312,18 +312,21 @@ export type Database = {
           is_upvote: boolean
           user_id: string
           vote_likeId: number
+          vote_post_id: number
         }
         Insert: {
           created_at?: string
           is_upvote: boolean
           user_id: string
           vote_likeId?: number
+          vote_post_id: number
         }
         Update: {
           created_at?: string
           is_upvote?: boolean
           user_id?: string
           vote_likeId?: number
+          vote_post_id?: number
         }
         Relationships: [
           {
@@ -332,6 +335,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "users"
             referencedColumns: ["userId"]
+          },
+          {
+            foreignKeyName: "vote_likes_vote_post_id_fkey"
+            columns: ["vote_post_id"]
+            isOneToOne: false
+            referencedRelation: "vote_posts"
+            referencedColumns: ["vote_postId"]
           },
         ]
       }
