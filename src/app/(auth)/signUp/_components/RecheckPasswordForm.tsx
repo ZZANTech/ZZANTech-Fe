@@ -1,5 +1,3 @@
-import React from "react";
-
 function RecheckPasswordForm({ recheckPassword, setRecheckPassword, password }) {
   return (
     <form className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
@@ -14,6 +12,7 @@ function RecheckPasswordForm({ recheckPassword, setRecheckPassword, password }) 
         }}
       />
       {recheckPassword !== password ? <p className="text-red-500 text-xs">비밀번호가 틀립니다.</p> : ""}
+      {recheckPassword === password ? <p className="text-green-500 text-xs">비밀번호가 일치합니다.</p> : ""}
     </form>
   );
 }
