@@ -11,19 +11,19 @@ export type Database = {
           quiz_id: number;
           user_id: string;
         };
-        Update: {
-          answer?: boolean;
-          answerId?: number;
-          created_at?: string;
-          quiz_id?: number;
-          user_id?: string;
-        };
         Insert: {
           answer: boolean;
           answerId?: number;
           created_at?: string;
           quiz_id: number;
           user_id: string;
+        };
+        Update: {
+          answer?: boolean;
+          answerId?: number;
+          created_at?: string;
+          quiz_id?: number;
+          user_id?: string;
         };
         Relationships: [
           {
@@ -76,7 +76,7 @@ export type Database = {
             referencedColumns: ["knowhow_postId"];
           },
           {
-            foreignKeyName: "knowhow_comments_user_id_fkey";
+            foreignKeyName: "knowhow_comments_user_id_fkey1";
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "users";
@@ -124,7 +124,7 @@ export type Database = {
         Row: {
           content: string;
           created_at: string;
-          image_url: string | null;
+          image_urls: Json | null;
           knowhow_postId: number;
           title: string;
           updated_at: string | null;
@@ -133,7 +133,7 @@ export type Database = {
         Insert: {
           content: string;
           created_at?: string;
-          image_url?: string | null;
+          image_urls?: Json | null;
           knowhow_postId?: number;
           title: string;
           updated_at?: string | null;
@@ -142,7 +142,7 @@ export type Database = {
         Update: {
           content?: string;
           created_at?: string;
-          image_url?: string | null;
+          image_urls?: Json | null;
           knowhow_postId?: number;
           title?: string;
           updated_at?: string | null;
@@ -401,7 +401,7 @@ export type Database = {
               knowhow_postId: number;
               title: string;
               content: string;
-              image_url: string;
+              image_urls: Json;
               created_at: string;
               updated_at: string;
               user_id: string;
@@ -445,6 +445,13 @@ export type Database = {
           votes_count: number;
           comments_count: number;
         }[];
+      };
+      increment_user_points: {
+        Args: {
+          user_id: string;
+          points_to_add: number;
+        };
+        Returns: undefined;
       };
     };
     Enums: {
