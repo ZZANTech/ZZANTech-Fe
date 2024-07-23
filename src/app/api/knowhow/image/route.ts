@@ -1,43 +1,45 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
+import crypto from "crypto";
 
 export async function POST(req: NextRequest) {
   const supabase = createClient();
   try {
     const formData = await req.formData();
-    const file = formData.get("profile") as File;
+    const files = formData.getAll("img") as File[];
 
-    if (!file) {
-      return NextResponse.json({ error: "파일이 업로드되지 않았어요." }, { status: 400 });
+    if (!files.length) {
+      throw new Error("파일이 없로드되지 않았어요");
     }
+
     const MAX_SIZE = 10 * 1024 * 1024;
-    if (file.size > MAX_SIZE) {
-      return NextResponse.json({ error: "파일의 최대크기는 10MB입니다." }, { status: 400 });
+    for (const file of files) {
+      if (file.size > MAX_SIZE) {
+        throw new Error("파일의 최대크기는 10MB입니다.");
+      }
     }
 
-    const fileName = `${crypto.randomUUID()}.png`;
+    const urls = await Promise.all(
+      files.map(async (file) => {
+        const fileName = `${crypto.randomUUID()}.png`;
+        const { data, error } = await supabase.storage.from("knowhow_image").upload(`quill_image/${fileName}`, file);
 
-    const { data, error } = await supabase.storage.from("knowhow_image").upload(`quill_image/${fileName}`, file);
+        if (error) {
+          throw new Error(error.message);
+        }
 
-    if (error) {
-      console.log("Upload error:", error.message);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+        const { data: publicURL } = supabase.storage.from("knowhow_image").getPublicUrl(`quill_image/${fileName}`);
 
-    console.log("Upload successful:", data);
-
-    const { data: publicURL } = supabase.storage.from("knowhow_image").getPublicUrl(`quill_image/${fileName}`);
-
-    console.log("이거는 퍼블릭유알엘", publicURL.publicUrl);
-
-    return NextResponse.json({ url: publicURL.publicUrl }, { status: 200 });
+        return publicURL;
+      })
+    );
+    console.log(urls);
+    return NextResponse.json(urls);
   } catch (error) {
     if (error instanceof Error) {
-      console.log("Unexpected error:", error.message);
       return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
-      console.log("Unexpected error:", String(error));
-      return NextResponse.json({ error: "An unknown error occurred" }, { status: 500 });
+      return NextResponse.json({ error: "알 수 없는 에러입니당." }, { status: 500 });
     }
   }
 }

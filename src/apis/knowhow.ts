@@ -45,26 +45,15 @@ export const postKnowhowComment = async (newComment: Partial<Tables<"knowhow_com
   return data;
 };
 
-// export const postKnowhowImage = async (base64data) => {
-//   console.log(base64data);
-//   console.log("이거이거");
-//   try {
-//     const response = await fetch("/api/knowhow/image", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(base64data)
-//     });
+export const uploadImages = async (formData: FormData) => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/image`, {
+    method: "POST",
+    body: formData
+  });
 
-//     if (!response.ok) {
-//       throw new Error("Error uploading image");
-//     }
-
-//     const data = await response.json();
-//     return { url: data.url };
-//   } catch (error) {
-//     console.error("Error uploading image:", error);
-//     return { error };
-//   }
-// };
+  if (!res.ok) {
+    throw new Error("Image upload failed");
+  }
+  const urls = await res.json();
+  return urls;
+};
