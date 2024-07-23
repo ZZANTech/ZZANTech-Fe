@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-function LoginForm() {
+function LoginContainer() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
@@ -68,4 +68,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default LoginContainer;

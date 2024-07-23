@@ -8,7 +8,7 @@ import NicknameForm from "./NicknameForm";
 import PasswordForm from "./PasswordForm";
 import RecheckPasswordForm from "./RecheckPasswordForm";
 
-function SignUpForm() {
+function SignUpContainer() {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -63,4 +63,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default SignUpContainer;
