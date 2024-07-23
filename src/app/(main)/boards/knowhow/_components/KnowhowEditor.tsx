@@ -103,6 +103,7 @@ function KnowhowEditor() {
         const range = quillObj?.getSelection();
         if (range) {
           quillObj?.insertEmbed(range.index, "image", url);
+          quillObj?.setSelection(range.index + 1, 0); // 이미지 직후로 커서 이동
         }
       }
     };
@@ -118,6 +119,7 @@ function KnowhowEditor() {
       const range = quillObj?.getSelection();
       if (range) {
         quillObj?.insertEmbed(range.index, "image", url);
+        quillObj?.setSelection(range.index + 1, 0);
       }
     }
   }, []);
