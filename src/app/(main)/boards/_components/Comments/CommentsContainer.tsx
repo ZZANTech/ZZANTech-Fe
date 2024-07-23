@@ -1,6 +1,6 @@
 "use client";
 
-import useCommentsQuery from "@/store/queries/useCommentsQuery";
+import useCommentsQuery from "@/stores/queries/useCommentsQuery";
 import CommentForm from "./CommentForm";
 import CommentsList from "./CommentsList";
 
