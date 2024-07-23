@@ -16,7 +16,7 @@ function PostContent({ knowhow }: PostContentProps) {
         <div>닉네임 {knowhow.nickname}</div>
         <div>날짜 {formattedDate}</div>
         <div>시간 {formattedTime}</div>
-        <div>내용 {knowhow.content}</div>
+        <div dangerouslySetInnerHTML={{ __html: knowhow.content }} />
       </section>
     );
 }
