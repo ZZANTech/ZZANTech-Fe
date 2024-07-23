@@ -5,12 +5,12 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 function LoginForm() {
-  const [userId, setUserId] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
   const handleLogin = () => {
-    console.log("userId / password >>", userId, password);
+    console.log("email / password >>", email, password);
     router.replace("/");
   };
 
@@ -19,14 +19,14 @@ function LoginForm() {
       <Link href="/">짠테크 로고</Link>
       <form>
         <div className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
-          <label>아이디</label>
+          <label>이메일</label>
           <input
             type="text"
-            value={userId}
-            placeholder="아이디를 입력해주세요"
+            value={email}
+            placeholder="이메일을 입력해주세요"
             className="w-[436px] h-[56px] p-[16px] border"
             onChange={(e) => {
-              setUserId(e.target.value);
+              setEmail(e.target.value);
             }}
           />
           <p className="text-red-500 text-xs">아이디가 옳지 않습니다.</p>
@@ -35,7 +35,7 @@ function LoginForm() {
         <div className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
           <label>비밀번호</label>
           <input
-            type="text"
+            type="password"
             value={password}
             placeholder="비밀번호를 입력해주세요"
             className="w-[436px] h-[56px] p-[16px] border"
