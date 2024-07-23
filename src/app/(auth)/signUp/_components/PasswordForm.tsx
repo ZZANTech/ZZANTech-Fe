@@ -4,6 +4,7 @@ import { useState } from "react";
 
 function PasswordForm({ password, setPassword }) {
   const [isPasswordCorrected, setIsPasswordCorrected] = useState(false);
+  const [isCorrected, setIsCorrected] = useState(false);
 
   /** <비밀번호 유효성 검사>
    * 1. 빈칸 일 경우 : "비밀번호를 입력해주세요" ==> 유효성 삭제 (비밀번호 간략화)
@@ -26,8 +27,10 @@ function PasswordForm({ password, setPassword }) {
           const passwordTest = regex.exec(password);
           if (!passwordTest) {
             setIsPasswordCorrected(true);
+            setIsCorrected(false);
           } else {
             setIsPasswordCorrected(false);
+            setIsCorrected(true);
           }
         }}
       />
@@ -36,6 +39,7 @@ function PasswordForm({ password, setPassword }) {
       ) : (
         ""
       )}
+      {isCorrected ? <p className="text-green-500 text-xs">가능한 비밀번호 입니다</p> : ""}
     </form>
   );
 }

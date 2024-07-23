@@ -4,16 +4,19 @@ import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 
 function EmailForm({ email, setEmail }) {
-  const [isduplicated, setIsduplicated] = useState(false);
+  const [isDuplicated, setIsDuplicated] = useState(false);
+  const [isCorrected, setIsCorrected] = useState(false);
   const supabase = createClient();
 
   const isDuplicate = async (e) => {
     e.preventDefault();
     let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
     if (users.length > 0) {
-      setIsduplicated(true);
+      setIsDuplicated(true);
+      setIsCorrected(false);
     } else {
-      setIsduplicated(false);
+      setIsDuplicated(false);
+      setIsCorrected(true);
     }
   };
 
@@ -34,7 +37,8 @@ function EmailForm({ email, setEmail }) {
           중복체크
         </button>
       </form>
-      {isduplicated ? <p className="text-red-500 text-xs">동일한 이메일이 있습니다.</p> : ""}
+      {isDuplicated ? <p className="text-red-500 text-xs">동일한 이메일이 있습니다.</p> : ""}
+      {isCorrected ? <p className="text-green-500 text-xs">사용 가능한 이메일입니다.</p> : ""}
     </div>
   );
 }
