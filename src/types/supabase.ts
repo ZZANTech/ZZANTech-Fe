@@ -401,7 +401,7 @@ export type Database = {
               knowhow_postId: number;
               title: string;
               content: string;
-              image_url: string;
+              image_urls: Json;
               created_at: string;
               updated_at: string;
               user_id: string;
