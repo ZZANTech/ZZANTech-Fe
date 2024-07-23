@@ -20,6 +20,7 @@ function CommentForm({ postId }: CommentFormProps) {
         knowhow_post_id: postId
       };
       await addKnowhowComment(newComment);
+      commentInputRef.current.value = "";
     }
   };
 
@@ -34,4 +35,3 @@ function CommentForm({ postId }: CommentFormProps) {
 }
 
 export default CommentForm;
-//content, user_id knowhow_id,
