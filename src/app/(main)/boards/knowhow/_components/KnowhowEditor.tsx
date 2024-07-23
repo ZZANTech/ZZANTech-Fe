@@ -6,8 +6,8 @@ import Button from "@/components/Button/Button";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill, { ReactQuillProps } from "react-quill";
 import { BASE_URL } from "@/constants";
-import useKnowhowImageMutation from "@/store/queries/useKnowhowImageMutation";
-import useKnowhowMutation from "@/store/queries/useKnowhowMutation";
+import useKnowhowImageMutation from "@/stores/queries/useKnowhowImageMutation";
+import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
