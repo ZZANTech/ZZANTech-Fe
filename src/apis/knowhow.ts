@@ -36,7 +36,6 @@ export const getKnowhow = async (knowhowId: TKnowhow["knowhow_postId"]) => {
 };
 
 export const getKnowhowComments = async (knowhowId: TKnowhow["knowhow_postId"]) => {
-  console.log(knowhowId);
   const res = await fetch(`${BASE_URL}/api/knowhow/comments/${knowhowId}`);
   const data = await res.json();
   const comments = data.comments;

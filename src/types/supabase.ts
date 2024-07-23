@@ -76,7 +76,7 @@ export type Database = {
             referencedColumns: ["knowhow_postId"];
           },
           {
-            foreignKeyName: "knowhow_comments_user_id_fkey";
+            foreignKeyName: "knowhow_comments_user_id_fkey1";
             columns: ["user_id"];
             isOneToOne: false;
             referencedRelation: "users";
@@ -124,7 +124,7 @@ export type Database = {
         Row: {
           content: string;
           created_at: string;
-          image_url: string | null;
+          image_urls: Json | null;
           knowhow_postId: number;
           title: string;
           updated_at: string | null;
@@ -133,7 +133,7 @@ export type Database = {
         Insert: {
           content: string;
           created_at?: string;
-          image_url?: string | null;
+          image_urls?: Json | null;
           knowhow_postId?: number;
           title: string;
           updated_at?: string | null;
@@ -142,7 +142,7 @@ export type Database = {
         Update: {
           content?: string;
           created_at?: string;
-          image_url?: string | null;
+          image_urls?: Json | null;
           knowhow_postId?: number;
           title?: string;
           updated_at?: string | null;
@@ -306,18 +306,21 @@ export type Database = {
           is_upvote: boolean;
           user_id: string;
           vote_likeId: number;
+          vote_post_id: number;
         };
         Insert: {
           created_at?: string;
           is_upvote: boolean;
           user_id: string;
           vote_likeId?: number;
+          vote_post_id: number;
         };
         Update: {
           created_at?: string;
           is_upvote?: boolean;
           user_id?: string;
           vote_likeId?: number;
+          vote_post_id?: number;
         };
         Relationships: [
           {
@@ -326,6 +329,13 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: "users";
             referencedColumns: ["userId"];
+          },
+          {
+            foreignKeyName: "vote_likes_vote_post_id_fkey";
+            columns: ["vote_post_id"];
+            isOneToOne: false;
+            referencedRelation: "vote_posts";
+            referencedColumns: ["vote_postId"];
           }
         ];
       };
@@ -335,7 +345,7 @@ export type Database = {
           created_at: string;
           image_url: string;
           product_name: string;
-          product_price: string;
+          product_price: number;
           title: string;
           updated_at: string | null;
           user_id: string;
@@ -346,7 +356,7 @@ export type Database = {
           created_at?: string;
           image_url: string;
           product_name: string;
-          product_price?: string;
+          product_price?: number;
           title: string;
           updated_at?: string | null;
           user_id: string;
@@ -357,7 +367,7 @@ export type Database = {
           created_at?: string;
           image_url?: string;
           product_name?: string;
-          product_price?: string;
+          product_price?: number;
           title?: string;
           updated_at?: string | null;
           user_id?: string;
@@ -420,8 +430,9 @@ export type Database = {
             }[];
           };
       get_votes_with_counts_and_nickname: {
+        Args: Record<PropertyKey, never>;
         Returns: {
-          vote_postId: number;
+          vote_postid: number;
           title: string;
           content: string;
           product_name: string;
@@ -434,6 +445,13 @@ export type Database = {
           votes_count: number;
           comments_count: number;
         }[];
+      };
+      increment_user_points: {
+        Args: {
+          user_id: string;
+          points_to_add: number;
+        };
+        Returns: undefined;
       };
     };
     Enums: {

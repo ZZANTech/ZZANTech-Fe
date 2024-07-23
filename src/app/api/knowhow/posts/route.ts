@@ -20,7 +20,6 @@ export const GET = async (req: Request) => {
       search_keyword: searchKeyword,
       sort_order: sortOrder
     });
-
     if (postsError) {
       throw new Error("게시글을 불러오지 못했습니다.");
     }

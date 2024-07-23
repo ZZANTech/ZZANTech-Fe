@@ -96,6 +96,7 @@ function KnowhowEditor() {
 
     const base64Images = content?.match(/src="data:image\/[^"]+"/g) || [];
     const imageFiles: { file: File; base64: string }[] = [];
+    const imageUrls: string[] = [];
 
     base64Images.forEach((imageString, index) => {
       const base64Data = imageString.split('"')[1];
@@ -114,18 +115,18 @@ function KnowhowEditor() {
       data.forEach((url: { publicUrl: string }, index: number) => {
         const publicUrl = url.publicUrl;
         const base64Data = imageFiles[index].base64;
-        console.log(publicUrl);
         content = content?.replace(base64Data, publicUrl);
+        imageUrls.push(publicUrl);
       });
 
       const newKnowhow = {
         title: titleRef?.current?.value,
         content: content,
+        image_urls: imageUrls,
         user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
       };
-      console.log(newKnowhow);
+
       await addKnowhow(newKnowhow);
-      console.log("hello");
     } catch (error) {
       console.log(error);
     }
@@ -149,7 +150,6 @@ function KnowhowEditor() {
     <form onSubmit={handleSubmit} className="flex flex-col">
       <input id="title" ref={titleRef} type="text" />
       <QuillNoSSRWrapper forwardedRef={quillRef} modules={modules} formats={formats} />
-
       <Button>작성하기</Button>
     </form>
   );
