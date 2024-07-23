@@ -1,6 +1,6 @@
 "use client";
 import Button from "@/components/Button/Button";
-import useKnowhowCommentMutation from "@/store/queries/useKnowhowCommentMutation";
+import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
 import { FormEventHandler, useRef } from "react";
 
 type CommentFormProps = {

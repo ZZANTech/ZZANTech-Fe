@@ -1,6 +1,6 @@
 "use client";
 
-import useVotesQuery from "@/store/queries/useVotesQuery";
+import useVotesQuery from "@/stores/queries/useVotesQuery";
 import VotesList from "./VotesList";
 
 function VotesContainer() {
