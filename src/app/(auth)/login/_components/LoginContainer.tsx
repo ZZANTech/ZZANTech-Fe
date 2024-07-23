@@ -3,48 +3,39 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import LoginEmailForm from "./LoginEmailForm";
+import LoginPasswordForm from "./LoginPasswordForm";
+import { createClient } from "@/utils/supabase/client";
 
 function LoginContainer() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const supabase = createClient();
+
+  const signInWithEmail = async () => {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
+    if (error) {
+      console.log(error);
+    } else {
+      console.log(data);
+    }
+  };
 
   const handleLogin = () => {
-    console.log("email / password >>", email, password);
-    router.replace("/");
+    signInWithEmail();
+    // router.replace("/");
   };
 
   return (
     <div className="flex flex-col items-center w-[800px] mx-auto my-10 p-10">
       <Link href="/">짠테크 로고</Link>
       <form>
-        <div className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
-          <label>이메일</label>
-          <input
-            type="text"
-            value={email}
-            placeholder="이메일을 입력해주세요"
-            className="w-[436px] h-[56px] p-[16px] border"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-          <p className="text-red-500 text-xs">아이디가 옳지 않습니다.</p>
-        </div>
-
-        <div className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
-          <label>비밀번호</label>
-          <input
-            type="password"
-            value={password}
-            placeholder="비밀번호를 입력해주세요"
-            className="w-[436px] h-[56px] p-[16px] border"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-          <p className="text-red-500 text-xs">비밀번호가 옳지 않습니다.</p>
-        </div>
+        <LoginEmailForm email={email} setEmail={setEmail} />
+        <LoginPasswordForm password={password} setPassword={setPassword} />
       </form>
 
       <div className="flex flex-col w-[500px] gap-2.5 p-2.5 items-center">

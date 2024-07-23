@@ -14,9 +14,9 @@ function SignUpContainer() {
   const [password, setPassword] = useState("");
   const [recheckPassword, setRecheckPassword] = useState("");
   const router = useRouter();
+  const supabase = createClient();
 
   const handleSignUp = async () => {
-    const supabase = createClient();
     const { data, error } = await supabase.auth.signUp({
       email,
       password
