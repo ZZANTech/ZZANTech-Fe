@@ -1,11 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: NextRequest) => {
+export const GET = async (req: NextRequest, { params }: { params: { knowhowId: string } }) => {
   const supabase = createClient();
-  const url = new URL(req.url);
-
-  const knowhowId = url.pathname.split("/").pop();
+  const knowhowId = params.knowhowId;
 
   try {
     if (knowhowId) {
@@ -31,6 +29,8 @@ export const GET = async (req: NextRequest) => {
         };
       });
       return NextResponse.json({ comments: commentsWithNickname || [] });
+    } else {
+      return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });
     }
   } catch (e) {
     if (e instanceof Error) {
@@ -41,19 +41,20 @@ export const GET = async (req: NextRequest) => {
   }
 };
 
-export const POST = async (req: NextRequest) => {
+export const POST = async (req: NextRequest, { params }: { params: { knowhowId: string } }) => {
   const supabase = createClient();
-  const url = new URL(req.url);
-
-  const knowhowId = url.pathname.split("/").pop();
+  const knowhowId = params.knowhowId;
   const newComment = await req.json();
-  console.log(newComment);
-  console.log(knowhowId);
 
   try {
     if (knowhowId) {
-      const { status, statusText } = await supabase.from("knowhow_comments").insert(newComment).single();
+      const { status, statusText } = await supabase
+        .from("knowhow_comments")
+        .insert({ ...newComment, knowhow_post_id: knowhowId })
+        .single();
       return NextResponse.json({ status, statusText });
+    } else {
+      return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });
     }
   } catch (e) {
     if (e instanceof Error) {
