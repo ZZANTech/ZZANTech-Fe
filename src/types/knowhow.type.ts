@@ -14,3 +14,8 @@ export type TKnowhow = Tables<"knowhow_posts"> & {
 export type TKnowhowComment = Tables<"knowhow_comments"> & {
   nickname?: Tables<"users">["nickname"];
 };
+
+export type TResponseStatus = {
+  status: number;
+  statusText: string;
+};

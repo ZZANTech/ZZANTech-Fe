@@ -1,6 +1,6 @@
 "use client";
 
-import useCommentsQuery from "@/store/queries/useCommentsQuery";
+import useKnowhowCommentsQuery from "@/store/queries/useKnowhowCommentsQuery";
 import CommentForm from "./CommentForm";
 import CommentsList from "./CommentsList";
 
@@ -9,11 +9,11 @@ type CommentsContainerProps = {
 };
 
 function CommentsContainer({ postId }: CommentsContainerProps) {
-  const { data: comments } = useCommentsQuery(postId);
+  const { data: comments } = useKnowhowCommentsQuery(postId);
   return (
     <section>
       <span>댓글 {comments?.length || 0}개</span>
-      <CommentForm />
+      <CommentForm postId={postId} />
       {comments && <CommentsList comments={comments} />}
     </section>
   );
