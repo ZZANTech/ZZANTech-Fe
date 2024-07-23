@@ -20,7 +20,6 @@ export const GET = async (req: Request) => {
       search_keyword: searchKeyword,
       sort_order: sortOrder
     });
-
     if (postsError) {
       throw new Error("게시글을 불러오지 못했습니다.");
     }
@@ -34,6 +33,24 @@ export const GET = async (req: Request) => {
     }
 
     return NextResponse.json({ posts, totalItems });
+  } catch (e) {
+    if (e instanceof Error) {
+      return NextResponse.json({ error: e.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
+    }
+  }
+};
+
+export const POST = async (req: Request) => {
+  console.log("포스트실행!");
+  const supabase = createClient();
+  const newKnowhow = await req.json();
+
+  try {
+    const data = await supabase.from("knowhow_posts").insert(newKnowhow).single();
+    console.log(data);
+    return NextResponse.json({});
   } catch (e) {
     if (e instanceof Error) {
       return NextResponse.json({ error: e.message }, { status: 500 });

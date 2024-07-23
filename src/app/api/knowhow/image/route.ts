@@ -33,7 +33,6 @@ export async function POST(req: NextRequest) {
         return publicURL;
       })
     );
-    console.log(urls);
     return NextResponse.json(urls);
   } catch (error) {
     if (error instanceof Error) {

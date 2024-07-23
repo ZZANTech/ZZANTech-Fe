@@ -5,7 +5,8 @@ export type TKnowhowsResponse = {
   totalItems: number;
 };
 
-export type TKnowhow = Tables<"knowhow_posts"> & {
+export type TKnowhow = Omit<Tables<"knowhow_posts">, "image_urls"> & {
+  image_urls: string[];
   nickname?: Tables<"users">["nickname"];
   likes_count?: number;
   comments_count?: number;
