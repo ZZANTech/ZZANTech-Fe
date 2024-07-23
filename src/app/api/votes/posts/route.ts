@@ -5,7 +5,7 @@ export const GET = async () => {
   const supabase = createClient();
 
   try {
-    const { data, error } = await supabase.from("vote_posts").select("*").order("vote_postId", { ascending: true });
+    const { data, error } = await supabase.rpc("get_votes_with_counts_and_nickname");
 
     if (error) {
       throw new Error("게시글을 불러오지 못했습니다.");
