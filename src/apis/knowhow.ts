@@ -10,14 +10,14 @@ export const getKnowhows = async (
   searchKeyword: string
 ) => {
   const res = await fetch(
-    `${BASE_URL}/api/knowhow/posts?page=${page}&limit=${limit}&sortOrder=${sortOrder}&searchOption=${selectedSearchOption}&search=${searchKeyword}`
+    `${BASE_URL}/api/knowhow?page=${page}&limit=${limit}&sortOrder=${sortOrder}&searchOption=${selectedSearchOption}&search=${searchKeyword}`
   );
   const knowhows = await res.json();
   return knowhows;
 };
 
 export const postKnowhow = async (newKnowhow: Partial<Tables<"knowhow_posts">>) => {
-  const res = await fetch(`${BASE_URL}/api/knowhow/posts`, {
+  const res = await fetch(`${BASE_URL}/api/knowhow`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -29,26 +29,35 @@ export const postKnowhow = async (newKnowhow: Partial<Tables<"knowhow_posts">>) 
 };
 
 export const getKnowhow = async (knowhowId: TKnowhow["knowhow_postId"]) => {
-  const res = await fetch(`${BASE_URL}/api/knowhow/posts/${knowhowId}`);
+  const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}`);
   const knowhow = await res.json();
   const knowhowPost: TKnowhow = knowhow.post;
   return knowhowPost;
 };
 
 export const getKnowhowComments = async (knowhowId: TKnowhow["knowhow_postId"]) => {
-  const res = await fetch(`${BASE_URL}/api/knowhow/comments/${knowhowId}`);
+  const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}/comments`);
   const data = await res.json();
   const comments = data.comments;
   return comments;
 };
 
 export const postKnowhowComment = async (newComment: Partial<Tables<"knowhow_comments">>) => {
-  const res = await fetch(`${BASE_URL}/api/knowhow/comments/${newComment.knowhow_post_id}`, {
+  const res = await fetch(`${BASE_URL}/api/knowhow/${newComment.knowhow_post_id}/comments`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(newComment)
+  });
+
+  const data = await res.json();
+  console.log(data);
+  return data;
+};
+export const deleteKnowhowComment = async (commentId: Tables<"knowhow_comments">["knowhow_commentId"]) => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/comments/${commentId}`, {
+    method: "DELETE"
   });
 
   const data = await res.json();

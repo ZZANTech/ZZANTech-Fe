@@ -1,4 +1,4 @@
-import { getKnowhowComments, postKnowhowComment } from "@/apis/knowhow";
+import { deleteKnowhowComment, getKnowhowComments, postKnowhowComment } from "@/apis/knowhow";
 import { TKnowhowComment, TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -13,7 +13,15 @@ const useKnowhowCommentMutation = () => {
     }
   });
 
-  return { addKnowhowComment };
+  const { mutateAsync: removeKnowhowComment } = useMutation<
+    TResponseStatus,
+    Error,
+    Tables<"knowhow_comments">["knowhow_commentId"]
+  >({
+    mutationFn: (commentId) => deleteKnowhowComment(commentId)
+  });
+
+  return { addKnowhowComment, removeKnowhowComment };
 };
 
 export default useKnowhowCommentMutation;
