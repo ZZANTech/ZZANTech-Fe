@@ -5,29 +5,21 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import LoginEmailForm from "./LoginEmailForm";
 import LoginPasswordForm from "./LoginPasswordForm";
-import { createClient } from "@/utils/supabase/client";
 
 function LoginContainer() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const router = useRouter();
-  const supabase = createClient();
 
-  const signInWithEmail = async () => {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password
+  const handleClickLogin = async () => {
+    const currentUserData = { email, password };
+    const response = fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify(currentUserData)
     });
-    if (error) {
-      console.log(error);
-    } else {
-      console.log(data);
-    }
-  };
-
-  const handleLogin = () => {
-    signInWithEmail();
-    // router.replace("/");
+    const data = (await response).json();
+    console.log("handleClickLogin >> ", data);
+    router.replace("/");
   };
 
   return (
@@ -36,12 +28,12 @@ function LoginContainer() {
       <form>
         <LoginEmailForm email={email} setEmail={setEmail} />
         <LoginPasswordForm password={password} setPassword={setPassword} />
+        <button className="w-100% p-2.5 text-center text-white bg-black" onClick={handleClickLogin}>
+          로그인
+        </button>
       </form>
 
       <div className="flex flex-col w-[500px] gap-2.5 p-2.5 items-center">
-        <button className="w-[400px] p-2.5 text-center text-white bg-black" onClick={handleLogin}>
-          로그인
-        </button>
         <Link href="/signIn" className="w-[400px] p-2.5 text-center text-white bg-yellow-500">
           카카오로 계속하기
         </Link>

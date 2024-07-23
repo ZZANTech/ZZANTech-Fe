@@ -1,47 +1,43 @@
 "use client";
 
-import { createClient } from "@/utils/supabase/client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EmailForm from "./EmailForm";
 import NicknameForm from "./NicknameForm";
 import PasswordForm from "./PasswordForm";
 import RecheckPasswordForm from "./RecheckPasswordForm";
+import { User } from "@supabase/supabase-js";
 
 function SignUpContainer() {
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
-  const [recheckPassword, setRecheckPassword] = useState("");
+  const [user, setUser] = useState<User | null>({});
+  const [email, setEmail] = useState<string>("");
+  const [nickname, setNickname] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [recheckPassword, setRecheckPassword] = useState<string>("");
   const router = useRouter();
-  const supabase = createClient();
 
-  const handleSignUp = async () => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password
+  const handleClickSignup = async () => {
+    const currentUserData = { email, nickname, password, recheckPassword };
+    const response = await fetch("http://localhost:3000/api/auth/signup", {
+      method: "POST",
+      body: JSON.stringify(currentUserData)
     });
-    if (error) {
-      console.log("authError >>", error);
-    }
-    const { data: userData, error: userError } = await supabase
-      .from("users")
-      .insert({
-        userId: data.user?.id,
-        email,
-        nickname: nickname,
-        created_at: data.user?.created_at,
-        provider: "email",
-        total_point: 0,
-        current_point: 0,
-        updated_at: null
-      })
-      .select();
-    if (error) {
-      console.log("usersError >> ", userError);
-    }
+    const data = await response.json();
+    console.log("handleClickSignup >> ", data);
     router.replace("/login");
   };
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/auth/me").then(async (response) => {
+      if (response.status === 200) {
+        const {
+          data: { user }
+        } = await response.json();
+        setUser(user);
+        console.log("user", user);
+      }
+    });
+  }, []);
 
   return (
     <div className="flex flex-col items-center w-[800px] mx-auto my-10 p-10">
@@ -56,7 +52,7 @@ function SignUpContainer() {
           password={password}
         />
       </section>
-      <button className="w-[400px] p-2.5 text-center text-white bg-black" onClick={handleSignUp}>
+      <button className="w-[400px] p-2.5 text-center text-white bg-black" onClick={handleClickSignup}>
         회원가입 완료하기
       </button>
     </div>
