@@ -2,7 +2,7 @@
 
 import useKnowhowCommentsQuery from "@/store/queries/useKnowhowCommentsQuery";
 import CommentForm from "./CommentForm";
-import CommentsList from "./CommentsList";
+import CommentsList from "./CommentsList"
 
 type CommentsContainerProps = {
   postId: number;

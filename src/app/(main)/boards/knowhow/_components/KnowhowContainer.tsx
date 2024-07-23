@@ -1,5 +1,5 @@
 "use client";
-import useKnowhowsQuery from "@/store/queries/useKnowhowsQuery";
+import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
 import KnowhowFilter from "./KnowhowFilter";
 import KnowhowList from "./KnowhowList";
 import KnowhowPagination from "./KnowhowPagination";
