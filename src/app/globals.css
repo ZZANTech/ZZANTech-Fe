@@ -2,4 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 @layer utilities {
+  .MainLinkButton {
+    @apply px-2 py-5 mx-5 text-gray-800 text-[16px] text-center 
+    hover:font-bold hover:border-b-2 border-gray-800;
+  }
 }
