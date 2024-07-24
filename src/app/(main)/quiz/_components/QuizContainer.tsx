@@ -1,11 +1,11 @@
 "use client";
 
-import { useSubmitAnswer } from "@/stores/queries/useSubmitAnswer";
 import { useQuizStore } from "@/stores/zustand/quizStore";
 import { useRouter } from "next/navigation";
 import QuizAnswer from "./QuizAnswer";
 import QuizQuestion from "./QuizQuestion";
 import { useQuiz } from "@/stores/queries/useQuizQuery";
+import { useSubmitAnswer } from "@/stores/queries/useSubmitAnswerMutation";
 
 const QuizContainer = () => {
   const router = useRouter();

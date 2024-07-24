@@ -1,8 +1,6 @@
 import { BASE_URL } from "@/constants";
-import { Answer } from "@/types/answer.type";
+import { TAnswerResponse, TSubmitAnswer } from "@/types/answer.type";
 import { TQuiz } from "@/types/quiz.type";
-
-type SubmitAnswer = Pick<Answer, "user_id" | "quiz_id" | "answer">;
 
 export const fetchQuiz = async (): Promise<TQuiz> => {
   const response = await fetch(`${BASE_URL}/api/quiz`);
@@ -12,7 +10,7 @@ export const fetchQuiz = async (): Promise<TQuiz> => {
   return response.json();
 };
 
-export const submitAnswer = async ({ user_id, quiz_id, answer }: SubmitAnswer) => {
+export const submitAnswer = async ({ user_id, quiz_id, answer }: TSubmitAnswer): Promise<TAnswerResponse> => {
   const response = await fetch(`${BASE_URL}/api/quiz/submit`, {
     method: "POST",
     headers: {
