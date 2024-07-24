@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import QuizAnswer from "./QuizAnswer";
 import QuizQuestion from "./QuizQuestion";
 import { useQuiz } from "@/stores/queries/useQuizQuery";
-import { Quiz } from "@/types/quiz.type";
 
 const QuizContainer = () => {
   const router = useRouter();

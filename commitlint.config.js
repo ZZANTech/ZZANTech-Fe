@@ -6,7 +6,7 @@ module.exports = {
       'always',
       [
         'feat',    // 새로운 기능 추가
-        'fix',     // 버그 수정
+        'fix',     // 수정
         'docs',    // 문서 변경
         'design',  // UI 디자인 변경
         'refactor',// 코드 리팩토링
