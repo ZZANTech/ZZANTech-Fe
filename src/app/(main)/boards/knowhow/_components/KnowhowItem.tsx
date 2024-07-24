@@ -27,7 +27,7 @@ function KnowhowItem({ knowhow }: knowhowItemProps) {
           <div>댓글 수 {comments_count}</div>
           <div>좋아요 수 {likes_count}</div>
         </div>
-        {image_urls?.length > 0 && <Image src={image_urls[0]} alt={title} width={300} height={300} />}
+        {image_urls?.length > 0 && <Image src={image_urls[0]} alt={title} width={150} height={150} />}
       </Link>
     </li>
   );
