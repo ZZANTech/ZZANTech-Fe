@@ -13,5 +13,6 @@ export async function POST(request: NextRequest) {
     password
   });
 
-  return NextResponse.json("로그인 완료");
+  console.log(result);
+  return NextResponse.json("로그인 완료 // 유저 정보를 가져와라");
 }
