@@ -18,6 +18,7 @@ function KnowhowContainer() {
     selectedSearchOption,
     searchKeyword
   );
+  const totalItems = knowhows?.posts[0]?.total_count;
 
   const handleSortOrderChange = (value: TOption["value"]) => {
     setSortOrder(value);
@@ -49,7 +50,7 @@ function KnowhowContainer() {
       <KnowhowPagination
         currentPage={currentPage}
         itemsPerPage={ITEMS_PER_PAGE}
-        totalItems={knowhows?.totalItems || 0}
+        totalItems={totalItems || 0}
         onPageChange={handlePageChange}
       />
     </section>

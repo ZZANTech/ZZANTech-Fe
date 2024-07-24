@@ -388,47 +388,28 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      get_posts_with_likes_and_nickname:
-        | {
-            Args: {
-              limit_param: number;
-              offset_param: number;
-              search_option: string;
-              search_keyword: string;
-              sort_order: string;
-            };
-            Returns: {
-              knowhow_postId: number;
-              title: string;
-              content: string;
-              image_urls: Json;
-              created_at: string;
-              updated_at: string;
-              user_id: string;
-              nickname: string;
-              likes_count: number;
-              comments_count: number;
-            }[];
-          }
-        | {
-            Args: {
-              limit_param: number;
-              offset_param: number;
-              sort_order: string;
-            };
-            Returns: {
-              knowhow_postId: number;
-              title: string;
-              content: string;
-              image_url: string;
-              created_at: string;
-              updated_at: string;
-              user_id: string;
-              nickname: string;
-              likes_count: number;
-              comments_count: number;
-            }[];
-          };
+      get_posts_with_likes_and_nickname: {
+        Args: {
+          limit_param: number;
+          offset_param: number;
+          search_option: string;
+          search_keyword: string;
+          sort_order: string;
+        };
+        Returns: {
+          knowhow_postId: number;
+          title: string;
+          content: string;
+          image_urls: Json;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          nickname: string;
+          likes_count: number;
+          comments_count: number;
+          total_count: number;
+        }[];
+      };
       get_votes_with_counts_and_nickname: {
         Args: Record<PropertyKey, never>;
         Returns: {
