@@ -15,7 +15,8 @@ export const GET = async (req: NextRequest, { params }: { params: { knowhowId: s
           users (nickname)
         `
         )
-        .eq("knowhow_post_id", knowhowId);
+        .eq("knowhow_post_id", knowhowId)
+        .order("created_at", { ascending: true });
 
       if (commentError) {
         throw new Error("댓글을 가져오지 못했습니다");

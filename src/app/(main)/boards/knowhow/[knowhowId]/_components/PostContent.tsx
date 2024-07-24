@@ -1,7 +1,6 @@
 "use client";
 import { TKnowhow } from "@/types/knowhow.type";
-import dayjs from "dayjs";
-import { formatTime } from "../../../_utils";
+import { formatTime } from "@/app/(main)/boards/_utils";
 
 type PostContentProps = {
   knowhow: TKnowhow;

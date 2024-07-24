@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest, { params: { knowhowId } }: { params: { knowhowId: string } }) {
   const supabase = createClient();
-
-  const url = new URL(req.url);
-  const knowhowId = url.pathname.split("/").pop();
 
   try {
     if (knowhowId) {
@@ -33,7 +30,9 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ post: result });
     }
   } catch (e) {
-    console.error(e);
-    return NextResponse.json({ error: "Failed to fetch post" }, { status: 500 });
+    if (e instanceof Error) {
+      return NextResponse.json({ error: e.message }, { status: 500 });
+    }
+    return NextResponse.json({ error: "알 수 없는 에러" }, { status: 500 });
   }
 }

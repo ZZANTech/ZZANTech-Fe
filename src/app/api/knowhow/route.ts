@@ -31,8 +31,7 @@ export const GET = async (req: Request) => {
     if (countError) {
       throw new Error("전체 게시글 수를 불러오지 못했습니다.");
     }
-
-    return NextResponse.json({ posts, totalItems });
+    return NextResponse.json({ posts });
   } catch (e) {
     if (e instanceof Error) {
       return NextResponse.json({ error: e.message }, { status: 500 });
@@ -43,14 +42,12 @@ export const GET = async (req: Request) => {
 };
 
 export const POST = async (req: Request) => {
-  console.log("포스트실행!");
   const supabase = createClient();
   const newKnowhow = await req.json();
 
   try {
-    const data = await supabase.from("knowhow_posts").insert(newKnowhow).single();
-    console.log(data);
-    return NextResponse.json({});
+    const { status, statusText } = await supabase.from("knowhow_posts").insert(newKnowhow).single();
+    return NextResponse.json({ status, statusText });
   } catch (e) {
     if (e instanceof Error) {
       return NextResponse.json({ error: e.message }, { status: 500 });
