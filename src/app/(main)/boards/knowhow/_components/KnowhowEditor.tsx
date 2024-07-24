@@ -148,9 +148,9 @@ function KnowhowEditor() {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
-      <input id="title" ref={titleRef} type="text" />
-      <QuillNoSSRWrapper forwardedRef={quillRef} modules={modules} formats={formats} />
-      <Button>작성하기</Button>
+      <input className="h-[50px]" id="title" ref={titleRef} type="text" />
+      <QuillNoSSRWrapper forwardedRef={quillRef} className="mb-12 h-[800px]" modules={modules} formats={formats} />
+      <Button onClick={() => console.log("sdf")}>작성하기</Button>
     </form>
   );
 }

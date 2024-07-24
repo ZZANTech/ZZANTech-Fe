@@ -52,7 +52,19 @@ export const postKnowhowComment = async (newComment: Partial<Tables<"knowhow_com
   });
 
   const data = await res.json();
-  console.log(data);
+  return data;
+};
+
+export const patchKnowhowComment = async (updatedComment: Partial<Tables<"knowhow_comments">>) => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/comments/${updatedComment.knowhow_commentId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(updatedComment)
+  });
+
+  const data = await res.json();
   return data;
 };
 export const deleteKnowhowComment = async (commentId: Tables<"knowhow_comments">["knowhow_commentId"]) => {
@@ -61,7 +73,6 @@ export const deleteKnowhowComment = async (commentId: Tables<"knowhow_comments">
   });
 
   const data = await res.json();
-  console.log(data);
   return data;
 };
 
