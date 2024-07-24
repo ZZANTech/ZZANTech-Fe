@@ -1,4 +1,4 @@
-import { getKnowhowComments, postKnowhow, postKnowhowComment } from "@/apis/knowhow";
+import { getKnowhowComments, patchKnowhow, postKnowhow, postKnowhowComment } from "@/apis/knowhow";
 import { TKnowhowComment, TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -9,7 +9,10 @@ const useKnowhowMutation = () => {
     mutationFn: (newKnowhow) => postKnowhow(newKnowhow)
   });
 
-  return { addKnowhow };
+  const { mutateAsync: updatedKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
+    mutationFn: (updatedKnowhow) => patchKnowhow(updatedKnowhow)
+  });
+  return { addKnowhow, updatedKnowhow };
 };
 
 export default useKnowhowMutation;

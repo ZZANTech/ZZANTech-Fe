@@ -8,6 +8,7 @@ type PostContentProps = {
 
 function PostContent({ knowhow }: PostContentProps) {
   const { formattedDate, formattedTime } = formatTime(knowhow.created_at);
+  console.log(knowhow);
   if (knowhow)
     return (
       <section>
