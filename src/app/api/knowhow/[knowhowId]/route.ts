@@ -42,8 +42,7 @@ export const PATCH = async (req: NextRequest, { params }: { params: { knowhowId:
 
   const knowhowId = params.knowhowId;
   const updatedKnowhow = await req.json();
-  console.log(updatedKnowhow);
-  console.log(knowhowId);
+
   try {
     if (knowhowId && updatedKnowhow) {
       const { status, statusText } = await supabase
@@ -65,7 +64,6 @@ export const DELETE = async (req: NextRequest, { params }: { params: { knowhowId
   const supabase = createClient();
 
   const knowhowId = params.knowhowId;
-  console.log(knowhowId);
   try {
     if (knowhowId) {
       const { status, statusText } = await supabase.from("knowhow_posts").delete().eq("knowhow_postId", knowhowId);

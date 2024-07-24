@@ -16,6 +16,15 @@ export const getKnowhows = async (
   return knowhows;
 };
 
+export const getKnowhow = async (knowhowId: TKnowhow["knowhow_postId"]) => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}`, {
+    cache: "no-store"
+  });
+  const knowhow = await res.json();
+  const knowhowPost: TKnowhow = knowhow.post;
+  return knowhowPost;
+};
+
 export const postKnowhow = async (newKnowhow: Partial<Tables<"knowhow_posts">>) => {
   const res = await fetch(`${BASE_URL}/api/knowhow`, {
     method: "POST",
@@ -39,14 +48,12 @@ export const patchKnowhow = async (updatedKnowhow: Partial<Tables<"knowhow_posts
   const knowhows = await res.json();
   return knowhows;
 };
-
-export const getKnowhow = async (knowhowId: TKnowhow["knowhow_postId"]) => {
+export const deleteKnowhow = async (knowhowId: Tables<"knowhow_posts">["knowhow_postId"]) => {
   const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}`, {
-    cache: "no-store"
+    method: "DELETE"
   });
-  const knowhow = await res.json();
-  const knowhowPost: TKnowhow = knowhow.post;
-  return knowhowPost;
+  const knowhows = await res.json();
+  return knowhows;
 };
 
 export const getKnowhowComments = async (knowhowId: TKnowhow["knowhow_postId"]) => {

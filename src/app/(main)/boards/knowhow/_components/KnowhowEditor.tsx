@@ -64,7 +64,7 @@ const formats = [
 function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   const router = useRouter();
   const { addKnowhowImage } = useKnowhowImageMutation();
-  const { addKnowhow, updatedKnowhow } = useKnowhowMutation();
+  const { addKnowhow, updateKnowhow } = useKnowhowMutation();
   const quillRef = useRef<ReactQuill>(null);
   const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
   const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
@@ -145,15 +145,14 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
       image_urls: imageUrls,
       user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
     };
-    console.log(newKnowhow.content);
 
     try {
       if (previousContent) {
-        await updatedKnowhow({ ...newKnowhow, knowhow_postId: previousContent.knowhow_postId });
-        router.replace(`/boards/knowhow/${previousContent.knowhow_postId}`);
+        const res = await updateKnowhow({ ...newKnowhow, knowhow_postId: previousContent.knowhow_postId });
+
+        res && router.replace(`/boards/knowhow`);
       } else {
         await addKnowhow(newKnowhow);
-        router.push("/boards/knowhow");
       }
     } catch (error) {
       console.log(error);
