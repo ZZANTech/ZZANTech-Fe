@@ -18,7 +18,7 @@ function KnowhowFilter({
   onSearch
 }: KnowhowFilterTypes) {
   return (
-    <nav className="flex">
+    <nav className="flex justify-between">
       <SortOptions onSortOrderChange={onSortOrderChange} />
       <SearchOptions
         onSearch={onSearch}

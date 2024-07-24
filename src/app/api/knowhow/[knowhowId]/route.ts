@@ -60,3 +60,22 @@ export const PATCH = async (req: NextRequest, { params }: { params: { knowhowId:
     }
   }
 };
+
+export const DELETE = async (req: NextRequest, { params }: { params: { knowhowId: string } }) => {
+  const supabase = createClient();
+
+  const knowhowId = params.knowhowId;
+  console.log(knowhowId);
+  try {
+    if (knowhowId) {
+      const { status, statusText } = await supabase.from("knowhow_posts").delete().eq("knowhow_postId", knowhowId);
+      return NextResponse.json({ status, statusText });
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      return NextResponse.json({ error: e.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
+    }
+  }
+};
