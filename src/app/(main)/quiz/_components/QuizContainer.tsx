@@ -7,7 +7,7 @@ import QuizQuestion from "./QuizQuestion";
 import { useQuiz } from "@/stores/queries/useQuizQuery";
 import { useSubmitAnswer } from "@/stores/queries/useSubmitAnswerMutation";
 
-const QuizContainer = () => {
+function QuizContainer() {
   const router = useRouter();
   const { data: quizData, isLoading, error } = useQuiz();
   const { mutate: submitAnswer } = useSubmitAnswer();
@@ -51,6 +51,6 @@ const QuizContainer = () => {
       )}
     </div>
   );
-};
+}
 
 export default QuizContainer;

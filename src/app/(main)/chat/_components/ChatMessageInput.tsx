@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { uploadImage, sendMessage } from "@/apis/chat";
 
-const ChatMessageInput = ({ roomId }: { roomId: number }) => {
+function ChatMessageInput({ roomId }: { roomId: number }) {
   const [message, setMessage] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
@@ -42,6 +42,6 @@ const ChatMessageInput = ({ roomId }: { roomId: number }) => {
       <button type="submit">전송</button>
     </form>
   );
-};
+}
 
 export default ChatMessageInput;

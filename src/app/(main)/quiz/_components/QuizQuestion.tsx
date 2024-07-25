@@ -7,7 +7,7 @@ type QuizQuestionProps = {
   onAnswer: (answer: boolean) => void;
 };
 
-const QuizQuestion = ({ question, onAnswer }: QuizQuestionProps) => {
+function QuizQuestion({ question, onAnswer }: QuizQuestionProps) {
   return (
     <div className="flex flex-col items-center justify-center px-4">
       <strong className="text-lg font-semibold mb-4 block">오늘의 퀴즈</strong>
@@ -22,6 +22,6 @@ const QuizQuestion = ({ question, onAnswer }: QuizQuestionProps) => {
       </div>
     </div>
   );
-};
+}
 
 export default QuizQuestion;

@@ -8,7 +8,7 @@ type ChatMessageListProps = {
   roomId: number;
 };
 
-const ChatMessageList = ({ roomId }: ChatMessageListProps) => {
+function ChatMessageList({ roomId }: ChatMessageListProps) {
   const { data: chats, isPending } = useChatMessagesQuery(roomId);
 
   if (isPending) {
@@ -16,6 +16,6 @@ const ChatMessageList = ({ roomId }: ChatMessageListProps) => {
   }
 
   return <div>{chats?.map((message: TChat) => <ChatMessageItem key={message.chatId} message={message} />)}</div>;
-};
+}
 
 export default ChatMessageList;

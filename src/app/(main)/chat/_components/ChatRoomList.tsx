@@ -3,7 +3,7 @@
 import { useChatRoomsQuery } from "@/stores/queries/useChatRoomsQuery";
 import Link from "next/link";
 
-const ChatRoomList = () => {
+function ChatRoomList() {
   const { data: chatRooms } = useChatRoomsQuery();
 
   return (
@@ -22,6 +22,6 @@ const ChatRoomList = () => {
       <button>입장하기</button>
     </div>
   );
-};
+}
 
 export default ChatRoomList;
