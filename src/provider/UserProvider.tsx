@@ -19,7 +19,13 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     (async () => {
       const response = await fetch("http://localhost:3000/api/auth/me");
       const data = await response.json();
-      setUser(data);
+      const users = data.users;
+      if (users) {
+        setUser(users);
+      } else {
+        setUser(null);
+        console.log(data.error);
+      }
     })();
   }, []);
 
@@ -28,9 +34,9 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       method: "POST",
       body: JSON.stringify({ email, password })
     });
-    const data = await response.json();
-    const logInData = data.data.user;
-    setUser(logInData);
+    if (!response.ok) {
+      console.log("로그인 실패");
+    }
   };
 
   return <UserContext.Provider value={{ user, logIn }}>{children}</UserContext.Provider>;
