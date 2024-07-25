@@ -413,7 +413,7 @@ export type Database = {
       get_votes_with_counts_and_nickname: {
         Args: Record<PropertyKey, never>;
         Returns: {
-          vote_postid: number;
+          vote_postId: number;
           title: string;
           content: string;
           product_name: string;
