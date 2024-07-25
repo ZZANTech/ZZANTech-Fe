@@ -1,40 +1,44 @@
 "use client";
-import { ModalProps } from "@/types/modal.type";
 import AlertModal from "./AlertModal";
 import ConfirmModal from "./ConfirmModal";
 import BackDrop from "./BackDrop";
+import { ModalProps, ConfirmModalProps, AlertModalProps } from "@/types/modal.type";
 
-const Modal = ({ type, content, subContent, onConfirm, onCancel, onClose }: ModalProps) => {
-  const handleCloseModal = () => {
-    if (onClose) onClose();
-  };
+const Modal = (props: ModalProps) => {
   const renderModal = () => {
-    switch (type) {
-      case "confirm":
-        return (
-          <ConfirmModal
-            type={type}
-            content={content}
-            subContent={subContent}
-            onConfirm={onConfirm}
-            onCancel={onCancel || onClose}
-          />
-        );
-
-      case "alert":
-        return <AlertModal type={type} content={content} subContent={subContent} onConfirm={onConfirm} />;
-
-      default:
-        return null;
+    if (props.type === "confirm") {
+      const confirmProps = props as ConfirmModalProps;
+      return (
+        <ConfirmModal
+          type={confirmProps.type}
+          content={confirmProps.content}
+          subContent={confirmProps.subContent}
+          onConfirm={confirmProps.onConfirm}
+          onCancel={confirmProps.onCancel}
+        />
+      );
+    } else if (props.type === "alert") {
+      const alertProps = props as AlertModalProps;
+      return (
+        <AlertModal
+          type={alertProps.type}
+          content={alertProps.content}
+          subContent={alertProps.subContent}
+          onClose={alertProps.onClose}
+        />
+      );
+    } else {
+      return null;
     }
   };
+
   return (
     <BackDrop>
       <div className="relative bg-white p-10 rounded min-w-[340px]">
-        {/* <button onClick={handleCloseModal} className="absolute top-2 right-2"></button> */}
-        <div className="px-6 py-2 text-lg">{renderModal()}</div>
+        <article className="px-6 py-2 text-lg">{renderModal()}</article>
       </div>
     </BackDrop>
   );
 };
+
 export default Modal;

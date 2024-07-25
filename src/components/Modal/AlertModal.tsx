@@ -1,13 +1,13 @@
-import { ModalProps } from "@/provider/contexts/modalContext";
+import { AlertModalProps, ModalProps } from "@/types/modal.type";
 import Button from "../Button/Button";
 
-function AlertModal({ type, title, description, onConfirm }: ModalProps) {
+function AlertModal({ content, subContent, onClose }: AlertModalProps) {
   return (
     <div>
-      <h6 className="text-center">{title}</h6>
-      {description && <p className="text-center">{description}</p>}
+      <h6 className="text-center">{content}</h6>
+      {subContent && <p className="text-center">{subContent}</p>}
       <div className="flex justify-center items-center">
-        <Button onClick={onConfirm}>확인</Button>
+        <Button onClick={onClose}>확인</Button>
       </div>
     </div>
   );

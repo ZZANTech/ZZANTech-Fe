@@ -11,19 +11,18 @@ type CommentItemProps = {
 };
 
 function CommentItem({ comment }: CommentItemProps) {
-  const { open, close } = useModal();
-  const { nickname, content, created_at, knowhow_commentId } = comment;
+  const modal = useModal();
+  const { nickname, content, created_at } = comment;
   const [isEditting, setIsEditting] = useState<boolean>(false);
   const [editedContent, setEditedContent] = useState<TKnowhowComment["content"]>(content || "");
   const { updateKnowhowComment, removeKnowhowComment } = useKnowhowCommentMutation();
   const { formattedDate, formattedTime } = formatTime(created_at);
 
   const handleOpenModal = () =>
-    open({
-      title: "게시글을 삭제하시겠습니까?",
+    modal.open({
       type: "confirm",
-      onConfirm: handleDeleteKnowhow,
-      onCancel: close
+      content: "댓글을 삭제하시겠습니까?",
+      onConfirm: handleCommentDelete
     });
   const handleContentChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => setEditedContent(e.target.value);
   const handleCommentDelete = () => removeKnowhowComment(comment);
@@ -46,7 +45,7 @@ function CommentItem({ comment }: CommentItemProps) {
             <span className="cursor-pointer" onClick={() => setIsEditting(true)}>
               수정
             </span>
-            <span className="cursor-pointer" onClick={handleCommentDelete}>
+            <span className="cursor-pointer" onClick={handleOpenModal}>
               삭제
             </span>
           </div>

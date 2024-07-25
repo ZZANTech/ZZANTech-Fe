@@ -1,21 +1,13 @@
 "use client";
 
 import Modal from "@/components/Modal/Modal";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { ModalProps } from "@/types/modal.type";
+import { createContext, ReactNode, useContext, useState } from "react";
 
 type ModalContextProps = {
   open: (options: ModalProps) => void;
   close: () => void;
   isOpen: boolean;
-};
-
-export type ModalProps = {
-  type: "confirm" | "alert";
-  content: string;
-  subContent?: string;
-  onConfirm: () => void;
-  onCancel?: () => void;
-  onClose?: () => void;
 };
 
 const initialValue: ModalContextProps = {
@@ -28,21 +20,38 @@ const ModalContext = createContext<ModalContextProps>(initialValue);
 
 export const useModal = () => useContext(ModalContext);
 
-export const ModalProvider = ({ children }: PropsWithChildren) => {
+export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [modalOptions, setModalOptions] = useState<ModalProps | null>(null);
 
+  const handleConfirm = () => {
+    if (modalOptions?.type === "confirm") {
+      modalOptions?.onConfirm();
+      value.close();
+    }
+  };
+
+  const handleCancel = () => {
+    if (modalOptions?.type === "confirm") {
+      if (modalOptions.onCancel) {
+        modalOptions.onCancel();
+      }
+      value.close();
+    }
+  };
+
+  const handleClose = () => {
+    if (modalOptions?.type === "alert") {
+      if (modalOptions.onClose) {
+        modalOptions.onClose();
+      }
+      value.close();
+    }
+  };
   const value = {
     open: (option: ModalProps) => {
       setModalOptions(option);
     },
-
-    close: () => {
-      if (modalOptions?.onClose) {
-        modalOptions.onClose();
-      }
-
-      setModalOptions(null);
-    },
+    close: () => setModalOptions(null),
     isOpen: !!modalOptions
   };
 
@@ -54,9 +63,9 @@ export const ModalProvider = ({ children }: PropsWithChildren) => {
           type={modalOptions.type}
           content={modalOptions.content}
           subContent={modalOptions.subContent}
-          onConfirm={modalOptions.onConfirm}
-          onCancel={modalOptions.onCancel}
-          onClose={value.close}
+          onConfirm={handleConfirm}
+          onCancel={modalOptions.type === "confirm" ? handleCancel : undefined}
+          onClose={modalOptions.type === "alert" ? handleClose : undefined}
         />
       )}
     </ModalContext.Provider>

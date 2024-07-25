@@ -8,15 +8,14 @@ type ActionNavProps = {
 };
 
 function ActionNav({ knowhowId }: ActionNavProps) {
-  const { open, close } = useModal();
+  const modal = useModal();
   const { removeKnowhow } = useKnowhowMutation();
   const handleDeleteKnowhow = async () => {
     await removeKnowhow(knowhowId);
-    close();
   };
 
   const handleOpenModal = () =>
-    open({
+    modal.open({
       content: "게시글을 삭제하시겠습니까?",
       subContent: "qwdq",
       type: "confirm",
