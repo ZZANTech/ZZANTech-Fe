@@ -10,7 +10,7 @@ dayjs.extend(timezone);
 export const GET = async () => {
   const supabase = createClient();
 
-  const koreaTime = dayjs().tz("Asia/Seoul").format("YYYY-MM-DD");
+const koreaTime = dayjs().tz("Asia/Seoul").format("YYYY-MM-DD");
 
   try {
     const { data, error } = await supabase.from("quizzes").select("*").eq("issue_date", koreaTime).limit(1).single();

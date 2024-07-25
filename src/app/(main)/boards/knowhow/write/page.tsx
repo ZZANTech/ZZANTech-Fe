@@ -1,6 +1,6 @@
 import KnowhowEditor from "../_components/KnowhowEditor";
 
-function KnowhowEditPage() {
+function KnowhowWritePage() {
   return (
     <>
       <KnowhowEditor />
@@ -8,4 +8,4 @@ function KnowhowEditPage() {
   );
 }
 
-export default KnowhowEditPage;
+export default KnowhowWritePage;

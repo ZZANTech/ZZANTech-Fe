@@ -22,7 +22,6 @@ const useKnowhowCommentMutation = () => {
   >({
     mutationFn: (updatedComment) => patchKnowhowComment(updatedComment),
     onSuccess: (status, updatedComment) => {
-      console.log(updatedComment?.knowhow_post_id?.toString());
       queryClient.invalidateQueries({
         queryKey: ["knowhowComments", { knowhowId: updatedComment?.knowhow_post_id?.toString() }]
       });
@@ -32,7 +31,6 @@ const useKnowhowCommentMutation = () => {
   const { mutateAsync: removeKnowhowComment } = useMutation<TResponseStatus, Error, Tables<"knowhow_comments">>({
     mutationFn: (comment) => deleteKnowhowComment(comment.knowhow_commentId),
     onSuccess: (status, comment) => {
-      console.log(comment.knowhow_post_id);
       queryClient.invalidateQueries({
         queryKey: ["knowhowComments", { knowhowId: comment.knowhow_post_id.toString() }]
       });

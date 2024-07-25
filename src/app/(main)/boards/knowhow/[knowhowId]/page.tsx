@@ -5,6 +5,7 @@ import PostActions from "./_components/PostActions";
 
 async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowId: number } }) {
   const knowhow = await getKnowhow(knowhowId);
+
   return (
     <main>
       <PostContent knowhow={knowhow} />

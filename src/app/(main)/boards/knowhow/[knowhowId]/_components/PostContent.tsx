@@ -1,4 +1,3 @@
-"use client";
 import { TKnowhow } from "@/types/knowhow.type";
 import { formatTime } from "@/app/(main)/boards/_utils";
 
@@ -7,7 +6,8 @@ type PostContentProps = {
 };
 
 function PostContent({ knowhow }: PostContentProps) {
-  const { formattedDate, formattedTime } = formatTime(knowhow.created_at);
+  const { formattedDate, formattedTime } = formatTime(knowhow?.created_at);
+
   if (knowhow)
     return (
       <section>

@@ -2,23 +2,20 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import LoginEmailForm from "./LoginEmailForm";
 import LoginPasswordForm from "./LoginPasswordForm";
+import { useUserContext } from "@/provider/contexts/userContext";
 
 function LoginContainer() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const router = useRouter();
+  const { logIn } = useUserContext();
 
-  const handleClickLogin = async () => {
-    const currentUserData = { email, password };
-    const response = fetch("http://localhost:3000/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify(currentUserData)
-    });
-    const data = (await response).json();
-    console.log("handleClickLogin >> ", data);
+  const handleClickLogin: MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+    logIn(email, password);
     router.replace("/");
   };
 

@@ -1,0 +1,44 @@
+"use client";
+
+import { User } from "@/types/user.type";
+import { createContext, useContext, useEffect, useState } from "react";
+
+type UserContextType = {
+  user: User | null;
+  logIn: (email: string, password: string) => void;
+};
+
+const UserContext = createContext<UserContextType>({ user: null, logIn: () => {} });
+export const useUserContext = () => useContext(UserContext);
+
+const UserProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    // 유저 정보 가오기
+    (async () => {
+      const response = await fetch("http://localhost:3000/api/auth/me");
+      const data = await response.json();
+      const users = data.users;
+      if (users) {
+        setUser(users);
+      } else {
+        setUser(null);
+        console.log(data.error);
+      }
+    })();
+  }, []);
+
+  const logIn = async (email: string, password: string) => {
+    const response = await fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      body: JSON.stringify({ email, password })
+    });
+    if (!response.ok) {
+      console.log("로그인 실패");
+    }
+  };
+
+  return <UserContext.Provider value={{ user, logIn }}>{children}</UserContext.Provider>;
+};
+export default UserProvider;

@@ -1,5 +1,4 @@
 "use client";
-import Button from "@/components/Button/Button";
 import KnowhowLikes from "./KnowhowLikes";
 import ActionNav from "./ActionNav";
 
@@ -11,7 +10,7 @@ function PostActions({ knowhowId }: PostActionsProps) {
   return (
     <section className="flex gap-1 items-center">
       <KnowhowLikes knowhowId={knowhowId} />
-      <ActionNav />
+      <ActionNav knowhowId={knowhowId} />
     </section>
   );
 }

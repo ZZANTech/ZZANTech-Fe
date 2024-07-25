@@ -3,7 +3,7 @@ export type TOption = {
   label: string;
 };
 
-export const ITEMS_PER_PAGE = 2;
+export const ITEMS_PER_PAGE = 5;
 
 export const SORT_LATEST = "latest";
 export const SORT_POPULAR = "popular";
