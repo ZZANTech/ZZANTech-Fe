@@ -1,5 +1,5 @@
 import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import { fetchInitialChats } from "@/apis/chat";
+import { fetchChatRooms, fetchInitialChats } from "@/apis/chat";
 import ChatMessageContainer from "../_components/ChatMessageContainer";
 
 async function ChatRoomPage({ params }: { params: { roomId: string } }) {
@@ -11,11 +11,12 @@ async function ChatRoomPage({ params }: { params: { roomId: string } }) {
     queryFn: () => fetchInitialChats(roomId)
   });
 
+  const roomInfo = await fetchChatRooms();
   const dehydratedState = dehydrate(queryClient);
 
   return (
     <HydrationBoundary state={dehydratedState}>
-      <h1>채팅방</h1>
+      <h1>{roomInfo.room_name}</h1>
       <ChatMessageContainer roomId={roomId} />
     </HydrationBoundary>
   );
