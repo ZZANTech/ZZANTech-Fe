@@ -1,26 +1,33 @@
 "use client";
 
+import { TVote } from "@/types/vote.type";
 import NavButton from "./NavButton";
 import VoteButtons from "./VoteButtons";
 
-function VoteContent() {
+type VoteContentProps = {
+  vote: TVote;
+};
+
+function VoteContent({ vote }: VoteContentProps) {
+  const { title, product_name, product_price, nickname, image_url, content } = vote;
+
   return (
     <section>
       <NavButton direction="prev" />
-      <div>타이틀</div>
+      <div>{title}</div>
       {/* 아래 div 디자인 확정되면 수정할 것 */}
       <div>
         <div>
-          <span>상품명</span>
-          <span>상품 가격</span>
+          <span>{product_name}</span>
+          <span>{product_price}</span>
         </div>
-        <div>닉네임</div>
+        <div>{nickname}</div>
       </div>
       <div>
         <img src="" alt="" />
       </div>
       <VoteButtons />
-      <div>내용</div>
+      <div>{content}</div>
       <NavButton direction="next" />
     </section>
   );

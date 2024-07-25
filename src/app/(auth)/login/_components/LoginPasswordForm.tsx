@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function LoginPasswordForm({ password, setPassword }) {
+function LoginPasswordForm({ password, setPassword }: { password: string; setPassword: (password: string) => void }) {
   const [isCorrected, setCorrected] = useState(true);
 
   return (

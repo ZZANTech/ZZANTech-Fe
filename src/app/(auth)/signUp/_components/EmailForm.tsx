@@ -1,17 +1,18 @@
 "use client";
 
 import { createClient } from "@/utils/supabase/client";
-import { useState } from "react";
+import { ChangeEvent, MouseEventHandler, useState } from "react";
 
-function EmailForm({ email, setEmail }) {
+function EmailForm({ email, setEmail }: { email: string; setEmail: (email: string) => void }) {
   const [isDuplicated, setIsDuplicated] = useState(false);
   const [isCorrected, setIsCorrected] = useState(false);
   const supabase = createClient();
 
-  const isDuplicate = async (e) => {
+  const handleCheckDuplicate: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
     let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
-    if (users.length > 0) {
+    if (users!.length > 0) {
+      //users의 타입정의 필요
       setIsDuplicated(true);
       setIsCorrected(false);
     } else {
@@ -33,7 +34,7 @@ function EmailForm({ email, setEmail }) {
             setEmail(e.target.value);
           }}
         />
-        <button className="w-[92px] text-white bg-[#C0C0C0] text-sm" onClick={isDuplicate}>
+        <button className="w-[92px] text-white bg-[#C0C0C0] text-sm" onClick={handleCheckDuplicate}>
           중복체크
         </button>
       </form>

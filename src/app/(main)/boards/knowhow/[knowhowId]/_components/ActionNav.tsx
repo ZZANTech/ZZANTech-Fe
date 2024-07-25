@@ -26,6 +26,7 @@ function ActionNav({ knowhowId }: ActionNavProps) {
     <nav className="flex gap-1">
       <Button href={`/boards/knowhow/edit/${knowhowId}`}>수정</Button>
       <Button onClick={handleOpenModal}>삭제</Button>
+
       <Button href="/boards/knowhow">목록으로</Button>
     </nav>
   );

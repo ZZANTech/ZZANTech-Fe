@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function PasswordForm({ password, setPassword }) {
+function PasswordForm({ password, setPassword }: { password: string; setPassword: (password: string) => void }) {
   const [isPasswordCorrected, setIsPasswordCorrected] = useState(false);
   const [isCorrected, setIsCorrected] = useState(false);
 
