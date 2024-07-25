@@ -20,7 +20,7 @@ function HeaderContainer() {
         <Link href={"/boards/knowhow"} className="MainLinkButton">
           짠-노하우
         </Link>
-        <Link href={"/"} className="MainLinkButton">
+        <Link href={"/chat"} className="MainLinkButton">
           살까말까?LIVE
         </Link>
       </div>
