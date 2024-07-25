@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { TKnowhow } from "@/types/knowhow.type";
 
-export async function GET(req: NextRequest, { params: { knowhowId } }: { params: { knowhowId: number } }) {
+export async function GET(
+  req: NextRequest,
+  { params: { knowhowId } }: { params: { knowhowId: TKnowhow["knowhow_postId"] } }
+) {
   const supabase = createClient();
 
   try {

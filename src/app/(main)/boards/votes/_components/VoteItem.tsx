@@ -10,7 +10,7 @@ function VoteItem({ vote }: voteItemProps) {
 
   return (
     <li>
-      <Link href="">
+      <Link href={`/boards/votes/${vote.vote_postId}`}>
         <div>
           <img src="" alt="" />
         </div>

@@ -1,7 +1,7 @@
 import { Tables } from "./supabase";
 
 export type TVotesResponse = {
-  posts: TVote[];
+  data: TVote[];
 };
 
 export type TVote = Tables<"vote_posts"> & {
