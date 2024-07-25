@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo.png";
 import myprofileLogo from "@/assets/myprofileLogo.png";
-import { useUserContext } from "@/provider/UserProvider";
+import { useUserContext } from "@/provider/contexts/userContext";
 
 function HeaderContainer() {
   const { user } = useUserContext();
