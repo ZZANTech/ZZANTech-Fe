@@ -4,18 +4,27 @@ import { formatTime } from "@/app/(main)/boards/_utils";
 import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
 import { ChangeEventHandler, useState } from "react";
 import Button from "@/components/Button/Button";
+import { useModal } from "@/provider/contexts/modalContext";
 
 type CommentItemProps = {
   comment: TKnowhowComment;
 };
 
 function CommentItem({ comment }: CommentItemProps) {
+  const { open, close } = useModal();
   const { nickname, content, created_at, knowhow_commentId } = comment;
   const [isEditting, setIsEditting] = useState<boolean>(false);
   const [editedContent, setEditedContent] = useState<TKnowhowComment["content"]>(content || "");
   const { updateKnowhowComment, removeKnowhowComment } = useKnowhowCommentMutation();
   const { formattedDate, formattedTime } = formatTime(created_at);
 
+  const handleOpenModal = () =>
+    open({
+      title: "게시글을 삭제하시겠습니까?",
+      type: "confirm",
+      onConfirm: handleDeleteKnowhow,
+      onCancel: close
+    });
   const handleContentChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => setEditedContent(e.target.value);
   const handleCommentDelete = () => removeKnowhowComment(comment);
   const handleCommentUpdate = async () => {
