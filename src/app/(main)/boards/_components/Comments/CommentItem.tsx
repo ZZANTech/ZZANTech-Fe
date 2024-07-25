@@ -4,18 +4,26 @@ import { formatTime } from "@/app/(main)/boards/_utils";
 import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
 import { ChangeEventHandler, useState } from "react";
 import Button from "@/components/Button/Button";
+import { useModal } from "@/provider/contexts/modalContext";
 
 type CommentItemProps = {
   comment: TKnowhowComment;
 };
 
 function CommentItem({ comment }: CommentItemProps) {
-  const { nickname, content, created_at, knowhow_commentId } = comment;
+  const modal = useModal();
+  const { nickname, content, created_at } = comment;
   const [isEditting, setIsEditting] = useState<boolean>(false);
   const [editedContent, setEditedContent] = useState<TKnowhowComment["content"]>(content || "");
   const { updateKnowhowComment, removeKnowhowComment } = useKnowhowCommentMutation();
   const { formattedDate, formattedTime } = formatTime(created_at);
 
+  const handleOpenModal = () =>
+    modal.open({
+      type: "confirm",
+      content: "댓글을 삭제하시겠습니까?",
+      onConfirm: handleCommentDelete
+    });
   const handleContentChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => setEditedContent(e.target.value);
   const handleCommentDelete = () => removeKnowhowComment(comment);
   const handleCommentUpdate = async () => {
@@ -37,7 +45,7 @@ function CommentItem({ comment }: CommentItemProps) {
             <span className="cursor-pointer" onClick={() => setIsEditting(true)}>
               수정
             </span>
-            <span className="cursor-pointer" onClick={handleCommentDelete}>
+            <span className="cursor-pointer" onClick={handleOpenModal}>
               삭제
             </span>
           </div>
