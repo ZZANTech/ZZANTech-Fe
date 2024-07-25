@@ -1,7 +1,7 @@
-import { ModalProps } from "@/provider/contexts/modalContext";
+import { ConfirmModalProps } from "@/types/modal.type";
 import Button from "../Button/Button";
 
-function ConfirmModal({ content, subContent, onConfirm, onCancel }: ModalProps) {
+function ConfirmModal({ content, subContent, onConfirm, onCancel }: ConfirmModalProps) {
   return (
     <div>
       <h6 className="text-center">{content}</h6>
