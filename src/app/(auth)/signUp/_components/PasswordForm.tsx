@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function Passworddiv({ password, setPassword }: { password: string; setPassword: (password: string) => void }) {
+function PasswordForm({ password, setPassword }: { password: string; setPassword: (password: string) => void }) {
   const [isPasswordCorrected, setIsPasswordCorrected] = useState(false);
   const [isCorrected, setIsCorrected] = useState(false);
 
@@ -46,4 +46,4 @@ function Passworddiv({ password, setPassword }: { password: string; setPassword:
   );
 }
 
-export default Passworddiv;
+export default PasswordForm;
