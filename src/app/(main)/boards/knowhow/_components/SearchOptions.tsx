@@ -18,7 +18,11 @@ function SearchOptions({ selectedSearchOption, onSearch, onSearchOptionChange }:
   };
   return (
     <form onSubmit={handleSearch} className="flex">
-      <select value={selectedSearchOption} onChange={(e) => onSearchOptionChange(e.target.value)}>
+      <select
+        className="border border-gray-500 rounded-lg "
+        value={selectedSearchOption}
+        onChange={(e) => onSearchOptionChange(e.target.value)}
+      >
         {SEARCH_OPTIONS.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

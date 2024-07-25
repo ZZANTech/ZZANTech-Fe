@@ -1,4 +1,5 @@
 "use client";
+import Button from "@/components/Button/Button";
 import { TOption } from "../_constants";
 import SearchOptions from "./SearchOptions";
 import SortOptions from "./SortOptions";
@@ -17,13 +18,14 @@ function KnowhowFilter({
   onSearch
 }: KnowhowFilterTypes) {
   return (
-    <nav className="flex">
+    <nav className="flex justify-between">
       <SortOptions onSortOrderChange={onSortOrderChange} />
       <SearchOptions
         onSearch={onSearch}
         onSearchOptionChange={onSearchOptionChange}
         selectedSearchOption={selectedSearchOption}
       />
+      <Button href={"/boards/knowhow/write"}>새 글작성</Button>
     </nav>
   );
 }
