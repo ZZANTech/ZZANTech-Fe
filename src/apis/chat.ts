@@ -9,9 +9,10 @@ export const fetchChatRooms = async () => {
   return response.json();
 };
 
-export const uploadImage = async (file: File): Promise<TUploadResponse> => {
+export const uploadImage = async (file: File, bucketName: string): Promise<TUploadResponse> => {
   const formData = new FormData();
   formData.append("file", file);
+  formData.append("bucket", bucketName);
 
   const response = await fetch(`${BASE_URL}/api/image/upload`, {
     method: "POST",
@@ -30,12 +31,10 @@ export const fetchInitialChats = async (roomId: number): Promise<TChat[]> => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    console.error("Error fetching initial chats:", errorData);
     throw new Error(errorData.error || "Failed to fetch initial chats.");
   }
 
   const data = await response.json();
-  console.log("Fetched initial chats:", data);
   return data;
 };
 

@@ -13,7 +13,7 @@ const ChatMessageInput = ({ roomId }: { roomId: number }) => {
 
     if (image) {
       try {
-        const uploadResponse = await uploadImage(image);
+        const uploadResponse = await uploadImage(image, "chat_image");
         imageUrl = uploadResponse.url;
       } catch (error) {
         console.error("Error uploading image:", error);
