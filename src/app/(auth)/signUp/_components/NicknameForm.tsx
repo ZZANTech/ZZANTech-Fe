@@ -11,7 +11,8 @@ function NicknameForm({ nickname, setNickname }: { nickname: string; setNickname
   const handleCheckDuplicate: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
     let { data: users, error } = await supabase.from("users").select("*").eq("nickname", nickname);
-    if (users!.length > 0) { //users의 타입정의 필요
+    if (users!.length > 0) {
+      //users의 타입정의 필요
       setIsDuplicated(true);
       setIsCorrected(false);
     } else {
@@ -21,24 +22,24 @@ function NicknameForm({ nickname, setNickname }: { nickname: string; setNickname
   };
 
   return (
-    <div className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
+    <div className="AuthInputDiv">
       <label>닉네임</label>
-      <form className="flex flex-row gap-2.5">
+      <form className="AuthInputForm">
         <input
           type="text"
           value={nickname}
           placeholder="닉네임을 입력해주세요"
-          className="w-[400px] h-[56px] p-[16px] border"
+          className="AuthInputShort"
           onChange={(e) => {
             setNickname(e.target.value);
           }}
         />
-        <button className="w-[92px] text-white bg-[#C0C0C0] text-sm" onClick={handleCheckDuplicate}>
+        <button className="AuthDupButton" onClick={handleCheckDuplicate}>
           중복체크
         </button>
       </form>
-      {isDuplicated ? <p className="text-red-500 text-xs">동일한 닉네임이 있습니다.</p> : ""}
-      {isCorrected ? <p className="text-green-500 text-xs">사용 가능한 닉네임입니다.</p> : ""}
+      {isDuplicated ? <p className="AuthStateInfo">동일한 닉네임이 있습니다.</p> : ""}
+      {isCorrected ? <p className="AuthStateInfoGreen">사용 가능한 닉네임입니다.</p> : ""}
     </div>
   );
 }

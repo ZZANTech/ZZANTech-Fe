@@ -13,10 +13,14 @@ export async function GET() {
       .select("*")
       .eq("userId", data.user?.id as string)
       .single();
-    if (!error && users) {
-      return NextResponse.json(users);
+
+    if (error) {
+      console.error(error);
+    }
+    if (users) {
+      return NextResponse.json({ users });
     }
   }
 
-  return NextResponse.json("에러 났어요");
+  return NextResponse.json({ error: "유저가 없어요 getUSer" });
 }

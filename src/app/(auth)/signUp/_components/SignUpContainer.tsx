@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import EmailForm from "./EmailForm";
 import NicknameForm from "./NicknameForm";
 import PasswordForm from "./PasswordForm";
@@ -14,7 +14,7 @@ function SignUpContainer() {
   const [recheckPassword, setRecheckPassword] = useState<string>("");
   const router = useRouter();
 
-  const handleClickSignup = async () => {
+  const handleClickSignUp = async () => {
     const data = { email, nickname, password, recheckPassword };
     const response = await fetch("http://localhost:3000/api/auth/signup", {
       method: "POST",
@@ -38,7 +38,7 @@ function SignUpContainer() {
           password={password}
         />
       </section>
-      <button className="w-[400px] p-2.5 text-center text-white bg-black" onClick={handleClickSignup}>
+      <button className="w-[400px] p-2.5 text-center text-white bg-black" onClick={handleClickSignUp}>
         회원가입 완료하기
       </button>
     </div>

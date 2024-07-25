@@ -4,11 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo.png";
 import myprofileLogo from "@/assets/myprofileLogo.png";
-import { useUserContext } from "@/provider/UserProvider";
+import { useUserContext } from "@/provider/contexts/userContext";
 
 function HeaderContainer() {
   const { user } = useUserContext();
-  console.log("Header user >>", user);
+  console.log("HeaderContainer user >>", user);
 
   return (
     <div className="w-[1120px] mx-auto my-5 flex flex-row border border-gray-100 gap-5 items-center justify-center">
