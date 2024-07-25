@@ -61,7 +61,6 @@ const formats = [
 ];
 
 function KnowhowEditor({ previousContent, revalidate }: KnowhowEditorProps) {
-  // const { data: previousContent } = useKnowhowQuery(Number(knowhowId));
   const { addKnowhowImage } = useKnowhowImageMutation();
   const { addKnowhow, updateKnowhow } = useKnowhowMutation(revalidate);
   const quillRef = useRef<ReactQuill>(null);
@@ -100,7 +99,6 @@ function KnowhowEditor({ previousContent, revalidate }: KnowhowEditorProps) {
 
     const quillObj = quillRef.current?.getEditor();
     let content = quillObj?.root.innerHTML;
-    console.log(content);
 
     const base64Images = content?.match(/src="data:image\/[^"]+"/g) || [];
     const urlImages = content?.match(/src="https:\/\/[^"]+"/g) || [];
@@ -198,7 +196,7 @@ function KnowhowEditor({ previousContent, revalidate }: KnowhowEditorProps) {
         value={editorContent}
         onChange={handleEditorChange}
       />
-      <Button onClick={() => console.log("sdf")}>작성하기</Button>
+      <Button>작성하기</Button>
     </form>
   );
 }
