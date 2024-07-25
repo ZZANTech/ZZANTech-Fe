@@ -5,11 +5,9 @@ import dynamic from "next/dynamic";
 import Button from "@/components/Button/Button";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill, { ReactQuillProps } from "react-quill";
-import { BASE_URL } from "@/constants";
 import useKnowhowImageMutation from "@/stores/queries/useKnowhowImageMutation";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
 import { TKnowhow } from "@/types/knowhow.type";
-import { useRouter } from "next/navigation";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
@@ -17,6 +15,7 @@ type ForwardedQuillComponent = ReactQuillProps & {
 
 type KnowhowEditorProps = {
   previousContent?: TKnowhow;
+  revalidate?: (knowhowId: TKnowhow["knowhow_postId"]) => void;
 };
 
 const QuillNoSSRWrapper = dynamic<ForwardedQuillComponent>(
@@ -61,10 +60,10 @@ const formats = [
   "width"
 ];
 
-function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
-  const router = useRouter();
+function KnowhowEditor({ previousContent, revalidate }: KnowhowEditorProps) {
+  // const { data: previousContent } = useKnowhowQuery(Number(knowhowId));
   const { addKnowhowImage } = useKnowhowImageMutation();
-  const { addKnowhow, updateKnowhow } = useKnowhowMutation();
+  const { addKnowhow, updateKnowhow } = useKnowhowMutation(revalidate);
   const quillRef = useRef<ReactQuill>(null);
   const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
   const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
@@ -149,8 +148,6 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     try {
       if (previousContent) {
         const res = await updateKnowhow({ ...newKnowhow, knowhow_postId: previousContent.knowhow_postId });
-
-        res && router.replace(`/boards/knowhow`);
       } else {
         await addKnowhow(newKnowhow);
       }

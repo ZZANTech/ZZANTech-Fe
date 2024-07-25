@@ -1,9 +1,9 @@
 import { SORT_LATEST, SEARCH_TITLECONTENT } from "@/app/(main)/boards/knowhow/_constants";
 import { ITEMS_PER_PAGE } from "./../../app/(main)/boards/knowhow/_constants/index";
 import { deleteKnowhow, postKnowhow, patchKnowhow } from "@/apis/knowhow";
-import { TResponseStatus } from "@/types/knowhow.type";
+import { TKnowhow, TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Error from "next/error";
 import { useRouter } from "next/navigation";
 
@@ -18,7 +18,7 @@ const DEFAULT_KNOWHOWS_QUERY_KEY = [
   }
 ];
 
-const useKnowhowMutation = () => {
+const useKnowhowMutation = (revalidate?: (knowhowId: TKnowhow["knowhow_postId"]) => void) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { mutateAsync: addKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
@@ -27,17 +27,18 @@ const useKnowhowMutation = () => {
       queryClient.invalidateQueries({
         queryKey: DEFAULT_KNOWHOWS_QUERY_KEY
       });
-      router.replace("/boards/knowhow");
+      router.push("/boards/knowhow");
     }
   });
 
   const { mutateAsync: updateKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
     mutationFn: (updatedKnowhow) => patchKnowhow(updatedKnowhow),
-    onSuccess: () => {
+    onSuccess: (status, updatedKnowhow) => {
       queryClient.invalidateQueries({
         queryKey: DEFAULT_KNOWHOWS_QUERY_KEY
       });
-      router.replace("/boards/knowhow");
+      revalidate!(Number(updatedKnowhow.knowhow_postId));
+      router.push(`/boards/knowhow/${updatedKnowhow.knowhow_postId}?`);
     }
   });
   const { mutateAsync: removeKnowhow } = useMutation<TResponseStatus, Error, Tables<"knowhow_posts">["knowhow_postId"]>(
@@ -47,7 +48,7 @@ const useKnowhowMutation = () => {
         queryClient.invalidateQueries({
           queryKey: DEFAULT_KNOWHOWS_QUERY_KEY
         });
-        router.replace("/boards/knowhow");
+        router.push("/boards/knowhow");
       }
     }
   );

@@ -49,6 +49,7 @@ export const PATCH = async (req: NextRequest, { params }: { params: { knowhowId:
         .from("knowhow_posts")
         .update(updatedKnowhow)
         .eq("knowhow_postId", knowhowId);
+
       return NextResponse.json({ status, statusText });
     }
   } catch (e) {

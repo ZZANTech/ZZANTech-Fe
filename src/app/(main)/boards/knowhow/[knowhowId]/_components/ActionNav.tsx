@@ -1,14 +1,13 @@
 "use client";
 import Button from "@/components/Button/Button";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 type ActionNavProps = {
   knowhowId: number;
 };
 
 function ActionNav({ knowhowId }: ActionNavProps) {
-  const router = useRouter();
   const { removeKnowhow } = useKnowhowMutation();
   const handleDeleteKnowhow = async () => {
     await removeKnowhow(knowhowId);
