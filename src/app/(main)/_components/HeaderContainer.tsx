@@ -6,7 +6,7 @@ import myprofileLogo from "@/assets/myprofileLogo.png";
 function HeaderContainer() {
   const user = true;
   return (
-    <div className="w-[1120px] mx-auto my-5 flex flex-row border border-gray-100 gap-5 items-center justify-center">
+    <div className="mx-auto my-5 flex flex-row border border-gray-100 gap-5 items-center justify-center">
       <Link href={"/"} className="w-[200px]">
         <Image src={logo} width={132} height={24} alt="logo" />
       </Link>
