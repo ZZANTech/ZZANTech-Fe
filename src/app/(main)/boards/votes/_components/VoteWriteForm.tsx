@@ -64,48 +64,66 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
     <div>
       <form onSubmit={handleSubmit}>
         <div className="flex items-center gap-2">
-          <label htmlFor="title">제목</label>
+          <label htmlFor="title">
+            <span>제목</span>
+            <span>*</span>
+          </label>
           <input
             type="text"
             id="title"
             onChange={(e) => setTitle(e.target.value)}
             className="mt-1 p-2 border rounded-md"
             placeholder="제목을 입력해 주세요 (2~100자)"
+            maxLength={100}
           />
         </div>
         <div className="flex items-center gap-2">
-          <label htmlFor="productName">소비 내역</label>
+          <label htmlFor="productName">
+            <span>소비 내역</span>
+            <span>*</span>
+          </label>
           <input
             type="text"
             id="productName"
             onChange={(e) => setProductName(e.target.value)}
             className="mt-1 p-2 border rounded-md"
             placeholder="소비 내역을 입력해 주세요 (2~100자)"
+            maxLength={100}
           />
         </div>
         <div className="flex items-center gap-2">
-          <label htmlFor="productPrice">가격</label>
+          <label htmlFor="productPrice">
+            <span>가격</span>
+            <span>*</span>
+          </label>
           <input
             type="text"
             id="productPrice"
             onChange={(e) => setProductPrice(Number(e.target.value))}
             className="mt-1 p-2 border rounded-md"
             placeholder="가격을 입력해 주세요 (숫자만, 3~10자)"
+            maxLength={10}
           />
         </div>
         <div className="flex items-center gap-2">
-          <label htmlFor="content">내용</label>
+          <label htmlFor="content">
+            <span>내용</span>
+            <span>*</span>
+          </label>
           <textarea
             className="mt-1 p-2 border rounded-md"
             id="content"
             onChange={(e) => setContent(e.target.value)}
             placeholder="내용을 입력해 주세요 (2~200자)"
+            maxLength={200}
           ></textarea>
         </div>
         <div className="flex items-center gap-2">
-          <label className="imageUrl">사진 첨부</label>
+          <label className="imageUrl">
+            <span>사진 첨부</span>
+            <span>*</span>
+          </label>
           <div>
-            {/* 첨부파일 미리보기 */}
             {imageUrl && <img src={imageUrl} alt="첨부된 사진 미리보기 이미지" className="w-32 h-32 object-cover" />}
             <input type="file" id="imageUrl" onChange={handleImageChange} />
           </div>
