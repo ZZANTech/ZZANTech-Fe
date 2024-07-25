@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { FormEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TVote } from "@/types/vote.type";
 import Button from "@/components/Button/Button";

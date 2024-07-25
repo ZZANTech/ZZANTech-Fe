@@ -8,7 +8,7 @@ const useVoteMutation = (revalidate?: (voteId: TVote["vote_postId"]) => void) =>
   const router = useRouter();
   const queryClient = useQueryClient();
   const { mutateAsync: addVote } = useMutation<TVotesResponse, Error, Partial<Tables<"vote_posts">>>({
-    mutationFn: (newVote: TVote) => postVote(newVote),
+    mutationFn: (newVote) => postVote(newVote),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["votes"]
