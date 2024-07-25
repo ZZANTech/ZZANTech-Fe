@@ -6,11 +6,11 @@ type voteItemProps = {
 };
 
 function VoteItem({ vote }: voteItemProps) {
-  const { image_url, title, nickname, votes_count, comments_count } = vote;
+  const { vote_postId, image_url, title, nickname, votes_count, comments_count } = vote;
 
   return (
     <li>
-      <Link href={`/boards/votes/${vote.vote_postId}`}>
+      <Link href={`/boards/votes/${vote_postId}`}>
         <div>
           <img src="" alt="" />
         </div>
