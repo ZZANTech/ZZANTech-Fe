@@ -8,11 +8,10 @@ export async function POST(request: NextRequest) {
 
   const supabase = createClient();
 
-  const result = await supabase.auth.signInWithPassword({
+  const response = await supabase.auth.signInWithPassword({
     email,
     password
   });
 
-  console.log(result);
-  return NextResponse.json("로그인 완료 // 유저 정보를 가져와라");
+  return NextResponse.json(response);
 }

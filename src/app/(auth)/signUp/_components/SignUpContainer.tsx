@@ -6,10 +6,8 @@ import EmailForm from "./EmailForm";
 import NicknameForm from "./NicknameForm";
 import PasswordForm from "./PasswordForm";
 import RecheckPasswordForm from "./RecheckPasswordForm";
-import { User } from "@supabase/supabase-js";
 
 function SignUpContainer() {
-  const [user, setUser] = useState<User | null>({});
   const [email, setEmail] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -17,27 +15,15 @@ function SignUpContainer() {
   const router = useRouter();
 
   const handleClickSignup = async () => {
-    const currentUserData = { email, nickname, password, recheckPassword };
+    const data = { email, nickname, password, recheckPassword };
     const response = await fetch("http://localhost:3000/api/auth/signup", {
       method: "POST",
-      body: JSON.stringify(currentUserData)
+      body: JSON.stringify(data)
     });
-    const data = await response.json();
-    console.log("handleClickSignup >> ", data);
+    const singupData = await response.json();
+    console.log("handleClickSignup >> ", singupData);
     router.replace("/login");
   };
-
-  useEffect(() => {
-    fetch("http://localhost:3000/api/auth/me").then(async (response) => {
-      if (response.status === 200) {
-        const {
-          data: { user }
-        } = await response.json();
-        setUser(user);
-        console.log("user", user);
-      }
-    });
-  }, []);
 
   return (
     <div className="flex flex-col items-center w-[800px] mx-auto my-10 p-10">
