@@ -19,7 +19,7 @@ function KnowhowItem({ knowhow }: knowhowItemProps) {
   return (
     <li className="w-[1080px] h-[220px] border rounded-xl">
       <Link className="flex" href={`/boards/knowhow/${knowhow.knowhow_postId}`}>
-        <div>
+        <div className="w-full">
           <div>{title}</div>
           <div dangerouslySetInnerHTML={{ __html: textWithoutImages }} />
           <div> {nickname}</div>

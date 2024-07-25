@@ -1,16 +1,21 @@
 "use client";
 
-import React, { useCallback, useRef, useState, FormEventHandler } from "react";
+import { useCallback, useRef, useState, FormEventHandler, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Button from "@/components/Button/Button";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill, { ReactQuillProps } from "react-quill";
-import { BASE_URL } from "@/constants";
 import useKnowhowImageMutation from "@/stores/queries/useKnowhowImageMutation";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
+import { TKnowhow } from "@/types/knowhow.type";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
+};
+
+type KnowhowEditorProps = {
+  previousContent?: TKnowhow;
+  revalidate?: (knowhowId: TKnowhow["knowhow_postId"]) => void;
 };
 
 const QuillNoSSRWrapper = dynamic<ForwardedQuillComponent>(
@@ -55,11 +60,12 @@ const formats = [
   "width"
 ];
 
-function KnowhowEditor() {
+function KnowhowEditor({ previousContent, revalidate }: KnowhowEditorProps) {
   const { addKnowhowImage } = useKnowhowImageMutation();
-  const { addKnowhow } = useKnowhowMutation();
-  const titleRef = useRef<HTMLInputElement>(null);
+  const { addKnowhow, updateKnowhow } = useKnowhowMutation(revalidate);
   const quillRef = useRef<ReactQuill>(null);
+  const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
+  const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
 
   const handleImageUpload = (file: File) => {
     const reader = new FileReader();
@@ -95,6 +101,7 @@ function KnowhowEditor() {
     let content = quillObj?.root.innerHTML;
 
     const base64Images = content?.match(/src="data:image\/[^"]+"/g) || [];
+    const urlImages = content?.match(/src="https:\/\/[^"]+"/g) || [];
     const imageFiles: { file: File; base64: string }[] = [];
     const imageUrls: string[] = [];
 
@@ -104,29 +111,44 @@ function KnowhowEditor() {
       imageFiles.push({ file, base64: base64Data });
     });
 
-    const formData = new FormData();
-    imageFiles.forEach(({ file }) => {
-      formData.append("img", file);
+    urlImages.forEach((imageString) => {
+      const url = imageString.split('"')[1];
+      imageUrls.push(url);
     });
 
-    try {
-      const data = await addKnowhowImage(formData);
-
-      data.forEach((url: { publicUrl: string }, index: number) => {
-        const publicUrl = url.publicUrl;
-        const base64Data = imageFiles[index].base64;
-        content = content?.replace(base64Data, publicUrl);
-        imageUrls.push(publicUrl);
+    if (imageFiles.length > 0) {
+      const formData = new FormData();
+      imageFiles.forEach(({ file }) => {
+        formData.append("img", file);
       });
 
-      const newKnowhow = {
-        title: titleRef?.current?.value,
-        content: content,
-        image_urls: imageUrls,
-        user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
-      };
+      try {
+        const data = await addKnowhowImage(formData);
 
-      await addKnowhow(newKnowhow);
+        data.forEach((url: { publicUrl: string }, index: number) => {
+          const publicUrl = url.publicUrl;
+          const base64Data = imageFiles[index].base64;
+          content = content?.replace(base64Data, publicUrl);
+          imageUrls.push(publicUrl);
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    const newKnowhow = {
+      title: editorTitle,
+      content,
+      image_urls: imageUrls,
+      user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
+    };
+
+    try {
+      if (previousContent) {
+        const res = await updateKnowhow({ ...newKnowhow, knowhow_postId: previousContent.knowhow_postId });
+      } else {
+        await addKnowhow(newKnowhow);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -146,11 +168,35 @@ function KnowhowEditor() {
 
   const modules = getModules(imageHandler);
 
+  useEffect(() => {
+    if (previousContent) {
+      setEditorTitle(previousContent.title);
+      setEditorContent(previousContent.content);
+    }
+  }, [previousContent]);
+
+  const handleEditorChange = (content: string) => {
+    setEditorContent(content);
+  };
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
-      <input className="h-[50px]" id="title" ref={titleRef} type="text" />
-      <QuillNoSSRWrapper forwardedRef={quillRef} className="mb-12 h-[800px]" modules={modules} formats={formats} />
-      <Button onClick={() => console.log("sdf")}>작성하기</Button>
+      <input
+        className="h-[50px]"
+        id="title"
+        onChange={(e) => setEditorTitle(e.target.value)}
+        value={editorTitle}
+        type="text"
+      />
+      <QuillNoSSRWrapper
+        forwardedRef={quillRef}
+        className="mb-12 h-[800px]"
+        modules={modules}
+        formats={formats}
+        value={editorContent}
+        onChange={handleEditorChange}
+      />
+      <Button>작성하기</Button>
     </form>
   );
 }

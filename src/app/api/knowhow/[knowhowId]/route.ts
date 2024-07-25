@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { TKnowhow } from "@/types/knowhow.type";
 
-export async function GET(req: NextRequest, { params: { knowhowId } }: { params: { knowhowId: string } }) {
+export async function GET(
+  req: NextRequest,
+  { params: { knowhowId } }: { params: { knowhowId: TKnowhow["knowhow_postId"] } }
+) {
   const supabase = createClient();
 
   try {
@@ -36,3 +40,45 @@ export async function GET(req: NextRequest, { params: { knowhowId } }: { params:
     return NextResponse.json({ error: "알 수 없는 에러" }, { status: 500 });
   }
 }
+
+export const PATCH = async (req: NextRequest, { params }: { params: { knowhowId: string } }) => {
+  const supabase = createClient();
+
+  const knowhowId = params.knowhowId;
+  const updatedKnowhow = await req.json();
+
+  try {
+    if (knowhowId && updatedKnowhow) {
+      const { status, statusText } = await supabase
+        .from("knowhow_posts")
+        .update(updatedKnowhow)
+        .eq("knowhow_postId", knowhowId);
+
+      return NextResponse.json({ status, statusText });
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      return NextResponse.json({ error: e.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
+    }
+  }
+};
+
+export const DELETE = async (req: NextRequest, { params }: { params: { knowhowId: string } }) => {
+  const supabase = createClient();
+
+  const knowhowId = params.knowhowId;
+  try {
+    if (knowhowId) {
+      const { status, statusText } = await supabase.from("knowhow_posts").delete().eq("knowhow_postId", knowhowId);
+      return NextResponse.json({ status, statusText });
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      return NextResponse.json({ error: e.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
+    }
+  }
+};
