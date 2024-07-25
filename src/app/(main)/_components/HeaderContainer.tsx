@@ -1,10 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/assets/logo.png";
 import myprofileLogo from "@/assets/myprofileLogo.png";
+import { useUserContext } from "@/provider/UserProvider";
 
 function HeaderContainer() {
-  const user = true;
+  const { user } = useUserContext();
+  console.log("Header user >>", user);
+
   return (
     <div className="w-[1120px] mx-auto my-5 flex flex-row border border-gray-100 gap-5 items-center justify-center">
       <Link href={"/"} className="w-[200px]">
@@ -26,7 +31,7 @@ function HeaderContainer() {
       </div>
       <div className="w-[200px] flex flex-row-reverse items-center">
         {user ? (
-          <Link href={"/myprofile"} className="MainLinkButton flex flex-row gap-1">
+          <Link href={"/mypage"} className="MainLinkButton flex flex-row gap-1">
             <p>마이프로필</p>
             <Image src={myprofileLogo} width={24} height={24} alt="logo" />
           </Link>

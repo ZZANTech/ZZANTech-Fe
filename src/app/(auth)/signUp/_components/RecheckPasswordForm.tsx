@@ -1,4 +1,12 @@
-function RecheckPasswordForm({ recheckPassword, setRecheckPassword, password }) {
+function RecheckPasswordForm({
+  recheckPassword,
+  setRecheckPassword,
+  password
+}: {
+  recheckPassword: string;
+  setRecheckPassword: (recheckPassword: string) => void;
+  password: string;
+}) {
   return (
     <form className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
       <label>비밀번호 확인</label>

@@ -9,12 +9,14 @@ export async function POST(request: NextRequest) {
 
   const supabase = createClient();
 
-  const result = await supabase.auth.signUp({
+  //supabase.auth.singUp 함수
+  await supabase.auth.signUp({
     email,
     password
   });
 
-  const result2 = await supabase
+  // 'users' 테이블에 insert
+  await supabase
     .from("users")
     .insert({
       userId: data.user?.id,

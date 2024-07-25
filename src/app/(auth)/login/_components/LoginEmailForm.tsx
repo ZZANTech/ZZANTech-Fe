@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function LoginEmailForm({ email, setEmail }) {
+function LoginEmailForm({ email, setEmail }: { email: string; setEmail: (email: string) => void }) {
   const [isCorrected, setCorrected] = useState(true);
 
   return (
