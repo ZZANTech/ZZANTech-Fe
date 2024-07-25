@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-function PasswordForm({ password, setPassword }: { password: string; setPassword: (password: string) => void }) {
+function Passworddiv({ password, setPassword }: { password: string; setPassword: (password: string) => void }) {
   const [isPasswordCorrected, setIsPasswordCorrected] = useState(false);
   const [isCorrected, setIsCorrected] = useState(false);
 
@@ -14,15 +14,17 @@ function PasswordForm({ password, setPassword }: { password: string; setPassword
    */
 
   return (
-    <form className="flex flex-col w-[500px] gap-2.5 p-2.5 bg-white">
+    <div className="AuthInputDiv">
       <label>비밀번호</label>
       <input
         type="password"
         value={password}
         placeholder="비밀번호를 입력해주세요"
-        className="w-100% h-[56px] p-[16px] border"
+        className="AuthInput"
         onChange={(e) => {
           setPassword(e.target.value);
+
+          //유효성 검사: 비밀번호
           const regex = /^[a-z\d]{4,12}$/;
           const passwordTest = regex.exec(password);
           if (!passwordTest) {
@@ -35,13 +37,13 @@ function PasswordForm({ password, setPassword }: { password: string; setPassword
         }}
       />
       {isPasswordCorrected ? (
-        <p className="text-red-500 text-xs">비밀번호는 영문(소문자), 숫자 4자리 이상 12자리 이하만 가능해요</p>
+        <p className="AuthStateInfo">비밀번호는 영문(소문자), 숫자 4자리 이상 12자리 이하만 가능해요</p>
       ) : (
         ""
       )}
-      {isCorrected ? <p className="text-green-500 text-xs">가능한 비밀번호 입니다</p> : ""}
-    </form>
+      {isCorrected ? <p className="AuthStateInfoGreen">가능한 비밀번호 입니다</p> : ""}
+    </div>
   );
 }
 
-export default PasswordForm;
+export default Passworddiv;

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MouseEventHandler, useContext, useState } from "react";
+import { MouseEventHandler, useState } from "react";
 import LoginEmailForm from "./LoginEmailForm";
 import LoginPasswordForm from "./LoginPasswordForm";
 import { useUserContext } from "@/provider/UserProvider";
@@ -16,7 +16,6 @@ function LoginContainer() {
   const handleClickLogin: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
     logIn(email, password);
-
     router.replace("/");
   };
 

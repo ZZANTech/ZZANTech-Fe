@@ -6,4 +6,28 @@
     @apply px-2 py-5 mx-5 text-gray-800 text-[16px] text-center 
     hover:font-bold hover:border-b-2 border-gray-800;
   }
+  .AuthInput {
+    @apply w-[100%] h-[56px] p-[16px] border;
+  }
+  .AuthInputShort {
+    @apply w-[400px] h-[56px] p-[16px] border;
+  }
+
+  .AuthInputDiv {
+    @apply flex flex-col w-[440px] gap-2.5 p-2.5 bg-white;
+  }
+  .AuthInputForm {
+    @apply flex flex-row gap-2.5;
+  }
+
+  .AuthStateInfo {
+    @apply text-red-500 text-xs;
+  }
+  .AuthStateInfoGreen {
+    @apply text-green-500 text-xs;
+  }
+
+  .AuthDupButton {
+    @apply w-[92px] text-white bg-[#C0C0C0] text-sm;
+  }
 }
