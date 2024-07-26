@@ -33,6 +33,11 @@ export const postKnowhow = async (newKnowhow: Partial<Tables<"knowhow_posts">>) 
     },
     body: JSON.stringify(newKnowhow)
   });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "게시글 작성에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
   const knowhows = await res.json();
   return knowhows;
 };
@@ -45,6 +50,11 @@ export const patchKnowhow = async (updatedKnowhow: Partial<Tables<"knowhow_posts
     },
     body: JSON.stringify(updatedKnowhow)
   });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "게시글 수정에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
   const knowhows = await res.json();
   return knowhows;
 };
@@ -52,6 +62,11 @@ export const deleteKnowhow = async (knowhowId: Tables<"knowhow_posts">["knowhow_
   const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}`, {
     method: "DELETE"
   });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "게시글 삭제에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
   const knowhows = await res.json();
   return knowhows;
 };
