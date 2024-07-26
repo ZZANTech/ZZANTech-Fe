@@ -9,11 +9,11 @@ import { useModal } from "@/provider/contexts/ModalContext";
 import { uploadImage } from "@/apis/chat";
 
 type VoteWriteFormProps = {
-  revalidate?: (voteId: TVote["vote_postId"]) => void;
+  previousContent?: TVote;
 };
 
-function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
-  const { addVote } = useVoteMutation(revalidate);
+function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
+  const { addVote } = useVoteMutation();
   const router = useRouter();
   const modal = useModal();
 
