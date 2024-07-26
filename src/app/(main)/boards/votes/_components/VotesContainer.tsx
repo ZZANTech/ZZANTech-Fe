@@ -5,7 +5,12 @@ import Button from "@/components/Button/Button";
 import VotesList from "./VotesList";
 
 function VotesContainer() {
-  const { data: votes } = useVotesQuery();
+  const { data: votes, isLoading } = useVotesQuery();
+
+  if (isLoading) {
+    // 로딩 처리 어떻게 할 것?
+    return <div>Loading...</div>;
+  }
   return (
     <section>
       <Button href={"/boards/votes/write"}>새 글작성</Button>
