@@ -7,12 +7,15 @@ import Button from "@/components/Button/Button";
 import useVoteMutation from "@/stores/queries/useVoteMutation";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { uploadImage } from "@/apis/chat";
+import useAlertModal from "@/hooks/useAlertModal";
 
 type VoteWriteFormProps = {
   previousContent?: TVote;
 };
 
 function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
+  const { displayDefaultAlert } = useAlertModal();
+
   const { addVote, updateVote } = useVoteMutation();
   const router = useRouter();
   const modal = useModal();
@@ -89,7 +92,8 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         const uploadResponse = await uploadImage(image, "vote_image");
         uploadedImageUrl = uploadResponse.url;
       } catch (error) {
-        console.error("Error uploading image:", error);
+        displayDefaultAlert("이미지 업로드에 실패했습니다.");
+        console.log(error);
         return;
       }
     }
@@ -109,12 +113,14 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       } else {
         await addVote(newVote);
       }
-      // 성공적으로 게시글이 등록되었다는 메시지 표시
-      // 어떻게 보여주는 게 좋을까?
     } catch (error) {
-      // 오류가 발생하여 게시글 등록에 실패했다는 메시지 표시
-      // 어떻게 보여주는 게 좋을까?
+      if (previousContent) {
+        displayDefaultAlert("게시글 수정에 실패했습니다.");
+      } else {
+        displayDefaultAlert("게시글 작성에 실패했습니다.");
+      }
       console.log(error);
+      return;
     }
   };
 
