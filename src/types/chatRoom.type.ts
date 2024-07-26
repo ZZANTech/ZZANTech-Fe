@@ -1,3 +1,3 @@
-import { Tables } from "./supabase";
+import { Tables } from "@/types/supabase";
 
 export type TChatRoom = Tables<"chat_rooms">;
