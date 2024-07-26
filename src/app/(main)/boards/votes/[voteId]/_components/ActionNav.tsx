@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/Button/Button";
+import useAlertModal from "@/hooks/useAlertModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import useVoteMutation from "@/stores/queries/useVoteMutation";
 import { TVote } from "@/types/vote.type";
@@ -10,11 +11,19 @@ type ActionNavProps = {
 };
 
 function ActionNav({ vote }: ActionNavProps) {
+  const { displayDefaultAlert } = useAlertModal();
+
   const modal = useModal();
   const { removeVote } = useVoteMutation();
 
   const handleDeleteVote = async () => {
-    await removeVote(vote.vote_postId);
+    try {
+      await removeVote(vote.vote_postId);
+    } catch (error) {
+      displayDefaultAlert("게시글 삭제에 실패했습니다.");
+      console.log(error);
+      return;
+    }
   };
 
   const handleOpenModal = () =>
