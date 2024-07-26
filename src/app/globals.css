@@ -7,14 +7,14 @@
     hover:font-bold hover:border-b-2 border-gray-800;
   }
   .AuthInput {
-    @apply w-[100%] h-[56px] p-[16px] border;
+    @apply w-[340px] h-[56px] p-[16px] border rounded-lg pointer-events-auto;
   }
   .AuthInputShort {
     @apply w-[400px] h-[56px] p-[16px] border;
   }
 
   .AuthInputDiv {
-    @apply flex flex-col w-[440px] gap-2.5 p-2.5 bg-white;
+    @apply flex flex-col gap-2.5 p-2.5 bg-white;
   }
   .AuthInputForm {
     @apply flex flex-row gap-2.5;
@@ -28,6 +28,10 @@
   }
 
   .AuthDupButton {
-    @apply w-[92px] text-white bg-[#C0C0C0] text-sm;
+    @apply w-[92px] text-white bg-[#C0C0C0] text-sm rounded-lg;
+  }
+
+  .AuthLoginButton {
+    @apply w-[340px] p-2.5 text-center rounded-lg hover:font-bold;
   }
 }
