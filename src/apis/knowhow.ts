@@ -120,6 +120,7 @@ export const deleteKnowhowComment = async (commentId: Tables<"knowhow_comments">
 
   if (!res.ok) {
     const errorData = await res.json();
+
     const errorMessage = errorData.error || "댓글 삭제에 실패했습니다.";
     throw new Error(errorMessage);
   }
@@ -160,6 +161,7 @@ export const deleteKnowhowLike = async (likeData: Partial<Tables<"knowhow_likes"
   if (!res.ok) {
     const errorData = await res.json();
     const errorMessage = errorData.error || "좋아요 업데이트에 실패했습니다";
+
     throw new Error(errorMessage);
   }
   const data = await res.json();

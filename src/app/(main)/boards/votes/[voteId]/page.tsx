@@ -1,5 +1,6 @@
 import { getVote } from "@/apis/votes";
 import VoteContent from "@/app/(main)/boards/votes/[voteId]/_components/VoteContent";
+import ActionNav from "@/app/(main)/boards/votes/[voteId]/_components/ActionNav";
 
 async function VoteDetailPage({ params: { voteId } }: { params: { voteId: number } }) {
   const vote = await getVote(voteId);
@@ -7,7 +8,7 @@ async function VoteDetailPage({ params: { voteId } }: { params: { voteId: number
   return (
     <main>
       <VoteContent vote={vote} />
-      {/* ActionNav */}
+      <ActionNav vote={vote} />
       {/* CommentsContainer */}
     </main>
   );
