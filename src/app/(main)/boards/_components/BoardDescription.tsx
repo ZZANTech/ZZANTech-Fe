@@ -1,12 +1,12 @@
 import { ReactNode } from "react";
 
-type BoardsPageProps = {
+type BoardDescriptionProps = {
   title: string;
   description: string;
   children: ReactNode;
 };
 
-function BoardsPage({ title, description, children }: BoardsPageProps) {
+function BoardDescription({ title, description, children }: BoardDescriptionProps) {
   return (
     <main>
       <section>
@@ -18,4 +18,4 @@ function BoardsPage({ title, description, children }: BoardsPageProps) {
   );
 }
 
-export default BoardsPage;
+export default BoardDescription;

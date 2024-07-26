@@ -1,5 +1,5 @@
+import Button from "@/components/Button/Button";
 import { ConfirmModalProps } from "@/types/modal.type";
-import Button from "../Button/Button";
 
 function ConfirmModal({ content, subContent, onConfirm, onCancel }: ConfirmModalProps) {
   return (

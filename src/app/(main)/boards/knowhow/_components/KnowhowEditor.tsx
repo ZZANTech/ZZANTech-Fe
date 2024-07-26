@@ -16,7 +16,6 @@ type ForwardedQuillComponent = ReactQuillProps & {
 
 type KnowhowEditorProps = {
   previousContent?: TKnowhow;
-  revalidate?: (knowhowId: TKnowhow["knowhow_postId"]) => void;
 };
 
 const QuillNoSSRWrapper = dynamic<ForwardedQuillComponent>(
@@ -61,10 +60,10 @@ const formats = [
   "width"
 ];
 
-function KnowhowEditor({ previousContent, revalidate }: KnowhowEditorProps) {
+function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   const { user } = useUserContext();
   const { addKnowhowImage } = useKnowhowImageMutation();
-  const { addKnowhow, updateKnowhow } = useKnowhowMutation(revalidate);
+  const { addKnowhow, updateKnowhow } = useKnowhowMutation();
   const quillRef = useRef<ReactQuill>(null);
   const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
   const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");

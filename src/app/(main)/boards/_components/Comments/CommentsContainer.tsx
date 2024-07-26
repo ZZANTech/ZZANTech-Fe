@@ -1,8 +1,8 @@
 "use client";
 
+import CommentForm from "@/app/(main)/boards/_components/Comments/CommentForm";
+import CommentsList from "@/app/(main)/boards/_components/Comments/CommentsList";
 import useKnowhowCommentsQuery from "@/stores/queries/useKnowhowCommentsQuery";
-import CommentForm from "./CommentForm";
-import CommentsList from "./CommentsList";
 
 type CommentsContainerProps = {
   postId: number;

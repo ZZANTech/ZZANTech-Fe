@@ -1,4 +1,4 @@
-import SignUpContainer from "./_components/SignUpContainer";
+import SignUpContainer from "@/app/(auth)/signUp/_components/SignUpContainer";
 
 function SignUp() {
   return <SignUpContainer />;

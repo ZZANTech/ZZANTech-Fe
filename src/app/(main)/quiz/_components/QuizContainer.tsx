@@ -2,10 +2,10 @@
 
 import { useQuizStore } from "@/stores/zustand/quizStore";
 import { useRouter } from "next/navigation";
-import QuizAnswer from "./QuizAnswer";
-import QuizQuestion from "./QuizQuestion";
 import { useQuiz } from "@/stores/queries/useQuizQuery";
 import { useSubmitAnswer } from "@/stores/queries/useSubmitAnswerMutation";
+import QuizAnswer from "@/app/(main)/quiz/_components/QuizAnswer";
+import QuizQuestion from "@/app/(main)/quiz/_components/QuizQuestion";
 
 function QuizContainer() {
   const router = useRouter();

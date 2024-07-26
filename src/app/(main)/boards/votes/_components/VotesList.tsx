@@ -1,5 +1,5 @@
+import VoteItem from "@/app/(main)/boards/votes/_components/VoteItem";
 import { TVote } from "@/types/vote.type";
-import VoteItem from "./VoteItem";
 
 type VotesListProps = {
   votes: TVote[] | undefined;

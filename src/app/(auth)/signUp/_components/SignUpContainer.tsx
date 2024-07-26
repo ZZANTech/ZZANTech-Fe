@@ -1,11 +1,11 @@
 "use client";
 
+import EmailForm from "@/app/(auth)/signUp/_components/EmailForm";
+import NicknameForm from "@/app/(auth)/signUp/_components/NicknameForm";
+import PasswordForm from "@/app/(auth)/signUp/_components/PasswordForm";
+import RecheckPasswordForm from "@/app/(auth)/signUp/_components/RecheckPasswordForm";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import EmailForm from "./EmailForm";
-import NicknameForm from "./NicknameForm";
-import PasswordForm from "./PasswordForm";
-import RecheckPasswordForm from "./RecheckPasswordForm";
 
 function SignUpContainer() {
   const [email, setEmail] = useState<string>("");
