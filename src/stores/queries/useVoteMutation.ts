@@ -2,7 +2,7 @@ import { TVotesResponse } from "@/types/vote.type";
 import { Tables } from "@/types/supabase";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postVote, patchVote } from "@/apis/votes";
+import { postVote, patchVote, deleteVote } from "@/apis/votes";
 import { revalidated } from "@/utils/revalidation";
 
 const useVoteMutation = () => {
@@ -30,7 +30,17 @@ const useVoteMutation = () => {
     }
   });
 
-  return { addVote, updateVote };
+  const { mutateAsync: removeVote } = useMutation<TVotesResponse, Error, Tables<"vote_posts">["vote_postId"]>({
+    mutationFn: (voteId) => deleteVote(voteId),
+    onSuccess: (status, voteId) => {
+      queryClient.invalidateQueries({
+        queryKey: ["votes"]
+      });
+      router.push("/boards/votes");
+    }
+  });
+
+  return { addVote, updateVote, removeVote };
 };
 
 export default useVoteMutation;
