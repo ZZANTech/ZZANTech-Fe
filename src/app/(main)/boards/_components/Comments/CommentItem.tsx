@@ -5,6 +5,8 @@ import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutatio
 import { ChangeEventHandler, useState } from "react";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import CommentActions from "@/app/(main)/boards/_components/Comments/CommentActions";
+import CommentEditForm from "@/app/(main)/boards/_components/Comments/CommentEditForm";
 
 type CommentItemProps = {
   comment: TKnowhowComment;
