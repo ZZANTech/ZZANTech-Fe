@@ -57,7 +57,6 @@ export const POST = async (req: NextRequest) => {
 
   try {
     if (likeData) {
-      console.log(likeData);
       const { status, statusText, error } = await supabase.from("knowhow_likes").insert(likeData).single();
 
       if (error) {
@@ -82,7 +81,6 @@ export const DELETE = async (req: NextRequest) => {
   try {
     if (likeData) {
       const { knowhow_post_id, user_id } = likeData;
-      console.log(likeData);
       if (!knowhow_post_id || !user_id) {
         throw new Error("필요한 데이터가 없습니다.");
       }

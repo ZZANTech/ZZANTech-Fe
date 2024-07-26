@@ -1,22 +1,27 @@
 import { deleteKnowhowLike, postKnowhowLike } from "@/apis/knowhow";
 import useAlertModal from "@/hooks/useAlertModal";
-import { TKnowhowLikesCountResponse, TResponseStatus } from "@/types/knowhow.type";
-import { Tables } from "@/types/supabase";
+import { TKnowhowLikesCountResponse, TResponseStatus, TUpdateKnowhowLikeParams } from "@/types/knowhow.type";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useKnowhowLikeMutation = () => {
   const { displayDefaultAlert } = useAlertModal();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: addLike } = useMutation<
+  const { mutateAsync: updateLike } = useMutation<
     TResponseStatus,
     Error,
-    Partial<Tables<"knowhow_likes">>,
+    TUpdateKnowhowLikeParams,
     { previousLikes?: TKnowhowLikesCountResponse }
   >({
-    mutationFn: (likeData) => postKnowhowLike(likeData),
-    onMutate: async (newLike) => {
-      const knowhowId = newLike.knowhow_post_id;
+    mutationFn: async ({ likeData, likeCountData }) => {
+      if (likeCountData.isLiked) {
+        return deleteKnowhowLike(likeData);
+      } else {
+        return postKnowhowLike(likeData);
+      }
+    },
+    onMutate: async ({ likeData, likeCountData }) => {
+      const knowhowId = likeData.knowhow_post_id;
 
       await queryClient.cancelQueries({ queryKey: ["knowhowLikes", { knowhowId }] });
 
@@ -24,69 +29,29 @@ const useKnowhowLikeMutation = () => {
 
       if (previousLikes) {
         queryClient.setQueryData<TKnowhowLikesCountResponse>(["knowhowLikes", { knowhowId }], {
-          likeCount: previousLikes.isLiked ? previousLikes.likeCount - 1 : previousLikes.likeCount + 1,
-          isLiked: !previousLikes.isLiked
+          likeCount: likeCountData.isLiked ? previousLikes.likeCount - 1 : previousLikes.likeCount + 1,
+          isLiked: !likeCountData.isLiked
         });
       }
 
       return { previousLikes };
     },
-    onError: (err, newLike, context) => {
-      const knowhowId = newLike.knowhow_post_id;
-      console.log(context);
+    onError: (err, { likeData }, context) => {
+      const knowhowId = likeData.knowhow_post_id;
 
       if (context?.previousLikes) {
         queryClient.setQueryData<TKnowhowLikesCountResponse>(["knowhowLikes", { knowhowId }], context.previousLikes);
       }
       displayDefaultAlert(err.message);
     },
-    onSettled: (status, error, newLike) => {
-      const knowhowId = newLike.knowhow_post_id;
+    onSettled: (status, error, { likeData }) => {
+      const knowhowId = likeData.knowhow_post_id?.toString();
 
       queryClient.invalidateQueries({ queryKey: ["knowhowLikes", { knowhowId }] });
     }
   });
 
-  const { mutateAsync: removeLike } = useMutation<
-    TResponseStatus,
-    Error,
-    Partial<Tables<"knowhow_likes">>,
-    { previousLikes?: TKnowhowLikesCountResponse }
-  >({
-    mutationFn: (likeData) => deleteKnowhowLike(likeData),
-    onMutate: async (newLike) => {
-      const knowhowId = newLike.knowhow_post_id;
-
-      await queryClient.cancelQueries({ queryKey: ["knowhowLikes", { knowhowId }] });
-
-      const previousLikes = queryClient.getQueryData<TKnowhowLikesCountResponse>(["knowhowLikes", { knowhowId }]);
-
-      if (previousLikes) {
-        queryClient.setQueryData<TKnowhowLikesCountResponse>(["knowhowLikes", { knowhowId }], {
-          likeCount: previousLikes.isLiked ? previousLikes.likeCount - 1 : previousLikes.likeCount + 1,
-          isLiked: !previousLikes.isLiked
-        });
-      }
-
-      return { previousLikes };
-    },
-    onError: (err, newLike, context) => {
-      const knowhowId = newLike.knowhow_post_id;
-      console.log(context);
-
-      if (context?.previousLikes) {
-        queryClient.setQueryData<TKnowhowLikesCountResponse>(["knowhowLikes", { knowhowId }], context.previousLikes);
-      }
-      displayDefaultAlert(err.message);
-    },
-    onSettled: (status, error, newLike) => {
-      const knowhowId = newLike.knowhow_post_id;
-
-      queryClient.invalidateQueries({ queryKey: ["knowhowLikes", { knowhowId }] });
-    }
-  });
-
-  return { addLike, removeLike };
+  return { updateLike };
 };
 
 export default useKnowhowLikeMutation;

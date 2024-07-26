@@ -25,3 +25,8 @@ export type TResponseStatus = {
   status: number;
   statusText: string;
 };
+
+export type TUpdateKnowhowLikeParams = {
+  likeData: Partial<Tables<"knowhow_likes">>;
+  likeCountData: TKnowhowLikesCountResponse;
+};

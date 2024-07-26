@@ -19,14 +19,16 @@ function KnowhowLikes({ knowhowId }: knowhowLikesProps) {
       knowhow_post_id: knowhowId,
       user_id: user?.userId
     };
-    likeCountData?.isLiked ? await removeLike(likeData) : await addLike(likeData);
+    if (likeCountData) {
+      await updateLike({ likeData, likeCountData });
+    }
   };
 
   return (
     <div className="flex gap-1">
       <div onClick={handleUpdateLike}>{likeCountData?.isLiked ? "🩷" : "🤍"}</div>
       <div>좋아요</div>
-      <div>{likeCountData ? `${likeCountData.likeCount}` : "0"}</div>
+      <div className="w-5">{likeCountData ? `${likeCountData.likeCount}` : "0"}</div>
     </div>
   );
 }

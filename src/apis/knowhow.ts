@@ -129,7 +129,6 @@ export const deleteKnowhowComment = async (commentId: Tables<"knowhow_comments">
 
 export const getKnowhowLikesCount = async (knowhowId: TKnowhow["knowhow_postId"]) => {
   const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}/like`);
-  console.log(res);
   if (!res.ok) {
     const errorData = await res.json();
     const errorMessage = errorData.error || "좋아요 업데이트에 실패했습니다";
