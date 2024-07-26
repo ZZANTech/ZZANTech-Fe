@@ -17,11 +17,12 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   const router = useRouter();
   const modal = useModal();
 
-  const [title, setTitle] = useState<string>("");
-  const [productName, setProductName] = useState<string>("");
-  const [productPrice, setProductPrice] = useState<number>(0);
-  const [content, setContent] = useState<string>("");
+  const [title, setTitle] = useState<string>(previousContent?.title || "");
+  const [productName, setProductName] = useState<string>(previousContent?.product_name || "");
+  const [productPrice, setProductPrice] = useState<number>(previousContent?.product_price || 0);
+  const [content, setContent] = useState<string>(previousContent?.content || "");
   const [image, setImage] = useState<File | null>(null);
+  const [imageUrl, setImageUrl] = useState<string | null>(previousContent?.image_url || null);
 
   const [errors, setErrors] = useState({
     title: "",
@@ -68,7 +69,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       newErrors.content = "내용은 필수 입력 항목입니다.";
     }
 
-    if (!image) {
+    if (!image && !imageUrl) {
       newErrors.image = "사진은 필수 입력 항목입니다.";
     }
 
@@ -81,12 +82,12 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
 
     if (!validateForm()) return;
 
-    let imageUrl: string | null = null;
+    let uploadedImageUrl: string | null = imageUrl;
 
     if (image) {
       try {
         const uploadResponse = await uploadImage(image, "vote_image");
-        imageUrl = uploadResponse.url;
+        uploadedImageUrl = uploadResponse.url;
       } catch (error) {
         console.error("Error uploading image:", error);
         return;
@@ -98,7 +99,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       product_name: productName,
       product_price: productPrice,
       content,
-      image_url: imageUrl ?? undefined,
+      image_url: uploadedImageUrl ?? undefined,
       user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
     };
 
@@ -133,6 +134,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             type="text"
             id="title"
             onChange={(e) => setTitle(e.target.value)}
+            value={title}
             className="mt-1 p-2 border rounded-md"
             placeholder="제목을 입력해 주세요 (2~100자)"
             maxLength={100}
@@ -148,6 +150,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             type="text"
             id="productName"
             onChange={(e) => setProductName(e.target.value)}
+            value={productName}
             className="mt-1 p-2 border rounded-md"
             placeholder="소비 내역을 입력해 주세요 (2~100자)"
             maxLength={100}
@@ -163,6 +166,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             type="text"
             id="productPrice"
             onChange={(e) => setProductPrice(Number(e.target.value))}
+            value={productPrice}
             className="mt-1 p-2 border rounded-md"
             placeholder="가격을 입력해 주세요 (숫자만, 3~10자)"
             maxLength={10}
@@ -178,6 +182,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             className="mt-1 p-2 border rounded-md"
             id="content"
             onChange={(e) => setContent(e.target.value)}
+            value={content}
             placeholder="내용을 입력해 주세요 (2~200자)"
             maxLength={200}
           ></textarea>
@@ -189,14 +194,21 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <span>*</span>
           </label>
           <div>
-            {image && (
+            {(image || imageUrl) && (
               <img
-                src={URL.createObjectURL(image)}
+                src={image ? URL.createObjectURL(image) : imageUrl!}
                 alt="첨부된 사진 미리보기 이미지"
                 className="w-32 h-32 object-cover"
               />
             )}
-            <input type="file" id="image" onChange={(e) => setImage(e.target.files?.[0] || null)} />
+            <input
+              type="file"
+              id="image"
+              onChange={(e) => {
+                setImage(e.target.files?.[0] || null);
+                setImageUrl(null);
+              }}
+            />
             {errors.image && <span className="text-red-500 text-sm">{errors.image}</span>}
           </div>
         </div>
