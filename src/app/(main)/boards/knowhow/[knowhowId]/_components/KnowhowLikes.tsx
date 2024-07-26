@@ -12,7 +12,6 @@ type knowhowLikesProps = {
 function KnowhowLikes({ knowhowId }: knowhowLikesProps) {
   const { user } = useUserContext();
   const { data: likeCountData } = useKnowhowLikesCountQuery(knowhowId);
-  console.log(likeCountData?.isLiked);
   const { updateLike } = useKnowhowLikeMutation();
   const handleUpdateLike = async () => {
     const likeData: Partial<Tables<"knowhow_likes">> = {
