@@ -24,7 +24,7 @@ function VoteContent({ vote }: VoteContentProps) {
         <div>{nickname}</div>
       </div>
       <div>
-        <img src="" alt="" />
+        <img src={image_url} alt="게시글 이미지" className="w-32 h-32 object-cover" />
       </div>
       <VoteButtons />
       <div>{content}</div>
