@@ -8,6 +8,7 @@ import ReactQuill, { ReactQuillProps } from "react-quill";
 import useKnowhowImageMutation from "@/stores/queries/useKnowhowImageMutation";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
 import { TKnowhow } from "@/types/knowhow.type";
+import { useUserContext } from "@/provider/contexts/userContext";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
@@ -61,6 +62,7 @@ const formats = [
 ];
 
 function KnowhowEditor({ previousContent, revalidate }: KnowhowEditorProps) {
+  const { user } = useUserContext();
   const { addKnowhowImage } = useKnowhowImageMutation();
   const { addKnowhow, updateKnowhow } = useKnowhowMutation(revalidate);
   const quillRef = useRef<ReactQuill>(null);
@@ -136,21 +138,24 @@ function KnowhowEditor({ previousContent, revalidate }: KnowhowEditorProps) {
       }
     }
 
-    const newKnowhow = {
-      title: editorTitle,
-      content,
-      image_urls: imageUrls,
-      user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
-    };
+    if (user) {
+      console.log(user);
+      const newKnowhow = {
+        title: editorTitle,
+        content,
+        image_urls: imageUrls,
+        user_id: user.userId
+      };
 
-    try {
-      if (previousContent) {
-        const res = await updateKnowhow({ ...newKnowhow, knowhow_postId: previousContent.knowhow_postId });
-      } else {
-        await addKnowhow(newKnowhow);
+      try {
+        if (previousContent) {
+          const res = await updateKnowhow({ ...newKnowhow, knowhow_postId: previousContent.knowhow_postId });
+        } else {
+          await addKnowhow(newKnowhow);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
     }
   };
 

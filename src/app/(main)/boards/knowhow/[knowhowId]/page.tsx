@@ -9,7 +9,7 @@ async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowI
   return (
     <main>
       <PostContent knowhow={knowhow} />
-      <PostActions knowhowId={knowhowId} />
+      <PostActions knowhow={knowhow} />
       <CommentsContainer postId={knowhowId} />
     </main>
   );
