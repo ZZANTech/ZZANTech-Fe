@@ -1,7 +1,7 @@
 import { ModalProvider } from "@/provider/contexts/modalContext";
-import QueryProvider from "@/provider/queryProvider";
 import { ReactNode } from "react";
 import UserProvider from "./contexts/userContext";
+import QueryProvider from "./QueryProvider";
 
 function Providers({ children }: { children: ReactNode }) {
   return (

@@ -8,7 +8,7 @@ type QuizAnswerProps = {
   onClose: () => void;
 };
 
-const QuizAnswer = ({ isCorrect, explanation, onClose }: QuizAnswerProps) => {
+function QuizAnswer({ isCorrect, explanation, onClose }: QuizAnswerProps) {
   return (
     <div className="p-8 flex flex-col items-center justify-center">
       <section className="mb-5 text-center">
@@ -25,6 +25,6 @@ const QuizAnswer = ({ isCorrect, explanation, onClose }: QuizAnswerProps) => {
       </button>
     </div>
   );
-};
+}
 
 export default QuizAnswer;

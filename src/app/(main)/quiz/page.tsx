@@ -1,12 +1,12 @@
 import QuizContainer from "./_components/QuizContainer";
 import QuizModal from "./_components/QuizModal";
 
-const QuizPage = async () => {
+function QuizPage() {
   return (
     <QuizModal>
       <QuizContainer />
     </QuizModal>
   );
-};
+}
 
 export default QuizPage;

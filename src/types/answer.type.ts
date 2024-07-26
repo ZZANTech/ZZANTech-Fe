@@ -1,3 +1,10 @@
 import { Tables } from "./supabase";
 
-export type Answer = Tables<"answers">;
+export type TAnswer = Tables<"answers">;
+
+export type TAnswerResponse = {
+  isCorrect: boolean;
+  explanation: string;
+};
+
+export type TSubmitAnswer = Pick<TAnswer, "user_id" | "quiz_id" | "answer">;
