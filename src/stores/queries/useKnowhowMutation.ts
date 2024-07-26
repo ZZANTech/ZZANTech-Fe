@@ -20,6 +20,7 @@ const DEFAULT_KNOWHOWS_QUERY_KEY = [
 
 const useKnowhowMutation = () => {
   const { displayDefaultAlert } = useAlertModal();
+
   const router = useRouter();
   const queryClient = useQueryClient();
   const { mutateAsync: addKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
