@@ -97,7 +97,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
     const newVote = {
       title,
       product_name: productName,
-      product_price: productPrice,
+      product_price: productPrice ?? undefined,
       content,
       image_url: uploadedImageUrl ?? undefined,
       user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
