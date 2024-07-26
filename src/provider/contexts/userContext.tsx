@@ -6,10 +6,9 @@ import { createContext, useContext, useEffect, useState } from "react";
 type UserContextType = {
   user: User | null;
   logIn: (email: string, password: string) => void;
-  getUser: () => void;
 };
 
-const UserContext = createContext<UserContextType>({ user: null, logIn: () => {}, getUser: () => {} });
+const UserContext = createContext<UserContextType>({ user: null, logIn: () => {} });
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
@@ -42,6 +41,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     await getUser();
   };
 
-  return <UserContext.Provider value={{ user, logIn, getUser }}>{children}</UserContext.Provider>;
+  return <UserContext.Provider value={{ user, logIn }}>{children}</UserContext.Provider>;
 };
 export default UserProvider;
