@@ -26,10 +26,6 @@ export const GET = async (req: Request) => {
 export const POST = async (req: Request) => {
   const supabase = createClient();
   const { room_id, content, image_url, user_id } = await req.json();
-  console.log("Room ID:", room_id); // 로그 추가
-  console.log("Content:", content); // 로그 추가
-  console.log("Image URL:", image_url); // 로그 추가
-  console.log("User ID:", user_id); // 로그 추가
 
   // 방이 존재하는지 확인
   const { data: roomData, error: roomError } = await supabase
