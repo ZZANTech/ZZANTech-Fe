@@ -24,7 +24,7 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
     }
 
     try {
-      await sendMessage(roomId, message, imageUrl, "b3a792f6-d450-49d6-ad82-307b2dd926af");
+      await sendMessage(roomId, message, imageUrl, user!.userId);
       setMessage("");
       setImage(null);
     } catch (error) {
