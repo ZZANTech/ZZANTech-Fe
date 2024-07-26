@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { MouseEventHandler, useState } from "react";
 import LoginEmailForm from "./LoginEmailForm";
 import LoginPasswordForm from "./LoginPasswordForm";
-import { useUserContext } from "@/provider/contexts/userContext";
+import { useUserContext } from "@/provider/contexts/UserContext";
 
 function LoginContainer() {
   const [email, setEmail] = useState<string>("");
