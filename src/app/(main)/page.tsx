@@ -1,12 +1,10 @@
-import Link from "next/link";
+import QuizUi from "./_components/QuizUi";
 
 export default function Home() {
   return (
     <main>
       <h1>짠테크</h1>
-      <Link href="/quiz" passHref>
-        <button>퀴즈풀기</button>
-      </Link>
+      <QuizUi />
     </main>
   );
 }
