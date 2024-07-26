@@ -2,9 +2,23 @@
 import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
 import { useState } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
-import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
+// import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import KnowhowPagination from "@/app/(main)/boards/knowhow/_components/KnowhowPagination";
 import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
+import dynamic from "next/dynamic";
+
+const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
+  loading: () => (
+    <ul className="flex flex-col gap-8 mt-10">
+      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
+      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
+      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
+      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
+      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
+    </ul>
+  ),
+  ssr: false
+});
 
 function KnowhowContainer() {
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);

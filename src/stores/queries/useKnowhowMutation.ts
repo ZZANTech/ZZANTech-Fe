@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { revalidated } from "@/utils/revalidation";
 import useAlertModal from "@/hooks/useAlertModal";
 
-const DEFAULT_KNOWHOWS_QUERY_KEY = [
+export const DEFAULT_KNOWHOWS_QUERY_KEY = [
   "knowhows",
   {
     page: 1,

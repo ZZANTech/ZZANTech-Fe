@@ -17,7 +17,7 @@ function KnowhowItem({ knowhow }: knowhowItemProps) {
   const formattedCreatedAt = dayjs(created_at).fromNow();
   const textWithoutImages = content.replace(/<img[^>]*>/g, "");
   return (
-    <li className="w-[1080px] h-[220px] border rounded-xl">
+    <li className="w-full h-[220px] border rounded-xl p-4">
       <Link className="flex" href={`/boards/knowhow/${knowhow.knowhow_postId}`}>
         <div className="w-full bg-white">
           <div>{title}</div>

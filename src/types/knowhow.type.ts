@@ -12,6 +12,11 @@ export type TKnowhow = Omit<Tables<"knowhow_posts">, "image_urls"> & {
   total_count: number;
 };
 
+export type TKnowhowLikesCountResponse = {
+  likeCount: number;
+  isLiked: boolean;
+};
+
 export type TKnowhowComment = Tables<"knowhow_comments"> & {
   nickname?: Tables<"users">["nickname"];
 };

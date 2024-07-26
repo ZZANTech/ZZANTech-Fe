@@ -5,11 +5,11 @@ import { ReactNode } from "react";
 
 function Providers({ children }: { children: ReactNode }) {
   return (
-    <QueryProvider>
-      <UserProvider>
-        <ModalProvider>{children}</ModalProvider>
-      </UserProvider>
-    </QueryProvider>
+    <ModalProvider>
+      <QueryProvider>
+        <UserProvider>{children}</UserProvider>
+      </QueryProvider>
+    </ModalProvider>
   );
 }
 
