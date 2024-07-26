@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { TVote } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
 import useVoteMutation from "@/stores/queries/useVoteMutation";
-import { useModal } from "@/provider/contexts/modalContext";
+import { useModal } from "@/provider/contexts/ModalContext";
 
 type VoteWriteFormProps = {
   revalidate?: (voteId: TVote["vote_postId"]) => void;

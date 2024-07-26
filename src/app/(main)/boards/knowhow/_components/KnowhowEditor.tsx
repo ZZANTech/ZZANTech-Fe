@@ -8,7 +8,7 @@ import ReactQuill, { ReactQuillProps } from "react-quill";
 import useKnowhowImageMutation from "@/stores/queries/useKnowhowImageMutation";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
 import { TKnowhow } from "@/types/knowhow.type";
-import { useUserContext } from "@/provider/contexts/userContext";
+import { useUserContext } from "@/provider/contexts/UserContext";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
