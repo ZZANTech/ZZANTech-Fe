@@ -98,7 +98,7 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
       product_name: productName,
       product_price: productPrice,
       content,
-      image_url: imageUrl,
+      image_url: imageUrl ?? undefined,
       user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
     };
 
