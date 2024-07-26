@@ -22,6 +22,59 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
   const [content, setContent] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
 
+  const [errors, setErrors] = useState({
+    title: "",
+    productName: "",
+    productPrice: "",
+    content: "",
+    imageUrl: ""
+  });
+
+  const validateForm = () => {
+    const newErrors = {
+      title: "",
+      productName: "",
+      productPrice: "",
+      content: "",
+      imageUrl: ""
+    };
+
+    if (title.length < 2 || title.length > 100) {
+      newErrors.title = "제목을 2자 이상 100자 이하로 입력해 주세요.";
+    }
+    if (!title.trim()) {
+      newErrors.title = "제목은 필수 입력 항목입니다.";
+    }
+
+    if (productName.length < 2 || productName.length > 100) {
+      newErrors.productName = "소비 내역을 2자 이상 100자 이하로 입력해 주세요.";
+    }
+    if (!productName.trim()) {
+      newErrors.productName = "소비 내역은 필수 입력 항목입니다.";
+    }
+
+    if (!productPrice || productPrice === 0) {
+      newErrors.productPrice = "가격은 필수 입력 항목입니다.";
+    }
+    if (isNaN(productPrice)) {
+      newErrors.productPrice = "가격은 숫자만 입력해 주세요.";
+    }
+
+    if (content.length < 2 || content.length > 200) {
+      newErrors.content = "내용을 2자 이상 200자 이하로 입력해 주세요.";
+    }
+    if (!content.trim()) {
+      newErrors.content = "내용은 필수 입력 항목입니다.";
+    }
+
+    if (!imageUrl) {
+      newErrors.imageUrl = "사진은 필수 입력 항목입니다.";
+    }
+
+    setErrors(newErrors);
+    return Object.values(newErrors).every((err) => err === "");
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const image = e.target.files?.[0];
     if (image) {
@@ -31,6 +84,8 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) return;
 
     const newVote = {
       title,
@@ -76,6 +131,7 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
             placeholder="제목을 입력해 주세요 (2~100자)"
             maxLength={100}
           />
+          {errors.title && <span className="text-red-500 text-sm">{errors.title}</span>}
         </div>
         <div className="flex items-center gap-2">
           <label htmlFor="productName">
@@ -90,6 +146,7 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
             placeholder="소비 내역을 입력해 주세요 (2~100자)"
             maxLength={100}
           />
+          {errors.productName && <span className="text-red-500 text-sm">{errors.productName}</span>}
         </div>
         <div className="flex items-center gap-2">
           <label htmlFor="productPrice">
@@ -104,6 +161,7 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
             placeholder="가격을 입력해 주세요 (숫자만, 3~10자)"
             maxLength={10}
           />
+          {errors.productPrice && <span className="text-red-500 text-sm">{errors.productPrice}</span>}
         </div>
         <div className="flex items-center gap-2">
           <label htmlFor="content">
@@ -117,6 +175,7 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
             placeholder="내용을 입력해 주세요 (2~200자)"
             maxLength={200}
           ></textarea>
+          {errors.content && <span className="text-red-500 text-sm">{errors.content}</span>}
         </div>
         <div className="flex items-center gap-2">
           <label className="imageUrl">
@@ -126,6 +185,7 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
           <div>
             {imageUrl && <img src={imageUrl} alt="첨부된 사진 미리보기 이미지" className="w-32 h-32 object-cover" />}
             <input type="file" id="imageUrl" onChange={handleImageChange} />
+            {errors.imageUrl && <span className="text-red-500 text-sm">{errors.imageUrl}</span>}
           </div>
         </div>
         <div>
