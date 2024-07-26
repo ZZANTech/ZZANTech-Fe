@@ -9,13 +9,13 @@ export async function POST(req: NextRequest) {
     const files = formData.getAll("img") as File[];
 
     if (!files.length) {
-      throw new Error("파일이 없로드되지 않았어요");
+      throw new Error("파일이 첨부되지 않았습니다.");
     }
 
     const MAX_SIZE = 10 * 1024 * 1024;
     for (const file of files) {
       if (file.size > MAX_SIZE) {
-        throw new Error("파일의 최대크기는 10MB입니다.");
+        throw new Error("파일의 최대 크기는 10MB입니다.");
       }
     }
 
@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     if (error instanceof Error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     } else {
-      return NextResponse.json({ error: "알 수 없는 에러입니당." }, { status: 500 });
+      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다." }, { status: 500 });
     }
   }
 }
