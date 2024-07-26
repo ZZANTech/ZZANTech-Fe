@@ -12,7 +12,7 @@ function ActionNav({ vote }: ActionNavProps) {
     <nav className="flex gap-1">
       <Button href={`/boards/votes/edit/${vote.vote_postId}`}>수정</Button>
       <Button>삭제</Button>
-      <Button href="/boards/knowhow">목록으로</Button>
+      <Button href="/boards/votes">목록으로</Button>
     </nav>
   );
 }

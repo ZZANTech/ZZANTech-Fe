@@ -10,7 +10,7 @@ export const getVotes = async () => {
 };
 
 export const getVote = async (voteId: TVote["vote_postId"]) => {
-  const res = await fetch(`${BASE_URL}/api/votes/${voteId}`);
+  const res = await fetch(`${BASE_URL}/api/votes/${voteId}`, { cache: "no-store" });
   const vote: TVote = await res.json();
   return vote;
 };
@@ -22,6 +22,18 @@ export const postVote = async (newVote: Partial<Tables<"vote_posts">>) => {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(newVote)
+  });
+  const vote = await res.json();
+  return vote;
+};
+
+export const patchVote = async (updatedVote: Partial<Tables<"vote_posts">>) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${updatedVote.vote_postId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(updatedVote)
   });
   const vote = await res.json();
   return vote;

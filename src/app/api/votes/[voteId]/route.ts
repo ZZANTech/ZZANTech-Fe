@@ -37,3 +37,24 @@ export async function GET(req: NextRequest, { params: { voteId } }: { params: { 
     return NextResponse.json({ error: "알 수 없는 에러" }, { status: 500 });
   }
 }
+
+export const PATCH = async (req: NextRequest, { params }: { params: { voteId: number } }) => {
+  const supabase = createClient();
+
+  const voteId = params.voteId;
+  const updatedVote = await req.json();
+
+  try {
+    if (voteId && updatedVote) {
+      const { status, statusText } = await supabase.from("vote_posts").update(updatedVote).eq("vote_postId", voteId);
+
+      return NextResponse.json({ status, statusText });
+    }
+  } catch (e) {
+    if (e instanceof Error) {
+      return NextResponse.json({ error: e.message }, { status: 500 });
+    } else {
+      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
+    }
+  }
+};

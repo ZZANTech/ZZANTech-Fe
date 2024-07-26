@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TVote } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
@@ -13,13 +13,13 @@ type VoteWriteFormProps = {
 };
 
 function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
-  const { addVote } = useVoteMutation();
+  const { addVote, updateVote } = useVoteMutation();
   const router = useRouter();
   const modal = useModal();
 
   const [title, setTitle] = useState<string>(previousContent?.title || "");
   const [productName, setProductName] = useState<string>(previousContent?.product_name || "");
-  const [productPrice, setProductPrice] = useState<number>(previousContent?.product_price || 0);
+  const [productPrice, setProductPrice] = useState<number | null>(previousContent?.product_price || null);
   const [content, setContent] = useState<string>(previousContent?.content || "");
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(previousContent?.image_url || null);
@@ -58,7 +58,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
     if (!productPrice || productPrice === 0) {
       newErrors.productPrice = "가격은 필수 입력 항목입니다.";
     }
-    if (isNaN(productPrice)) {
+    if (isNaN(productPrice!)) {
       newErrors.productPrice = "가격은 숫자만 입력해 주세요.";
     }
 
@@ -104,7 +104,11 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
     };
 
     try {
-      await addVote(newVote);
+      if (previousContent) {
+        const res = await updateVote({ ...newVote, vote_postId: previousContent.vote_postId });
+      } else {
+        await addVote(newVote);
+      }
       // 성공적으로 게시글이 등록되었다는 메시지 표시
       // 어떻게 보여주는 게 좋을까?
     } catch (error) {
@@ -166,7 +170,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             type="text"
             id="productPrice"
             onChange={(e) => setProductPrice(Number(e.target.value))}
-            value={productPrice}
+            value={productPrice !== null ? productPrice.toString() : ""}
             className="mt-1 p-2 border rounded-md"
             placeholder="가격을 입력해 주세요 (숫자만, 3~10자)"
             maxLength={10}
