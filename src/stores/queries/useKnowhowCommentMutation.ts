@@ -1,11 +1,11 @@
 import { deleteKnowhowComment, getKnowhowComments, patchKnowhowComment, postKnowhowComment } from "@/apis/knowhow";
-import useErrorModal from "@/hooks/useErrorModal";
-import { TKnowhowComment, TResponseStatus } from "@/types/knowhow.type";
+import useAlertModal from "@/hooks/useAlertModal";
+import { TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useKnowhowCommentMutation = () => {
-  const displayCommentError = useErrorModal();
+  const { displayDefaultAlert } = useAlertModal();
   const queryClient = useQueryClient();
   const { mutateAsync: addKnowhowComment } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_comments">>>({
     mutationFn: (updatedComment) => postKnowhowComment(updatedComment),
@@ -14,7 +14,7 @@ const useKnowhowCommentMutation = () => {
         queryKey: ["knowhowComments", { knowhowId: updatedComment.knowhow_post_id?.toString() }]
       });
     },
-    onError: (e) => displayCommentError(e.message)
+    onError: (e) => displayDefaultAlert(e.message)
   });
 
   const { mutateAsync: updateKnowhowComment } = useMutation<
@@ -28,7 +28,7 @@ const useKnowhowCommentMutation = () => {
         queryKey: ["knowhowComments", { knowhowId: updatedComment?.knowhow_post_id?.toString() }]
       });
     },
-    onError: (e) => displayCommentError(e.message)
+    onError: (e) => displayDefaultAlert(e.message)
   });
 
   const { mutateAsync: removeKnowhowComment } = useMutation<TResponseStatus, Error, Tables<"knowhow_comments">>({
@@ -38,7 +38,7 @@ const useKnowhowCommentMutation = () => {
         queryKey: ["knowhowComments", { knowhowId: comment.knowhow_post_id.toString() }]
       });
     },
-    onError: (e) => displayCommentError(e.message)
+    onError: (e) => displayDefaultAlert(e.message)
   });
   return { addKnowhowComment, updateKnowhowComment, removeKnowhowComment };
 };

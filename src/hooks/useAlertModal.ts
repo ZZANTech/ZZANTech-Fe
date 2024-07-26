@@ -1,16 +1,16 @@
 import { useModal } from "@/provider/contexts/ModalContext";
 
-const useErrorModal = () => {
+const useAlertModal = () => {
   const { open } = useModal();
 
-  const displayErrorModal = (content: string) => {
+  const displayDefaultAlert = (content: string) => {
     open({
       type: "alert",
       content
     });
   };
 
-  return displayErrorModal;
+  return { displayDefaultAlert };
 };
 
-export default useErrorModal;
+export default useAlertModal;
