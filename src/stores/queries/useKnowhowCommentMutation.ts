@@ -1,4 +1,4 @@
-import { deleteKnowhowComment, getKnowhowComments, patchKnowhowComment, postKnowhowComment } from "@/apis/knowhow";
+import { deleteKnowhowComment, patchKnowhowComment, postKnowhowComment } from "@/apis/knowhow";
 import useAlertModal from "@/hooks/useAlertModal";
 import { TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
