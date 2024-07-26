@@ -1,10 +1,11 @@
 import { deleteKnowhowComment, getKnowhowComments, patchKnowhowComment, postKnowhowComment } from "@/apis/knowhow";
+import useErrorModal from "@/hooks/useErrorModal";
 import { TKnowhowComment, TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Error from "next/error";
 
 const useKnowhowCommentMutation = () => {
+  const displayCommentError = useErrorModal();
   const queryClient = useQueryClient();
   const { mutateAsync: addKnowhowComment } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_comments">>>({
     mutationFn: (updatedComment) => postKnowhowComment(updatedComment),
@@ -12,7 +13,8 @@ const useKnowhowCommentMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["knowhowComments", { knowhowId: updatedComment.knowhow_post_id?.toString() }]
       });
-    }
+    },
+    onError: (e) => displayCommentError(e.message)
   });
 
   const { mutateAsync: updateKnowhowComment } = useMutation<
@@ -25,7 +27,8 @@ const useKnowhowCommentMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["knowhowComments", { knowhowId: updatedComment?.knowhow_post_id?.toString() }]
       });
-    }
+    },
+    onError: (e) => displayCommentError(e.message)
   });
 
   const { mutateAsync: removeKnowhowComment } = useMutation<TResponseStatus, Error, Tables<"knowhow_comments">>({
@@ -34,7 +37,8 @@ const useKnowhowCommentMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["knowhowComments", { knowhowId: comment.knowhow_post_id.toString() }]
       });
-    }
+    },
+    onError: (e) => displayCommentError(e.message)
   });
   return { addKnowhowComment, updateKnowhowComment, removeKnowhowComment };
 };

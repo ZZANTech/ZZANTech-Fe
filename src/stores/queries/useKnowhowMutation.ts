@@ -20,7 +20,7 @@ const DEFAULT_KNOWHOWS_QUERY_KEY = [
 
 const useKnowhowMutation = () => {
   const { open } = useModal();
-  const displayErrorModal = (content: string) =>
+  const displayError = (content: string) =>
     open({
       type: "alert",
       content
@@ -35,7 +35,7 @@ const useKnowhowMutation = () => {
       });
       router.push("/boards/knowhow");
     },
-    onError: (e) => displayErrorModal(e.message)
+    onError: (e) => displayError(e.message)
   });
 
   const { mutateAsync: updateKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
@@ -47,7 +47,7 @@ const useKnowhowMutation = () => {
       revalidated(`/boards/knowhow/${updatedKnowhow.knowhow_postId}`, "page");
       router.push(`/boards/knowhow/${updatedKnowhow.knowhow_postId}`);
     },
-    onError: (e) => displayErrorModal(e.message)
+    onError: (e) => displayError(e.message)
   });
 
   const { mutateAsync: removeKnowhow } = useMutation<TResponseStatus, Error, Tables<"knowhow_posts">["knowhow_postId"]>(
@@ -59,7 +59,7 @@ const useKnowhowMutation = () => {
         });
         router.push("/boards/knowhow");
       },
-      onError: (e) => displayErrorModal(e.message)
+      onError: (e) => displayError(e.message)
     }
   );
   return { addKnowhow, updateKnowhow, removeKnowhow };

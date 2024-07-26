@@ -86,6 +86,11 @@ export const postKnowhowComment = async (newComment: Partial<Tables<"knowhow_com
     },
     body: JSON.stringify(newComment)
   });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "댓글 작성에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
 
   const data = await res.json();
   return data;
@@ -99,6 +104,11 @@ export const patchKnowhowComment = async (updatedComment: Partial<Tables<"knowho
     },
     body: JSON.stringify(updatedComment)
   });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "댓글 수정에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
 
   const data = await res.json();
   return data;
@@ -108,6 +118,11 @@ export const deleteKnowhowComment = async (commentId: Tables<"knowhow_comments">
     method: "DELETE"
   });
 
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "댓글 수정에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
   const data = await res.json();
   return data;
 };
