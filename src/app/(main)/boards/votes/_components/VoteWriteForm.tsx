@@ -6,6 +6,7 @@ import { TVote } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
 import useVoteMutation from "@/stores/queries/useVoteMutation";
 import { useModal } from "@/provider/contexts/ModalContext";
+import { uploadImage } from "@/apis/chat";
 
 type VoteWriteFormProps = {
   revalidate?: (voteId: TVote["vote_postId"]) => void;
@@ -20,14 +21,14 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
   const [productName, setProductName] = useState<string>("");
   const [productPrice, setProductPrice] = useState<number>(0);
   const [content, setContent] = useState<string>("");
-  const [imageUrl, setImageUrl] = useState<string>("");
+  const [image, setImage] = useState<File | null>(null);
 
   const [errors, setErrors] = useState({
     title: "",
     productName: "",
     productPrice: "",
     content: "",
-    imageUrl: ""
+    image: ""
   });
 
   const validateForm = () => {
@@ -36,7 +37,7 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
       productName: "",
       productPrice: "",
       content: "",
-      imageUrl: ""
+      image: ""
     };
 
     if (title.length < 2 || title.length > 100) {
@@ -67,25 +68,30 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
       newErrors.content = "내용은 필수 입력 항목입니다.";
     }
 
-    if (!imageUrl) {
-      newErrors.imageUrl = "사진은 필수 입력 항목입니다.";
+    if (!image) {
+      newErrors.image = "사진은 필수 입력 항목입니다.";
     }
 
     setErrors(newErrors);
     return Object.values(newErrors).every((err) => err === "");
   };
 
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const image = e.target.files?.[0];
-    if (image) {
-      setImageUrl(URL.createObjectURL(image));
-    }
-  };
-
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     if (!validateForm()) return;
+
+    let imageUrl: string | null = null;
+
+    if (image) {
+      try {
+        const uploadResponse = await uploadImage(image, "vote_image");
+        imageUrl = uploadResponse.url;
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        return;
+      }
+    }
 
     const newVote = {
       title,
@@ -178,14 +184,20 @@ function VoteWriteForm({ revalidate }: VoteWriteFormProps) {
           {errors.content && <span className="text-red-500 text-sm">{errors.content}</span>}
         </div>
         <div className="flex items-center gap-2">
-          <label className="imageUrl">
+          <label className="image">
             <span>사진 첨부</span>
             <span>*</span>
           </label>
           <div>
-            {imageUrl && <img src={imageUrl} alt="첨부된 사진 미리보기 이미지" className="w-32 h-32 object-cover" />}
-            <input type="file" id="imageUrl" onChange={handleImageChange} />
-            {errors.imageUrl && <span className="text-red-500 text-sm">{errors.imageUrl}</span>}
+            {image && (
+              <img
+                src={URL.createObjectURL(image)}
+                alt="첨부된 사진 미리보기 이미지"
+                className="w-32 h-32 object-cover"
+              />
+            )}
+            <input type="file" id="image" onChange={(e) => setImage(e.target.files?.[0] || null)} />
+            {errors.image && <span className="text-red-500 text-sm">{errors.image}</span>}
           </div>
         </div>
         <div>
