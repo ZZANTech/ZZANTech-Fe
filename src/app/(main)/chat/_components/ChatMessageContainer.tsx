@@ -1,8 +1,8 @@
 "use client";
 
-import ChatMessageList from "./ChatMessageList";
-import ChatMessageInput from "./ChatMessageInput";
-import { useRealtimeChats } from "../_utils/useRealtimeChats";
+import ChatMessageInput from "@/app/(main)/chat/_components/ChatMessageInput";
+import ChatMessageList from "@/app/(main)/chat/_components/ChatMessageList";
+import { useRealtimeChats } from "@/app/(main)/chat/_utils/useRealtimeChats";
 
 function ChatMessageContainer({ roomId }: { roomId: number }) {
   useRealtimeChats(roomId);

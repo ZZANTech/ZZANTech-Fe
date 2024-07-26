@@ -1,5 +1,5 @@
+import KnowhowItem from "@/app/(main)/boards/knowhow/_components/KnowhowItem";
 import { TKnowhow } from "@/types/knowhow.type";
-import KnowhowItem from "./KnowhowItem";
 
 type knowhowListProps = {
   knowhows: TKnowhow[] | undefined;

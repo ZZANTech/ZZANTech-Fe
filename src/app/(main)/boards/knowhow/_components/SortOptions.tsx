@@ -1,4 +1,4 @@
-import { SORT_OPTIONS, TOption } from "../_constants";
+import { SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
 
 type SortOptionsProps = {
   onSortOrderChange: (value: TOption["value"]) => void;

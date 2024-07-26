@@ -1,4 +1,4 @@
-import KnowhowEditor from "../_components/KnowhowEditor";
+import KnowhowEditor from "@/app/(main)/boards/knowhow/_components/KnowhowEditor";
 
 function KnowhowWritePage() {
   return (
