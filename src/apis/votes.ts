@@ -16,7 +16,7 @@ export const getVote = async (voteId: TVote["vote_postId"]) => {
 };
 
 export const postVote = async (newVote: Partial<Tables<"vote_posts">>) => {
-  const res = await fetch(`${BASE_URL}/api/voㅁㄴㅇㄹtes/posts`, {
+  const res = await fetch(`${BASE_URL}/api/votes/posts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
