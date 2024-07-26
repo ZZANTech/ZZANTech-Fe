@@ -49,10 +49,14 @@ export const PATCH = async (req: NextRequest, { params }: { params: { knowhowId:
 
   try {
     if (knowhowId && updatedKnowhow) {
-      const { status, statusText } = await supabase
+      const { status, statusText, error } = await supabase
         .from("knowhow_posts")
         .update(updatedKnowhow)
         .eq("knowhow_postId", knowhowId);
+
+      if (error) {
+        throw new Error("게시글 수정에 실패했습니다.");
+      }
 
       return NextResponse.json({ status, statusText });
     }
@@ -71,7 +75,14 @@ export const DELETE = async (req: NextRequest, { params }: { params: { knowhowId
   const knowhowId = params.knowhowId;
   try {
     if (knowhowId) {
-      const { status, statusText } = await supabase.from("knowhow_posts").delete().eq("knowhow_postId", knowhowId);
+      const { status, statusText, error } = await supabase
+        .from("knowhow_posts")
+        .delete()
+        .eq("knowhow_postId", knowhowId);
+
+      if (error) {
+        throw new Error("게시물 삭제에 실패했습니다");
+      }
       return NextResponse.json({ status, statusText });
     }
   } catch (e) {

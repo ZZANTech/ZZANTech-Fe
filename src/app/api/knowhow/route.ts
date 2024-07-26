@@ -46,7 +46,10 @@ export const POST = async (req: Request) => {
   const newKnowhow = await req.json();
 
   try {
-    const { status, statusText } = await supabase.from("knowhow_posts").insert(newKnowhow).single();
+    const { status, statusText, error } = await supabase.from("knowhow_posts").insert(newKnowhow).single();
+    if (error) {
+      throw new Error("게시글 작성에 실패했습니다");
+    }
     return NextResponse.json({ status, statusText });
   } catch (e) {
     if (e instanceof Error) {
