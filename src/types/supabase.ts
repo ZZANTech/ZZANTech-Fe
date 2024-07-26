@@ -42,6 +42,66 @@ export type Database = {
           }
         ];
       };
+      chat_rooms: {
+        Row: {
+          created_at: string;
+          room_name: string;
+          roomId: number;
+        };
+        Insert: {
+          created_at?: string;
+          room_name: string;
+          roomId?: number;
+        };
+        Update: {
+          created_at?: string;
+          room_name?: string;
+          roomId?: number;
+        };
+        Relationships: [];
+      };
+      chats: {
+        Row: {
+          chatId: string;
+          content: string | null;
+          created_at: string;
+          image_url: string | null;
+          room_id: number;
+          user_id: string;
+        };
+        Insert: {
+          chatId?: string;
+          content?: string | null;
+          created_at?: string;
+          image_url?: string | null;
+          room_id: number;
+          user_id: string;
+        };
+        Update: {
+          chatId?: string;
+          content?: string | null;
+          created_at?: string;
+          image_url?: string | null;
+          room_id?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "chats_room_id_fkey";
+            columns: ["room_id"];
+            isOneToOne: false;
+            referencedRelation: "chat_rooms";
+            referencedColumns: ["roomId"];
+          },
+          {
+            foreignKeyName: "chats_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["userId"];
+          }
+        ];
+      };
       knowhow_comments: {
         Row: {
           content: string;
