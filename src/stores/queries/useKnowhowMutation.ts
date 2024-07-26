@@ -1,11 +1,11 @@
 import { SORT_LATEST, SEARCH_TITLECONTENT, ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import { deleteKnowhow, postKnowhow, patchKnowhow } from "@/apis/knowhow";
-import { TKnowhow, TResponseStatus } from "@/types/knowhow.type";
+import { TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Error from "next/error";
 import { useRouter } from "next/navigation";
 import { revalidated } from "@/utils/revalidation";
+import useAlertModal from "@/hooks/useAlertModal";
 
 const DEFAULT_KNOWHOWS_QUERY_KEY = [
   "knowhows",
@@ -19,6 +19,8 @@ const DEFAULT_KNOWHOWS_QUERY_KEY = [
 ];
 
 const useKnowhowMutation = () => {
+  const { displayDefaultAlert } = useAlertModal();
+
   const router = useRouter();
   const queryClient = useQueryClient();
   const { mutateAsync: addKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
@@ -28,7 +30,8 @@ const useKnowhowMutation = () => {
         queryKey: DEFAULT_KNOWHOWS_QUERY_KEY
       });
       router.push("/boards/knowhow");
-    }
+    },
+    onError: (e) => displayDefaultAlert(e.message)
   });
 
   const { mutateAsync: updateKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
@@ -39,8 +42,10 @@ const useKnowhowMutation = () => {
       });
       revalidated(`/boards/knowhow/${updatedKnowhow.knowhow_postId}`, "page");
       router.push(`/boards/knowhow/${updatedKnowhow.knowhow_postId}`);
-    }
+    },
+    onError: (e) => displayDefaultAlert(e.message)
   });
+
   const { mutateAsync: removeKnowhow } = useMutation<TResponseStatus, Error, Tables<"knowhow_posts">["knowhow_postId"]>(
     {
       mutationFn: (knowhowId) => deleteKnowhow(knowhowId),
@@ -49,7 +54,8 @@ const useKnowhowMutation = () => {
           queryKey: DEFAULT_KNOWHOWS_QUERY_KEY
         });
         router.push("/boards/knowhow");
-      }
+      },
+      onError: (e) => displayDefaultAlert(e.message)
     }
   );
   return { addKnowhow, updateKnowhow, removeKnowhow };
