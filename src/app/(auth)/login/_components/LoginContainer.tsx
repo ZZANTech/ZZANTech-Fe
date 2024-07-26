@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { MouseEventHandler, useState } from "react";
-import LoginEmailForm from "./LoginEmailForm";
-import LoginPasswordForm from "./LoginPasswordForm";
-import { useUserContext } from "@/provider/contexts/userContext";
+import { useUserContext } from "@/provider/contexts/UserContext";
+import LoginEmailForm from "@/app/(auth)/login/_components/LoginEmailForm";
+import LoginPasswordForm from "@/app/(auth)/login/_components/LoginPasswordForm";
 
 function LoginContainer() {
   const [email, setEmail] = useState<string>("");

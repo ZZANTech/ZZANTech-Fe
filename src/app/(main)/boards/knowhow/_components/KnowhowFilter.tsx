@@ -1,8 +1,8 @@
 "use client";
+import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
+import SortOptions from "@/app/(main)/boards/knowhow/_components/SortOptions";
+import { TOption } from "@/app/(main)/boards/knowhow/_constants";
 import Button from "@/components/Button/Button";
-import { TOption } from "../_constants";
-import SearchOptions from "./SearchOptions";
-import SortOptions from "./SortOptions";
 
 type KnowhowFilterTypes = {
   selectedSearchOption: TOption["value"];

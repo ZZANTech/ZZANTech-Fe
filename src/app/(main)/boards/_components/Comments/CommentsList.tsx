@@ -1,5 +1,5 @@
+import CommentItem from "@/app/(main)/boards/_components/Comments/CommentItem";
 import { TKnowhowComment } from "@/types/knowhow.type";
-import CommentItem from "./CommentItem";
 
 type CommentsListProps = {
   comments: TKnowhowComment[];

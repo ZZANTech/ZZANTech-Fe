@@ -1,5 +1,5 @@
+import ChatRoomList from "@/app/(main)/chat/_components/ChatRoomList";
 import React from "react";
-import ChatRoomList from "./_components/ChatRoomList";
 
 function ChatPage() {
   return (

@@ -1,5 +1,5 @@
 import { getVote } from "@/apis/votes";
-import VoteContent from "./_components/VoteContent";
+import VoteContent from "@/app/(main)/boards/votes/[voteId]/_components/VoteContent";
 
 async function VoteDetailPage({ params: { voteId } }: { params: { voteId: number } }) {
   const vote = await getVote(voteId);

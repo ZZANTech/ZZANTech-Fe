@@ -3,10 +3,8 @@ import { TKnowhowComment } from "@/types/knowhow.type";
 import { formatTime } from "@/app/(main)/boards/_utils";
 import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
 import { ChangeEventHandler, useState } from "react";
-import { useModal } from "@/provider/contexts/modalContext";
-import { useUserContext } from "@/provider/contexts/userContext";
-import CommentActions from "./CommentActions";
-import CommentEditForm from "./CommentEditForm";
+import { useModal } from "@/provider/contexts/ModalContext";
+import { useUserContext } from "@/provider/contexts/UserContext";
 
 type CommentItemProps = {
   comment: TKnowhowComment;

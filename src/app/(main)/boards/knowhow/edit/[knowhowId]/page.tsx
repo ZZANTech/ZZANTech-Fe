@@ -1,6 +1,5 @@
 import { getKnowhow } from "@/apis/knowhow";
-import KnowhowEditor from "../../_components/KnowhowEditor";
-import { Tables } from "@/types/supabase";
+import KnowhowEditor from "@/app/(main)/boards/knowhow/_components/KnowhowEditor";
 
 async function KnowhowEditPage({ params: { knowhowId } }: { params: { knowhowId: number } }) {
   const knowhow = await getKnowhow(knowhowId);

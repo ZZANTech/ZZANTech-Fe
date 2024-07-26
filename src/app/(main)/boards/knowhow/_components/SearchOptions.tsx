@@ -1,5 +1,5 @@
+import { SEARCH_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
 import { FormEventHandler, useRef } from "react";
-import { SEARCH_OPTIONS, TOption } from "../_constants";
 
 type SearchOptionsProps = {
   selectedSearchOption: TOption["value"];

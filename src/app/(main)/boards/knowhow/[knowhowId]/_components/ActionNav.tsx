@@ -1,7 +1,7 @@
 "use client";
 import Button from "@/components/Button/Button";
-import { useModal } from "@/provider/contexts/modalContext";
-import { useUserContext } from "@/provider/contexts/userContext";
+import { useModal } from "@/provider/contexts/ModalContext";
+import { useUserContext } from "@/provider/contexts/UserContext";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
 import { TKnowhow } from "@/types/knowhow.type";
 

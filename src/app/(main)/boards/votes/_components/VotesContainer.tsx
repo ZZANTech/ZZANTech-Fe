@@ -2,7 +2,7 @@
 
 import useVotesQuery from "@/stores/queries/useVotesQuery";
 import Button from "@/components/Button/Button";
-import VotesList from "./VotesList";
+import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
 
 function VotesContainer() {
   const { data: votes, isLoading } = useVotesQuery();

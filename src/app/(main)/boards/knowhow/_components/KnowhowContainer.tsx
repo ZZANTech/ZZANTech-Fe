@@ -1,10 +1,10 @@
 "use client";
 import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
-import KnowhowFilter from "./KnowhowFilter";
-import KnowhowList from "./KnowhowList";
-import KnowhowPagination from "./KnowhowPagination";
 import { useState } from "react";
-import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "../_constants";
+import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
+import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
+import KnowhowPagination from "@/app/(main)/boards/knowhow/_components/KnowhowPagination";
+import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
 
 function KnowhowContainer() {
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);

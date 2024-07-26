@@ -1,5 +1,4 @@
-import { SORT_LATEST, SEARCH_TITLECONTENT } from "@/app/(main)/boards/knowhow/_constants";
-import { ITEMS_PER_PAGE } from "./../../app/(main)/boards/knowhow/_constants/index";
+import { SORT_LATEST, SEARCH_TITLECONTENT, ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import { deleteKnowhow, postKnowhow, patchKnowhow } from "@/apis/knowhow";
 import { TKnowhow, TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";

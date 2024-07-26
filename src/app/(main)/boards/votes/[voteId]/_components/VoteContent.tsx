@@ -1,8 +1,8 @@
 "use client";
 
+import NavButton from "@/app/(main)/boards/votes/[voteId]/_components/NavButton";
+import VoteButtons from "@/app/(main)/boards/votes/[voteId]/_components/VoteButtons";
 import { TVote } from "@/types/vote.type";
-import NavButton from "./NavButton";
-import VoteButtons from "./VoteButtons";
 
 type VoteContentProps = {
   vote: TVote;
