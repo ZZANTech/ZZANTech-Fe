@@ -3,8 +3,8 @@ import { TVotesResponse } from "@/types/vote.type";
 import { TVote } from "@/types/vote.type";
 import { Tables } from "@/types/supabase";
 
-export const getVotes = async () => {
-  const res = await fetch(`${BASE_URL}/api/votes/posts`);
+export const getVotes = async (sortOrder: string) => {
+  const res = await fetch(`${BASE_URL}/api/votes/posts?sortOrder=${sortOrder}`);
   const votes: TVotesResponse = await res.json();
   return votes;
 };
