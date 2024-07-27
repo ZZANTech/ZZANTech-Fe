@@ -5,6 +5,7 @@ import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter
 import KnowhowPagination from "@/app/(main)/boards/knowhow/_components/KnowhowPagination";
 import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
 import dynamic from "next/dynamic";
+import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
 
 const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
   loading: () => (
@@ -58,11 +59,23 @@ function KnowhowContainer() {
         onSortOrderChange={handleSortOrderChange}
         onSearchOptionChange={handleSearchOptionChange}
         onSearch={handleSearch}
+        sortOrder={sortOrder}
       />
       <KnowhowList knowhows={knowhows?.posts} />
-      <Suspense>
-        <KnowhowPagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
-      </Suspense>
+      <div className="flex self-center relative">
+        <Suspense>
+          <KnowhowPagination
+            itemsPerPage={ITEMS_PER_PAGE}
+            totalItems={totalItems || 0}
+            onPageChange={handlePageChange}
+          />
+        </Suspense>
+        <SearchOptions
+          onSearch={handleSearch}
+          onSearchOptionChange={handleSearchOptionChange}
+          selectedSearchOption={selectedSearchOption}
+        />
+      </div>
     </section>
   );
 }

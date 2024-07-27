@@ -7,17 +7,18 @@ type ButtonProps =
       children: ReactNode;
     });
 
-function Button({ children, ...props }: ButtonProps) {
+function Button({ children, className = "", ...props }: ButtonProps) {
   const buttonBaseStyle = "px-4 py-2 border border-black";
+
   if (props.href) {
     return (
-      <Link className={buttonBaseStyle} {...props}>
+      <Link className={`${buttonBaseStyle} ${className}`} {...props}>
         {children}
       </Link>
     );
   } else if (typeof props.href === "undefined") {
     return (
-      <button className={buttonBaseStyle} {...props}>
+      <button className={`${buttonBaseStyle} ${className}`} {...props}>
         {children}
       </button>
     );

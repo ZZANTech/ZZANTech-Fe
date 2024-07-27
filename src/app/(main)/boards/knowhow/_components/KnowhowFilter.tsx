@@ -9,23 +9,26 @@ type KnowhowFilterTypes = {
   onSortOrderChange: (value: TOption["value"]) => void;
   onSearchOptionChange: (value: TOption["value"]) => void;
   onSearch: (keyword: string) => void;
+  sortOrder: TOption["value"];
 };
 
 function KnowhowFilter({
   selectedSearchOption,
   onSortOrderChange,
   onSearchOptionChange,
-  onSearch
+  onSearch,
+  sortOrder
 }: KnowhowFilterTypes) {
   return (
     <nav className="flex justify-between">
-      <SortOptions onSortOrderChange={onSortOrderChange} />
-      <SearchOptions
-        onSearch={onSearch}
-        onSearchOptionChange={onSearchOptionChange}
-        selectedSearchOption={selectedSearchOption}
-      />
-      <Button href={"/boards/knowhow/write"}>새 글작성</Button>
+      <SortOptions sortOrder={sortOrder} onSortOrderChange={onSortOrderChange} />
+
+      <Button
+        className="bg-[#206CFF] px-5 py-3.5 border-none text-white text-center rounded-xl w-[167px] translate-y-[-24px]"
+        href={"/boards/knowhow/write"}
+      >
+        글쓰기
+      </Button>
     </nav>
   );
 }
