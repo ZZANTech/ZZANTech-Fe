@@ -105,7 +105,6 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     const newErrorMessage = { title: "", content: "" };
     const doc = new DOMParser().parseFromString(newKnowhow.content || "", "text/html");
     const textContent = doc.body.textContent || "";
-    console.log(textContent.length);
 
     if (!newKnowhow.title?.trim()) {
       newErrorMessage.title = "제목을 입력해주세요.";
