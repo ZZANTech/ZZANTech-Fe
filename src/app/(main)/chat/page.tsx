@@ -1,5 +1,4 @@
 import ChatRoomList from "./_components/ChatRoomList";
-import Image from "next/image";
 
 function ChatPage() {
   return (
