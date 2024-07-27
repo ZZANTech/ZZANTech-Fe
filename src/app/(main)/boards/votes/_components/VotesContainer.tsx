@@ -1,20 +1,39 @@
 "use client";
 
+import { useState } from "react";
 import useVotesQuery from "@/stores/queries/useVotesQuery";
 import Button from "@/components/Button/Button";
+import SortButtons from "@/app/(main)/boards/votes/_components/SortButtons";
 import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
+import { useUserContext } from "@/provider/contexts/UserContext";
+import { useRouter } from "next/navigation";
 
 function VotesContainer() {
-  const { data: votes, isLoading } = useVotesQuery();
+  const [sortOrder, setSortOrder] = useState("latest");
+  const { data: votes, isLoading } = useVotesQuery(sortOrder);
+  const { user } = useUserContext();
+  const router = useRouter();
+
+  const handleWriteClick = () => {
+    if (!user) {
+      router.push("/login");
+    } else {
+      router.push("/boards/votes/write");
+    }
+  };
+
+  const handleSortOrderChange = (order: string) => {
+    setSortOrder(order);
+  };
 
   if (isLoading) {
-    // 로딩 처리 어떻게 할 것?
     return <div>Loading...</div>;
   }
+
   return (
     <section>
-      <Button href={"/boards/votes/write"}>새 글작성</Button>
-      {/* 정렬 버튼 */}
+      <Button onClick={handleWriteClick}>글쓰기</Button>
+      <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
       <VotesList votes={votes?.data} />
     </section>
   );
