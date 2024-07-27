@@ -26,12 +26,12 @@ function UserSettingNickname() {
 
   return (
     <div className="AuthInputDiv">
-      <label>닉네임</label>
+      <label>닉네임 변경</label>
       <form className="AuthInputForm">
         <input
           type="text"
           value={newNickname}
-          placeholder="닉네임을 입력해주세요"
+          placeholder="변경할 닉네임을 입력해주세요"
           className="AuthInputShort"
           onChange={(e) => {
             setNewNickname(e.target.value);

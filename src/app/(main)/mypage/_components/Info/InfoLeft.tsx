@@ -1,6 +1,7 @@
 "use Client";
 
 import { useUserContext } from "@/provider/contexts/UserContext";
+import Image from "next/image";
 
 function InfoLeft() {
   // const { user } = useUserContext();
@@ -8,7 +9,7 @@ function InfoLeft() {
   return (
     <div>
       <div className="flex flex-row gap-2.5">
-        <p>뱃지</p>
+        <Image src={"/badges/lv5.png"} width={24} height={24} alt="mainLogo" />
         <p>user?.nickname 님</p>
       </div>
 
