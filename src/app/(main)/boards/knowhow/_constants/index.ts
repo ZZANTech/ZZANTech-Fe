@@ -18,3 +18,5 @@ export const SEARCH_OPTIONS = [
   { value: SEARCH_TITLECONTENT, label: "제목+내용" },
   { value: SEARCH_AUTHOR, label: "작성자" }
 ];
+
+export const MAX_CONTENT_LENGTH = 1000;

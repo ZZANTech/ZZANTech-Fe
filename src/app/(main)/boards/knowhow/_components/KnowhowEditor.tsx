@@ -11,6 +11,8 @@ import { TKnowhow } from "@/types/knowhow.type";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useRouter } from "next/navigation";
+import { Tables } from "@/types/supabase";
+import { MAX_CONTENT_LENGTH } from "@/app/(main)/boards/knowhow/_constants";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
@@ -71,7 +73,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   const quillRef = useRef<ReactQuill>(null);
   const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
   const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
-
+  const [errorMessage, setErrorMessage] = useState<{ title: string; content: string }>({ title: "", content: "" });
   const handleImageUpload = (file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -98,6 +100,27 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
       }
     };
   }, []);
+
+  const validateKnowhowForm = (newKnowhow: Partial<Tables<"knowhow_posts">>): boolean => {
+    const newErrorMessage = { title: "", content: "" };
+    const doc = new DOMParser().parseFromString(newKnowhow.content || "", "text/html");
+    const textContent = doc.body.textContent || "";
+
+    if (!newKnowhow.title?.trim()) {
+      newErrorMessage.title = "제목을 입력해주세요.";
+    }
+    if (!textContent) {
+      newErrorMessage.content = "내용을 입력해주세요.";
+    }
+    if (textContent.length > MAX_CONTENT_LENGTH) {
+      newErrorMessage.content = `내용은 ${MAX_CONTENT_LENGTH}자 이하로 입력해주세요.`;
+    }
+    if (newErrorMessage.title || newErrorMessage.content) {
+      setErrorMessage(newErrorMessage);
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -142,22 +165,19 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     }
 
     if (user) {
-      console.log(user);
       const newKnowhow = {
         title: editorTitle,
         content,
         image_urls: imageUrls,
         user_id: user.userId
       };
-
-      try {
+      const isValid = validateKnowhowForm(newKnowhow);
+      if (isValid) {
         if (previousContent) {
-          const res = await updateKnowhow({ ...newKnowhow, knowhow_postId: previousContent.knowhow_postId });
+          await updateKnowhow({ ...newKnowhow, knowhow_postId: previousContent.knowhow_postId });
         } else {
           await addKnowhow(newKnowhow);
         }
-      } catch (error) {
-        console.log(error);
       }
     }
   };
@@ -203,6 +223,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         value={editorTitle}
         type="text"
       />
+      {errorMessage.title && <span>{errorMessage.title}</span>}
       <QuillNoSSRWrapper
         forwardedRef={quillRef}
         className="mb-12 h-[800px]"
@@ -211,6 +232,9 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         value={editorContent}
         onChange={handleEditorChange}
       />
+
+      {errorMessage.content && <span>{errorMessage.content}</span>}
+
       <div>
         <Button type="button" onClick={handleCancel}>
           취소하기
