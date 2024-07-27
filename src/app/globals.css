@@ -31,3 +31,23 @@
     @apply w-[92px] text-white bg-[#C0C0C0] text-sm;
   }
 }
+
+.knowhow-content h1 {
+  @apply text-2xl font-bold mt-4 mb-2;
+}
+
+.knowhow-content h2 {
+  @apply text-xl font-bold mt-4 mb-2;
+}
+
+.knowhow-content h3 {
+  @apply text-lg font-bold mt-4 mb-2;
+}
+
+.knowhow-content h4 {
+  @apply text-base font-bold mt-4 mb-2;
+}
+
+.knowhow-content h5 {
+  @apply text-sm font-bold mt-4 mb-2;
+}

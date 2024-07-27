@@ -7,6 +7,7 @@ type PostContentProps = {
 
 function PostContent({ knowhow }: PostContentProps) {
   const { formattedDate, formattedTime } = formatTime(knowhow?.created_at);
+  console.log(knowhow.content);
 
   if (knowhow)
     return (
@@ -15,7 +16,7 @@ function PostContent({ knowhow }: PostContentProps) {
         <div>닉네임 {knowhow.nickname}</div>
         <div>날짜 {formattedDate}</div>
         <div>시간 {formattedTime}</div>
-        <div dangerouslySetInnerHTML={{ __html: knowhow.content }} />
+        <div className="knowhow-content" dangerouslySetInnerHTML={{ __html: knowhow.content }} />
       </section>
     );
 }
