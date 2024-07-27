@@ -1,7 +1,7 @@
 "use client";
 
 import { useChatMessagesQuery } from "@/stores/queries/useChatMessagesQuery";
-import { TChat } from "@/types/chat.type";
+import { TChatWithUser } from "@/types/chat.type";
 import ChatMessageItem from "./ChatMessageItem";
 
 type ChatMessageListProps = {
@@ -15,7 +15,9 @@ function ChatMessageList({ roomId }: ChatMessageListProps) {
     return <div>loading</div>;
   }
 
-  return <div>{chats?.map((message: TChat) => <ChatMessageItem key={message.chatId} message={message} />)}</div>;
+  return (
+    <div>{chats?.map((message: TChatWithUser) => <ChatMessageItem key={message.chatId} message={message} />)}</div>
+  );
 }
 
 export default ChatMessageList;

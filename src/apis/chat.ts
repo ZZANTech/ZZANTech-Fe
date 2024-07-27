@@ -1,5 +1,5 @@
 import { BASE_URL } from "@/constants";
-import { TUploadResponse, TMessageResponse, TChat } from "@/types/chat.type";
+import { TUploadResponse, TMessageResponse, TChatWithUser } from "@/types/chat.type";
 
 export const fetchChatRooms = async () => {
   const response = await fetch(`${BASE_URL}/api/chat_rooms`);
@@ -26,7 +26,7 @@ export const uploadImage = async (file: File, bucketName: string): Promise<TUplo
   return response.json();
 };
 
-export const fetchInitialChats = async (roomId: number): Promise<TChat[]> => {
+export const fetchInitialChats = async (roomId: number): Promise<TChatWithUser[]> => {
   const response = await fetch(`/api/chat?roomId=${roomId}`);
 
   if (!response.ok) {

@@ -12,7 +12,7 @@ export const GET = async (req: Request) => {
   const supabase = createClient();
   const { data, error } = await supabase
     .from("chats")
-    .select("*")
+    .select("*, users(nickname)")
     .eq("room_id", parseInt(roomId, 10))
     .order("created_at", { ascending: true });
 
