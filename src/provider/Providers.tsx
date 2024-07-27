@@ -8,11 +8,11 @@ import { ReactNode } from "react";
 function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryProvider>
-      <SupabaseProvider>
-        <UserProvider>
-          <ModalProvider>{children}</ModalProvider>
-        </UserProvider>
-      </SupabaseProvider>
+      {/* <SupabaseProvider> */}
+      <UserProvider>
+        <ModalProvider>{children}</ModalProvider>
+      </UserProvider>
+      {/* </SupabaseProvider> */}
     </QueryProvider>
   );
 }
