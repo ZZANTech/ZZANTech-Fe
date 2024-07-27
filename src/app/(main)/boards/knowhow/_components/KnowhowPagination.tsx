@@ -82,7 +82,7 @@ function KnowhowPagination({ itemsPerPage, totalItems, onPageChange }: KnowhowPa
   }, [currentPage, onPageChange]);
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center justify-center gap-2 w-full">
       <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
         이전
       </button>

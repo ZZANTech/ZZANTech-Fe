@@ -17,7 +17,7 @@ function SearchOptions({ selectedSearchOption, onSearch, onSearchOptionChange }:
     }
   };
   return (
-    <form onSubmit={handleSearch} className="flex">
+    <form onSubmit={handleSearch} className=" flex absolute right-[5%]">
       <select
         className="border border-gray-500 rounded-lg "
         value={selectedSearchOption}
