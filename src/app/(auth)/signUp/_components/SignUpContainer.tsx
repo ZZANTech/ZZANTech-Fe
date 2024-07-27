@@ -4,6 +4,7 @@ import EmailForm from "@/app/(auth)/signUp/_components/EmailForm";
 import NicknameForm from "@/app/(auth)/signUp/_components/NicknameForm";
 import PasswordForm from "@/app/(auth)/signUp/_components/PasswordForm";
 import RecheckPasswordForm from "@/app/(auth)/signUp/_components/RecheckPasswordForm";
+import { BASE_URL } from "@/constants";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -16,7 +17,7 @@ function SignUpContainer() {
 
   const handleClickSignUp = async () => {
     const data = { email, nickname, password, recheckPassword };
-    const response = await fetch("http://localhost:3000/api/auth/signup", {
+    const response = await fetch(`${BASE_URL}api/auth/signup`, {
       method: "POST",
       body: JSON.stringify(data)
     });
