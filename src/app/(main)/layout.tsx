@@ -4,9 +4,9 @@ import HeaderContainer from "./_components/HeaderContainer";
 type Props = { children: ReactNode; modal: ReactNode };
 export default function Layout({ children, modal }: Props) {
   return (
-    <div className="w-full max-w-[1120px] mx-auto">
+    <div className="flex flex-col min-h-dvh">
       <HeaderContainer />
-      {children}
+      <main className="flex-grow w-full max-w-[1120px] mx-auto">{children}</main>
       {modal}
     </div>
   );
