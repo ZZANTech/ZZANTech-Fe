@@ -1,8 +1,7 @@
 "use client";
 import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
-// import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import KnowhowPagination from "@/app/(main)/boards/knowhow/_components/KnowhowPagination";
 import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
 import dynamic from "next/dynamic";
@@ -61,7 +60,9 @@ function KnowhowContainer() {
         onSearch={handleSearch}
       />
       <KnowhowList knowhows={knowhows?.posts} />
-      <KnowhowPagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
+      <Suspense>
+        <KnowhowPagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
+      </Suspense>
     </section>
   );
 }
