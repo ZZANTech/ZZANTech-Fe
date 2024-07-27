@@ -8,8 +8,8 @@ export const ITEMS_PER_PAGE = 5;
 export const SORT_LATEST = "latest";
 export const SORT_POPULAR = "popular";
 export const SORT_OPTIONS = [
-  { value: SORT_LATEST, label: "최신순" },
-  { value: SORT_POPULAR, label: "좋아요순" }
+  { value: SORT_LATEST, label: "최신 순" },
+  { value: SORT_POPULAR, label: "좋아요 순" }
 ];
 
 export const SEARCH_AUTHOR = "author";
