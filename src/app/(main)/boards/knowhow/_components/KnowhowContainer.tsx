@@ -61,12 +61,7 @@ function KnowhowContainer() {
         onSearch={handleSearch}
       />
       <KnowhowList knowhows={knowhows?.posts} />
-      <KnowhowPagination
-        currentPage={currentPage}
-        itemsPerPage={ITEMS_PER_PAGE}
-        totalItems={totalItems || 0}
-        onPageChange={handlePageChange}
-      />
+      <KnowhowPagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
     </section>
   );
 }
