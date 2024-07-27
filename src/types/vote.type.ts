@@ -9,3 +9,9 @@ export type TVote = Tables<"vote_posts"> & {
   votes_count?: number;
   comments_count?: number;
 };
+
+export type TVoteLikeCountsResponse = {
+  totalVoteCount: number;
+  upvoteCount: number;
+  downvoteCount: number;
+};

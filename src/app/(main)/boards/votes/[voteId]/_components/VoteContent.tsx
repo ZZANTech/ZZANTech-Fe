@@ -9,7 +9,7 @@ type VoteContentProps = {
 };
 
 function VoteContent({ vote }: VoteContentProps) {
-  const { title, product_name, product_price, nickname, image_url, content } = vote;
+  const { title, product_name, product_price, nickname, image_url, vote_postId, content } = vote;
 
   return (
     <section>
@@ -26,7 +26,7 @@ function VoteContent({ vote }: VoteContentProps) {
       <div>
         <img src={image_url} alt="게시글 이미지" className="w-32 h-32 object-cover" />
       </div>
-      <VoteButtons />
+      <VoteButtons voteId={vote_postId} />
       <div>{content}</div>
       <NavButton direction="next" />
     </section>

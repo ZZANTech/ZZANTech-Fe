@@ -1,8 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import useVoteLikesQuery from "@/stores/queries/useVoteLikesQuery";
 
-function VoteButtons() {
+type VoteButtonsProps = {
+  voteId: number;
+};
+
+function VoteButtons({ voteId }: VoteButtonsProps) {
+  const { data: counts } = useVoteLikesQuery(voteId);
+  console.log(counts);
+
   const [isLike, setIsLike] = useState<boolean>(true);
   const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
 
