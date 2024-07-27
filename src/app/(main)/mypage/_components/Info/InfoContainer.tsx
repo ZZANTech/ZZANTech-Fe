@@ -1,5 +1,3 @@
-"use Client";
-
 import InfoLeft from "@/app/(main)/mypage/_components/Info/InfoLeft";
 import InfoRight from "@/app/(main)/mypage/_components/Info/InfoRight";
 
