@@ -6,7 +6,16 @@ export const POST = async (req: Request) => {
   const supabase = createClient();
   const { quiz_id, answer } = await req.json();
 
-  const user_id = "fe3739e9-656a-4005-a364-6aefc5ed514a";
+  const {
+    data: { user },
+    error: authError
+  } = await supabase.auth.getUser();
+
+  if (authError || !user) {
+    return NextResponse.json({ error: "User not authenticated" }, { status: 401 });
+  }
+
+  const user_id = user.id;
 
   try {
     const { data: quizData, error: quizError } = await supabase
