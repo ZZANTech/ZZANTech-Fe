@@ -1,5 +1,5 @@
 export const checkNicknameAvailability = async (nickname: string): Promise<boolean> => {
-  const response = await fetch("/api/user", {
+  const response = await fetch("/api/auth/mypage/info", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -11,7 +11,7 @@ export const checkNicknameAvailability = async (nickname: string): Promise<boole
 };
 
 export const updateNickname = async (userId: string, nickname: string) => {
-  const response = await fetch("/api/user", {
+  const response = await fetch("/api/auth/mypage/info", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -25,7 +25,7 @@ export const updateNickname = async (userId: string, nickname: string) => {
 };
 
 export const updatePassword = async (userId: string, oldPassword: string, newPassword: string) => {
-  const response = await fetch("/api/user", {
+  const response = await fetch("/api/auth/mypage/info", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

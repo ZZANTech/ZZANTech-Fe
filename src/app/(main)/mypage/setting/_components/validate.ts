@@ -1,3 +1,4 @@
+// 변경할 닉네임 유효성 검사 -> 리턴: 에러메시지 또는 빈칸
 export const validateNickname = (nickname: string): string => {
   if (nickname.length < 3 || nickname.length > 12) {
     return "닉네임은 3자 이상 12자 이하여야 합니다.";
@@ -8,6 +9,7 @@ export const validateNickname = (nickname: string): string => {
   return "";
 };
 
+// 변경할 비밀번호 유효성 검사 -> 리턴: 에러메시지 또는 빈칸
 export const validatePassword = (oldPassword: string, newPassword: string, confirmPassword: string): string => {
   if (newPassword.length < 6 || newPassword.length > 12) {
     return "비밀번호는 6자 이상 12자 이하여야 합니다.";

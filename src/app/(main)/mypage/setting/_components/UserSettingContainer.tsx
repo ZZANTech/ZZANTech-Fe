@@ -5,28 +5,45 @@ import { validateNickname, validatePassword } from "@/app/(main)/mypage/setting/
 import { useState, ChangeEvent } from "react";
 
 const UserSettingContainer: React.FC = () => {
+  //닉네임 관련
   const [nickname, setNickname] = useState<string>("");
+  const [nicknameError, setNicknameError] = useState<string>("");
+  const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
+
+  //비밀번호 관련
   const [oldPassword, setOldPassword] = useState<string>("");
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-
-  const [nicknameError, setNicknameError] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
-  const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
   const [isPasswordValid, setIsPasswordValid] = useState<boolean>(false);
 
   const userId = "ee9f2051-3d18-4353-852d-f07d3e2f9c43";
 
   const handleNicknameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    //변경할 닉네임 state에 저장
     const value = e.target.value;
     setNickname(value);
+
+    //유효성 검사 시 에러가 있을 경우 에러 처리
     const error = validateNickname(value);
     setNicknameError(error);
     setIsNicknameValid(!error);
+    // error 메시지가 빈값(=유효성 통과)이면 setIsNicknameValid(true)
+    // error 메시지가 빈값(=유효성 불통)이면 etIsNicknameValid(false)
+  };
+
+  const handleNicknameSubmit = async () => {
+    const isAvailable = await checkNicknameAvailability(nickname);
+    if (!isAvailable) {
+      setNicknameError("이미 사용 중인 닉네임입니다.");
+      return;
+    }
+    await updateNickname(userId, nickname); // userId 전달
   };
 
   const handleOldPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setOldPassword(e.target.value);
+    console.log("oldPassword >>", oldPassword);
   };
 
   const handleNewPasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,15 +60,6 @@ const UserSettingContainer: React.FC = () => {
     const error = validatePassword(oldPassword, newPassword, value);
     setPasswordError(error);
     setIsPasswordValid(!error);
-  };
-
-  const handleNicknameSubmit = async () => {
-    const isAvailable = await checkNicknameAvailability(nickname);
-    if (!isAvailable) {
-      setNicknameError("이미 사용 중인 닉네임입니다.");
-      return;
-    }
-    await updateNickname(userId, nickname); // userId를 전달합니다.
   };
 
   const handlePasswordSubmit = async () => {
