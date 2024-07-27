@@ -233,6 +233,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         value={editorContent}
         onChange={handleEditorChange}
       />
+
       {errorMessage.content && <span>{errorMessage.content}</span>}
 
       <div>
