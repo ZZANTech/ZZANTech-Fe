@@ -4,8 +4,8 @@ import { TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { revalidated } from "@/utils/revalidation";
 import useAlertModal from "@/hooks/useAlertModal";
+import { revalidateRoute } from "@/utils/revalidation";
 
 export const DEFAULT_KNOWHOWS_QUERY_KEY = [
   "knowhows",
@@ -40,7 +40,7 @@ const useKnowhowMutation = () => {
       queryClient.invalidateQueries({
         queryKey: DEFAULT_KNOWHOWS_QUERY_KEY
       });
-      revalidated(`/boards/knowhow/${updatedKnowhow.knowhow_postId}`, "page");
+      revalidateRoute(`/boards/knowhow/${updatedKnowhow.knowhow_postId}`, "page");
       router.push(`/boards/knowhow/${updatedKnowhow.knowhow_postId}`);
     },
     onError: (e) => displayDefaultAlert(e.message)

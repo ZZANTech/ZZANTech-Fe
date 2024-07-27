@@ -3,7 +3,7 @@ import { Tables } from "@/types/supabase";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postVote, patchVote, deleteVote } from "@/apis/votes";
-import { revalidated } from "@/utils/revalidation";
+import { revalidateRoute } from "@/utils/revalidation";
 
 const useVoteMutation = () => {
   const router = useRouter();
@@ -25,7 +25,7 @@ const useVoteMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["votes"]
       });
-      revalidated(`/boards/votes/${updatedVote.vote_postId}`, "page");
+      revalidateRoute(`/boards/votes/${updatedVote.vote_postId}`, "page");
       router.push(`/boards/votes/${updatedVote.vote_postId}`);
     }
   });
