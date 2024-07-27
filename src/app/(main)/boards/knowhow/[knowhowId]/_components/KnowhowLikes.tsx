@@ -24,10 +24,10 @@ function KnowhowLikes({ knowhowId }: knowhowLikesProps) {
   };
 
   return (
-    <div className="flex gap-1">
+    <div className="flex gap-1 ">
       <div onClick={handleUpdateLike}>{likeCountData?.isLiked ? "🩷" : "🤍"}</div>
       <div>좋아요</div>
-      <div className="w-5">{likeCountData ? `${likeCountData.likeCount}` : "0"}</div>
+      <div className="w-5 rounded">{likeCountData ? `${likeCountData.likeCount}` : "0"}</div>
     </div>
   );
 }

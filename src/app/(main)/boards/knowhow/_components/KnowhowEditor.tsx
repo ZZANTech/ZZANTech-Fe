@@ -9,6 +9,8 @@ import useKnowhowImageMutation from "@/stores/queries/useKnowhowImageMutation";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
 import { TKnowhow } from "@/types/knowhow.type";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import { useModal } from "@/provider/contexts/ModalContext";
+import { useRouter } from "next/navigation";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
@@ -61,7 +63,9 @@ const formats = [
 ];
 
 function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
+  const router = useRouter();
   const { user } = useUserContext();
+  const { open } = useModal();
   const { addKnowhowImage } = useKnowhowImageMutation();
   const { addKnowhow, updateKnowhow } = useKnowhowMutation();
   const quillRef = useRef<ReactQuill>(null);
@@ -183,6 +187,13 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     setEditorContent(content);
   };
 
+  const handleCancel = () =>
+    open({
+      type: "confirm",
+      content: `정말 게시글 ${previousContent ? "수정" : "작성"}을 취소하시겠습니까?`,
+      onConfirm: () => router.back()
+    });
+
   return (
     <form onSubmit={handleSubmit} className="flex flex-col">
       <input
@@ -200,7 +211,12 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         value={editorContent}
         onChange={handleEditorChange}
       />
-      <Button>작성하기</Button>
+      <div>
+        <Button type="button" onClick={handleCancel}>
+          취소하기
+        </Button>
+        <Button>작성하기</Button>
+      </div>
     </form>
   );
 }

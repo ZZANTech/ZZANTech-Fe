@@ -7,6 +7,7 @@ import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import CommentActions from "@/app/(main)/boards/_components/Comments/CommentActions";
 import CommentEditForm from "@/app/(main)/boards/_components/Comments/CommentEditForm";
+import useAlertModal from "@/hooks/useAlertModal";
 
 type CommentItemProps = {
   comment: TKnowhowComment;
@@ -15,6 +16,7 @@ type CommentItemProps = {
 function CommentItem({ comment }: CommentItemProps) {
   const { user } = useUserContext();
   const modal = useModal();
+  const { displayDefaultAlert } = useAlertModal();
   const { nickname, content, created_at } = comment;
   const [isEditting, setIsEditting] = useState<boolean>(false);
   const [editedContent, setEditedContent] = useState<TKnowhowComment["content"]>(content || "");
@@ -33,6 +35,10 @@ function CommentItem({ comment }: CommentItemProps) {
   const handleCommentUpdate = async () => {
     ``;
     const { nickname, ...commentWithoutNickname } = comment;
+    if (!editedContent.trim().length) {
+      displayDefaultAlert("내용을 입력하세요.");
+      return;
+    }
     const updatedComment = {
       ...commentWithoutNickname,
       content: editedContent
