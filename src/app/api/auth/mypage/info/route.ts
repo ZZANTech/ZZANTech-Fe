@@ -1,6 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@/utils/supabase/server";
 
+type RequestBody = {
+  type: "checkNickname" | "changeNickname" | "changePassword";
+  userId?: string;
+  nickname?: string;
+  oldPassword?: string;
+  newPassword?: string;
+};
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { method, body } = req;
   const { userId, nickname, oldPassword, newPassword } = body;
