@@ -13,7 +13,7 @@ function LikeCount({ knowhowId, likesCount }: LikeCountProps) {
   const { data: likeCountData } = useKnowhowLikesCountQuery(knowhowId);
 
   return (
-    <div className="flex items-center">
+    <div className="flex gap-2 items-center">
       {likeCountData?.isLiked && <Image src={filledHeart} alt="like" />}
       {!likeCountData?.isLiked && <Image src={emptyHeart} alt="like" />}
 

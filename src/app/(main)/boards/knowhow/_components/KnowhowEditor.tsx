@@ -1,9 +1,9 @@
 "use client";
 
 import { useCallback, useRef, useState, FormEventHandler, useEffect } from "react";
+import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import Button from "@/components/Button/Button";
-import "react-quill/dist/quill.snow.css";
 import ReactQuill, { ReactQuillProps } from "react-quill";
 import useKnowhowImageMutation from "@/stores/queries/useKnowhowImageMutation";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
@@ -13,6 +13,7 @@ import { useModal } from "@/provider/contexts/ModalContext";
 import { useRouter } from "next/navigation";
 import { Tables } from "@/types/supabase";
 import { MAX_CONTENT_LENGTH } from "@/app/(main)/boards/knowhow/_constants";
+import ErrorMessage from "@/app/(main)/boards/knowhow/_components/ErrorMessage";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
@@ -36,10 +37,32 @@ const QuillNoSSRWrapper = dynamic<ForwardedQuillComponent>(
 
 const getModules = (imageHandler: () => void) => ({
   toolbar: {
-    container: [[{ header: [1, 2, 3, 4, 5, false] }], ["bold", "underline"], ["image"]],
+    container: [
+      [{ header: [1, 2, 3, 4, 5, false] }],
+      ["bold", "italic", "underline", "strike"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      [{ script: "sub" }, { script: "super" }],
+      // [{ indent: "-1" }, { indent: "+1" }],
+      // [{ direction: "rtl" }],
+      [{ size: ["small", false, "large", "huge"] }],
+      [{ color: [] }, { background: [] }],
+      // [{ font: [] }],
+      [{ align: [] }],
+      ["link", "image"],
+      ["clean"]
+    ],
     handlers: {
       image: imageHandler
     }
+  },
+  clipboard: {
+    matchVisual: false
+  },
+
+  history: {
+    delay: 2000,
+    maxStack: 500,
+    userOnly: true
   }
 });
 
@@ -55,13 +78,14 @@ const formats = [
   "blockquote",
   "list",
   "bullet",
+  "script",
   "indent",
+  "direction",
   "background",
   "color",
   "link",
   "image",
-  "video",
-  "width"
+  "video"
 ];
 
 function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
@@ -74,6 +98,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
   const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
   const [errorMessage, setErrorMessage] = useState<{ title: string; content: string }>({ title: "", content: "" });
+
   const handleImageUpload = (file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -107,7 +132,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     const textContent = doc.body.textContent || "";
 
     if (!newKnowhow.title?.trim()) {
-      newErrorMessage.title = "제목을 입력해주세요.";
+      newErrorMessage.title = "제목은 필수 입력 항목입니다.";
     }
     if (!textContent) {
       newErrorMessage.content = "내용을 입력해주세요.";
@@ -215,31 +240,32 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     });
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col">
+    <form onSubmit={handleSubmit} className="h-full flex flex-col">
       <input
-        className="h-[50px]"
+        className="w-full h-14  text-3xl outline-none mt-[120px] border-b-2 border-[#000]"
         id="title"
+        placeholder="제목을 입력해주세요"
         onChange={(e) => setEditorTitle(e.target.value)}
         value={editorTitle}
         type="text"
       />
-      {errorMessage.title && <span>{errorMessage.title}</span>}
+      <ErrorMessage className="mb-[17px]">{errorMessage?.title}</ErrorMessage>
       <QuillNoSSRWrapper
         forwardedRef={quillRef}
-        className="mb-12 h-[800px]"
+        className="h-[550px]"
         modules={modules}
         formats={formats}
         value={editorContent}
         onChange={handleEditorChange}
       />
 
-      {errorMessage.content && <span>{errorMessage.content}</span>}
+      {<ErrorMessage className="translate-y-11">{errorMessage?.content}</ErrorMessage>}
 
-      <div>
+      <div className="flex gap-[18px] self-end translate-y-16">
         <Button type="button" onClick={handleCancel}>
           취소하기
         </Button>
-        <Button>작성하기</Button>
+        <Button>등록하기</Button>
       </div>
     </form>
   );

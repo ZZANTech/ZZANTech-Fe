@@ -43,9 +43,10 @@ export async function updateSession(request: NextRequest) {
   //   url.pathname = "/login";
   //   return NextResponse.redirect(url);
   // }
-  const protectedPatterns = [/^\/boards\/knowhow\/\d+$/, /^\/boards\/votes\/\d+$/];
 
-  if (!user && protectedPatterns.some((pattern) => pattern.test(request.nextUrl.pathname))) {
+  const knowhowPattern = /^\/boards\/knowhow\/\d+$/;
+
+  if (!user && knowhowPattern.test(request.nextUrl.pathname)) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
