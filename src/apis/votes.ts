@@ -61,3 +61,15 @@ export const deleteVote = async (voteId: Tables<"vote_posts">["vote_postId"]) =>
   const vote = await res.json();
   return vote;
 };
+
+export const getVoteLikesData = async (voteId: TVote["vote_postId"]) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${voteId}/like`);
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "해당 게시글의 투표 정보를 가져오는 데 실패했습니다";
+    throw new Error(errorMessage);
+  }
+  const data = await res.json();
+
+  return data;
+};

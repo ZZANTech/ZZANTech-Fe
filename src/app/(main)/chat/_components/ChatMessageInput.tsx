@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { uploadImage, sendMessage } from "@/apis/chat";
+import { useUserContext } from "@/provider/contexts/UserContext";
 
 function ChatMessageInput({ roomId }: { roomId: number }) {
   const [message, setMessage] = useState("");
   const [image, setImage] = useState<File | null>(null);
+  const { user } = useUserContext();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
     }
 
     try {
-      await sendMessage(roomId, message, imageUrl, "b3a792f6-d450-49d6-ad82-307b2dd926af");
+      await sendMessage(roomId, message, imageUrl, user!.userId);
       setMessage("");
       setImage(null);
     } catch (error) {
