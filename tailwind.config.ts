@@ -43,6 +43,18 @@ const config: Config = {
           800: "#444444",
           900: "#1B1B1B"
         }
+      },
+      fontFamily: {
+        pretendard: ["Pretendard", "sans-serif"]
+      },
+      fontWeight: {
+        light: "300",
+        regular: "400",
+        semibold: "600"
+      },
+      letterSpacing: {
+        "tight-korean": "-0.025em",
+        "normal-english": "0em"
       }
     }
   },
