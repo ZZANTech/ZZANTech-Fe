@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { uploadImage, sendMessage } from "@/apis/chat";
-import { useUserContext } from "@/provider/contexts/userContext";
+import { useUserContext } from "@/provider/contexts/UserContext";
 
 function ChatMessageInput({ roomId }: { roomId: number }) {
   const [message, setMessage] = useState("");

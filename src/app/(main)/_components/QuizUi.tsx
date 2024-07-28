@@ -1,8 +1,8 @@
 "use client";
 
+import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
 import Link from "next/link";
-import { useUserContext } from "@/provider/contexts/userContext";
 
 const QuizUi = () => {
   const { hasTakenQuiz, isLoading } = useUserContext();

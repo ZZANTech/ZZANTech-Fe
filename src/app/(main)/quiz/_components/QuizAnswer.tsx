@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserContext } from "@/provider/contexts/userContext";
+import { useUserContext } from "@/provider/contexts/UserContext";
 import React from "react";
 
 type QuizAnswerProps = {
