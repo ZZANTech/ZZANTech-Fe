@@ -2,16 +2,30 @@
 
 import { useState, useEffect } from "react";
 import useVoteLikesQuery from "@/stores/queries/useVoteLikesQuery";
+import { useUserContext } from "@/provider/contexts/UserContext";
+import { useRouter } from "next/navigation";
+import { useModal } from "@/provider/contexts/ModalContext";
 
 type VoteButtonsProps = {
   voteId: number;
 };
 
 function VoteButtons({ voteId }: VoteButtonsProps) {
+  const { user } = useUserContext();
+  const modal = useModal();
+  const router = useRouter();
+
   const { data: voteData } = useVoteLikesQuery(voteId);
 
   const [isLike, setIsLike] = useState<boolean | null>(null);
   const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
+
+  const handleOpenModal = () =>
+    modal.open({
+      type: "confirm",
+      content: "로그인 후 이용해 주세요.",
+      onConfirm: () => router.push("/login")
+    });
 
   useEffect(() => {
     if (voteData?.userLikeStatus !== undefined) {
@@ -21,6 +35,10 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
   }, [voteData?.userLikeStatus]);
 
   const handleVote = (type: "GOOD" | "BAD") => {
+    if (!user) {
+      handleOpenModal();
+      return;
+    }
     const isUpvote = type === "GOOD";
     setIsLike(isUpvote);
     setVoteType(type);
