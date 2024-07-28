@@ -4,7 +4,7 @@ import { fetchQuizStatus } from "@/apis/quiz";
 import { BASE_URL } from "@/constants";
 import { User } from "@/types/user.type";
 import { createContext, useContext, useEffect, useState } from "react";
-// 제발바껴줘
+
 type UserContextType = {
   user: User | null;
   logIn: (email: string, password: string) => void;
