@@ -67,6 +67,9 @@
     @apply mb-2;
   }
 
+  .knowhow-content p {
+  }
+
   .knowhow-content .ql-indent-1 {
     @apply pl-4;
   }

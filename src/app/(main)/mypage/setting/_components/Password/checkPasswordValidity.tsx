@@ -1,4 +1,14 @@
-export const CheckPasswordValidity = ({ oldPassword, newPassword, setPasswordError, setIsPasswordValidState }) => {
+export const CheckPasswordValidity = ({
+  oldPassword,
+  newPassword,
+  setPasswordError,
+  setIsPasswordValidState
+}: {
+  oldPassword: any;
+  newPassword: any;
+  setPasswordError: any;
+  setIsPasswordValidState: any;
+}) => {
   if (newPassword.length < 5 || newPassword.length > 12) {
     setPasswordError("비밀번호는 6자 이상 12자 이하이어야 합니다.");
     setIsPasswordValidState(false);
