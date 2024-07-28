@@ -525,6 +525,46 @@ export type Database = {
           comments_count: number;
         }[];
       };
+      get_top_votes: {
+        Args: {
+          days: number;
+          limit_param: number;
+        };
+        Returns: {
+          vote_postId: number;
+          title: string;
+          content: string;
+          product_name: string;
+          product_price: string;
+          image_url: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          nickname: string;
+          votes_count: number;
+          comments_count: number;
+        }[];
+      };
+      get_top_votes_with_fallback: {
+        Args: {
+          days: number;
+          limit_param: number;
+        };
+        Returns: {
+          vote_postId: number;
+          title: string;
+          content: string;
+          product_name: string;
+          product_price: string;
+          image_url: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          nickname: string;
+          votes_count: number;
+          comments_count: number;
+        }[];
+      };
       get_votes_with_counts_and_nickname: {
         Args: Record<PropertyKey, never>;
         Returns: {
