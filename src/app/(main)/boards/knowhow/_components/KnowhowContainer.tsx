@@ -9,12 +9,11 @@ import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions
 
 const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
   loading: () => (
-    <ul className="flex flex-col gap-8 mt-10">
-      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
-      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
-      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
-      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
-      <div className="w-full h-[220px] border bg-gray-50 rounded-xl"></div>
+    <ul className="flex flex-col  gap-8 mb-[13px]">
+      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
     </ul>
   ),
   ssr: false

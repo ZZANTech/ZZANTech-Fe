@@ -4,9 +4,9 @@ import Image from "next/image";
 
 function CommentCount({ commentCount }: { commentCount: TKnowhow["comments_count"] }) {
   return (
-    <div className="flex">
+    <div className="flex gap-2">
       <Image src={commentIcon} alt="comment" />
-      <span>댓글 수 {commentCount}</span>
+      <span>{commentCount}</span>
     </div>
   );
 }
