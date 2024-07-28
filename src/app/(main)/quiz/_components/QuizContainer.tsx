@@ -6,6 +6,7 @@ import { useQuiz } from "@/stores/queries/useQuizQuery";
 import { useSubmitAnswer } from "@/stores/queries/useSubmitAnswerMutation";
 import QuizAnswer from "@/app/(main)/quiz/_components/QuizAnswer";
 import QuizQuestion from "@/app/(main)/quiz/_components/QuizQuestion";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 function QuizContainer() {
   const router = useRouter();
@@ -14,7 +15,7 @@ function QuizContainer() {
   const { isCorrect, explanation, showAnswer, setQuizResult, setShowAnswer } = useQuizStore();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   if (error) {
