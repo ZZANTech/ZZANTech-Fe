@@ -9,52 +9,86 @@ type RequestBody = {
   newPassword?: string;
 };
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { method, body } = req;
-  const { userId, nickname, oldPassword, newPassword } = body;
+const POST = async (req: NextApiRequest, res: NextApiResponse) => {
+  // if (req.method !== "POST") {
+  //   return res.status(405).json({ error: "Method not allowed" });
+  // }
+
+  const { type, userId, nickname, oldPassword, newPassword }: RequestBody = req.body;
 
   const supabase = createClient();
 
-  if (method === "POST") {
-    if (type === "checkNickname") {
-      const { data, error } = await supabase.from("users").select("id").eq("nickname", nickname);
+  try {
+    switch (type) {
+      // 닉네임 중복 확인
+      case "checkNickname": {
+        if (!nickname) {
+          return res.status(400).json({ error: "닉네임이 필요합니다." });
+        }
 
-      if (error) return res.status(500).json({ error: error.message });
+        const { data, error } = await supabase.from("users").select("*").eq("nickname", nickname);
 
-      if (data.length > 0) return res.status(400).json({ error: "이미 사용 중인 닉네임입니다." });
+        if (error) {
+          throw error;
+        }
 
-      return res.status(200).json({ message: "사용 가능한 닉네임입니다." });
-    }
+        if (data.length > 0) {
+          return res.status(400).json({ error: "이미 사용 중인 닉네임입니다." });
+        }
 
-    if (type === "changeNickname") {
-      const { error } = await supabase.from("users").update({ nickname }).eq("id", userId);
-
-      if (error) return res.status(500).json({ error: error.message });
-
-      return res.status(200).json({ message: "닉네임이 성공적으로 변경되었습니다." });
-    }
-
-    if (type === "changePassword") {
-      // 기존 비밀번호 확인
-      const { data: user, error: fetchError } = await supabase
-        .from("users")
-        .select("password")
-        .eq("id", userId)
-        .single();
-
-      if (fetchError) return res.status(500).json({ error: fetchError.message });
-
-      if (user.password !== oldPassword) {
-        return res.status(400).json({ error: "기존 비밀번호가 일치하지 않습니다." });
+        return res.status(200).json({ message: "사용 가능한 닉네임입니다." });
       }
 
-      const { error: updateError } = await supabase.from("users").update({ password: newPassword }).eq("id", userId);
+      // 닉네임 변경
+      case "changeNickname": {
+        if (!userId || !nickname) {
+          return res.status(400).json({ error: "UserId and Nickname are required" });
+        }
 
-      if (updateError) return res.status(500).json({ error: updateError.message });
+        const { error } = await supabase.from("users").update({ nickname }).eq("id", userId);
 
-      return res.status(200).json({ message: "비밀번호가 성공적으로 변경되었습니다." });
+        if (error) {
+          throw error;
+        }
+
+        return res.status(200).json({ message: "닉네임이 성공적으로 변경되었습니다." });
+      }
+
+      // 비밀번호 변경
+      case "changePassword": {
+        if (!userId || !oldPassword || !newPassword) {
+          return res.status(400).json({ error: "UserId, OldPassword, and NewPassword are required" });
+        }
+
+        const { data: user, error: fetchError } = await supabase
+          .from("users")
+          .select("password")
+          .eq("id", userId)
+          .single();
+
+        if (fetchError) {
+          throw fetchError;
+        }
+
+        if (user.password !== oldPassword) {
+          return res.status(400).json({ error: "기존 비밀번호가 일치하지 않습니다." });
+        }
+
+        const { error: updateError } = await supabase.from("users").update({ password: newPassword }).eq("id", userId);
+
+        if (updateError) {
+          throw updateError;
+        }
+
+        return res.status(200).json({ message: "비밀번호가 성공적으로 변경되었습니다." });
+      }
+
+      default:
+        return res.status(400).json({ error: "원하는 요청 타입이 없습니다." });
     }
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
+};
 
-  return res.status(405).json({ error: "Method not allowed" });
-}
+export default POST;

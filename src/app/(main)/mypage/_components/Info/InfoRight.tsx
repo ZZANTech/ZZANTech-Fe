@@ -1,5 +1,3 @@
-"use Client";
-
 import { BASE_URL } from "@/constants";
 import Link from "next/link";
 
