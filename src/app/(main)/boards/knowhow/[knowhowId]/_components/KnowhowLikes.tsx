@@ -3,7 +3,10 @@
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useKnowhowLikeMutation from "@/stores/queries/useKnowhowLikeMutation";
 import useKnowhowLikesCountQuery from "@/stores/queries/useKnowhowLikesCountQuery";
+import filledHeart from "/public/icons/filled_heart.svg";
+import emptyHeart from "/public/icons/empty_heart.svg";
 import { Tables } from "@/types/supabase";
+import Image from "next/image";
 
 type knowhowLikesProps = {
   knowhowId: number;
@@ -24,10 +27,14 @@ function KnowhowLikes({ knowhowId }: knowhowLikesProps) {
   };
 
   return (
-    <div className="flex gap-1 ">
-      <div onClick={handleUpdateLike}>{likeCountData?.isLiked ? "🩷" : "🤍"}</div>
-      <div>좋아요</div>
-      <div className="w-5 rounded">{likeCountData ? `${likeCountData.likeCount}` : "0"}</div>
+    <div className="flex px-[15px] items-center gap-[11px] ">
+      <div className="cursor-pointer" onClick={handleUpdateLike}>
+        {<Image src={likeCountData?.isLiked ? filledHeart : emptyHeart} alt="like" width={28} height={28} />}
+      </div>
+      <div className="flex gap-1 text-xl font-semibold">
+        <span className="">좋아요</span>
+        <span className="w-5 rounded">{likeCountData ? `${likeCountData.likeCount}` : "0"}</span>
+      </div>
     </div>
   );
 }

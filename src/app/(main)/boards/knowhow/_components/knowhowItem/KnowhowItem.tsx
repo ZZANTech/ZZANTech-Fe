@@ -22,20 +22,18 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
   console.log(textOnlyContent);
 
   return (
-    <li className="w-full h-[220px] border border-[#111] rounded-xl px-10 py-5">
-      <Link className="flex h-full" href={`/boards/knowhow/${knowhow.knowhow_postId}`}>
-        <div className="w-full flex gap-9 relative">
-          <div className="flex flex-col overflow-hidden">
+    <li className="w-full h-[220px] border   border-[#111] rounded-xl px-10 py-5">
+      <Link className="flex h-full " href={`/boards/knowhow/${knowhow.knowhow_postId}`}>
+        <div className="w-full   flex gap-9 relative">
+          <div className="flex w-full   flex-col overflow-hidden">
             <div className="flex gap-3 items-center mb-3.5">
               <span className="font-semibold">{nickname}</span>
               <time className="text-sm text-[#ADADAD]">{formattedCreatedAt}</time>
             </div>
-
             <h4 className="text-xl font-semibold text-[#000] mb-3.5 truncate">{title}</h4>
             <div className="">
               <p className=" text-base text-[#5A5A5A] line-clamp-2 ">{textOnlyContent}</p>
             </div>
-
             <div className="flex gap-4 absolute bottom-0">
               <CommentCount commentCount={comments_count} />
               <LikeCount knowhowId={knowhow_postId} likesCount={likes_count} />
