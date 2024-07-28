@@ -1,12 +1,13 @@
 import { getVotes } from "@/apis/votes";
 import { TVotesResponse } from "@/types/vote.type";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const useVotesQuery = (sortOrder: string) => {
-  return useQuery<TVotesResponse, Error>({
+  return useInfiniteQuery<TVotesResponse, Error>({
     queryKey: ["votes", sortOrder],
-    queryFn: () => getVotes(sortOrder),
-    placeholderData: keepPreviousData
+    queryFn: ({ pageParam = 0 }) => getVotes(sortOrder, pageParam as number),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) => lastPage.nextPage
   });
 };
 

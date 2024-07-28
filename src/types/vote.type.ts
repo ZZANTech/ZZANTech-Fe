@@ -2,6 +2,7 @@ import { Tables } from "@/types/supabase";
 
 export type TVotesResponse = {
   data: TVote[];
+  nextPage?: number | null;
 };
 
 export type TVote = Tables<"vote_posts"> & {
