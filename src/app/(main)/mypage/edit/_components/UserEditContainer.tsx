@@ -3,7 +3,7 @@ import UserEditPassword from "@/app/(main)/mypage/edit/_components/UserEditPassw
 
 function UserEditContainer() {
   return (
-    <div>
+    <div className="flex flex-col gap-10">
       <UserEditNickname />
       <UserEditPassword />
     </div>
