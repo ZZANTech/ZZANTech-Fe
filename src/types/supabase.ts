@@ -448,6 +448,25 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      get_best_knowhows: {
+        Args: {
+          days: number;
+          limit_param: number;
+        };
+        Returns: {
+          rank: number;
+          knowhow_postid: number;
+          title: string;
+          content: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          image_urls: Json;
+          nickname: string;
+          likes_count: number;
+          comments_count: number;
+        }[];
+      };
       get_posts_with_likes_and_nickname: {
         Args: {
           limit_param: number;
@@ -468,6 +487,42 @@ export type Database = {
           likes_count: number;
           comments_count: number;
           total_count: number;
+        }[];
+      };
+      get_recent_posts: {
+        Args: {
+          days: number;
+          limit_param: number;
+        };
+        Returns: {
+          knowhow_postid: number;
+          title: string;
+          content: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          image_urls: Json;
+          nickname: string;
+          likes_count: number;
+          comments_count: number;
+        }[];
+      };
+      get_top_liked_posts: {
+        Args: {
+          days: number;
+          limit_param: number;
+        };
+        Returns: {
+          knowhow_postId: number;
+          title: string;
+          content: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          image_urls: Json;
+          nickname: string;
+          likes_count: number;
+          comments_count: number;
         }[];
       };
       get_votes_with_counts_and_nickname: {

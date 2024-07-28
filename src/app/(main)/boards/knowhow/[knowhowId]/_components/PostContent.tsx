@@ -13,7 +13,7 @@ function PostContent({ knowhow }: PostContentProps) {
 
   if (knowhow)
     return (
-      <section className="px-[70px] py-11 border border-[#000] rounded-xl mb-[38px]">
+      <section className="px-[70px] py-11 min-h-[700px] border border-[#000] rounded-xl mb-[38px]">
         <h1 className="text-[32px] text-[#000] font-semibold ">{knowhow.title}</h1>
         <div className="flex gap-11">
           <span className="font-semibold text-[#2D2D2D]">{knowhow.nickname}</span>
