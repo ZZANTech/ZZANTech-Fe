@@ -6,7 +6,12 @@ type VotesListProps = {
 };
 
 function VotesList({ votes }: VotesListProps) {
-  return <ul>{votes && votes.map((vote) => <VoteItem key={vote.vote_postId} vote={vote} />)}</ul>;
+  return (
+    // 한 줄에 카드를 세 개까지만 보여주는 문제
+    <ul className="self-stretch justify-start items-center gap-9 flex flex-wrap">
+      {votes && votes.map((vote) => <VoteItem key={vote.vote_postId} vote={vote} />)}
+    </ul>
+  );
 }
 
 export default VotesList;
