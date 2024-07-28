@@ -230,7 +230,6 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
 
   const handleEditorChange = (content: string) => {
     setEditorContent(content);
-    console.log(content);
   };
 
   const handleCancel = () =>
