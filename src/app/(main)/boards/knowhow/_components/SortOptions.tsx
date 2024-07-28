@@ -6,7 +6,6 @@ type SortOptionsProps = {
 };
 
 function SortOptions({ onSortOrderChange, sortOrder }: SortOptionsProps) {
-  console.log(sortOrder);
   return (
     <div className="flex gap-[11px]">
       {SORT_OPTIONS.map((option) => (

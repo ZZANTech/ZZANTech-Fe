@@ -16,6 +16,14 @@ export const getKnowhows = async (
   return knowhows;
 };
 
+export const getTopKnowhows = async () => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/top`);
+  const data = await res.json();
+  const knowhows = data.posts;
+
+  return knowhows;
+};
+
 export const getKnowhow = async (knowhowId: TKnowhow["knowhow_postId"]) => {
   const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}`, {
     cache: "no-store"

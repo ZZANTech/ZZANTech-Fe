@@ -1,5 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function GET() {
   const supabase = createClient();
@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const { data: posts, error: postsError } = await supabase.rpc("get_top_liked_posts", {
       days: 7,
-      limit_param: 10
+      limit_param: 5
     });
 
     if (postsError || !posts) {
