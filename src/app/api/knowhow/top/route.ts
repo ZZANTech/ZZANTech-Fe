@@ -5,7 +5,7 @@ export async function GET() {
   const supabase = createClient();
 
   try {
-    const { data: posts, error: postsError } = await supabase.rpc("get_top_liked_posts", {
+    const { data: posts, error: postsError } = await supabase.rpc("get_top_knowhows", {
       days: 7,
       limit_param: 5
     });

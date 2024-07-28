@@ -27,7 +27,10 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
         <div className="w-full   flex gap-9 relative">
           <div className="flex w-full   flex-col overflow-hidden">
             <div className="flex gap-3 items-center mb-3.5">
-              <span className="font-semibold">{nickname}</span>
+              <div className="flex gap-2">
+                <Image src={knowhow.badge_url || ""} alt="badge" width={24} height={24} />
+                <span className="font-semibold">{nickname}</span>
+              </div>
               <time className="text-sm text-[#ADADAD]">{formattedCreatedAt}</time>
             </div>
             <h4 className="text-xl font-semibold text-[#000] mb-3.5 truncate">{title}</h4>

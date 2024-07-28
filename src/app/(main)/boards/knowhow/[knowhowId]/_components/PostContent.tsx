@@ -16,7 +16,10 @@ function PostContent({ knowhow }: PostContentProps) {
       <section className="px-[70px] py-11 min-h-[700px] border border-[#000] rounded-xl mb-[38px]">
         <h1 className="text-[32px] text-[#000] font-semibold ">{knowhow.title}</h1>
         <div className="flex gap-11">
-          <span className="font-semibold text-[#2D2D2D]">{knowhow.nickname}</span>
+          <div className="flex gap-2">
+            <Image src={knowhow.badge_url || ""} alt="badge" width={24} height={24} />
+            <span className="font-semibold text-[#2D2D2D]">{knowhow.nickname}</span>
+          </div>
           <time className="flex items-center text-[#5A5A5A] ">
             <Image src={clockIcon} alt="clock" />
             <span className="ml-1 ">{formattedDate}</span>

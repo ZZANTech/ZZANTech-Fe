@@ -102,6 +102,24 @@ export type Database = {
           }
         ];
       };
+      debug_logs: {
+        Row: {
+          created_at: string | null;
+          id: number;
+          log_message: string | null;
+        };
+        Insert: {
+          created_at?: string | null;
+          id?: number;
+          log_message?: string | null;
+        };
+        Update: {
+          created_at?: string | null;
+          id?: number;
+          log_message?: string | null;
+        };
+        Relationships: [];
+      };
       knowhow_comments: {
         Row: {
           content: string;
@@ -279,6 +297,7 @@ export type Database = {
       };
       users: {
         Row: {
+          badge_url: string | null;
           created_at: string;
           current_point: number;
           email: string;
@@ -289,6 +308,7 @@ export type Database = {
           userId: string;
         };
         Insert: {
+          badge_url?: string | null;
           created_at?: string;
           current_point?: number;
           email: string;
@@ -299,6 +319,7 @@ export type Database = {
           userId?: string;
         };
         Update: {
+          badge_url?: string | null;
           created_at?: string;
           current_point?: number;
           email?: string;
@@ -467,6 +488,29 @@ export type Database = {
           comments_count: number;
         }[];
       };
+      get_knowhow_posts: {
+        Args: {
+          search_option: string;
+          search_keyword: string;
+          sort_order: string;
+          limit_param: number;
+          offset_param: number;
+        };
+        Returns: {
+          knowhow_postId: number;
+          title: string;
+          content: string;
+          image_urls: Json;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          nickname: string;
+          badge_url: string;
+          likes_count: number;
+          comments_count: number;
+          total_count: number;
+        }[];
+      };
       get_posts_with_likes_and_nickname: {
         Args: {
           limit_param: number;
@@ -507,6 +551,25 @@ export type Database = {
           comments_count: number;
         }[];
       };
+      get_top_knowhows: {
+        Args: {
+          days: number;
+          limit_param: number;
+        };
+        Returns: {
+          knowhow_postId: number;
+          title: string;
+          content: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          image_urls: Json;
+          nickname: string;
+          badge_url: string;
+          likes_count: number;
+          comments_count: number;
+        }[];
+      };
       get_top_liked_posts: {
         Args: {
           days: number;
@@ -531,17 +594,16 @@ export type Database = {
           limit_param: number;
         };
         Returns: {
-          vote_postId: number;
+          knowhow_postId: number;
           title: string;
           content: string;
-          product_name: string;
-          product_price: string;
-          image_url: string;
           created_at: string;
           updated_at: string;
           user_id: string;
+          image_urls: Json;
           nickname: string;
-          votes_count: number;
+          badge_url: string;
+          likes_count: number;
           comments_count: number;
         }[];
       };
