@@ -1,15 +1,40 @@
 "use client";
+
+import { useUserContext } from "@/provider/contexts/UserContext";
+import useKnowhowLikeMutation from "@/stores/queries/useKnowhowLikeMutation";
+import useKnowhowLikesCountQuery from "@/stores/queries/useKnowhowLikesCountQuery";
+import filledHeart from "/public/icons/filled_heart.svg";
+import emptyHeart from "/public/icons/empty_heart.svg";
+import { Tables } from "@/types/supabase";
+import Image from "next/image";
+
 type knowhowLikesProps = {
   knowhowId: number;
 };
 
 function KnowhowLikes({ knowhowId }: knowhowLikesProps) {
-  // TODO 좋아요 개수, 현재 유저가 해당 게시물에 좋아요를 눌렀는지 여부 가져오기
+  const { user } = useUserContext();
+  const { data: likeCountData } = useKnowhowLikesCountQuery(knowhowId);
+  const { updateLike } = useKnowhowLikeMutation();
+  const handleUpdateLike = async () => {
+    const likeData: Partial<Tables<"knowhow_likes">> = {
+      knowhow_post_id: knowhowId,
+      user_id: user?.userId
+    };
+    if (likeCountData) {
+      await updateLike({ likeData, likeCountData });
+    }
+  };
+
   return (
-    <div className="flex gap-1">
-      <div>🩷</div>
-      <div>좋아요</div>
-      <div>좋아요개수</div>
+    <div className="flex px-[15px] items-center gap-[11px] ">
+      <div className="cursor-pointer" onClick={handleUpdateLike}>
+        {<Image src={likeCountData?.isLiked ? filledHeart : emptyHeart} alt="like" width={28} height={28} />}
+      </div>
+      <div className="flex gap-1 text-xl font-semibold">
+        <span className="">좋아요</span>
+        <span className="w-5 rounded">{likeCountData ? `${likeCountData.likeCount}` : "0"}</span>
+      </div>
     </div>
   );
 }

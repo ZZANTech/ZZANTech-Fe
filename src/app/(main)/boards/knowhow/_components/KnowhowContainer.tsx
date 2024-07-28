@@ -1,10 +1,23 @@
 "use client";
 import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
-import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import KnowhowPagination from "@/app/(main)/boards/knowhow/_components/KnowhowPagination";
 import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
+import dynamic from "next/dynamic";
+import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
+
+const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
+  loading: () => (
+    <ul className="flex flex-col  gap-8 mb-[13px]">
+      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+    </ul>
+  ),
+  ssr: false
+});
 
 function KnowhowContainer() {
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
@@ -45,14 +58,23 @@ function KnowhowContainer() {
         onSortOrderChange={handleSortOrderChange}
         onSearchOptionChange={handleSearchOptionChange}
         onSearch={handleSearch}
+        sortOrder={sortOrder}
       />
       <KnowhowList knowhows={knowhows?.posts} />
-      <KnowhowPagination
-        currentPage={currentPage}
-        itemsPerPage={ITEMS_PER_PAGE}
-        totalItems={totalItems || 0}
-        onPageChange={handlePageChange}
-      />
+      <div className="flex self-center relative">
+        <Suspense>
+          <KnowhowPagination
+            itemsPerPage={ITEMS_PER_PAGE}
+            totalItems={totalItems || 0}
+            onPageChange={handlePageChange}
+          />
+        </Suspense>
+        <SearchOptions
+          onSearch={handleSearch}
+          onSearchOptionChange={handleSearchOptionChange}
+          selectedSearchOption={selectedSearchOption}
+        />
+      </div>
     </section>
   );
 }

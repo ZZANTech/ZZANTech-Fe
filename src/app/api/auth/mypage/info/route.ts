@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createClient } from "@/utils/supabase/server";
+import { NextRequest, NextResponse } from "next/server";
 
 type RequestBody = {
   type: "checkNickname" | "changeNickname" | "changePassword";
@@ -16,7 +17,7 @@ const POST = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { type, userId, nickname, oldPassword, newPassword }: RequestBody = req.body;
 
-  const supabase = createClient();
+  // const supabase = createClient();
 
   try {
     switch (type) {

@@ -2,13 +2,18 @@ import { SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
 
 type SortOptionsProps = {
   onSortOrderChange: (value: TOption["value"]) => void;
+  sortOrder: TOption["value"];
 };
 
-function SortOptions({ onSortOrderChange }: SortOptionsProps) {
+function SortOptions({ onSortOrderChange, sortOrder }: SortOptionsProps) {
   return (
-    <div>
+    <div className="flex gap-[11px]">
       {SORT_OPTIONS.map((option) => (
-        <button key={option.value} onClick={() => onSortOrderChange(option.value)}>
+        <button
+          className={` ${option.value === sortOrder ? "text-[#569A68]" : "text-[#767676]"}`}
+          key={option.value}
+          onClick={() => onSortOrderChange(option.value)}
+        >
           {option.label}
         </button>
       ))}

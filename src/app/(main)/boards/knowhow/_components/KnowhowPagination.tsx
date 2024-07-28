@@ -1,13 +1,19 @@
 "use client";
 
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
+
 type KnowhowPaginationProps = {
-  currentPage: number;
   itemsPerPage: number;
   totalItems: number;
   onPageChange: (page: number) => void;
 };
 
-function KnowhowPagination({ currentPage, itemsPerPage, totalItems, onPageChange }: KnowhowPaginationProps) {
+function KnowhowPagination({ itemsPerPage, totalItems, onPageChange }: KnowhowPaginationProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentPage = parseInt(searchParams.get("page") || "1", 10);
+
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const pageButtons = [];
 
@@ -19,8 +25,13 @@ function KnowhowPagination({ currentPage, itemsPerPage, totalItems, onPageChange
     return `${baseButtonStyle} ${isActive ? activeButtonStyle : inactiveButtonStyle}`;
   };
 
+  const handlePageChange = (page: number) => {
+    onPageChange(page);
+    router.push(`?page=${page}`);
+  };
+
   pageButtons.push(
-    <button key={1} onClick={() => onPageChange(1)} className={getButtonClasses(currentPage === 1)}>
+    <button key={1} onClick={() => handlePageChange(1)} className={getButtonClasses(currentPage === 1)}>
       1
     </button>
   );
@@ -38,7 +49,7 @@ function KnowhowPagination({ currentPage, itemsPerPage, totalItems, onPageChange
 
   for (let i = startPage; i <= endPage; i++) {
     pageButtons.push(
-      <button key={i} onClick={() => onPageChange(i)} className={getButtonClasses(currentPage === i)}>
+      <button key={i} onClick={() => handlePageChange(i)} className={getButtonClasses(currentPage === i)}>
         {i}
       </button>
     );
@@ -56,7 +67,7 @@ function KnowhowPagination({ currentPage, itemsPerPage, totalItems, onPageChange
     pageButtons.push(
       <button
         key={totalPages}
-        onClick={() => onPageChange(totalPages)}
+        onClick={() => handlePageChange(totalPages)}
         className={getButtonClasses(currentPage === totalPages)}
       >
         {totalPages}
@@ -64,13 +75,19 @@ function KnowhowPagination({ currentPage, itemsPerPage, totalItems, onPageChange
     );
   }
 
+  useEffect(() => {
+    if (currentPage !== 1) {
+      onPageChange(currentPage);
+    }
+  }, [currentPage, onPageChange]);
+
   return (
-    <div className="flex items-center gap-2">
-      <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
+    <div className="flex items-center justify-center gap-2 w-full">
+      <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
         이전
       </button>
       {pageButtons}
-      <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+      <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
         다음
       </button>
     </div>
