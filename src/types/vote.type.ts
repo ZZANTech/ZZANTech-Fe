@@ -14,4 +14,5 @@ export type TVoteLikeCountsResponse = {
   totalVoteCount: number;
   upvoteCount: number;
   downvoteCount: number;
+  userLikeStatus: boolean | null;
 };
