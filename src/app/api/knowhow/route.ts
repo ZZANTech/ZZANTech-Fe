@@ -22,8 +22,6 @@ export const GET = async (req: Request) => {
       sort_order: sortOrder
     });
     if (postsError) {
-      console.log(postsError);
-
       throw new Error("게시글을 불러오지 못했습니다.");
     }
 
@@ -34,7 +32,6 @@ export const GET = async (req: Request) => {
     if (countError) {
       throw new Error("전체 게시글 수를 불러오지 못했습니다.");
     }
-    console.log(posts);
     return NextResponse.json({ posts });
   } catch (e) {
     if (e instanceof Error) {
