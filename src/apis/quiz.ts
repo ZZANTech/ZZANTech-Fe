@@ -10,6 +10,14 @@ export const fetchQuiz = async (): Promise<TQuiz> => {
   return response.json();
 };
 
+export const fetchQuizStatus = async (): Promise<{ hasTakenQuiz: boolean }> => {
+  const response = await fetch(`${BASE_URL}/api/quiz/status`);
+  if (!response.ok) {
+    throw new Error("네트워크 응답이 올바르지 않습니다.");
+  }
+  return response.json();
+};
+
 export const submitAnswer = async ({ user_id, quiz_id, answer }: TSubmitAnswer): Promise<TAnswerResponse> => {
   const response = await fetch(`${BASE_URL}/api/quiz/submit`, {
     method: "POST",
