@@ -19,7 +19,6 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
   const { title, content, nickname, created_at, comments_count, likes_count, image_urls, knowhow_postId } = knowhow;
   const formattedCreatedAt = dayjs(created_at).fromNow();
   const textOnlyContent = content.replace(/<[^>]+>/g, "");
-  console.log(textOnlyContent);
 
   return (
     <li className="w-full h-[220px] border   border-[#111] rounded-xl px-10 py-5">
