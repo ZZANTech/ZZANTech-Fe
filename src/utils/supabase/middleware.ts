@@ -39,6 +39,7 @@ export async function updateSession(request: NextRequest) {
   //   url.pathname = "/login";
   //   return NextResponse.redirect(url);
   // }
+
   const knowhowPattern = /^\/boards\/knowhow\/\d+$/;
 
   if (!user && knowhowPattern.test(request.nextUrl.pathname)) {
