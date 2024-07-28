@@ -1,5 +1,9 @@
 import { createServerClient } from "@supabase/ssr";
+import dayjs from "dayjs";
 import { NextResponse, type NextRequest } from "next/server";
+import utc from "dayjs/plugin/utc";
+
+dayjs.extend(utc);
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -67,5 +71,41 @@ export async function updateSession(request: NextRequest) {
   // If this is not done, you may be causing the browser and server to go out
   // of sync and terminate the user's session prematurely!
 
+  // const {
+  //   data: { user }
+  // } = await supabase.auth.getUser();
+
+  if (!request.nextUrl.pathname.startsWith("/quiz/completed")) {
+    if (request.nextUrl.pathname.startsWith("/quiz")) {
+      if (user) {
+        const user_id = user.id;
+        const todayStart = dayjs().utc().startOf("day").toISOString();
+
+        const { data, error } = await supabase
+          .from("answers")
+          .select("answerId")
+          .eq("user_id", user_id)
+          .gte("created_at", todayStart)
+          .single();
+
+        if (error && error.code !== "PGRST116") {
+          const url = request.nextUrl.clone();
+          url.pathname = "/error";
+          return NextResponse.redirect(url);
+        }
+
+        if (data) {
+          const url = request.nextUrl.clone();
+          url.pathname = "/quiz/completed";
+          return NextResponse.redirect(url);
+        }
+      }
+    }
+  }
+
   return supabaseResponse;
 }
+
+export const config = {
+  matcher: ["/quiz/:path*"]
+};

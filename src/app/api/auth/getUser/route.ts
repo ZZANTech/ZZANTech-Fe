@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
-async function GET(request: NextRequest) {
+export async function GET(request: NextRequest) {
   // const data = await request.json();
   // const email = data.email as string;
   // const password = data.password as string;
@@ -16,5 +16,3 @@ async function GET(request: NextRequest) {
 
   return NextResponse.json(userNickname);
 }
-
-export default GET;
