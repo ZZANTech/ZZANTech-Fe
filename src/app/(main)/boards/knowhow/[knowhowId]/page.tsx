@@ -1,7 +1,7 @@
 import { getKnowhow } from "@/apis/knowhow";
-import CommentsContainer from "../../_components/Comments/CommentsContainer";
-import PostContent from "./_components/PostContent";
-import PostActions from "./_components/PostActions";
+import CommentsContainer from "@/app/(main)/boards/_components/Comments/CommentsContainer";
+import PostActions from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostActions";
+import PostContent from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostContent";
 
 async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowId: number } }) {
   const knowhow = await getKnowhow(knowhowId);
@@ -9,7 +9,7 @@ async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowI
   return (
     <main>
       <PostContent knowhow={knowhow} />
-      <PostActions knowhowId={knowhowId} />
+      <PostActions knowhow={knowhow} />
       <CommentsContainer postId={knowhowId} />
     </main>
   );

@@ -1,4 +1,4 @@
-import VoteWriteForm from "../_components/VoteWriteForm";
+import VoteWriteForm from "@/app/(main)/boards/votes/_components/VoteWriteForm";
 
 function VoteWritePage() {
   return (

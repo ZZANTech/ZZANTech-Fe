@@ -1,4 +1,4 @@
-import { useUserContext } from "@/provider/contexts/userContext";
+import { useUserContext } from "@/provider/contexts/UserContext";
 import { TChatWithUser } from "@/types/chat.type";
 import Image from "next/image";
 

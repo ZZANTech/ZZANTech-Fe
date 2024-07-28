@@ -1,5 +1,5 @@
+import Button from "@/components/Button/Button";
 import { AlertModalProps } from "@/types/modal.type";
-import Button from "../Button/Button";
 
 function AlertModal({ content, subContent, onClose }: AlertModalProps) {
   return (

@@ -49,10 +49,15 @@ export const POST = async (req: NextRequest, { params }: { params: { knowhowId: 
 
   try {
     if (knowhowId) {
-      const { status, statusText } = await supabase
+      const { status, statusText, error } = await supabase
         .from("knowhow_comments")
         .insert({ ...newComment, knowhow_post_id: knowhowId })
         .single();
+
+      if (error) {
+        throw new Error("댓글 작성에 실패했습니다");
+      }
+
       return NextResponse.json({ status, statusText });
     } else {
       return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });

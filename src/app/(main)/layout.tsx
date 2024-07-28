@@ -1,5 +1,5 @@
+import HeaderContainer from "@/app/(main)/_components/HeaderContainer";
 import { ReactNode } from "react";
-import HeaderContainer from "./_components/HeaderContainer";
 
 type Props = { children: ReactNode; modal: ReactNode };
 export default function Layout({ children, modal }: Props) {

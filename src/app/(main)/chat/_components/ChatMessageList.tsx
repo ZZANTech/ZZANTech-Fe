@@ -1,8 +1,8 @@
 "use client";
 
+import ChatMessageItem from "@/app/(main)/chat/_components/ChatMessageItem";
 import { useChatMessagesQuery } from "@/stores/queries/useChatMessagesQuery";
 import { TChatWithUser } from "@/types/chat.type";
-import ChatMessageItem from "./ChatMessageItem";
 
 type ChatMessageListProps = {
   roomId: number;

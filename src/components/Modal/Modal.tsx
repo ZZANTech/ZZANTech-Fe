@@ -1,7 +1,8 @@
 "use client";
-import AlertModal from "./AlertModal";
-import ConfirmModal from "./ConfirmModal";
-import BackDrop from "./BackDrop";
+import AlertModal from "@/components/Modal/AlertModal";
+import BackDrop from "@/components/Modal/BackDrop";
+import ConfirmModal from "@/components/Modal/ConfirmModal";
+
 import { ModalProps, ConfirmModalProps, AlertModalProps } from "@/types/modal.type";
 
 const Modal = (props: ModalProps) => {

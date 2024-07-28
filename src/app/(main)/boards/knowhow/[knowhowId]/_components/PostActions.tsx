@@ -1,16 +1,18 @@
 "use client";
-import KnowhowLikes from "./KnowhowLikes";
-import ActionNav from "./ActionNav";
+
+import ActionNav from "@/app/(main)/boards/knowhow/[knowhowId]/_components/ActionNav";
+import KnowhowLikes from "@/app/(main)/boards/knowhow/[knowhowId]/_components/KnowhowLikes";
+import { TKnowhow } from "@/types/knowhow.type";
 
 type PostActionsProps = {
-  knowhowId: number;
+  knowhow: TKnowhow;
 };
 
-function PostActions({ knowhowId }: PostActionsProps) {
+function PostActions({ knowhow }: PostActionsProps) {
   return (
     <section className="flex gap-1 items-center">
-      <KnowhowLikes knowhowId={knowhowId} />
-      <ActionNav knowhowId={knowhowId} />
+      <KnowhowLikes knowhowId={knowhow.knowhow_postId} />
+      <ActionNav knowhow={knowhow} />
     </section>
   );
 }

@@ -33,9 +33,9 @@ export async function updateSession(request: NextRequest) {
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
   // issues with users being randomly logged out.
 
-  // const {
-  //   data: { user }
-  // } = await supabase.auth.getUser();
+  const {
+    data: { user }
+  } = await supabase.auth.getUser();
 
   // if (!user && !request.nextUrl.pathname.startsWith("/login") && !request.nextUrl.pathname.startsWith("/auth")) {
   //   // no user, potentially respond by redirecting the user to the login page
@@ -43,6 +43,19 @@ export async function updateSession(request: NextRequest) {
   //   url.pathname = "/login";
   //   return NextResponse.redirect(url);
   // }
+  const protectedPatterns = [/^\/boards\/knowhow\/\d+$/, /^\/boards\/votes\/\d+$/];
+
+  if (!user && protectedPatterns.some((pattern) => pattern.test(request.nextUrl.pathname))) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
+
+  if (!user && request.nextUrl.pathname.includes("write")) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
 
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:
@@ -57,9 +70,9 @@ export async function updateSession(request: NextRequest) {
   // If this is not done, you may be causing the browser and server to go out
   // of sync and terminate the user's session prematurely!
 
-  const {
-    data: { user }
-  } = await supabase.auth.getUser();
+  // const {
+  //   data: { user }
+  // } = await supabase.auth.getUser();
 
   if (!request.nextUrl.pathname.startsWith("/quiz/completed")) {
     if (request.nextUrl.pathname.startsWith("/quiz")) {
