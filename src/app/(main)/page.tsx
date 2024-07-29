@@ -1,5 +1,7 @@
 import Image from "next/image";
 import QuizUi from "./_components/QuizUi";
+import PointRankings from "@/app/(main)/_components/PointRankingList";
+import PointRankingContainer from "@/app/(main)/_components/PointRankingContainer";
 
 export default function Home() {
   return (
