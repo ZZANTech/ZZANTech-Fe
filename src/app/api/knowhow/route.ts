@@ -14,7 +14,7 @@ export const GET = async (req: Request) => {
   const offset = (page - 1) * limit;
 
   try {
-    const { data: posts, error: postsError } = await supabase.rpc("get_posts_with_likes_and_nickname", {
+    const { data: posts, error: postsError } = await supabase.rpc("get_knowhow_posts", {
       limit_param: limit,
       offset_param: offset,
       search_option: selectedSearchOption,

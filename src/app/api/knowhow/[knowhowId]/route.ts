@@ -15,7 +15,7 @@ export async function GET(
         .select(
           `
           *,
-          users (nickname)
+          users (nickname, badge_url)
         `
         )
         .eq("knowhow_postId", knowhowId)
@@ -29,7 +29,8 @@ export async function GET(
 
       const result = {
         ...postData,
-        nickname: users?.nickname
+        nickname: users?.nickname,
+        badge_url: users?.badge_url
       };
       return NextResponse.json({ post: result });
     }

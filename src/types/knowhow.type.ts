@@ -7,6 +7,7 @@ export type TKnowhowsResponse = {
 export type TKnowhow = Omit<Tables<"knowhow_posts">, "image_urls"> & {
   image_urls: string[];
   nickname?: Tables<"users">["nickname"];
+  badge_url: Tables<"users">["badge_url"];
   likes_count?: number;
   comments_count?: number;
   total_count: number;
