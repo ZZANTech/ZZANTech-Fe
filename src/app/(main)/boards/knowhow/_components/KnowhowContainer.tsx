@@ -2,10 +2,11 @@
 import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
 import { Suspense, useState } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
-import KnowhowPagination from "@/app/(main)/boards/knowhow/_components/KnowhowPagination";
+import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
 import dynamic from "next/dynamic";
 import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
+import { useRouter } from "next/navigation";
 
 const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
   loading: () => (
@@ -20,6 +21,7 @@ const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_component
 });
 
 function KnowhowContainer() {
+  const router = useRouter();
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
@@ -34,7 +36,9 @@ function KnowhowContainer() {
   const totalItems = knowhows?.posts[0]?.total_count;
 
   const handleSortOrderChange = (value: TOption["value"]) => {
+    const params = new URLSearchParams(window.location.search);
     setSortOrder(value);
+    params.set("sortOrder", sortOrder); //
     setCurrentPage(1);
   };
 
@@ -49,6 +53,10 @@ function KnowhowContainer() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", page.toString());
+    params.set("sortOrder", sortOrder); //
+    // router.push(`?${params.toString()}`);
   };
 
   return (
@@ -63,11 +71,7 @@ function KnowhowContainer() {
       <KnowhowList knowhows={knowhows?.posts} />
       <div className="flex self-center relative">
         <Suspense>
-          <KnowhowPagination
-            itemsPerPage={ITEMS_PER_PAGE}
-            totalItems={totalItems || 0}
-            onPageChange={handlePageChange}
-          />
+          <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
         </Suspense>
         <SearchOptions
           onSearch={handleSearch}

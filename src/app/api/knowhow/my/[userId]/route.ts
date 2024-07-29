@@ -1,18 +1,26 @@
+import { Tables } from "@/types/supabase";
 import { createClient } from "@/utils/supabase/server";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export const GET = async (req: Request) => {
+export const GET = async (
+  req: NextRequest,
+  { params: { userId } }: { params: { userId: Tables<"users">["userId"] } }
+) => {
   const supabase = createClient();
   const url = new URL(req.url);
   const page = parseInt(url.searchParams.get("page") || "2");
   const limit = parseInt(url.searchParams.get("limit") || "3");
   const offset = (page - 1) * limit;
-
+  console.log(userId);
+  console.log(page);
+  console.log(limit);
+  console.log(offset);
+  console.log("asdas");
   try {
     const { data: posts, error: postsError } = await supabase.rpc("get_my_knowhow_posts", {
       limit_param: limit,
       offset_param: offset,
-      user_id_param: "b3a792f6-d450-49d6-ad82-307b2dd926af"
+      user_id_param: userId
     });
     if (postsError) {
       console.log(postsError);

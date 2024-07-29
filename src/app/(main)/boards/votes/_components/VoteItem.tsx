@@ -6,7 +6,7 @@ type voteItemProps = {
   vote: TVote;
 };
 
-function VoteItem({ vote, sortOrder }: voteItemProps & { sortOrder: string }) {
+function VoteItem({ vote, sortOrder }: voteItemProps & { sortOrder?: string }) {
   const { vote_postId, image_url, title, nickname, votes_count, comments_count } = vote;
   return (
     <li className="w-[252px] h-[310px] shadow flex-col justify-start items-center inline-flex">
