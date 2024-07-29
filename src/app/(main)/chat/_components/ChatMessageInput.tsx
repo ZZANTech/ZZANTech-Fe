@@ -14,6 +14,10 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!message.trim() && !image) {
+      return;
+    }
     let imageUrl: string | null = null;
 
     if (image) {
