@@ -1,6 +1,6 @@
 "use client";
 
-import { CheckPasswordValidity } from "@/app/(main)/mypage/edit/_components/checkPasswordValidity";
+import { CheckPasswordValidity } from "@/app/(main)/mypage/edit/_components/checkValidity";
 import { useEffect, useState } from "react";
 
 function UserEditPassword() {

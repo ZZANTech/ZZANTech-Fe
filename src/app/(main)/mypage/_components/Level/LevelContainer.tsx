@@ -10,7 +10,7 @@ function LevelContainer() {
       <div className="flex flex-row justify-between">
         <p className="text-lg font-bold">내 등급</p>
         <button className="flex flex-row">
-          <>🗨️</>
+          <Image src={"/icons/circular_question.png"} width={24} height={24} alt="circular_question" />
           <p>내 등급이란?</p>
         </button>
       </div>

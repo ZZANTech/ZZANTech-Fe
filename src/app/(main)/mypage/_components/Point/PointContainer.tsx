@@ -6,6 +6,10 @@ import Image from "next/image";
 function PointContainer() {
   const { user } = useUserContext();
 
+  // 점수 천단위 콤마(,) 표시
+  const current_point = user?.current_point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const total_point = user?.total_point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-row gap-5">
@@ -13,14 +17,14 @@ function PointContainer() {
           <div>
             <p className="text-lg font-bold">현재 포인트</p>
             <div className="flex flex-row gap-2.5">
-              <Image src={"/icons/fire.png"} width={24} height={24} alt="" />
-              <p className="text-xl font-bold">{user?.current_point} 점</p>
+              <Image src={"/icons/diamond.png"} width={36} height={36} alt="diamond" />
+              <p className="text-xl font-bold">P {current_point}</p>
             </div>
           </div>
 
           <div>
             <p className="text-lg font-bold">누적 포인트</p>
-            <p className="text-xl font-bold">{user?.total_point} 점</p>
+            <p className="text-xl font-bold">P {total_point}</p>
           </div>
         </div>
 
