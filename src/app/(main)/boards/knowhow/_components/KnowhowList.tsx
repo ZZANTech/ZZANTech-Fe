@@ -1,4 +1,5 @@
 import KnowhowItem from "@/app/(main)/boards/knowhow/_components/knowhowItem/KnowhowItem";
+import Button from "@/components/Button/Button";
 import { TKnowhow } from "@/types/knowhow.type";
 
 type knowhowListProps = {

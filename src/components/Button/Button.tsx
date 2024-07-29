@@ -5,6 +5,7 @@ import { ComponentProps, MouseEventHandler, ReactNode } from "react";
 type ButtonProps = CustomButtonProps & {
   bgColor?: "black" | "white" | "main";
   disabled?: boolean;
+  children: ReactNode;
 };
 
 type CustomButtonProps =
