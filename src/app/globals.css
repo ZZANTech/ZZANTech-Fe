@@ -25,7 +25,9 @@ body {
 font-family: 'Pretendard', sans-serif;
 font-weight: 400;
 }
-
+body *:not([class*="letter-"]) {
+  letter-spacing: var(--tw-letter-spacing-tight-korean, -0.025em);
+}
 @import "react-quill/dist/quill.snow.css";
 @layer utilities {
   .MainLinkButton {
