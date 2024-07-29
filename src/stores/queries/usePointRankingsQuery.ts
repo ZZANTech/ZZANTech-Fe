@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 const usePointRankingsQuery = () => {
   return useQuery<Tables<"users">[], Error>({
-    queryKey: ["pointRanking"],
+    queryKey: ["pointRankings"],
     queryFn: getRanking
   });
 };
