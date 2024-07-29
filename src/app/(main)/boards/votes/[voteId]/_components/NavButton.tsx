@@ -1,20 +1,38 @@
 "use client";
 
+import { TVoteWithNavigation } from "@/types/vote.type";
+import { useRouter, useSearchParams } from "next/navigation";
+
 type NavButtonProps = {
-  direction: string;
+  vote: TVoteWithNavigation;
+  direction: "next" | "prev";
 };
 
-function NavButton({ direction }: NavButtonProps) {
-  const text = direction === "next" ? ">" : "<";
+function NavButton({ vote, direction }: NavButtonProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const sortOrder = searchParams.get("sortOrder") || "latest";
+
+  const targetVoteId = direction === "next" ? vote.nextVoteId : vote.prevVoteId;
+
+  const handleClick = () => {
+    if (targetVoteId) {
+      router.push(`/boards/votes/${targetVoteId}?sortOrder=${sortOrder}`);
+    }
+  };
 
   return (
-    <div className="w-[74px] h-[74px] relative bg-white rounded-[74px] border border-[#1b1b1b]">
+    <button
+      className="w-[74px] h-[74px] relative bg-white rounded-[74px] border border-[#1b1b1b] cursor-pointer"
+      onClick={handleClick}
+      disabled={!targetVoteId}
+    >
       {direction === "next" ? (
         <div className="w-[15px] h-[15px] left-[35px] top-[26.39px] absolute origin-top-left rotate-45 border-r border-t border-[#1b1b1b]" />
       ) : (
         <div className="w-[15px] h-[15px] left-[39px] top-[47.61px] absolute origin-top-left rotate-[-135deg] border-r border-t border-[#1b1b1b]" />
       )}
-    </div>
+    </button>
   );
 }
 

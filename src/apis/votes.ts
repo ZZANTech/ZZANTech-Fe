@@ -1,5 +1,5 @@
 import { BASE_URL } from "@/constants";
-import { TVotesResponse } from "@/types/vote.type";
+import { TVotesResponse, TVoteWithNavigation } from "@/types/vote.type";
 import { TVote } from "@/types/vote.type";
 import { Tables } from "@/types/supabase";
 
@@ -9,9 +9,12 @@ export const getVotes = async (sortOrder: string, page: number) => {
   return votes;
 };
 
-export const getVote = async (voteId: TVote["vote_postId"]) => {
+export const getVote = async (voteId: number): Promise<TVoteWithNavigation> => {
   const res = await fetch(`${BASE_URL}/api/votes/${voteId}`, { cache: "no-store" });
-  const vote: TVote = await res.json();
+  if (!res.ok) {
+    throw new Error("Failed to fetch vote data");
+  }
+  const vote: TVoteWithNavigation = await res.json();
   return vote;
 };
 
