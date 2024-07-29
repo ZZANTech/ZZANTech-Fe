@@ -1,9 +1,11 @@
 "use client";
 import Button from "@/components/Button/Button";
 import useAlertModal from "@/hooks/useAlertModal";
+import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
 import useVoteCommentMutation from "@/stores/queries/useVoteCommentMutation";
+import { useRouter } from "next/navigation";
 import { FormEventHandler, useRef } from "react";
 
 type CommentFormProps = {
@@ -13,6 +15,8 @@ type CommentFormProps = {
 
 function CommentForm({ postId, board }: CommentFormProps) {
   const { user } = useUserContext();
+  const modal = useModal();
+  const router = useRouter();
   const { displayDefaultAlert } = useAlertModal();
 
   const { addKnowhowComment } = useKnowhowCommentMutation();
@@ -20,8 +24,21 @@ function CommentForm({ postId, board }: CommentFormProps) {
 
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
+  const handleOpenModal = () =>
+    modal.open({
+      type: "confirm",
+      content: "로그인 후 이용해 주세요.",
+      onConfirm: () => router.push("/login")
+    });
+
   const handleCommentSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      handleOpenModal();
+      return;
+    }
+
     if (commentInputRef.current && postId && user) {
       if (!commentInputRef.current.value.trim()) {
         displayDefaultAlert("내용을 입력하세요.");
