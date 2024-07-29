@@ -17,3 +17,8 @@ export type TVoteLikeCountsResponse = {
   downvoteCount: number;
   userLikeStatus: boolean | null;
 };
+
+export type TVoteWithNavigation = TVote & {
+  prevVoteId?: number | null;
+  nextVoteId?: number | null;
+};
