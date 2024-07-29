@@ -2,7 +2,7 @@
 
 import { MouseEventHandler, useState } from "react";
 
-function UserSettingNickname() {
+function UserEditNickname() {
   const [newNickname, setNewNickname] = useState<string>("");
   const [isDuplicated, setIsDuplicated] = useState(false);
   const [isCorrected, setIsCorrected] = useState(false);
@@ -47,4 +47,4 @@ function UserSettingNickname() {
   );
 }
 
-export default UserSettingNickname;
+export default UserEditNickname;

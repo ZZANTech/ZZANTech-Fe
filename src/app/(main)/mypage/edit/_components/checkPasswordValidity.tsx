@@ -4,10 +4,10 @@ export const CheckPasswordValidity = ({
   setPasswordError,
   setIsPasswordValidState
 }: {
-  oldPassword: any;
-  newPassword: any;
-  setPasswordError: any;
-  setIsPasswordValidState: any;
+  oldPassword: string;
+  newPassword: string;
+  setPasswordError: React.Dispatch<React.SetStateAction<string>>;
+  setIsPasswordValidState: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   if (newPassword.length < 5 || newPassword.length > 12) {
     setPasswordError("비밀번호는 6자 이상 12자 이하이어야 합니다.");
