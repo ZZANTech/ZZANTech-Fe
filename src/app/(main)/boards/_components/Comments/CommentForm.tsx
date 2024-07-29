@@ -48,10 +48,15 @@ function CommentForm({ postId, board }: CommentFormProps) {
   };
 
   return (
-    <form onSubmit={handleCommentSubmit} className="flex flex-col w-full">
-      <textarea ref={commentInputRef} className="h-[118px] rounded-xl border border-[#DCDCDC] resize-none mb-4" />
+    <form onSubmit={handleCommentSubmit} className="w-full flex flex-col gap-[19px]">
+      <textarea ref={commentInputRef} className="h-[90px] w-full bg-white border border-gray-800 resize-none" />
       <div className="flex justify-end">
-        <Button type="submit">댓글 등록</Button>
+        <Button
+          type="submit"
+          className="w-[83px] h-[42px] bg-gray-900 text-[#e1ff01] text-[13px] font-semibold leading-[30px] rounded-none"
+        >
+          작성하기
+        </Button>
       </div>
     </form>
   );

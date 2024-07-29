@@ -13,7 +13,7 @@ type CommentsListProps = {
 
 function CommentsList({ comments, board }: CommentsListProps) {
   return (
-    <ul>
+    <ul className="w-full flex flex-col gap-9">
       {comments.map((comment) =>
         isKnowhowComment(comment) ? (
           <CommentItem key={comment.knowhow_commentId} comment={comment} board={board} />

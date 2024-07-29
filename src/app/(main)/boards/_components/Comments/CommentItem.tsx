@@ -11,6 +11,7 @@ import CommentActions from "@/app/(main)/boards/_components/Comments/CommentActi
 import CommentEditForm from "@/app/(main)/boards/_components/Comments/CommentEditForm";
 import useAlertModal from "@/hooks/useAlertModal";
 import useVoteCommentMutation from "@/stores/queries/useVoteCommentMutation";
+import Image from "next/image";
 
 type CommentItemPropsForKnowhow = {
   comment: TKnowhowComment;
@@ -78,20 +79,27 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
   };
 
   return (
-    <li className="mt-4 border rounded-xl px-5">
-      <div className="flex justify-between">
-        <span>{nickname}</span>
+    <li className="w-full h-24 flex flex-col gap-3">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-[7px]">
+            <div className="w-6 h-6 flex justify-center items-center">
+              <Image className="w-6 h-6 rounded-full" src="/path/to/image.jpg" alt="profile" width={24} height={24} />
+            </div>
+            <div className="text-black text-base font-semibold leading-snug">{nickname}</div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="text-[#acacac] text-sm font-normal leading-3">{formattedDate}</div>
+            <div className="text-[#acacac] text-sm font-normal leading-3">{formattedTime}</div>
+          </div>
+        </div>
         {!isEditing && user?.userId === comment?.user_id && (
           <CommentActions onEditModeChange={handleEditModeChange} onOpenModal={handleOpenModal} />
         )}
       </div>
       {!isEditing && (
         <>
-          <p>{content}</p>
-          <div>
-            <time>{formattedDate} </time>
-            <time>{formattedTime}</time>
-          </div>
+          <p className="w-full text-black text-base font-normal leading-normal">{content}</p>
         </>
       )}
       {isEditing && (
