@@ -10,11 +10,12 @@ import { useRouter } from "next/navigation";
 function VotesContainer() {
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState("latest");
+
   const { data, isLoading, fetchNextPage, hasNextPage } = useVotesQuery(sortOrder);
   const observer = useRef<IntersectionObserver | null>(null);
 
   const handleWriteClick = () => {
-    router.push("/boards/votes/write");
+    router.push(`/boards/votes/write`);
   };
 
   const handleSortOrderChange = (order: string) => {
@@ -49,7 +50,11 @@ function VotesContainer() {
     <section>
       <Button onClick={handleWriteClick}>글쓰기</Button>
       <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
-      <VotesList votes={data?.pages.flatMap((page) => page.data)} lastVoteElementRef={lastVoteElementRef} />
+      <VotesList
+        votes={data?.pages.flatMap((page) => page.data)}
+        lastVoteElementRef={lastVoteElementRef}
+        sortOrder={sortOrder}
+      />
     </section>
   );
 }

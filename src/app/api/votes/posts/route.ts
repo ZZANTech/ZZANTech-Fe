@@ -8,16 +8,17 @@ export const GET = async (req: Request) => {
   const page = parseInt(url.searchParams.get("page") || "0");
   const pageSize = 12;
 
+  let sortBy = "created_at";
+  let order = "desc";
+
+  if (sortOrder === "votes") {
+    sortBy = "votes_count";
+  }
+
   try {
-    let query = supabase.rpc("get_votes_with_counts_and_nickname").range(page * pageSize, (page + 1) * pageSize - 1);
-
-    if (sortOrder === "latest") {
-      query = query.order("created_at", { ascending: false });
-    } else if (sortOrder === "votes") {
-      query = query.order("votes_count", { ascending: false });
-    }
-
-    const { data, error } = await query;
+    const { data, error } = await supabase
+      .rpc("get_votes_with_counts_and_nickname", { sort_by: sortBy, sort_order: order })
+      .range(page * pageSize, (page + 1) * pageSize - 1);
 
     if (error) {
       throw new Error("게시글을 불러오지 못했습니다.");
