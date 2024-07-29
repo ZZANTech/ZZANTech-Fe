@@ -1,60 +1,46 @@
-import { BASE_URL } from "@/constants";
+import { Dispatch, SetStateAction } from "react";
 
-// export const checkNicknameAvailability = async (nickname: string): Promise<boolean> => {
-//   const response = await fetch(`${BASE_URL}/api/auth/mypage/test`, {
-//     method: "GET",
-//     // headers: {
-//     //   "Content-Type": "application/json"
-//     // },
-//     // body: JSON.stringify({ type: "checkNickname", nickname })
-//     body: JSON.stringify({ nickname })
+export const updateNickname = async (
+  nickname: string,
+  setNicknameDupError: Dispatch<SetStateAction<string>>,
+  setIsNicknameAllPassed: Dispatch<SetStateAction<boolean>>
+) => {
+  const res = await fetch("/api/auth/mypage/test", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(nickname)
+  });
+
+  // console.log("updateNickname >> ", res);
+
+  if (res.status === 200) {
+    setNicknameDupError("사용 가능한 닉네임 입니다");
+    setIsNicknameAllPassed(true);
+  }
+
+  if (res.status === 409) {
+    setNicknameDupError("동일한 닉네임이 있습니다.");
+    setIsNicknameAllPassed(false);
+  }
+
+  if (res.status === 500) {
+    setNicknameDupError("알 수 없는 에러가 발생했습니다.");
+    setIsNicknameAllPassed(false);
+  }
+};
+
+// export const updatePassword = async (userId: string, oldPassword: string, newPassword: string) => {
+//   const response = await fetch("/api/auth/mypage/info", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json"
+//     },
+//     body: JSON.stringify({ type: "changePassword", userId, oldPassword, newPassword })
 //   });
-//   const data = await response.json();
-//   return response.ok;
+//   if (!response.ok) {
+//     const data = await response.json();
+//     throw new Error(data.error);
+//   }
 // };
-
-export const checkNicknameAvailability = async (nickname: string) => {
-  const response = await fetch(`${BASE_URL}/api/auth/mypage/test`, {
-    method: "POST",
-    // headers: {
-    //   "Content-Type": "application/json"
-    // },
-    // body: JSON.stringify({ type: "checkNickname", nickname })
-    body: JSON.stringify({ nickname })
-  });
-
-  const data = await response.json();
-  return data;
-};
-
-export const updateNickname = async (userId: string, nickname: string) => {
-  const response = await fetch("/api/auth/mypage/info", {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ type: "changeNickname", userId, nickname })
-    // body가 어떻게 보이는지 확인해봐야겠군..
-  });
-
-  console.log("updateNickname response >>", response);
-  // request(요청)가 정상적으로 성공하면 response.ok가 true (false는 실패)
-  if (!response.ok) {
-    const data = await response.json();
-    throw new Error(data.error);
-  }
-};
-
-export const updatePassword = async (userId: string, oldPassword: string, newPassword: string) => {
-  const response = await fetch("/api/auth/mypage/info", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ type: "changePassword", userId, oldPassword, newPassword })
-  });
-  if (!response.ok) {
-    const data = await response.json();
-    throw new Error(data.error);
-  }
-};

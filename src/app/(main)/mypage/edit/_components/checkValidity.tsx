@@ -1,3 +1,32 @@
+export const CheckNicknameValidity = ({
+  nickname,
+  setNicknameError,
+  setIsNicknameValid
+}: {
+  nickname: string;
+  setNicknameError: React.Dispatch<React.SetStateAction<string>>;
+  setIsNicknameValid: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
+  if (!nickname) {
+    setNicknameError("빈칸을 채워주세요.");
+    setIsNicknameValid(false);
+    return;
+  }
+
+  if (nickname.length < 3 || nickname.length > 12) {
+    setNicknameError("닉네임은 3자 이상 12자 이하여야 합니다.");
+    setIsNicknameValid(false);
+    return;
+  }
+  if (/[^a-zA-Z0-9]/.test(nickname)) {
+    setNicknameError("닉네임에는 특수문자를 사용할 수 없습니다.");
+    setIsNicknameValid(false);
+    return;
+  }
+  setNicknameError("");
+  setIsNicknameValid(true);
+};
+
 export const CheckPasswordValidity = ({
   oldPassword,
   newPassword,
