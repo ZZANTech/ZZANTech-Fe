@@ -1,4 +1,4 @@
-import PointRankingList from "@/app/(main)/_components/PointRankingList";
+import PointRankingList from "@/app/(main)/_components/RightSection/PointRankingList";
 
 function PointRankingContainer() {
   return (

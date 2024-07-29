@@ -1,7 +1,7 @@
 import Image from "next/image";
 import QuizUi from "./_components/QuizUi";
-import PointRankings from "@/app/(main)/_components/PointRankingList";
-import PointRankingContainer from "@/app/(main)/_components/PointRankingContainer";
+import LeftSection from "@/app/(main)/_components/LeftSection/LeftSection";
+import RightSection from "@/app/(main)/_components/RightSection/RightSection";
 
 export default function Home() {
   return (
@@ -10,6 +10,10 @@ export default function Home() {
         <Image src="/home/home_banner.png" alt="home banner" layout="responsive" width={700} height={250} />
         <QuizUi />
       </section>
+      <div className="flex flex-col lg:flex-row">
+        <LeftSection />
+        <RightSection />
+      </div>
     </main>
   );
 }

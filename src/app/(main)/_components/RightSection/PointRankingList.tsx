@@ -1,5 +1,5 @@
 "use client";
-import PointRankingItem from "@/app/(main)/_components/PointRankingItem";
+import PointRankingItem from "@/app/(main)/_components/RightSection/PointRankingItem";
 import usePointRankingsQuery from "@/stores/queries/usePointRankingsQuery";
 
 function PointRankingList() {
