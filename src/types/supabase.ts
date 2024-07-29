@@ -628,7 +628,10 @@ export type Database = {
         }[];
       };
       get_votes_with_counts_and_nickname: {
-        Args: Record<PropertyKey, never>;
+        Args: {
+          sort_by: string;
+          sort_order: string;
+        };
         Returns: {
           vote_postId: number;
           title: string;

@@ -6,24 +6,27 @@ type voteItemProps = {
   vote: TVote;
 };
 
-function VoteItem({ vote }: voteItemProps) {
+function VoteItem({ vote, sortOrder }: voteItemProps & { sortOrder: string }) {
   const { vote_postId, image_url, title, nickname, votes_count, comments_count } = vote;
-
   return (
     <li className="w-[252px] h-[310px] shadow flex-col justify-start items-center inline-flex">
-      <Link href={`/boards/votes/${vote_postId}`}>
+      <Link href={`/boards/votes/${vote_postId}?sortOrder=${sortOrder}`}>
         <div className="w-[252px] h-[310px] shadow flex-col justify-start items-center inline-flex">
           <div className="relative w-[252px] h-[155px]">
-            <Image
+            {/* <Image
               className="grow shrink basis-0"
               src={image_url}
               alt="게시글 이미지"
               layout="fill"
               objectFit="cover"
-            />
+            /> */}
           </div>
           <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start p-3 bg-gray-100 gap-2 flex">
-            <div className="self-stretch h-[59px] text-black text-xl font-semibold leading-7 truncate">{title}</div>
+            <div className="self-stretch h-[59px] text-black text-xl font-semibold leading-7 truncate">
+              {title}
+              {/* 테스트용 */}
+              {vote_postId}
+            </div>
             <div className="self-stretch text-[#000000] text-sm font-normal leading-tight">{nickname}</div>
           </div>
           <div className="self-stretch grow shrink basis-0 px-2 bg-gray-900 justify-start items-center gap-3 flex">
