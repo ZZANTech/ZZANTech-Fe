@@ -511,6 +511,49 @@ export type Database = {
           total_count: number;
         }[];
       };
+      get_my_knowhow_posts: {
+        Args: {
+          user_id_param: string;
+          limit_param: number;
+          offset_param: number;
+        };
+        Returns: {
+          knowhow_postid: number;
+          title: string;
+          content: string;
+          image_urls: Json;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          nickname: string;
+          badge_url: string;
+          likes_count: number;
+          comments_count: number;
+          total_count: number;
+        }[];
+      };
+      get_my_votes: {
+        Args: {
+          user_id_param: string;
+          limit_param: number;
+          offset_param: number;
+        };
+        Returns: {
+          vote_postId: number;
+          title: string;
+          content: string;
+          product_name: string;
+          product_price: string;
+          image_url: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          nickname: string;
+          votes_count: number;
+          comments_count: number;
+          total_count: number;
+        }[];
+      };
       get_posts_with_likes_and_nickname: {
         Args: {
           limit_param: number;
