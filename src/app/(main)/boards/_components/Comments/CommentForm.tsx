@@ -3,16 +3,21 @@ import Button from "@/components/Button/Button";
 import useAlertModal from "@/hooks/useAlertModal";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
+import useVoteCommentMutation from "@/stores/queries/useVoteCommentMutation";
 import { FormEventHandler, useRef } from "react";
 
 type CommentFormProps = {
   postId: number;
+  board: "knowhow" | "vote";
 };
 
-function CommentForm({ postId }: CommentFormProps) {
+function CommentForm({ postId, board }: CommentFormProps) {
   const { user } = useUserContext();
   const { displayDefaultAlert } = useAlertModal();
+
   const { addKnowhowComment } = useKnowhowCommentMutation();
+  const { addVoteComment } = useVoteCommentMutation();
+
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
   const handleCommentSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
@@ -22,13 +27,23 @@ function CommentForm({ postId }: CommentFormProps) {
         displayDefaultAlert("내용을 입력하세요.");
         return;
       }
+
       const newComment = {
         content: commentInputRef.current?.value,
         user_id: user.userId,
-        knowhow_post_id: postId
+        ...(board === "knowhow" ? { knowhow_post_id: postId } : { vote_post_id: postId })
       };
-      await addKnowhowComment(newComment);
-      commentInputRef.current.value = "";
+
+      try {
+        if (board === "knowhow") {
+          await addKnowhowComment(newComment);
+        } else {
+          await addVoteComment(newComment);
+        }
+        commentInputRef.current.value = "";
+      } catch (error) {
+        displayDefaultAlert("댓글 등록에 실패했습니다.");
+      }
     }
   };
 

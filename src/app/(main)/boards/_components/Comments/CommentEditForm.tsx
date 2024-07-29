@@ -1,9 +1,10 @@
 import Button from "@/components/Button/Button";
 import { TKnowhowComment } from "@/types/knowhow.type";
+import { TVoteComment } from "@/types/vote.type";
 import { ChangeEventHandler } from "react";
 
 type CommentEditFormProps = {
-  editedContent: TKnowhowComment["content"];
+  editedContent: TKnowhowComment["content"] | TVoteComment["content"];
   onContentChange: ChangeEventHandler<HTMLTextAreaElement>;
   onCommentUpdate: () => void;
 };
