@@ -1,9 +1,9 @@
 import { getTopKnowhows } from "@/apis/knowhow";
-import { TKnowhowsResponse } from "@/types/knowhow.type";
+import { TKnowhow, TKnowhowsResponse } from "@/types/knowhow.type";
 import { useQuery } from "@tanstack/react-query";
 
 const useTopKnowhowQuery = () => {
-  return useQuery<TKnowhowsResponse, Error>({
+  return useQuery<TKnowhow[], Error>({
     queryKey: ["topKnowhows"],
     queryFn: getTopKnowhows
   });
