@@ -34,7 +34,6 @@ function Button({ children, bgColor, disabled, className = "", ...props }: Butto
   const combinedClassName = `${buttonBaseStyle} ${color} ${className}`;
   const disableClassName = `${buttonBaseStyle} ${className} !bg-[#f1f1f5] !text-[#999999] cursor-default`;
   const finalClassName = disabled ? disableClassName : combinedClassName;
-  console.log(finalClassName);
 
   if (props.href) {
     if (disabled) {
