@@ -31,16 +31,32 @@ export const updateNickname = async (
   }
 };
 
-// export const updatePassword = async (userId: string, oldPassword: string, newPassword: string) => {
-//   const response = await fetch("/api/auth/mypage/info", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json"
-//     },
-//     body: JSON.stringify({ type: "changePassword", userId, oldPassword, newPassword })
-//   });
-//   if (!response.ok) {
-//     const data = await response.json();
-//     throw new Error(data.error);
-//   }
-// };
+export const resetPassword = async (email: string) => {
+  const res = await fetch("/api/auth/mypage/password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(email)
+  });
+
+  const result = await res.json();
+  if (res.ok) {
+    console.log("resetPassword >> ", result);
+  }
+};
+
+export const updatePassword = async (password: string) => {
+  const res = await fetch("/api/auth/mypage/password", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(password)
+  });
+
+  const result = await res.json();
+  if (res.ok) {
+    console.log("resetPassword >> ", result);
+  }
+};
