@@ -2,11 +2,10 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import HeaderMiddle from "@/app/(main)/_components/HeaderMiddle";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import { logout } from "@/apis/auth/auth";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { logout } from "@/apis/auth";
 
 function HeaderContainer() {
   const router = useRouter();

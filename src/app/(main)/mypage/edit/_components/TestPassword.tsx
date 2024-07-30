@@ -1,6 +1,6 @@
 "use client";
 
-import { resetPassword } from "@/apis/auth/mypage/mypageInfo";
+import { resetPassword } from "@/apis/auth";
 import { useState } from "react";
 
 function TestPassword() {

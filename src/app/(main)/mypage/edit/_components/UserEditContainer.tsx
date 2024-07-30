@@ -7,7 +7,7 @@ function UserEditContainer() {
   return (
     <div className="flex flex-col gap-10">
       <UserEditNickname />
-      {/* <UserEditPassword /> */}
+      <UserEditPassword />
       <TestPassword />
       <TestUpdatePassword />
     </div>

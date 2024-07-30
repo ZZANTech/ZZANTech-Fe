@@ -56,6 +56,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     fetchUser();
   }, []);
