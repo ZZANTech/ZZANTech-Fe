@@ -4,16 +4,25 @@ import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useLikedKnowhowsQuery from "@/stores/queries/useLikedKnowhowsQuery";
-import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 function LikedKnowhowContainer() {
   const { user } = useUserContext();
   const userId = user?.userId;
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const searchParams = useSearchParams();
 
   const { data: knowhows } = useLikedKnowhowsQuery(currentPage, ITEMS_PER_PAGE, userId || "");
 
   const handlePageChange = (page: number) => setCurrentPage(page);
+
+  useEffect(() => {
+    const pageFromParams = parseInt(searchParams.get("page") || "1", 10);
+    if (currentPage !== pageFromParams) {
+      setCurrentPage(pageFromParams);
+    }
+  }, [searchParams]);
 
   return (
     <section>

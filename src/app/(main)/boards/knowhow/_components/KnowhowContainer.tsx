@@ -3,10 +3,16 @@ import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
 import { Suspense, useEffect, useState } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
-import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
+import {
+  ITEMS_PER_PAGE,
+  SEARCH_OPTIONS,
+  SORT_LATEST,
+  SORT_OPTIONS,
+  TOption
+} from "@/app/(main)/boards/knowhow/_constants";
 import dynamic from "next/dynamic";
 import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
   loading: () => (
@@ -25,6 +31,7 @@ function KnowhowContainer() {
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
+  const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(1);
   const { data: knowhows } = useKnowhowsQuery(
     currentPage,
@@ -58,6 +65,17 @@ function KnowhowContainer() {
     params.set("sortOrder", sortOrder); //
     // router.push(`?${params.toString()}`);
   };
+
+  useEffect(() => {
+    const pageFromParams = parseInt(searchParams.get("page") || "1", 10);
+    if (currentPage !== pageFromParams) {
+      setCurrentPage(pageFromParams);
+    }
+    const sortFromParams = searchParams.get("sortOrder") || SORT_LATEST;
+    if (sortOrder !== sortFromParams) {
+      setSortOrder(sortFromParams);
+    }
+  }, [searchParams]);
 
   return (
     <section>

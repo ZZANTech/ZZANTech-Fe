@@ -13,19 +13,13 @@ type MyKnowhowContainerProps = {
 };
 
 function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(parseInt(searchParams.get("page") || "1", 10));
 
   const { data: knowhows } = useMyKnowhowsQuery(currentPage, ITEMS_PER_PAGE, user?.userId);
   const totalItems = knowhows && knowhows[0].total_count;
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
-    router.push(`?${params.toString()}`);
-  };
+  const handlePageChange = (page: number) => setCurrentPage(page);
 
   useEffect(() => {
     const pageFromParams = parseInt(searchParams.get("page") || "1", 10);
