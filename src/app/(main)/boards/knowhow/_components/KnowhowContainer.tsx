@@ -33,6 +33,7 @@ function KnowhowContainer() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const searchParams = useSearchParams();
   const [currentPage, setCurrentPage] = useState<number>(1);
+
   const { data: knowhows } = useKnowhowsQuery(
     currentPage,
     ITEMS_PER_PAGE,
