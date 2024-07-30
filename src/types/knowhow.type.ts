@@ -20,6 +20,7 @@ export type TKnowhowLikesCountResponse = {
 
 export type TKnowhowComment = Tables<"knowhow_comments"> & {
   nickname?: Tables<"users">["nickname"];
+  badge_url?: Tables<"users">["badge_url"];
 };
 
 export type TResponseStatus = {
