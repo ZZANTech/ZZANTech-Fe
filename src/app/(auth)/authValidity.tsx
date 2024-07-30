@@ -8,8 +8,8 @@ export const checkEmailValidity = ({
   setEmailError
 }: {
   email: string;
-  setEmailMessage: () => Dispatch<SetStateAction<string>>;
-  setEmailError: () => Dispatch<SetStateAction<string>>;
+  setEmailMessage: Dispatch<SetStateAction<string>>;
+  setEmailError: Dispatch<SetStateAction<string>>;
 }) => {
   if (!email) {
     setEmailMessage("");
@@ -35,8 +35,8 @@ export const checkPasswordValidity = ({
   setPasswordError
 }: {
   password: string;
-  setPasswordMessage: () => Dispatch<SetStateAction<string>>;
-  setPasswordError: () => Dispatch<SetStateAction<string>>;
+  setPasswordMessage: Dispatch<SetStateAction<string>>;
+  setPasswordError: Dispatch<SetStateAction<string>>;
 }) => {
   if (!password) {
     setPasswordMessage("");
