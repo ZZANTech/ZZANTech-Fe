@@ -19,6 +19,9 @@ function KnowhowFilter({
   onSearch,
   sortOrder
 }: KnowhowFilterTypes) {
+  const handleSortOrderChange = () => {
+    onSortOrderChange;
+  };
   return (
     <nav className="flex justify-between">
       <SortOptions sortOrder={sortOrder} onSortOrderChange={onSortOrderChange} />

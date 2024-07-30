@@ -29,7 +29,7 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
     onPageChange(page);
     const params = new URLSearchParams(window.location.search);
     params.set("page", page.toString());
-    router.push(`?${params.toString()}`);
+    router.replace(`?${params.toString()}`);
   };
 
   pageButtons.push(

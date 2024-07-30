@@ -31,6 +31,13 @@ export const getMyKnowhows = async (userId: Tables<"users">["userId"], page: num
 
   return knowhows;
 };
+export const getLikedKnowhows = async (userId: Tables<"users">["userId"], page: number, limit: number) => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/my/like/${userId}?page=${page}&limit=${limit}`);
+  const data = await res.json();
+  const knowhows = data.posts;
+
+  return knowhows;
+};
 
 export const getKnowhow = async (knowhowId: TKnowhow["knowhow_postId"]) => {
   const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}`, {

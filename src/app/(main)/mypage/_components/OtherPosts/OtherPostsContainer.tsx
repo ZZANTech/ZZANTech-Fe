@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function OtherPostsContainer() {
@@ -7,7 +8,7 @@ function OtherPostsContainer() {
         <>🖤</>
         좋아요 누른 글 확인하기
       </p>
-      <button>➡️</button>
+      <Link href="/mypage/like">➡️</Link>
     </div>
   );
 }

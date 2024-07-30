@@ -1,6 +1,6 @@
 "use client";
 import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
@@ -38,7 +38,7 @@ function KnowhowContainer() {
   const handleSortOrderChange = (value: TOption["value"]) => {
     const params = new URLSearchParams(window.location.search);
     setSortOrder(value);
-    params.set("sortOrder", sortOrder); //
+    // params.set("sortOrder", sortOrder); //
     setCurrentPage(1);
   };
 

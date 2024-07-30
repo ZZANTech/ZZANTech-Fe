@@ -6,7 +6,8 @@ import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
 import useMyKnowhowsQuery from "@/stores/queries/useMyKnowhowsQuery";
 import useMyVotesQuery from "@/stores/queries/useMyVotesQuery";
 import { Tables } from "@/types/supabase";
-import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 
 type MyVotesContainerProps = {
   user: Tables<"users">;
@@ -14,11 +15,20 @@ type MyVotesContainerProps = {
 
 function MyVotesContainer({ user }: MyVotesContainerProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const searchParams = useSearchParams();
+
   const { data: votes } = useMyVotesQuery(currentPage, 1, user?.userId);
   const totalItems = votes && votes[0].total_count;
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
+
+  useEffect(() => {
+    const pageFromParams = parseInt(searchParams.get("page") || "1", 10);
+    if (currentPage !== pageFromParams) {
+      setCurrentPage(pageFromParams);
+    }
+  }, [searchParams]);
 
   return (
     <article>
