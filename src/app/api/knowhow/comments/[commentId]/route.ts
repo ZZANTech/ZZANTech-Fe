@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 export const PATCH = async (req: NextRequest, { params }: { params: { commentId: string } }) => {
   const supabase = createClient();
   const commentId = params.commentId;
-  const reqBody = await req.json();
-  const { badge_url, ...updatedComment } = reqBody;
+  const updatedComment = await req.json();
+
   try {
     if (commentId) {
       const { status, statusText, error } = await supabase

@@ -57,7 +57,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
   };
 
   const handleCommentUpdate = async () => {
-    const { nickname, ...commentWithoutNickname } = comment;
+    const { nickname, badge_url, ...commentWithoutuser } = comment;
 
     if (!editedContent.trim().length) {
       displayDefaultAlert("내용을 입력하세요.");
@@ -65,7 +65,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
     }
 
     const updatedComment = {
-      ...commentWithoutNickname,
+      ...commentWithoutuser,
       content: editedContent
     };
 
