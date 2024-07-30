@@ -17,7 +17,7 @@ function SignUpContainer() {
 
   const handleClickSignUp = async () => {
     const data = { email, nickname, password, recheckPassword };
-    const response = await fetch(`${BASE_URL}api/auth/signup`, {
+    const response = await fetch(`${BASE_URL}/api/auth/signup`, {
       method: "POST",
       body: JSON.stringify(data)
     });
