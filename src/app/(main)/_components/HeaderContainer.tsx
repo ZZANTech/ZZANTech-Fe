@@ -3,11 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import HeaderMiddle from "@/app/(main)/_components/HeaderMiddle";
-import HeaderRightUser from "@/app/(main)/_components/HeaderRightUser";
-import HeaderRightNone from "@/app/(main)/_components/HeaderRightNone";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import { logout } from "@/apis/auth/authentication";
+import { useState } from "react";
 
 function HeaderContainer() {
+  const [loading, setLoading] = useState(false);
+
   const { user } = useUserContext();
 
   return (
@@ -16,7 +18,19 @@ function HeaderContainer() {
         <Image src={"/logos/mainLogo.png"} width={132} height={24} alt="mainLogo" />
       </Link>
       <HeaderMiddle />
-      {user ? <HeaderRightUser /> : <HeaderRightNone />}
+      {user ? (
+        <div className="flex flex-row gap-2.5">
+          <Link href={"/mypage"} className="hover:font-bold hover:text-[#04B014]">
+            {/* <p>badge</p> */}
+            {user.nickname} 님
+          </Link>
+          <button onClick={logout}>로그아웃</button>
+        </div>
+      ) : (
+        <Link href={"/login"} className="MainLinkButton">
+          로그인
+        </Link>
+      )}
     </div>
   );
 }
