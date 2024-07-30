@@ -1,5 +1,6 @@
 import { deleteKnowhowComment, patchKnowhowComment, postKnowhowComment } from "@/apis/knowhow";
 import useAlertModal from "@/hooks/useAlertModal";
+import { DEFAULT_KNOWHOWS_QUERY_KEY } from "@/stores/queries/useKnowhowMutation";
 import { TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -12,6 +13,9 @@ const useKnowhowCommentMutation = () => {
     onSuccess: (status, updatedComment) => {
       queryClient.invalidateQueries({
         queryKey: ["knowhowComments", { knowhowId: updatedComment.knowhow_post_id?.toString() }]
+      });
+      queryClient.invalidateQueries({
+        queryKey: DEFAULT_KNOWHOWS_QUERY_KEY
       });
     },
     onError: (e) => displayDefaultAlert(e.message)

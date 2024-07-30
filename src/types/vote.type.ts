@@ -23,3 +23,7 @@ export type TVoteWithNavigation = TVote & {
   prevVoteId?: number | null;
   nextVoteId?: number | null;
 };
+
+export type TVoteComment = Tables<"vote_comments"> & {
+  nickname?: Tables<"users">["nickname"];
+};
