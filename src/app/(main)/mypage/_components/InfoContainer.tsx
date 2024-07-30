@@ -11,7 +11,7 @@ function InfoContainer() {
   return (
     <div className="flex flex-row">
       <div className="flex flex-row gap-2.5">
-        <Image src={"/badges/lv5.png"} width={24} height={24} alt="mainLogo" />
+        <Image src={user?.badge_url || ""} width={24} height={24} alt="mainLogo" />
         <p>{user?.nickname}님</p>
       </div>
 

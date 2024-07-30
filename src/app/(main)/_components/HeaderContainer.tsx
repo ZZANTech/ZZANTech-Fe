@@ -6,11 +6,18 @@ import HeaderMiddle from "@/app/(main)/_components/HeaderMiddle";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { logout } from "@/apis/auth/auth";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function HeaderContainer() {
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const { user } = useUserContext();
+
+  const handleLogout = () => {
+    logout();
+    router.replace("/");
+  };
 
   return (
     <div className="mx-auto my-5 flex flex-row border border-gray-100 gap-5 items-center justify-center">
@@ -39,7 +46,7 @@ function HeaderContainer() {
             {/* <p>badge</p> */}
             {user.nickname} 님
           </Link>
-          <button onClick={logout}>로그아웃</button>
+          <button onClick={handleLogout}>로그아웃</button>
         </div>
       ) : (
         <Link href={"/login"} className="MainLinkButton">
