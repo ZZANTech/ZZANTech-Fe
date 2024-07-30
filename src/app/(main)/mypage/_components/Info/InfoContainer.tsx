@@ -7,7 +7,7 @@ import Link from "next/link";
 
 function InfoContainer() {
   const { user } = useUserContext();
-  console.log("user", user);
+  // console.log("user", user);
   return (
     <div className="flex flex-row">
       <div className="flex flex-row gap-2.5">
