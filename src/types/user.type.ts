@@ -7,7 +7,7 @@ export type TUserInsert = Omit<
   "created_at" | "updated_at" | "userId" | "badge_url" | "current_point" | "total_point" | "provider"
 > & {
   password: string;
-  recheckPassword: string;
+  confirmPassword: string;
 };
 
 export type TUserUpdate = Partial<TUser>;

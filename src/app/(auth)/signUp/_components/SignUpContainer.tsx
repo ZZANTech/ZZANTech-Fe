@@ -13,11 +13,11 @@ function SignUpContainer() {
   const [email, setEmail] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [recheckPassword, setRecheckPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
   const router = useRouter();
 
   const handleClickSignUp = async () => {
-    const data: TUserInsert = { email, nickname, password, recheckPassword };
+    const data: TUserInsert = { email, nickname, password, confirmPassword };
     try {
       await signUp(data);
       router.replace("/login");
@@ -25,7 +25,7 @@ function SignUpContainer() {
       alert(error.message);
     }
   };
-  const isFormValid = email && nickname && password && recheckPassword;
+  const isFormValid = email && nickname && password && confirmPassword;
 
   return (
     <div className="flex flex-col items-center w-[800px] mx-auto my-10 p-10">
@@ -35,13 +35,13 @@ function SignUpContainer() {
         <NicknameForm nickname={nickname} setNickname={setNickname} />
         <PasswordForm password={password} setPassword={setPassword} />
         <RecheckPasswordForm
-          recheckPassword={recheckPassword}
-          setRecheckPassword={setRecheckPassword}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
           password={password}
         />
       </section>
       <button
-        className={`w-[400px] p-2.5 text-center text-white rounded-lg ${isFormValid ? "bg-black" : "bg-gray-400"}`}
+        className={`w-[400px] h-14 p-2.5 text-center text-white rounded-lg ${isFormValid ? "bg-black" : "bg-gray-400"}`}
         onClick={handleClickSignUp}
         disabled={!isFormValid}
       >

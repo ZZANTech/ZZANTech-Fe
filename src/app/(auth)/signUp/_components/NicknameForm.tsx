@@ -57,7 +57,7 @@ function NicknameForm({ nickname, setNickname }: { nickname: string; setNickname
       </form>
       {isDuplicated && <p className="AuthStateInfo">동일한 닉네임이 있습니다.</p>}
       {isCorrected && <p className="AuthStateInfoGreen">사용 가능한 닉네임입니다.</p>}
-      {isInvalidNickname && <p className="AuthStateInfo text-info-red">유효한 닉네임 형식이 아닙니다.</p>}
+      {isInvalidNickname && <p className="AuthStateInfo">유효한 닉네임 형식이 아닙니다.</p>}
     </div>
   );
 }

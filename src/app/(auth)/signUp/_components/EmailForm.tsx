@@ -39,7 +39,7 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
           type="email"
           value={email}
           placeholder="이메일을 입력해주세요"
-          className={`AuthInputShort rounded-lg ${isDuplicated || isInvalidEmail ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
+          className={`AuthInputShort ${isDuplicated || isInvalidEmail ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
           onChange={(e) => {
             setEmail(e.target.value);
             setIsDuplicated(false);
@@ -51,9 +51,9 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
           중복체크
         </button>
       </form>
-      {isDuplicated && <p className="AuthStateInfo text-info-red">동일한 이메일이 있습니다.</p>}
-      {isCorrected && <p className="AuthStateInfoGreen text-info-green ">사용 가능한 이메일입니다.</p>}
-      {isInvalidEmail && <p className="AuthStateInfo text-info-red">유효한 이메일 형식이 아닙니다.</p>}
+      {isDuplicated && <p className="AuthStateInfo">동일한 이메일이 있습니다.</p>}
+      {isCorrected && <p className="AuthStateInfoGreen">사용 가능한 이메일입니다.</p>}
+      {isInvalidEmail && <p className="AuthStateInfo">유효한 이메일 형식이 아닙니다.</p>}
     </div>
   );
 }
