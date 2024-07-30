@@ -11,12 +11,8 @@ function VotesContainer() {
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState("latest");
 
-  const { data, isLoading, fetchNextPage, hasNextPage, refetch } = useVotesQuery(sortOrder);
+  const { data, isLoading, fetchNextPage, hasNextPage } = useVotesQuery(sortOrder);
   const observer = useRef<IntersectionObserver | null>(null);
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
 
   const handleWriteClick = () => {
     router.push(`/boards/votes/write`);

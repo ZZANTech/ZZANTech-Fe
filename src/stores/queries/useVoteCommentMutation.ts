@@ -14,6 +14,9 @@ const useVoteCommentMutation = () => {
       queryClient.invalidateQueries({
         queryKey: ["voteComments", { voteId: updatedComment.vote_post_id?.toString() }]
       });
+      queryClient.invalidateQueries({
+        queryKey: ["votes"]
+      });
     },
     onError: (e) => displayDefaultAlert(e.message)
   });

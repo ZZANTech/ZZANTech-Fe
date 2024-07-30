@@ -25,7 +25,7 @@ function KnowhowContainer() {
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
 
-  const { data: knowhows, refetch } = useKnowhowsQuery(
+  const { data: knowhows } = useKnowhowsQuery(
     currentPage,
     ITEMS_PER_PAGE,
     sortOrder,
@@ -33,10 +33,6 @@ function KnowhowContainer() {
     searchKeyword
   );
   const totalItems = knowhows?.posts[0]?.total_count;
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
 
   const handleSortOrderChange = (value: TOption["value"]) => {
     setSortOrder(value);
