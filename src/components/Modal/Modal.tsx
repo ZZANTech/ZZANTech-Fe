@@ -19,7 +19,7 @@ const Modal = (props: ModalProps) => {
         />
       );
     } else if (props.type === "alert") {
-      const alertProps = props as AlertModalProps;
+    const alertProps = props as AlertModalProps;
       return (
         <AlertModal
           type={alertProps.type}

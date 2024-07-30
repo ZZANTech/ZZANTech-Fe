@@ -3,13 +3,13 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
-type KnowhowPaginationProps = {
+type PaginationProps = {
   itemsPerPage: number;
   totalItems: number;
   onPageChange: (page: number) => void;
 };
 
-function KnowhowPagination({ itemsPerPage, totalItems, onPageChange }: KnowhowPaginationProps) {
+function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
@@ -27,7 +27,9 @@ function KnowhowPagination({ itemsPerPage, totalItems, onPageChange }: KnowhowPa
 
   const handlePageChange = (page: number) => {
     onPageChange(page);
-    router.push(`?page=${page}`);
+    const params = new URLSearchParams(window.location.search);
+    params.set("page", page.toString());
+    router.replace(`?${params.toString()}`);
   };
 
   pageButtons.push(
@@ -94,4 +96,4 @@ function KnowhowPagination({ itemsPerPage, totalItems, onPageChange }: KnowhowPa
   );
 }
 
-export default KnowhowPagination;
+export default Pagination;

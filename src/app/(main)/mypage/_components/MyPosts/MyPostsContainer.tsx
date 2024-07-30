@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 function MyPostsContainer() {
@@ -7,7 +8,7 @@ function MyPostsContainer() {
         <>✍🏻</>
         내가 쓴 글 확인하기
       </p>
-      <button>➡️</button>
+      <Link href="/mypage/posts">➡️</Link>
     </div>
   );
 }
