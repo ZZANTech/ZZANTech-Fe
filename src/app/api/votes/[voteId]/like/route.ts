@@ -1,4 +1,5 @@
 import { Tables } from "@/types/supabase";
+import { checkAndAddPoints } from "@/utils/checkPoints";
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -92,7 +93,28 @@ export const POST = async (req: NextRequest) => {
         throw new Error("투표 업데이트에 실패했습니다.");
       }
 
-      // TODO 작성자 점수추가
+      if (voteData.is_upvote) {
+        const { data: authorData, error: authorError } = await supabase
+          .from("vote_posts")
+          .select("user_id")
+          .eq("vote_postId", voteData.vote_post_id)
+          .single();
+
+        if (authorError) {
+          throw new Error("작성자 정보를 가져오지 못했습니다");
+        }
+
+        const authorId = authorData.user_id;
+        if (authorId === voteData.user_id) {
+          return;
+        }
+        const POINTS_TO_ADD = 1;
+        const REASON_FOR_ADD_POINTS = "따봉";
+
+        checkAndAddPoints(authorId, POINTS_TO_ADD, REASON_FOR_ADD_POINTS).catch((e) => {
+          console.error(e);
+        });
+      }
 
       return NextResponse.json({ status, statusText });
     }

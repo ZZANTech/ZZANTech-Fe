@@ -1,9 +1,6 @@
-"use client";
-
 import NavButton from "@/app/(main)/boards/votes/[voteId]/_components/NavButton";
 import VoteButtons from "@/app/(main)/boards/votes/[voteId]/_components/VoteButtons";
 import { TVote } from "@/types/vote.type";
-import Image from "next/image";
 
 type VoteContentProps = {
   vote: TVote;
