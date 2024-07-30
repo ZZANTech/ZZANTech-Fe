@@ -41,7 +41,7 @@ function SignUpContainer() {
         />
       </section>
       <button
-        className={`w-[400px] p-2.5 text-center text-white ${isFormValid ? "bg-black" : "bg-gray-400"}`}
+        className={`w-[400px] p-2.5 text-center text-white rounded-lg ${isFormValid ? "bg-black" : "bg-gray-400"}`}
         onClick={handleClickSignUp}
         disabled={!isFormValid}
       >
