@@ -1,6 +1,7 @@
 import { getVote } from "@/apis/votes";
 import VoteContent from "@/app/(main)/boards/votes/[voteId]/_components/VoteContent";
 import ActionNav from "@/app/(main)/boards/votes/[voteId]/_components/ActionNav";
+import CommentsContainer from "@/app/(main)/boards/_components/Comments/CommentsContainer";
 
 async function VoteDetailPage({ params: { voteId } }: { params: { voteId: number } }) {
   const vote = await getVote(voteId);
@@ -9,7 +10,7 @@ async function VoteDetailPage({ params: { voteId } }: { params: { voteId: number
     <main>
       <VoteContent vote={vote} />
       <ActionNav vote={vote} />
-      {/* CommentsContainer */}
+      <CommentsContainer postId={voteId} board="vote" />
     </main>
   );
 }
