@@ -11,6 +11,7 @@ function LoginEmailForm({ email, setEmail }: { email: string; setEmail: (email: 
       <input
         type="email"
         value={email}
+        maxLength={20}
         placeholder="이메일을 입력해주세요"
         className="AuthInput"
         onChange={(e) => {

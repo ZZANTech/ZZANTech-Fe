@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
 import Providers from "@/provider/Providers";
+import HeaderContainer from "@/app/(main)/_components/HeaderContainer";
 
 export const metadata: Metadata = {
   title: "짠테크",
@@ -12,6 +13,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <HeaderContainer />
         <Providers>{children}</Providers>
       </body>
     </html>
