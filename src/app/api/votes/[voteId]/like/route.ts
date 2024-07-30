@@ -110,7 +110,6 @@ export const PATCH = async (req: NextRequest) => {
 
   try {
     if (voteData) {
-      console.log(Number(voteData.vote_likeId));
       const { status, statusText, error } = await supabase
         .from("vote_likes")
         .update(voteData)

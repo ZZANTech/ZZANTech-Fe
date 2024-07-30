@@ -19,8 +19,7 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
   const router = useRouter();
 
   const { data: voteData } = useVoteLikesQuery(voteId);
-  console.log(user);
-  console.log(voteData);
+
   const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
   const [optimisticVoteData, setOptimisticVoteData] = useState<TVoteLikeCountsResponse | null>(null);
 
@@ -87,7 +86,6 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
       }
     } else {
       await updateVoteLike(newLikeData);
-      console.log("업데이트 로직");
     }
   };
 
