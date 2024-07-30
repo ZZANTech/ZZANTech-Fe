@@ -17,7 +17,7 @@ function MyVotesContainer({ user }: MyVotesContainerProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const searchParams = useSearchParams();
 
-  const { data: votes } = useMyVotesQuery(currentPage, 1, user?.userId);
+  const { data: votes } = useMyVotesQuery(currentPage, ITEMS_PER_PAGE, user?.userId);
   const totalItems = votes && votes[0].total_count;
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -34,7 +34,7 @@ function MyVotesContainer({ user }: MyVotesContainerProps) {
     <article>
       {votes && votes.length > 0 && <VotesList votes={votes} />}
       <Suspense>
-        <Pagination itemsPerPage={1} totalItems={totalItems || 0} onPageChange={handlePageChange} />
+        <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
       </Suspense>
     </article>
   );

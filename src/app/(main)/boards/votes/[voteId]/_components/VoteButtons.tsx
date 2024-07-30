@@ -118,13 +118,13 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
             className={`px-4 py-2 rounded ${voteType === "GOOD" ? "bg-green-500 text-white" : "bg-gray-800 text-white"}`}
             onClick={() => handleVote("GOOD")}
           >
-            {`👍 ${upvotePercentage.toFixed(1)}% (${upvoteCount}명)`}
+            {`👍 ${upvotePercentage.toFixed(0)}% (${upvoteCount}명)`}
           </button>
           <button
             className={`px-4 py-2 rounded ${voteType === "BAD" ? "bg-green-500 text-white" : "bg-gray-800 text-white"}`}
             onClick={() => handleVote("BAD")}
           >
-            {`👎 ${downvotePercentage.toFixed(1)}% (${downvoteCount}명)`}
+            {`👎 ${downvotePercentage.toFixed(0)}% (${downvoteCount}명)`}
           </button>
         </div>
       )}

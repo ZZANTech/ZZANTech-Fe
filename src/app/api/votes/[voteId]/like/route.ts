@@ -92,6 +92,8 @@ export const POST = async (req: NextRequest) => {
         throw new Error("투표 업데이트에 실패했습니다.");
       }
 
+      // TODO 작성자 점수추가
+
       return NextResponse.json({ status, statusText });
     }
   } catch (e) {

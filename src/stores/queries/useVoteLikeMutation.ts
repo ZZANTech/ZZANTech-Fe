@@ -46,9 +46,9 @@ const useVoteLikeMutation = () => {
       displayDefaultAlert(error.message);
     },
     onSettled: (data, error, newLikeData) => {
-      console.log(newLikeData);
       const queryKey = ["voteLikes", { voteId: newLikeData.vote_post_id }];
       queryClient.invalidateQueries({ queryKey });
+      queryClient.invalidateQueries({ queryKey: ["votes", "latest"] });
     }
   });
 
