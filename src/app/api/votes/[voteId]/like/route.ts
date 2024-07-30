@@ -1,4 +1,3 @@
-import { Tables } from "@/types/supabase";
 import { checkAndAddPoints } from "@/utils/checkPoints";
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";

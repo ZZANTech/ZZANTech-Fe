@@ -24,3 +24,15 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json(response);
 }
+
+export async function DELETE() {
+  const supabase = createClient();
+
+  try {
+    const data = await supabase.auth.signOut();
+    console.log("login >> ", data);
+    return NextResponse.json({ massage: "로그아웃 하였습니다." });
+  } catch (error) {
+    return NextResponse.json({ error: "알 수 없는 오류가 발생했습니다" }, { status: 500 });
+  }
+}

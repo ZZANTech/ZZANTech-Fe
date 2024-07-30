@@ -23,7 +23,9 @@ function NavButton({ vote, direction }: NavButtonProps) {
 
   return (
     <button
-      className="w-[74px] h-[74px] relative bg-white rounded-[74px] border border-[#1b1b1b] cursor-pointer"
+      className={`w-[74px] h-[74px] relative rounded-[74px] border border-[#1b1b1b] ${
+        targetVoteId ? "bg-white" : "bg-gray-300"
+      }`}
       onClick={handleClick}
       disabled={!targetVoteId}
     >
