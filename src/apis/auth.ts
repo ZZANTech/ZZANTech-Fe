@@ -16,7 +16,7 @@ export const updateNickname = async (
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(nickname, userId)
+    body: JSON.stringify(nickname)
   });
 
   if (res.status === 409) {
