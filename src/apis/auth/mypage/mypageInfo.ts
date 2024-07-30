@@ -33,7 +33,7 @@ export const updateNickname = async (
 
 // export const updatePassword = async (userId: string, oldPassword: string, newPassword: string) => {
 //   const response = await fetch("/api/auth/mypage/info", {
-//     method: "POST",
+//     method: "PATCH",
 //     headers: {
 //       "Content-Type": "application/json"
 //     },
@@ -44,3 +44,33 @@ export const updateNickname = async (
 //     throw new Error(data.error);
 //   }
 // };
+
+export const resetPassword = async (email: string) => {
+  const res = await fetch("/api/auth/mypage/password", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(email)
+  });
+
+  const result = await res.json();
+  if (res.ok) {
+    console.log("resetPassword >> ", result);
+  }
+};
+
+export const updatePassword = async (password: string) => {
+  const res = await fetch("/api/auth/mypage/password", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(password)
+  });
+
+  const result = await res.json();
+  if (res.ok) {
+    console.log("resetPassword >> ", result);
+  }
+};

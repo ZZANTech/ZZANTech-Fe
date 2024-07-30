@@ -17,7 +17,7 @@ function PointContainer() {
           <div>
             <p className="text-lg font-bold">현재 포인트</p>
             <div className="flex flex-row gap-2.5">
-              <Image src={"/icons/diamond.png"} width={36} height={36} alt="diamond" />
+              <Image src={"/icons/mypage/diamond.png"} width={36} height={36} alt="diamond" />
               <p className="text-xl font-bold">P {current_point}</p>
             </div>
           </div>
