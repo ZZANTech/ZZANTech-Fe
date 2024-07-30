@@ -29,6 +29,7 @@ const useVoteLikeMutation = () => {
         queryClient.setQueryData<TVoteLikeCountsResponse>(queryKey, {
           ...previousVoteData,
           upvoteCount: newLikeData.is_upvote ? previousVoteData.upvoteCount + 1 : previousVoteData.upvoteCount,
+          downvoteCount: !newLikeData.is_upvote ? previousVoteData.downvoteCount + 1 : previousVoteData.downvoteCount,
           totalVoteCount: previousVoteData.totalVoteCount + 1,
           userLikeStatus: newLikeData.is_upvote ? "up_vote" : "down_vote"
         });
