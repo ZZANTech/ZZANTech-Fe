@@ -1,10 +1,11 @@
 "use client";
 
+import { signUp } from "@/apis/signup";
 import EmailForm from "@/app/(auth)/signUp/_components/EmailForm";
 import NicknameForm from "@/app/(auth)/signUp/_components/NicknameForm";
 import PasswordForm from "@/app/(auth)/signUp/_components/PasswordForm";
 import RecheckPasswordForm from "@/app/(auth)/signUp/_components/RecheckPasswordForm";
-import { BASE_URL } from "@/constants";
+import { TUserInsert } from "@/types/user.type";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -16,15 +17,15 @@ function SignUpContainer() {
   const router = useRouter();
 
   const handleClickSignUp = async () => {
-    const data = { email, nickname, password, recheckPassword };
-    const response = await fetch(`${BASE_URL}/api/auth/signup`, {
-      method: "POST",
-      body: JSON.stringify(data)
-    });
-    const singupData = await response.json();
-    console.log("handleClickSignup >> ", singupData);
-    router.replace("/login");
+    const data: TUserInsert = { email, nickname, password, recheckPassword };
+    try {
+      await signUp(data);
+      router.replace("/login");
+    } catch (error: any) {
+      alert(error.message);
+    }
   };
+  const isFormValid = email && nickname && password && recheckPassword;
 
   return (
     <div className="flex flex-col items-center w-[800px] mx-auto my-10 p-10">
@@ -39,7 +40,11 @@ function SignUpContainer() {
           password={password}
         />
       </section>
-      <button className="w-[400px] p-2.5 text-center text-white bg-black" onClick={handleClickSignUp}>
+      <button
+        className={`w-[400px] p-2.5 text-center text-white ${isFormValid ? "bg-black" : "bg-gray-400"}`}
+        onClick={handleClickSignUp}
+        disabled={!isFormValid}
+      >
         회원가입 완료하기
       </button>
     </div>
