@@ -38,7 +38,7 @@ body *:not([class*="letter-"]) {
     @apply w-[340px] h-[56px] p-[16px] border rounded-lg pointer-events-auto;
   }
   .AuthInputShort {
-    @apply w-[400px] h-[56px] p-[16px] border;
+    @apply w-[400px] h-[56px] p-[16px] border rounded-lg;
   }
 
   .AuthInputDiv {
