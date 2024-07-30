@@ -27,7 +27,9 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
           <div className="flex w-full   flex-col overflow-hidden">
             <div className="flex gap-3 items-center mb-3.5">
               <div className="flex gap-2">
-                <Image src={knowhow.badge_url || ""} alt="badge" width={24} height={24} />
+                <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
+                  <Image className="rounded-full object-cover" src={knowhow.badge_url || ""} alt="profile" fill />
+                </div>
                 <span className="font-semibold">{nickname}</span>
               </div>
               <time className="text-sm text-[#ADADAD]">{formattedCreatedAt}</time>
@@ -41,7 +43,11 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
               <LikeCount knowhowId={knowhow_postId} likesCount={likes_count} />
             </div>
           </div>
-          {image_urls?.length > 0 && <Image src={image_urls[0]} alt={title} width={220} height={170} />}
+          {image_urls?.length > 0 && (
+            <div className="w-[220px] h-[170px] relative aspect-square">
+              <Image className="object-cover" src={image_urls[0]} alt={title} fill />
+            </div>
+          )}
         </div>
       </Link>
     </li>
