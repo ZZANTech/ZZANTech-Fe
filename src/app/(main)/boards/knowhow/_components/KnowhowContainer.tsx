@@ -1,6 +1,6 @@
 "use client";
 import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
 import KnowhowPagination from "@/app/(main)/boards/knowhow/_components/KnowhowPagination";
 import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
@@ -24,7 +24,8 @@ function KnowhowContainer() {
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { data: knowhows } = useKnowhowsQuery(
+
+  const { data: knowhows, refetch } = useKnowhowsQuery(
     currentPage,
     ITEMS_PER_PAGE,
     sortOrder,
@@ -32,6 +33,10 @@ function KnowhowContainer() {
     searchKeyword
   );
   const totalItems = knowhows?.posts[0]?.total_count;
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const handleSortOrderChange = (value: TOption["value"]) => {
     setSortOrder(value);

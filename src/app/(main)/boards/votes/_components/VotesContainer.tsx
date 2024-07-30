@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import useVotesQuery from "@/stores/queries/useVotesQuery";
 import Button from "@/components/Button/Button";
 import SortButtons from "@/app/(main)/boards/votes/_components/SortButtons";
@@ -11,8 +11,12 @@ function VotesContainer() {
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState("latest");
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useVotesQuery(sortOrder);
+  const { data, isLoading, fetchNextPage, hasNextPage, refetch } = useVotesQuery(sortOrder);
   const observer = useRef<IntersectionObserver | null>(null);
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   const handleWriteClick = () => {
     router.push(`/boards/votes/write`);
