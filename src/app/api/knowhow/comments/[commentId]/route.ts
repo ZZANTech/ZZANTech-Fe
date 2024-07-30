@@ -4,8 +4,8 @@ import { NextRequest, NextResponse } from "next/server";
 export const PATCH = async (req: NextRequest, { params }: { params: { commentId: string } }) => {
   const supabase = createClient();
   const commentId = params.commentId;
-  const updatedComment = await req.json();
-
+  const reqBody = await req.json();
+  const { badge_url, ...updatedComment } = reqBody;
   try {
     if (commentId) {
       const { status, statusText, error } = await supabase
@@ -14,6 +14,7 @@ export const PATCH = async (req: NextRequest, { params }: { params: { commentId:
         .eq("knowhow_commentId", commentId);
 
       if (error) {
+        console.error(error);
         throw new Error("댓글 수정에 실패했습니다");
       }
 
