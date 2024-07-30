@@ -49,7 +49,6 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
     }
 
     if (voteType === type) {
-      console.log("같은 버튼이에요");
       return;
     }
 

@@ -16,7 +16,6 @@ const useVoteLikeMutation = () => {
     { previousVoteData?: Partial<TVoteLikeCountsResponse> }
   >({
     mutationFn: async (newLikeData) => {
-      // 초기 투표에 대해서만 postVoteLikeData를 호출
       return postVoteLikeData(newLikeData);
     },
     onMutate: async (newLikeData) => {
@@ -30,7 +29,6 @@ const useVoteLikeMutation = () => {
         queryClient.setQueryData<TVoteLikeCountsResponse>(queryKey, {
           ...previousVoteData,
           upvoteCount: newLikeData.is_upvote ? previousVoteData.upvoteCount + 1 : previousVoteData.upvoteCount,
-          downvoteCount: !newLikeData.is_upvote ? previousVoteData.downvoteCount + 1 : previousVoteData.downvoteCount,
           totalVoteCount: previousVoteData.totalVoteCount + 1,
           userLikeStatus: newLikeData.is_upvote ? "up_vote" : "down_vote"
         });
@@ -60,7 +58,6 @@ const useVoteLikeMutation = () => {
     { previousVoteData?: Partial<TVoteLikeCountsResponse> }
   >({
     mutationFn: async (newLikeData) => {
-      // 초기 투표에 대해서만 postVoteLikeData를 호출
       return patchVoteLikeData(newLikeData);
     },
     onMutate: async (newLikeData) => {
@@ -73,9 +70,11 @@ const useVoteLikeMutation = () => {
       if (previousVoteData) {
         queryClient.setQueryData<TVoteLikeCountsResponse>(queryKey, {
           ...previousVoteData,
-          upvoteCount: newLikeData.is_upvote ? previousVoteData.upvoteCount + 1 : previousVoteData.upvoteCount,
-          downvoteCount: !newLikeData.is_upvote ? previousVoteData.downvoteCount + 1 : previousVoteData.downvoteCount,
-          totalVoteCount: previousVoteData.totalVoteCount + 1,
+          upvoteCount: newLikeData.is_upvote ? previousVoteData.upvoteCount + 1 : previousVoteData.upvoteCount - 1,
+          downvoteCount: !newLikeData.is_upvote
+            ? previousVoteData.downvoteCount + 1
+            : previousVoteData.downvoteCount - 1,
+          totalVoteCount: previousVoteData.totalVoteCount,
           userLikeStatus: newLikeData.is_upvote ? "up_vote" : "down_vote"
         });
       }
@@ -91,11 +90,11 @@ const useVoteLikeMutation = () => {
       displayDefaultAlert(error.message);
     },
     onSettled: (data, error, newLikeData) => {
-      console.log(newLikeData);
       const queryKey = ["voteLikes", { voteId: newLikeData.vote_post_id }];
       queryClient.invalidateQueries({ queryKey });
     }
   });
+
   return { addVoteLike, updateVoteLike };
 };
 

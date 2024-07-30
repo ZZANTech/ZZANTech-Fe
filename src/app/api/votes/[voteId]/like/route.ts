@@ -89,9 +89,7 @@ export const POST = async (req: NextRequest) => {
       const { status, statusText, error } = await supabase.from("vote_likes").insert(voteData).single();
 
       if (error) {
-        console.log(error);
-        console.log("ad");
-        throw new Error("좋아요 업데이트에 실패했습니다.");
+        throw new Error("투표 업데이트에 실패했습니다.");
       }
 
       return NextResponse.json({ status, statusText });
@@ -112,8 +110,6 @@ export const PATCH = async (req: NextRequest) => {
 
   try {
     if (voteData) {
-      console.log(voteData);
-      console.log("위에거뭔데");
       console.log(Number(voteData.vote_likeId));
       const { status, statusText, error } = await supabase
         .from("vote_likes")
@@ -123,8 +119,7 @@ export const PATCH = async (req: NextRequest) => {
         .single();
 
       if (error) {
-        console.error(error);
-        throw new Error("좋아요 업데이트에 실패했습니다.");
+        throw new Error("투표 업데이트에 실패했습니다.");
       }
 
       return NextResponse.json({ status, statusText });

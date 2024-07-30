@@ -88,7 +88,7 @@ export const postVoteLikeData = async (newLikeData: Partial<Tables<"vote_likes">
   });
   if (!res.ok) {
     const errorData = await res.json();
-    const errorMessage = errorData.error || "좋아요 업데이트에 실패했습니다.";
+    const errorMessage = errorData.error || "투표 업데이트에 실패했습니다.";
     throw new Error(errorMessage);
   }
   const likeData = await res.json();
@@ -105,7 +105,7 @@ export const patchVoteLikeData = async (newLikeData: Partial<Tables<"vote_likes"
   });
   if (!res.ok) {
     const errorData = await res.json();
-    const errorMessage = errorData.error || "좋아요 업데이트에 실패했습니다.";
+    const errorMessage = errorData.error || "투표 업데이트에 실패했습니다.";
     throw new Error(errorMessage);
   }
   const likeData = await res.json();
