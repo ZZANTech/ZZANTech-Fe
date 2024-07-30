@@ -11,11 +11,7 @@ export const GET = async (
   const page = parseInt(url.searchParams.get("page") || "2");
   const limit = parseInt(url.searchParams.get("limit") || "3");
   const offset = (page - 1) * limit;
-  console.log(userId);
-  console.log(page);
-  console.log(limit);
-  console.log(offset);
-  console.log("asdas");
+
   try {
     const { data: posts, error: postsError } = await supabase.rpc("get_my_knowhow_posts", {
       limit_param: limit,
