@@ -9,14 +9,11 @@ function LevelContainer() {
     <div className="flex flex-col gap-5">
       <div className="flex flex-row justify-between">
         <p className="text-lg font-bold">내 등급</p>
-        <button className="flex flex-row">
-          <Image src={"/icons/mypage/circular_question.png"} width={24} height={24} alt="circular_question" />
-          <p>내 등급이란?</p>
-        </button>
+        <Image src={"/icons/mypage/circular_question.png"} width={20} height={20} alt="circular_question" />
       </div>
 
       <div className="flex flex-row gap-2.5">
-        <Image src={"/badges/lv5.png"} width={24} height={24} alt="bages" />
+        <Image src={user?.badge_url || ""} width={24} height={24} alt="bages" />
         <p>Lv 1 돈에 눈 뜬 새내기</p>
       </div>
     </div>
