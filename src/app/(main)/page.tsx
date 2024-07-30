@@ -8,9 +8,13 @@ export default function Home() {
       <section className="flex flex-col sm:flex-row">
         <TopSection />
       </section>
-      <div className="flex flex-col sm:flex-row ">
-        <LeftSection />
-        <RightSection />
+      <div className="flex flex-col sm:flex-row space-x-14">
+        <div className="max-w-[700px] w-full">
+          <LeftSection />
+        </div>
+        <div>
+          <RightSection />
+        </div>
       </div>
     </main>
   );
