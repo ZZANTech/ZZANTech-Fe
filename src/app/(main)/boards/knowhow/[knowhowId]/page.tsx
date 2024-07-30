@@ -10,7 +10,7 @@ async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowI
     <main className="p-3">
       <PostContent knowhow={knowhow} />
       <PostActions knowhow={knowhow} />
-      <CommentsContainer postId={knowhowId} />
+      <CommentsContainer postId={knowhowId} board="knowhow" />
     </main>
   );
 }
