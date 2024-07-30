@@ -4,6 +4,7 @@ import NavButton from "@/app/(main)/boards/votes/[voteId]/_components/NavButton"
 import VoteButtons from "@/app/(main)/boards/votes/[voteId]/_components/VoteButtons";
 import { TVote } from "@/types/vote.type";
 import Image from "next/image";
+import { useSearchParams } from "next/navigation";
 
 type VoteContentProps = {
   vote: TVote;
@@ -11,10 +12,13 @@ type VoteContentProps = {
 
 function VoteContent({ vote }: VoteContentProps) {
   const { title, product_name, product_price, nickname, image_url, vote_postId, content } = vote;
+  const searchParams = useSearchParams();
+  const sortOrder = searchParams.get("sortOrder");
+  const showNavButtons = sortOrder === "latest";
 
   return (
     <section>
-      <NavButton vote={vote} direction="prev" />
+      {showNavButtons && <NavButton vote={vote} direction="prev" />}
       <div>
         {title}
         {/* 테스트용 */}
@@ -32,7 +36,7 @@ function VoteContent({ vote }: VoteContentProps) {
       </div>
       <VoteButtons voteId={vote_postId} />
       <div>{content}</div>
-      <NavButton vote={vote} direction="next" />
+      {showNavButtons && <NavButton vote={vote} direction="next" />}
     </section>
   );
 }
