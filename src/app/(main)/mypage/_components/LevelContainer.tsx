@@ -9,7 +9,9 @@ function LevelContainer() {
     <div className="flex flex-col gap-5">
       <div className="flex flex-row justify-between">
         <p className="text-lg font-bold">내 등급</p>
-        <Image src={"/icons/mypage/circular_question.png"} width={20} height={20} alt="circular_question" />
+        <div className="w-5 h-5 ">
+          <Image src={"/icons/mypage/circular_question.png"} width={100} height={100} alt="circular_question" />
+        </div>
       </div>
 
       <div className="flex flex-row gap-2.5">

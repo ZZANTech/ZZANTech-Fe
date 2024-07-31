@@ -4,6 +4,7 @@ import { updateNickname } from "@/apis/auth";
 import { checkNicknameValidity } from "@/app/(auth)/authValidity";
 
 import { BASE_URL } from "@/constants";
+import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,6 +19,8 @@ function InfoContainer() {
   const [nickname, setNickname] = useState<string>(oldNickname || "");
   const [nicknameError, setNicknameError] = useState<string>("");
   const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
+
+  const modal = useModal();
 
   const handleNicknameChange = async () => {
     // 유효성 검사: 빈칸, 글자 수, 특수문자
@@ -81,8 +84,9 @@ function InfoContainer() {
           <p>{user?.email}</p>
         </div>
       </div>
-      <Link href={`${BASE_URL}/mypage/edit`} className="bg-black text-white rounded-lg">
-        회원 정보 변경
+
+      <Link href={`${BASE_URL}/mypage/edit`} className="bg-black text-white rounded-md my-auto px-4 py-[14px] ">
+        비밀번호 변경
       </Link>
     </div>
   );
