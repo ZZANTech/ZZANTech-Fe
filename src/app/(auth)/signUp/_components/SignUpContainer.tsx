@@ -28,9 +28,9 @@ function SignUpContainer() {
   const isFormValid = email && nickname && password && confirmPassword;
 
   return (
-    <div className="flex flex-col items-center w-[800px] mx-auto my-10 p-10">
-      <h1 className="text-2xl text-bold">회원가입</h1>
-      <section>
+    <div className="flex flex-col justify-center gap-12">
+      <h1 className="text-xl font-semibold">회원가입</h1>
+      <section className="flex flex-col gap-6">
         <EmailForm email={email} setEmail={setEmail} />
         <NicknameForm nickname={nickname} setNickname={setNickname} />
         <PasswordForm password={password} setPassword={setPassword} />
@@ -39,14 +39,14 @@ function SignUpContainer() {
           setConfirmPassword={setConfirmPassword}
           password={password}
         />
+        <button
+          className={`mx-auto w-[348px] h-14 px-4 text-center text-white rounded-lg ${isFormValid ? "bg-black" : "bg-gray-400"}`}
+          onClick={handleClickSignUp}
+          disabled={!isFormValid}
+        >
+          회원가입 완료하기
+        </button>
       </section>
-      <button
-        className={`w-[400px] h-14 p-2.5 text-center text-white rounded-lg ${isFormValid ? "bg-black" : "bg-gray-400"}`}
-        onClick={handleClickSignUp}
-        disabled={!isFormValid}
-      >
-        회원가입 완료하기
-      </button>
     </div>
   );
 }
