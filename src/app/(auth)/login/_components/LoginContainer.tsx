@@ -1,24 +1,29 @@
 "use client";
 
-import { checkEmailValidity, checkPasswordValidity } from "@/app/(auth)/authValidity";
+import { checkEmailValidity, checkPasswordValidity } from "@/utils/authValidity";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 
 function LoginContainer() {
-  const [email, setEmail] = useState<string>("");
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
   const [emailMessage, setEmailMessage] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
   const router = useRouter();
   const { user, logIn } = useUserContext();
 
+  console.log("LoginContainer rendered");
+
   const handleLogin = async () => {
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
+
     //로그인 서버 통신 로직
     await logIn(email, password);
     if (user) {
@@ -30,32 +35,12 @@ function LoginContainer() {
     if (loginSuccess) {
       router.replace("/");
     }
-  }, [loginSuccess]);
-
-  const handleEmail = (e: ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-    setEmailMessage("");
-    setEmailError("");
-  };
-
-  const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-    setPasswordMessage("");
-    setPasswordError("");
-  };
-  useEffect(() => {
-    if (email) {
-      checkEmailValidity({ email, setEmailMessage, setEmailError });
-    }
-  }, [email]);
+  }, [loginSuccess, router]);
 
   useEffect(() => {
-    if (password) {
-      checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
-    }
-  }, [password]);
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
 
-  useEffect(() => {
     if (email) {
       checkEmailValidity({ email, setEmailMessage, setEmailError });
     }
@@ -64,17 +49,29 @@ function LoginContainer() {
     }
   }, []);
 
+  const validateInputs = () => {
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
+
+    if (email) {
+      checkEmailValidity({ email, setEmailMessage, setEmailError });
+    }
+    if (password) {
+      checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
+    }
+  };
+
   return (
     <div className="flex flex-col items-center w-[340px] mx-auto gap-6">
       <Image src={"/logos/mainLogo.png"} width={300} height={100} alt="mainLogo" />
       <div className="AuthInputDiv">
         <input
+          ref={emailRef}
           type="email"
           maxLength={20}
-          value={email}
           className={`AuthInput ${emailError ? "border-info-red" : emailMessage ? "border-info-green" : ""}`}
           placeholder="이메일을 입력해주세요"
-          onChange={(e) => handleEmail(e)}
+          onChange={validateInputs}
         />
         {emailMessage && <p className="AuthStateInfoGreen">{emailMessage}</p>}
         {emailError && <p className="AuthStateInfo">{emailError}</p>}
@@ -82,12 +79,12 @@ function LoginContainer() {
 
       <div className="AuthInputDiv">
         <input
+          ref={passwordRef}
           type="password"
           maxLength={20}
-          value={password}
           className={`AuthInput ${passwordError ? "border-info-red" : passwordMessage ? "border-info-green" : ""}`}
           placeholder="비밀번호를 입력해주세요"
-          onChange={(e) => handlePassword(e)}
+          onChange={validateInputs}
         />
         {passwordMessage && <p className="AuthStateInfoGreen">{passwordMessage}</p>}
         {passwordError && <p className="AuthStateInfo">{passwordError}</p>}
