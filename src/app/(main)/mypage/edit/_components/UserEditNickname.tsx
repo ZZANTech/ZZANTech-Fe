@@ -1,38 +1,30 @@
 "use client";
 
 import { updateNickname } from "@/apis/auth";
-import { CheckNicknameValidity } from "@/app/(main)/mypage/edit/_components/checkValidity";
+import { checkNicknameValidity } from "@/app/(auth)/authValidity";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 
 function UserEditNickname() {
-  const [nickname, setNickname] = useState<string>("");
-  const [nicknameError, setNicknameError] = useState<string>("");
-  const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
-  // 유효성 검사 통과할 경우: isNicknameValid === true
-  // 유효성 검사 통과 못 할 경우: isNicknameValid === false
-  const [nicknameDupError, setNicknameDupError] = useState<string>("");
-  const [isNicknameAllPassed, setIsNicknameAllPassed] = useState<boolean>(false);
-  // 중복확인 통과할 경우: isNicknameAllPassed === true
-  // 중복확인 통과 못 할 경우: isNicknameAllPassed === false
-
   const { user } = useUserContext();
+  const oldNickname = user?.nickname;
   const userId: string | undefined = user?.userId;
 
-  const handleNicknameChange = async (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    // 유효성 검사
-    // CheckNicknameValidity({ nickname, setNicknameError, setIsNicknameValid });
+  const [nickname, setNickname] = useState<string>(oldNickname || "");
+  const [nicknameError, setNicknameError] = useState<string>("");
+  const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
 
-    // 유효성 검사 통화 못 할 경우 중복확인 실시 안 함
-    if (!isNicknameValid) {
-      setNicknameDupError("");
-      setIsNicknameAllPassed(false);
+  const handleNicknameChange = async () => {
+    // 유효성 검사
+    checkNicknameValidity({ nickname, setNicknameError });
+
+    //중복확인 및 update API
+    if (!nicknameError) {
+      await updateNickname(nickname, userId, setNicknameError, setIsNicknameValid);
     }
 
-    // 3. 중복확인
-    if (isNicknameValid) {
-      await updateNickname(nickname, userId || "", setNicknameDupError, setIsNicknameAllPassed);
+    if (!nicknameError && isNicknameValid) {
+      alert("닉네임 변경 성공");
     }
   };
 
@@ -41,28 +33,16 @@ function UserEditNickname() {
       <label>닉네임 변경</label>
       <input
         type="text"
+        maxLength={20}
         value={nickname}
         placeholder="변경할 닉네임을 입력해주세요"
         className="AuthInputShort"
-        onChange={(e) => {
-          setNickname(e.target.value);
-          CheckNicknameValidity({ nickname: e.target.value, setNicknameError, setIsNicknameValid });
-          if (isNicknameAllPassed) {
-            setNicknameDupError("");
-            setIsNicknameAllPassed(false);
-          }
-        }}
+        onChange={(e) => setNickname(e.target.value)}
       />
-
       <button className="AuthDupButton" onClick={handleNicknameChange}>
         닉네임 변경하기
       </button>
-      {isNicknameValid ? "" : <p className="AuthStateInfo">{nicknameError}</p>}
-      {isNicknameAllPassed ? (
-        <p className="AuthStateInfoGreen">{nicknameDupError}</p>
-      ) : (
-        <p className="AuthStateInfo">{nicknameDupError}</p>
-      )}
+      {nicknameError && <p className="AuthStateInfo">{nicknameError}</p>}
     </div>
   );
 }

@@ -8,9 +8,10 @@ export const logout = async () => {
 export const updateNickname = async (
   nickname: string,
   userId: string | undefined,
-  setNicknameDupError: Dispatch<SetStateAction<string>>,
-  setIsNicknameAllPassed: Dispatch<SetStateAction<boolean>>
+  setNicknameError: Dispatch<SetStateAction<string>>,
+  setIsNicknameValid: Dispatch<SetStateAction<boolean>>
 ) => {
+  //중복확인 및 update API
   const res = await fetch("/api/auth/mypage/nickname", {
     method: "POST",
     headers: {
@@ -19,18 +20,18 @@ export const updateNickname = async (
     body: JSON.stringify({ nickname, userId })
   });
 
-  console.log("updateNickname >>", res);
   if (res.status === 409) {
-    setNicknameDupError("동일한 닉네임이 있습니다.");
-    setIsNicknameAllPassed(false);
+    setNicknameError("동일한 닉네임이 있습니다.");
+    setIsNicknameValid(false);
   }
   if (res.status === 500) {
-    setNicknameDupError("알 수 없는 에러가 발생 했습니다.");
-    setIsNicknameAllPassed(false);
+    setNicknameError("알 수 없는 에러가 발생 했습니다.");
+    setIsNicknameValid(false);
   }
   if (res.status === 200) {
-    setNicknameDupError("닉네임 변경 완료");
-    setIsNicknameAllPassed(true);
+    console.log("닉네임 변경 성공");
+    setNicknameError("");
+    setIsNicknameValid(true);
   }
 };
 
