@@ -44,6 +44,7 @@ export const PATCH = async (req: NextRequest) => {
     if (!user.email) {
       return;
     }
+
     const {
       data: { user: authorizedUser }
     } = await supabase.auth.signInWithPassword({ email: user.email, password: oldPassword });
@@ -58,9 +59,8 @@ export const PATCH = async (req: NextRequest) => {
     }
 
     if (error) {
-      console.log(error);
-      console.log(error.status === 422);
-      if (error.status === 422) {
+      if (error.code === "same_password") {
+        console.log(error);
         return NextResponse.json({ error: "기존 비밀번호와 동일합니다" }, { status: 422 });
       }
       return NextResponse.json({ error: "비밀번호 변경에 실패하였습니다." }, { status: 500 });
