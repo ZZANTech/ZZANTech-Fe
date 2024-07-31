@@ -11,7 +11,7 @@ function MypageContainer() {
         <h1 className="font-semibold text-2xl">마이페이지</h1>
         <p className="text-base mt-2">포인트와 등급을 확인해보세요!</p>
       </div>
-      <div className="w-[728px] h-[673px] mx-auto mt-[31px] px-[68px] py-[52px] border border-[#D1D1D1] rounded-xl flex flex-col gap-5">
+      <div className="w-[728px] h-[673px] mx-auto mt-[31px] px-[68px] py-[52px] border border-[#D1D1D1] rounded-xl flex flex-col">
         <InfoContainer />
         <hr />
         <PointContainer />

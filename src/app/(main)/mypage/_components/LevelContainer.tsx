@@ -1,22 +1,28 @@
 "use client";
+import { checkLevel } from "@/app/(main)/mypage/_utils/checkLevel";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 
 function LevelContainer() {
   const { user } = useUserContext();
+  const { total_point = 0, badge_url = "" } = user || {};
+  const levelName = checkLevel(total_point);
 
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-row justify-between">
-        <p className="text-lg font-bold">내 등급</p>
-        <div className="w-5 h-5 ">
+    <div className="my-7">
+      <div className="flex justify-between">
+        <p className="text-base font-bold color-gray-800 mb-4">내 등급</p>
+        <div className="w-5 h-5">
           <Image src={"/icons/mypage/circular_question.png"} width={100} height={100} alt="circular_question" />
         </div>
       </div>
 
-      <div className="flex flex-row gap-2.5">
-        <Image src={user?.badge_url || ""} width={24} height={24} alt="bages" />
-        <p>Lv 1 돈에 눈 뜬 새내기</p>
+      <div className="flex mt-5">
+        <div className="w-[30px] h-[30px]">
+          <Image src={user?.badge_url || ""} width={50} height={50} alt="bages" />
+        </div>
+        <p className="px-[10px] py-4 w-[97px] h-[44pt] bg-[#F5FFC5] rounded-[45px] ml-5">{levelName}</p>
       </div>
     </div>
   );
