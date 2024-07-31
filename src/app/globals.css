@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "react-quill/dist/quill.snow.css";
+
 @font-face {
   font-family: "Pretendard";
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
@@ -28,17 +30,16 @@ body {
 body *:not([class*="letter-"]) {
   letter-spacing: var(--tw-letter-spacing-tight-korean, -0.025em);
 }
-@import "react-quill/dist/quill.snow.css";
 @layer utilities {
   .MainLinkButton {
     @apply px-2 py-5 mx-5 text-gray-800 text-[16px] text-center 
     hover:font-bold hover:border-b-2 border-gray-800;
   }
-  .AuthInput {
-    @apply w-[340px] h-[56px] p-[16px] border rounded-lg pointer-events-auto;
-  }
   .AuthInputShort {
-    @apply w-[400px] h-[56px] p-[16px] border;
+    @apply w-[296px] h-[48px] px-[16px] border rounded-lg pointer-events-auto;
+  }
+  .AuthInput {
+    @apply w-[400px] h-[48px] px-[16px] border rounded-lg;
   }
 
   .AuthInputDiv {
@@ -49,10 +50,10 @@ body *:not([class*="letter-"]) {
   }
 
   .AuthStateInfo {
-    @apply text-red-500 text-xs;
+    @apply text-info-red text-xs;
   }
   .AuthStateInfoGreen {
-    @apply text-green-500 text-xs;
+    @apply text-info-green text-xs;
   }
 
   .AuthDupButton {
@@ -127,5 +128,9 @@ body *:not([class*="letter-"]) {
 
   .knowhow-content .ql-indent-8 {
     @apply pl-32;
+  }
+
+  .ql-toolbar ql-snow {
+    @apply overflow-hidden;
   }
 }

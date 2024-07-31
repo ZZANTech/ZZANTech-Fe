@@ -2,11 +2,11 @@
 
 import { fetchQuizStatus } from "@/apis/quiz";
 import { BASE_URL } from "@/constants";
-import { User } from "@/types/user.type";
+import { TUser } from "@/types/user.type";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type UserContextType = {
-  user: User | null;
+  user: TUser | null;
   logIn: (email: string, password: string) => void;
   hasTakenQuiz: boolean;
   setHasTakenQuiz: (value: boolean) => void;
@@ -23,7 +23,7 @@ const UserContext = createContext<UserContextType>({
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<TUser | null>(null);
   const [hasTakenQuiz, setHasTakenQuiz] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 

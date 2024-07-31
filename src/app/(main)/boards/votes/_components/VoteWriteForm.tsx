@@ -19,6 +19,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   const { user } = useUserContext();
 
   const { displayDefaultAlert } = useAlertModal();
+  const { user } = useUserContext();
 
   const { addVote, updateVote } = useVoteMutation();
   const router = useRouter();

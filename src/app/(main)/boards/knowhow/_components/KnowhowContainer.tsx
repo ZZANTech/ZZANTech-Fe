@@ -46,7 +46,6 @@ function KnowhowContainer() {
   const handleSortOrderChange = (value: TOption["value"]) => {
     const params = new URLSearchParams(window.location.search);
     setSortOrder(value);
-    // params.set("sortOrder", sortOrder); //
     setCurrentPage(1);
   };
 
@@ -64,7 +63,6 @@ function KnowhowContainer() {
     const params = new URLSearchParams(window.location.search);
     params.set("page", page.toString());
     params.set("sortOrder", sortOrder); //
-    // router.push(`?${params.toString()}`);
   };
 
   useEffect(() => {

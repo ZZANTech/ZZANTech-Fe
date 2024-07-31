@@ -127,6 +127,41 @@ export const getVoteLikesData = async (voteId: TVote["vote_postId"]) => {
     const errorMessage = errorData.error || "해당 게시글의 투표 정보를 가져오는 데 실패했습니다";
     throw new Error(errorMessage);
   }
+
   const data = await res.json();
   return data;
+};
+
+export const postVoteLikeData = async (newLikeData: Partial<Tables<"vote_likes">>) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${newLikeData.vote_post_id}/like`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newLikeData)
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "투표 업데이트에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
+  const likeData = await res.json();
+  return likeData;
+};
+
+export const patchVoteLikeData = async (newLikeData: Partial<Tables<"vote_likes">>) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${newLikeData.vote_post_id}/like`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newLikeData)
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "투표 업데이트에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
+  const likeData = await res.json();
+  return likeData;
 };
