@@ -2,9 +2,15 @@
 
 import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 function PointContainer() {
   const { user } = useUserContext();
+  const router = useRouter();
+
+  const handlePointsHistoryClick = () => {
+    router.push("/mypage/point");
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -23,9 +29,8 @@ function PointContainer() {
           </div>
         </div>
 
-        <button className="bg-gray-300 rounded-lg text-sm p-2.5">
-          <h1>기프티콘</h1>
-          <h1>교환하기</h1>
+        <button onClick={handlePointsHistoryClick} className="bg-gray-300 rounded-lg text-sm p-2.5">
+          포인트 내역
         </button>
       </div>
 

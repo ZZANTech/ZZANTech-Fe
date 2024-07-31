@@ -1,6 +1,7 @@
 import { getVote } from "@/apis/votes";
 import VoteContent from "@/app/(main)/boards/votes/[voteId]/_components/VoteContent";
 import ActionNav from "@/app/(main)/boards/votes/[voteId]/_components/ActionNav";
+import CommentsContainer from "@/app/(main)/boards/_components/Comments/CommentsContainer";
 
 type VoteDetailPageProps = {
   params: { voteId: number };
@@ -13,7 +14,7 @@ export default async function VoteDetailPage({ params: { voteId }, searchParams 
     <main>
       <VoteContent vote={vote} />
       <ActionNav vote={vote} />
-      {/* CommentsContainer */}
+      <CommentsContainer postId={voteId} board="vote" />
     </main>
   );
 }

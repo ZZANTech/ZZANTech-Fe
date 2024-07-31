@@ -18,7 +18,6 @@ export const GET = async (
       user_id_param: userId
     });
     if (postsError) {
-      console.log(postsError);
       throw new Error("게시글을 불러오지 못했습니다.");
     }
 

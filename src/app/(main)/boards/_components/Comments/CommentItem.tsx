@@ -57,7 +57,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
   };
 
   const handleCommentUpdate = async () => {
-    const { nickname, ...commentWithoutNickname } = comment;
+    const { nickname, badge_url, ...commentWithoutUser } = comment;
 
     if (!editedContent.trim().length) {
       displayDefaultAlert("내용을 입력하세요.");
@@ -65,7 +65,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
     }
 
     const updatedComment = {
-      ...commentWithoutNickname,
+      ...commentWithoutUser,
       content: editedContent
     };
 
@@ -83,8 +83,8 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-[7px]">
-            <div className="w-6 h-6 flex justify-center items-center">
-              <Image className="w-6 h-6 rounded-full" src="/path/to/image.jpg" alt="profile" width={24} height={24} />
+            <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
+              <Image className="rounded-full object-cover" src={comment.badge_url || ""} alt="profile" fill />
             </div>
             <div className="text-black text-base font-semibold leading-snug">{nickname}</div>
           </div>

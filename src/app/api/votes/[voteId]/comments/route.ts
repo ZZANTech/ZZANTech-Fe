@@ -12,7 +12,7 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: stri
         .select(
           `
           *,
-          users (nickname)
+          users (nickname, badge_url)
         `
         )
         .eq("vote_post_id", voteId)
@@ -22,14 +22,16 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: stri
         throw new Error("댓글을 가져오지 못했습니다");
       }
 
-      const commentsWithNickname = comments.map((comment) => {
+      const commentsWithNicknameAndBadge = comments.map((comment) => {
         const { users, ...commentData } = comment;
         return {
           ...commentData,
-          nickname: users?.nickname
+          nickname: users?.nickname,
+          badge_url: users?.badge_url
         };
       });
-      return NextResponse.json({ comments: commentsWithNickname || [] });
+
+      return NextResponse.json({ comments: commentsWithNicknameAndBadge || [] });
     } else {
       return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });
     }

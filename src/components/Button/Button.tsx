@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ComponentProps, MouseEventHandler, ReactNode } from "react";
 
 type ButtonProps = CustomButtonProps & {
-  bgColor?: "black" | "white" | "main";
+  bgColor?: "black" | "white" | "main" | "none";
   disabled?: boolean;
   children: ReactNode;
 };
@@ -17,7 +17,7 @@ function Button({ children, bgColor, disabled, className = "", ...props }: Butto
   const bgWhite = "bg-white text-black border border-[#111111]";
   const bgMain = "bg-main text-black border-none";
 
-  const getColorClass = (bgColor?: "black" | "white" | "main") => {
+  const getColorClass = (bgColor?: "black" | "white" | "main" | "none") => {
     switch (bgColor) {
       case "black":
         return bgBlack;
@@ -25,6 +25,8 @@ function Button({ children, bgColor, disabled, className = "", ...props }: Butto
         return bgWhite;
       case "main":
         return bgMain;
+      case "none":
+        return "";
       default:
         return bgBlack;
     }

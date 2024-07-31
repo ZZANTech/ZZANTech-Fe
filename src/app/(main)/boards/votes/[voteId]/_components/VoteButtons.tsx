@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useModal } from "@/provider/contexts/ModalContext";
 import useVoteLikeMutation from "@/stores/queries/useVoteLikeMutation";
 import { TVoteLikeCountsResponse } from "@/types/vote.type";
+import Button from "@/components/Button/Button";
 
 type VoteButtonsProps = {
   voteId: number;
@@ -105,27 +106,27 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
     <div className="flex flex-col space-y-4">
       {voteType === null ? (
         <div className="flex space-x-4">
-          <button className="px-4 py-2 rounded bg-gray-800 text-white" onClick={() => handleVote("GOOD")}>
+          <Button className="px-4 py-2 rounded bg-gray-800 text-white" onClick={() => handleVote("GOOD")}>
             👍 GOOD
-          </button>
-          <button className="px-4 py-2 rounded bg-gray-800 text-white" onClick={() => handleVote("BAD")}>
+          </Button>
+          <Button className="px-4 py-2 rounded bg-gray-800 text-white" onClick={() => handleVote("BAD")}>
             👎 BAD
-          </button>
+          </Button>
         </div>
       ) : (
         <div className="flex space-x-4">
-          <button
+          <Button
             className={`px-4 py-2 rounded ${voteType === "GOOD" ? "bg-green-500 text-white" : "bg-gray-800 text-white"}`}
             onClick={() => handleVote("GOOD")}
           >
             {`👍 ${upvotePercentage.toFixed(0)}% (${upvoteCount}명)`}
-          </button>
-          <button
+          </Button>
+          <Button
             className={`px-4 py-2 rounded ${voteType === "BAD" ? "bg-green-500 text-white" : "bg-gray-800 text-white"}`}
             onClick={() => handleVote("BAD")}
           >
             {`👎 ${downvotePercentage.toFixed(0)}% (${downvoteCount}명)`}
-          </button>
+          </Button>
         </div>
       )}
     </div>

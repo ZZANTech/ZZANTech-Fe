@@ -262,7 +262,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
       {<ErrorMessage className="translate-y-11">{errorMessage?.content}</ErrorMessage>}
 
       <div className="flex gap-[18px] self-end translate-y-16">
-        <Button type="button" onClick={handleCancel}>
+        <Button type="button" bgColor="white" onClick={handleCancel}>
           취소하기
         </Button>
         <Button>등록하기</Button>
