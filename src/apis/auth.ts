@@ -11,29 +11,27 @@ export const updateNickname = async (
   setNicknameDupError: Dispatch<SetStateAction<string>>,
   setIsNicknameAllPassed: Dispatch<SetStateAction<boolean>>
 ) => {
-  const res = await fetch("/api/auth/mypage/test", {
-    method: "PATCH",
+  const res = await fetch("/api/auth/mypage/nickname", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify(nickname)
+    body: JSON.stringify({ nickname, userId })
   });
 
+  console.log("updateNickname >>", res);
   if (res.status === 409) {
     setNicknameDupError("동일한 닉네임이 있습니다.");
     setIsNicknameAllPassed(false);
   }
   if (res.status === 500) {
-    setNicknameDupError("알 수 없는 에러가 발생했습니다.");
+    setNicknameDupError("알 수 없는 에러가 발생 했습니다.");
     setIsNicknameAllPassed(false);
   }
   if (res.status === 200) {
-    setNicknameDupError("사용 가능한 닉네임 입니다");
+    setNicknameDupError("닉네임 변경 완료");
     setIsNicknameAllPassed(true);
   }
-
-  const res2 = await fetch("/api/auth/mypage/test", {});
-  // console.log("updateNickname >> ", res);
 };
 
 export const resetPassword = async (email: string) => {
