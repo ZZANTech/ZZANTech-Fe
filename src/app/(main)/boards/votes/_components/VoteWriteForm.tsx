@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEventHandler, useState, useEffect } from "react";
+import { FormEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TVote } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
@@ -26,7 +26,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
 
   const [title, setTitle] = useState<string>(previousContent?.title || "");
   const [productName, setProductName] = useState<string>(previousContent?.product_name || "");
-  const [productPrice, setProductPrice] = useState<number | null>(previousContent?.product_price || null);
+  const [productPrice, setProductPrice] = useState<string>(previousContent?.product_price?.toString() || "");
   const [content, setContent] = useState<string>(previousContent?.content || "");
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(previousContent?.image_url || null);
@@ -62,10 +62,10 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       newErrors.productName = "소비 내역은 필수 입력 항목입니다.";
     }
 
-    if (!productPrice || productPrice === 0) {
+    if (!productPrice || productPrice === "0") {
       newErrors.productPrice = "가격은 필수 입력 항목입니다.";
     }
-    if (isNaN(productPrice!)) {
+    if (isNaN(Number(productPrice))) {
       newErrors.productPrice = "가격은 숫자만 입력해 주세요.";
     }
 
@@ -105,7 +105,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
     const newVote = {
       title,
       product_name: productName,
-      product_price: productPrice ?? undefined,
+      product_price: Number(productPrice) ?? undefined,
       content,
       image_url: uploadedImageUrl ?? undefined,
       user_id: user?.userId
@@ -193,8 +193,13 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
               <input
                 type="text"
                 id="productPrice"
-                onChange={(e) => setProductPrice(Number(e.target.value))}
-                value={productPrice !== null ? productPrice.toString() : ""}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d*$/.test(value)) {
+                    setProductPrice(value);
+                  }
+                }}
+                value={productPrice}
                 className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
                 placeholder="가격을 입력해 주세요 (숫자만, 3~10자)"
                 maxLength={10}
