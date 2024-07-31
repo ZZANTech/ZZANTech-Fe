@@ -7,10 +7,10 @@ import { useState } from "react";
 
 function UserEditNickname() {
   const { user } = useUserContext();
-  const oldNickname = user?.nickname;
-  const userId: string | undefined = user?.userId;
+  const oldNickname = user?.nickname || "";
+  const userId = user?.userId || "";
 
-  const [nickname, setNickname] = useState<string>(oldNickname || "");
+  const [nickname, setNickname] = useState<string>(oldNickname);
   const [nicknameError, setNicknameError] = useState<string>("");
   const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
 
@@ -21,10 +21,10 @@ function UserEditNickname() {
     //중복확인 및 update API
     if (!nicknameError) {
       await updateNickname(nickname, userId, setNicknameError, setIsNicknameValid);
-    }
 
-    if (!nicknameError && isNicknameValid) {
-      alert("닉네임 변경 성공");
+      if (!nicknameError && isNicknameValid) {
+        alert("닉네임 변경 성공");
+      }
     }
   };
 
