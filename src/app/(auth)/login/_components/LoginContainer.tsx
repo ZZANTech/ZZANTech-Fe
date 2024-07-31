@@ -14,11 +14,10 @@ function LoginContainer() {
   const [emailError, setEmailError] = useState<string>("");
   const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
   const router = useRouter();
   const { user, logIn } = useUserContext();
-
-  console.log("LoginContainer rendered");
 
   const handleLogin = async () => {
     const email = emailRef.current?.value || "";
@@ -53,12 +52,21 @@ function LoginContainer() {
     const email = emailRef.current?.value || "";
     const password = passwordRef.current?.value || "";
 
-    if (email) {
+    if (!email) {
+      setEmailMessage("");
+      setEmailError("이메일을 입력해주세요.");
+    } else {
       checkEmailValidity({ email, setEmailMessage, setEmailError });
     }
-    if (password) {
+
+    if (!password) {
+      setPasswordMessage("");
+      setPasswordError("비밀번호를 입력해주세요.");
+    } else {
       checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
     }
+
+    setIsFormValid(email !== "" && password !== "");
   };
 
   return (
@@ -90,7 +98,11 @@ function LoginContainer() {
         {passwordError && <p className="AuthStateInfo">{passwordError}</p>}
       </div>
 
-      <button onClick={handleLogin} className="AuthLoginButton bg-[#111111] text-white">
+      <button
+        onClick={handleLogin}
+        className={`AuthLoginButton text-white ${isFormValid ? "bg-black" : "bg-gray-400 cursor-not-allowed"}`}
+        disabled={!isFormValid}
+      >
         이메일로 계속하기
       </button>
 
