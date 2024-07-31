@@ -2,6 +2,7 @@
 import NavButton from "@/app/(main)/boards/votes/[voteId]/_components/NavButton";
 import VoteButtons from "@/app/(main)/boards/votes/[voteId]/_components/VoteButtons";
 import { TVote } from "@/types/vote.type";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 type VoteContentProps = {
@@ -17,9 +18,7 @@ function VoteContent({ vote }: VoteContentProps) {
   return (
     <section>
       {showNavButtons && <NavButton vote={vote} direction="prev" />}
-      <div>
-        {title}
-      </div>
+      <div>{title}</div>
       <div>
         <div>
           <span>{product_name}</span>
