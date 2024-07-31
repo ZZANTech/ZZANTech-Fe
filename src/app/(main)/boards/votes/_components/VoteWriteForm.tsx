@@ -8,6 +8,7 @@ import useVoteMutation from "@/stores/queries/useVoteMutation";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { uploadImage } from "@/apis/chat";
 import useAlertModal from "@/hooks/useAlertModal";
+import Image from "next/image";
 
 type VoteWriteFormProps = {
   previousContent?: TVote;
@@ -133,103 +134,135 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <div className="flex items-center gap-2">
-          <label htmlFor="title">
-            <span>제목</span>
-            <span>*</span>
-          </label>
-          <input
-            type="text"
-            id="title"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-            className="mt-1 p-2 border rounded-md"
-            placeholder="제목을 입력해 주세요 (2~100자)"
-            maxLength={100}
-          />
-          {errors.title && <span className="text-red-500 text-sm">{errors.title}</span>}
-        </div>
-        <div className="flex items-center gap-2">
-          <label htmlFor="productName">
-            <span>소비 내역</span>
-            <span>*</span>
-          </label>
-          <input
-            type="text"
-            id="productName"
-            onChange={(e) => setProductName(e.target.value)}
-            value={productName}
-            className="mt-1 p-2 border rounded-md"
-            placeholder="소비 내역을 입력해 주세요 (2~100자)"
-            maxLength={100}
-          />
-          {errors.productName && <span className="text-red-500 text-sm">{errors.productName}</span>}
-        </div>
-        <div className="flex items-center gap-2">
-          <label htmlFor="productPrice">
-            <span>가격</span>
-            <span>*</span>
-          </label>
-          <input
-            type="text"
-            id="productPrice"
-            onChange={(e) => setProductPrice(Number(e.target.value))}
-            value={productPrice !== null ? productPrice.toString() : ""}
-            className="mt-1 p-2 border rounded-md"
-            placeholder="가격을 입력해 주세요 (숫자만, 3~10자)"
-            maxLength={10}
-          />
-          {errors.productPrice && <span className="text-red-500 text-sm">{errors.productPrice}</span>}
-        </div>
-        <div className="flex items-center gap-2">
-          <label htmlFor="content">
-            <span>내용</span>
-            <span>*</span>
-          </label>
-          <textarea
-            className="mt-1 p-2 border rounded-md"
-            id="content"
-            onChange={(e) => setContent(e.target.value)}
-            value={content}
-            placeholder="내용을 입력해 주세요 (2~200자)"
-            maxLength={200}
-          ></textarea>
-          {errors.content && <span className="text-red-500 text-sm">{errors.content}</span>}
-        </div>
-        <div className="flex items-center gap-2">
-          <label className="image">
-            <span>사진 첨부</span>
-            <span>*</span>
-          </label>
-          <div>
-            {(image || imageUrl) && (
-              <img
-                src={image ? URL.createObjectURL(image) : imageUrl!}
-                alt="첨부된 사진 미리보기 이미지"
-                className="w-32 h-32 object-cover"
+    <section className="w-[592px] h-[454px] flex-col justify-start items-start gap-3 inline-flex">
+      <form onSubmit={handleSubmit} className="self-stretch flex-col justify-start items-start gap-3 flex">
+        <div className="self-stretch justify-start items-center gap-3 flex">
+          <div className="flex justify-between items-center w-full">
+            <label htmlFor="title" className="w-[100px] flex items-center gap-1">
+              <span className="text-black text-base font-normal leading-normal">제목</span>
+              <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+            </label>
+            <div className="w-[500px]">
+              <input
+                type="text"
+                id="title"
+                onChange={(e) => setTitle(e.target.value)}
+                value={title}
+                className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
+                placeholder="제목을 입력해 주세요 (2~100자)"
+                maxLength={100}
               />
-            )}
-            <input
-              type="file"
-              id="image"
-              onChange={(e) => {
-                setImage(e.target.files?.[0] || null);
-                setImageUrl(null);
-              }}
-            />
-            {errors.image && <span className="text-red-500 text-sm">{errors.image}</span>}
+              <div className="h-4">
+                {errors.title && <span className="text-red-500 text-[13px]">{errors.title}</span>}
+              </div>
+            </div>
           </div>
         </div>
-        <div>
+        <div className="self-stretch justify-start items-center gap-3 flex">
+          <div className="flex justify-between items-center w-full">
+            <label htmlFor="productName" className="w-[100px] flex items-center gap-1">
+              <span className="text-black text-base font-normal leading-normal">소비 내역</span>
+              <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+            </label>
+            <div className="w-[500px]">
+              <input
+                type="text"
+                id="productName"
+                onChange={(e) => setProductName(e.target.value)}
+                value={productName}
+                className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
+                placeholder="소비 내역을 입력해 주세요 (2~100자)"
+                maxLength={100}
+              />
+              <div className="h-4">
+                {errors.productName && <span className="text-red-500 text-[13px]">{errors.productName}</span>}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="self-stretch justify-start items-center gap-3 flex">
+          <div className="flex justify-between items-center w-full">
+            <label htmlFor="productPrice" className="w-[100px] flex items-center gap-1">
+              <span className="text-black text-base font-normal leading-normal">가격</span>
+              <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+            </label>
+            <div className="w-[500px]">
+              <input
+                type="text"
+                id="productPrice"
+                onChange={(e) => setProductPrice(Number(e.target.value))}
+                value={productPrice !== null ? productPrice.toString() : ""}
+                className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
+                placeholder="가격을 입력해 주세요 (숫자만, 3~10자)"
+                maxLength={10}
+              />
+              <div className="h-4">
+                {errors.productPrice && <span className="text-red-500 text-[13px]">{errors.productPrice}</span>}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="self-stretch justify-start items-center gap-3 flex">
+          <div className="flex justify-between items-center w-full">
+            <label htmlFor="content" className="w-[100px] flex items-center gap-1">
+              <span className="text-black text-base font-normal leading-normal">내용</span>
+              <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+            </label>
+            <div className="w-[500px]">
+              <textarea
+                id="content"
+                onChange={(e) => setContent(e.target.value)}
+                value={content}
+                className="w-full h-[94px] px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
+                placeholder="내용을 입력해 주세요 (2~200자)"
+                maxLength={200}
+              />
+              <div className="h-4">
+                {errors.content && <span className="text-red-500 text-[13px]">{errors.content}</span>}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="self-stretch justify-start items-center gap-3 flex">
+          <div className="flex justify-between items-start w-full">
+            <label htmlFor="image" className="w-[100px] flex items-center gap-1">
+              <span className="text-black text-base font-normal leading-normal">사진 첨부</span>
+              <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+            </label>
+            <div className="w-[500px] flex flex-col">
+              {image || imageUrl ? (
+                <div className="relative w-32 h-32 mb-2">
+                  <Image
+                    src={image ? URL.createObjectURL(image) : imageUrl!}
+                    alt="첨부된 사진 미리보기 이미지"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              ) : null}
+              <input
+                type="file"
+                id="image"
+                onChange={(e) => {
+                  setImage(e.target.files?.[0] || null);
+                  setImageUrl(null);
+                }}
+                className="py-1"
+              />
+              <div className="h-4">
+                {errors.image && <span className="text-red-500 text-[13px]">{errors.image}</span>}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center gap-2 mt-4">
           <Button type="button" onClick={handleCancel}>
             취소
           </Button>
           <Button>등록하기</Button>
         </div>
       </form>
-    </div>
+    </section>
   );
 }
 
