@@ -9,17 +9,14 @@ function MyPointsHistoryTable() {
   const userId = user?.userId ?? "";
   const { data, isLoading, isError } = usePointsQuery(userId);
 
-  // 로딩 중일 때
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>로딩 중...</div>;
   }
 
-  // 데이터가 없거나 비어 있을 때
   if (!data || data.length === 0) {
-    return <div>No points history available</div>;
+    return <div>포인트 내역이 존재하지 않습니다.</div>;
   }
 
-  // 데이터가 정상적으로 로드되었을 때 테이블 렌더링
   return (
     <div>
       <h4>포인트 내역</h4>
