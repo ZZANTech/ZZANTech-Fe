@@ -2,6 +2,7 @@
 import NavButton from "@/app/(main)/boards/votes/[voteId]/_components/NavButton";
 import VoteButtons from "@/app/(main)/boards/votes/[voteId]/_components/VoteButtons";
 import { TVote } from "@/types/vote.type";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 
 type VoteContentProps = {
@@ -17,11 +18,7 @@ function VoteContent({ vote }: VoteContentProps) {
   return (
     <section>
       {showNavButtons && <NavButton vote={vote} direction="prev" />}
-      <div>
-        {title}
-        {/* 테스트용 */}
-        {vote_postId}
-      </div>
+      <div>{title}</div>
       <div>
         <div>
           <span>{product_name}</span>
@@ -30,7 +27,7 @@ function VoteContent({ vote }: VoteContentProps) {
         <div>{nickname}</div>
       </div>
       <div>
-        {/* <Image src={image_url} alt="게시글 이미지" className="w-32 h-32 object-cover" width={128} height={128} /> */}
+        <Image src={image_url} alt="게시글 이미지" className="w-32 h-32 object-cover" width={128} height={128} />
       </div>
       <VoteButtons voteId={vote_postId} />
       <div>{content}</div>
