@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, { params: { userId } }: { params: { 
       .from("points")
       .select("*")
       .eq("user_id", userId)
-      .order("created_at", { ascending: true });
+      .order("created_at", { ascending: false });
     if (error) {
       throw new Error("포인트 상세 내역을 불러오지 못했습니다.");
     }
