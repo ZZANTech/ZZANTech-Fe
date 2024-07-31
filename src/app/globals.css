@@ -1,6 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "react-quill/dist/quill.snow.css";
+
 @font-face {
   font-family: "Pretendard";
   src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
@@ -28,7 +30,6 @@ body {
 body *:not([class*="letter-"]) {
   letter-spacing: var(--tw-letter-spacing-tight-korean, -0.025em);
 }
-@import "react-quill/dist/quill.snow.css";
 @layer utilities {
   .MainLinkButton {
     @apply px-2 py-5 mx-5 text-gray-800 text-[16px] text-center 
@@ -133,5 +134,9 @@ body *:not([class*="letter-"]) {
 
   .knowhow-content .ql-indent-8 {
     @apply pl-32;
+  }
+
+  .ql-toolbar ql-snow {
+    @apply overflow-hidden;
   }
 }

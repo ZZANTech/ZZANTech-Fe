@@ -3,7 +3,11 @@ import VoteContent from "@/app/(main)/boards/votes/[voteId]/_components/VoteCont
 import ActionNav from "@/app/(main)/boards/votes/[voteId]/_components/ActionNav";
 import CommentsContainer from "@/app/(main)/boards/_components/Comments/CommentsContainer";
 
-async function VoteDetailPage({ params: { voteId } }: { params: { voteId: number } }) {
+type VoteDetailPageProps = {
+  params: { voteId: number };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+export default async function VoteDetailPage({ params: { voteId }, searchParams }: VoteDetailPageProps) {
   const vote = await getVote(voteId);
 
   return (
@@ -14,5 +18,3 @@ async function VoteDetailPage({ params: { voteId } }: { params: { voteId: number
     </main>
   );
 }
-
-export default VoteDetailPage;

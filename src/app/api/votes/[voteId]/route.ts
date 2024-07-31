@@ -4,9 +4,6 @@ import { createClient } from "@/utils/supabase/server";
 export async function GET(req: NextRequest, { params: { voteId } }: { params: { voteId: string } }) {
   const supabase = createClient();
   const voteIdNumber = Number(voteId);
-  const sortOrder = req.nextUrl.searchParams.get("sortOrder");
-
-  const sortBy = sortOrder === "votes" ? "votes_count" : "created_at";
 
   try {
     const { data, error } = await supabase
@@ -31,13 +28,10 @@ export async function GET(req: NextRequest, { params: { voteId } }: { params: { 
       nickname: users?.nickname
     };
 
-    // 투표수 순으로 정렬했을 때 prevVoteId, nextVoteId를 어떻게 구할 것인가?
-    // ↓ 극히 비효율적인 방법
-    // 게시글 이동 버튼에 대해 상의 후 수정할 것
     const { data: allVotes, error: navigationError } = await supabase
       .from("vote_posts")
       .select("vote_postId")
-      .order(sortBy, { ascending: sortBy === "votes_count" });
+      .order("created_at", { ascending: false });
 
     if (navigationError || !allVotes) {
       throw new Error("네비게이션 데이터를 불러오지 못했습니다.");
