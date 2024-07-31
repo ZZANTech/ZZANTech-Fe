@@ -8,6 +8,7 @@ import useVoteMutation from "@/stores/queries/useVoteMutation";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { uploadImage } from "@/apis/chat";
 import useAlertModal from "@/hooks/useAlertModal";
+import { useUserContext } from "@/provider/contexts/UserContext";
 
 type VoteWriteFormProps = {
   previousContent?: TVote;
@@ -15,6 +16,7 @@ type VoteWriteFormProps = {
 
 function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   const { displayDefaultAlert } = useAlertModal();
+  const { user } = useUserContext();
 
   const { addVote, updateVote } = useVoteMutation();
   const router = useRouter();
@@ -104,7 +106,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       product_price: productPrice ?? undefined,
       content,
       image_url: uploadedImageUrl ?? undefined,
-      user_id: "a16e76cd-30fb-4130-b321-ec457d17783c"
+      user_id: user?.userId
     };
 
     try {
