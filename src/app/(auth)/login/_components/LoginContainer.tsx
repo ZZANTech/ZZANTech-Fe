@@ -5,7 +5,8 @@ import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useModal } from "@/provider/contexts/ModalContext";
 
 function LoginContainer() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -15,7 +16,7 @@ function LoginContainer() {
   const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
-  const [loginSuccess, setLoginSuccess] = useState<boolean>(false);
+  const modal = useModal();
   const router = useRouter();
   const { user, logIn } = useUserContext();
 
@@ -24,17 +25,21 @@ function LoginContainer() {
     const password = passwordRef.current?.value || "";
 
     //로그인 서버 통신 로직
-    await logIn(email, password);
-    if (user) {
-      setLoginSuccess(true);
+    try {
+      await logIn(email, password);
+    } catch (error: any) {
+      modal.open({
+        type: "alert",
+        content: error.message
+      });
     }
   };
 
   useEffect(() => {
-    if (loginSuccess) {
+    if (user) {
       router.replace("/");
     }
-  }, [loginSuccess, router]);
+  }, [user, router]);
 
   useEffect(() => {
     const email = emailRef.current?.value || "";

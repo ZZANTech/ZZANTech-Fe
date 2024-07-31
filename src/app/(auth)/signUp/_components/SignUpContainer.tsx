@@ -30,7 +30,7 @@ function SignUpContainer() {
   return (
     <div className="flex flex-col justify-center gap-12">
       <h1 className="text-xl font-semibold">회원가입</h1>
-      <section className="flex flex-col gap-6">
+      <div className="flex flex-col gap-6">
         <EmailForm email={email} setEmail={setEmail} />
         <NicknameForm nickname={nickname} setNickname={setNickname} />
         <PasswordForm password={password} setPassword={setPassword} />
@@ -46,7 +46,7 @@ function SignUpContainer() {
         >
           회원가입 완료하기
         </button>
-      </section>
+      </div>
     </div>
   );
 }
