@@ -34,11 +34,11 @@ body *:not([class*="letter-"]) {
     @apply px-2 py-5 mx-5 text-gray-800 text-[16px] text-center 
     hover:font-bold hover:border-b-2 border-gray-800;
   }
-  .AuthInput {
-    @apply w-[340px] h-[56px] p-[16px] border rounded-lg pointer-events-auto;
-  }
   .AuthInputShort {
-    @apply w-[400px] h-[56px] p-[16px] border;
+    @apply w-[296px] h-[48px] px-[16px] border rounded-lg pointer-events-auto;
+  }
+  .AuthInput {
+    @apply w-[400px] h-[48px] px-[16px] border rounded-lg;
   }
 
   .AuthInputDiv {
@@ -49,10 +49,10 @@ body *:not([class*="letter-"]) {
   }
 
   .AuthStateInfo {
-    @apply text-red-500 text-xs;
+    @apply text-info-red text-xs;
   }
   .AuthStateInfoGreen {
-    @apply text-green-500 text-xs;
+    @apply text-info-green text-xs;
   }
 
   .AuthDupButton {
