@@ -13,8 +13,6 @@ export const updateNickname = async (
     body: JSON.stringify(nickname)
   });
 
-  // console.log("updateNickname >> ", res);
-
   if (res.status === 200) {
     setNicknameDupError("사용 가능한 닉네임 입니다");
     setIsNicknameAllPassed(true);

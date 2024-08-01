@@ -27,4 +27,12 @@ export const MY_POSTS_FILTER_OPTION = [
   { value: KNOWHOW, label: "짠-노하우" }
 ];
 
+export const GIFTS = "gifts";
+export const CLAIM = "claim";
+
+export const EXCHANGE_FILTER_OPTION = [
+  { value: GIFTS, label: "기프티콘" },
+  { value: CLAIM, label: "ㅁㄴㅇ상태" }
+];
+
 export const MAX_CONTENT_LENGTH = 1000;
