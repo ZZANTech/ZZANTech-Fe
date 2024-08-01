@@ -34,17 +34,25 @@ function NicknameModal() {
   };
 
   return (
-    <div>
-      <h2>닉네임 변경</h2>
+    <div className="relative bg-white p-10 rounded min-w-[340px] flex flex-col gap-8 items-center">
+      <h2 className="px-6 py-2 text-2xl font-bold">닉네임 변경</h2>
       <input
         type="text"
         maxLength={20}
         value={nickname}
         placeholder="변경할 닉네임을 입력해주세요"
         onChange={(e) => setNickname(e.target.value)}
+        className="AuthInput"
       />
+
       {nicknameError && <p className="AuthStateInfo">{nicknameError}</p>}
-      <button onClick={handleChangeNickname}>화이팅!</button>
+
+      <button
+        onClick={handleChangeNickname}
+        className="w-[385px] h-[52px] rounded-lg font-bold text-xl bg-black text-white"
+      >
+        변경하기
+      </button>
     </div>
   );
 }
