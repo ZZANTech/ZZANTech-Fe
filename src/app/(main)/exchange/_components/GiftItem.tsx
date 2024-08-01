@@ -22,7 +22,7 @@ function GiftItem({ gift }: GiftItemProps) {
   const userCurrentPoints = user?.current_point ?? 0;
   return (
     <li className="">
-      <Image src={gift.img_url} alt={gift.gift_name} width={100} height={100} />
+      <Image src={gift.img_url} alt={gift.gift_name} width={150} height={150} />
       <div>{gift.gift_name}</div>
       <div>{gift.brand_name}</div>
       <div>{gift.point}</div>
