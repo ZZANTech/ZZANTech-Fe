@@ -4,12 +4,20 @@ import ActionNav from "@/app/(main)/boards/votes/[voteId]/_components/ActionNav"
 import VoteButtons from "@/app/(main)/boards/votes/[voteId]/_components/VoteButtons";
 import { TVote } from "@/types/vote.type";
 import Image from "next/image";
+import "dayjs/locale/ko";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
 type VoteContentProps = {
   vote: TVote;
 };
 
+dayjs.extend(relativeTime);
+dayjs.locale("ko");
+
 function VoteContent({ vote }: VoteContentProps) {
-  const { title, product_name, product_price, nickname, image_url, vote_postId, content } = vote;
+  const { title, product_name, product_price, nickname, created_at, image_url, vote_postId, content } = vote;
+  const formattedCreatedAt = dayjs(created_at).fromNow();
 
   return (
     <div className="flex justify-center items-center w-full h-full gap-7">
@@ -21,7 +29,7 @@ function VoteContent({ vote }: VoteContentProps) {
             </div>
             <div className="w-[480px] flex justify-between items-center">
               <div className="text-left text-gray-800 text-sm font-normal leading-tight">{nickname}</div>
-              <div className="text-right text-gray-800 text-sm font-normal leading-tight">3시간 전</div>
+              <div className="text-right text-gray-800 text-sm font-normal leading-tight">{formattedCreatedAt}</div>
             </div>
           </div>
           <div className="w-[436px] flex flex-col justify-start items-center gap-8">
