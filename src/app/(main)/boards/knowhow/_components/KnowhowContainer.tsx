@@ -13,6 +13,8 @@ import {
 import dynamic from "next/dynamic";
 import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
 import { useRouter, useSearchParams } from "next/navigation";
+import Button from "@/components/Button/Button";
+import { useModal } from "@/provider/contexts/ModalContext";
 
 const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
   loading: () => (
@@ -27,6 +29,7 @@ const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_component
 });
 
 function KnowhowContainer() {
+  const modal = useModal();
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
@@ -78,6 +81,7 @@ function KnowhowContainer() {
 
   return (
     <section>
+      <Button onClick={() => modal.open({ type: "nickname" })}>모달 여는 버튼</Button>
       <KnowhowFilter
         selectedSearchOption={selectedSearchOption}
         onSortOrderChange={handleSortOrderChange}
