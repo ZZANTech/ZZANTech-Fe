@@ -74,7 +74,7 @@ function KnowhowContainer() {
     if (sortOrder !== sortFromParams) {
       setSortOrder(sortFromParams);
     }
-  }, [searchParams]);
+  }, [searchParams, sortOrder, currentPage]);
 
   return (
     <section>
