@@ -1,7 +1,7 @@
-import UserEditContainer from "@/app/(main)/mypage/edit/_components/UserEditContainer";
+import UserEditPassword from "@/app/(main)/mypage/edit/_components/UserEditPassword";
 
 function MypageUserInfoEdit() {
-  return <UserEditContainer />;
+  return <UserEditPassword />;
 }
 
 export default MypageUserInfoEdit;

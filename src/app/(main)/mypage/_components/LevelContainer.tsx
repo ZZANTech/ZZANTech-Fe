@@ -1,7 +1,6 @@
 "use client";
 import { checkLevelName, checkLevelImageURL, checkLevel } from "@/app/(main)/mypage/_utils/checkLevel";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 
 function LevelContainer() {
@@ -14,18 +13,23 @@ function LevelContainer() {
   return (
     <div className="">
       <div className="flex justify-between align-center mb-5">
-        <p className="font-bold">내 등급</p>
-        <div className="w-5 h-5">
-          <Image src={"/icons/mypage/circular_question.png"} width={20} height={20} alt="circular_question" />
+        <p className="font-bold leading-5">내 등급</p>
+        <div className="flex gap-1">
+          <div className="w-5 h-5">
+            <Image src={"/icons/mypage/circular_question.png"} width={20} height={20} alt="circular_question" />
+          </div>
+          <p className="text-sm underline text-gray-800">등급제 설명</p>
         </div>
       </div>
 
-      <div className="flex gap-8">
+      <div className="flex gap-8 ">
         <div className="w-9 h-9">
           <Image src={levelImageURL} width={36} height={36} alt="badge" />
         </div>
-        <button className="bg-main px-2 py-1 rounded-lg">{level}</button>
-        <p className="text-sm">{levelName}</p>
+        <div className="flex gap-2 items-center">
+          <button className="bg-main px-2 py-1 rounded-lg">{level}</button>
+          <p className="text-sm">{levelName}</p>
+        </div>
       </div>
     </div>
   );
