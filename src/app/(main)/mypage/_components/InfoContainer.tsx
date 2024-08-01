@@ -42,9 +42,9 @@ function InfoContainer() {
   };
 
   return (
-    <div className="flex flex-row justify-between">
+    <div className="mb-6 p-6 bg-gray-100 rounded-3xl flex justify-between">
       <div>
-        <div className="flex flex-row gap-2.5">
+        <div className="">
           <Image src={user?.badge_url || ""} width={24} height={24} alt="mainLogo" />
           {isClicked ? (
             <>
@@ -55,37 +55,34 @@ function InfoContainer() {
                 placeholder="변경할 닉네임을 입력해주세요"
                 onChange={(e) => setNickname(e.target.value)}
               />
-              <button className="bg-gray-300 rounded-sm text-[11px] w-[20px] h-[15px]" onClick={handleNicknameChange}>
+              <button className="" onClick={handleNicknameChange}>
                 수정
               </button>
-              <button
-                className="bg-gray-300 rounded-sm text-[11px] w-[20px] h-[15px]"
+              {/* <button
+                className=""
                 onClick={() => setIsClicked(false)}
               >
                 취소
-              </button>
+              </button> */}
             </>
           ) : (
             <>
               <p>{user?.nickname}님</p>
-              <button
-                className="bg-gray-300 rounded-sm text-[11px] w-[20px] h-[15px]"
-                onClick={() => setIsClicked(true)}
-              >
+              <button className="" onClick={() => setIsClicked(true)}>
                 수정
               </button>
             </>
           )}
 
-          {nicknameError && <p className="AuthStateInfo">{nicknameError}</p>}
+          {nicknameError && <p className="">{nicknameError}</p>}
         </div>
-        <div className="flex flex-row gap-2.5">
-          <p>이메일 주소</p>
+        <div className="">
+          <p>이메일</p>
           <p>{user?.email}</p>
         </div>
       </div>
 
-      <Link href={`${BASE_URL}/mypage/edit`} className="bg-black text-white rounded-md my-auto px-4 py-[14px] ">
+      <Link href={`${BASE_URL}/mypage/edit`} className="">
         비밀번호 변경
       </Link>
     </div>
