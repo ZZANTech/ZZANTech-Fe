@@ -25,3 +25,17 @@ export const checkLevelImageURL = (total_point: number) => {
     return "/lcons/mypage/lv5.png";
   }
 };
+
+export const checkLevel = (total_point: number) => {
+  if (total_point < 15) {
+    return "레벨 1";
+  } else if (total_point > 14 || total_point < 1000) {
+    return "레벨 2";
+  } else if (total_point > 999 || total_point < 5000) {
+    return "레벨 3";
+  } else if (total_point > 4999 || total_point < 10000) {
+    return "레벨 4";
+  } else {
+    return "레벨 5";
+  }
+};
