@@ -1,9 +1,12 @@
 import { useModal } from "@/provider/contexts/ModalContext";
 
 const useAlertModal = () => {
-  const { open } = useModal();
+  const { open, isOpen } = useModal();
 
   const displayDefaultAlert = (content: string) => {
+    if (isOpen) {
+      return;
+    }
     open({
       type: "alert",
       content

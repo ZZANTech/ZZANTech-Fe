@@ -1,3 +1,4 @@
+import { TChangePassword } from "@/types/user.type";
 import { Dispatch, SetStateAction } from "react";
 
 export const logout = async () => {
@@ -54,7 +55,7 @@ export const resetPassword = async (email: string) => {
   }
 };
 
-export const updatePassword = async (password: string) => {
+export const patchPassword = async (password: TChangePassword) => {
   const res = await fetch("/api/auth/mypage/password", {
     method: "PATCH",
     headers: {
@@ -63,8 +64,12 @@ export const updatePassword = async (password: string) => {
     body: JSON.stringify(password)
   });
 
-  const result = await res.json();
-  if (res.ok) {
-    // console.log("resetPassword >> ", result);
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error;
+    throw { message: errorMessage, status: res.status };
   }
+
+  const data = await res.json();
+  return data.message;
 };

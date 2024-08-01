@@ -11,3 +11,5 @@ export type TUserInsert = Omit<
 };
 
 export type TUserUpdate = Partial<TUser>;
+
+export type TChangePassword = { oldPassword: string; newPassword: string };
