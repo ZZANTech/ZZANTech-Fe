@@ -42,9 +42,9 @@ function InfoContainer() {
 
   return (
     <div className="mb-6 p-6 bg-gray-100 rounded-3xl flex justify-between">
-      <div>
-        <div className="">
-          <Image src={user?.badge_url || ""} width={24} height={24} alt="mainLogo" />
+      <div className="flex flex-col">
+        <div className="mb-2 flex gap-[18px] items-center">
+          <Image src={user?.badge_url || ""} width={36} height={36} alt="badge_url" />
           {isClicked ? (
             <>
               <input
@@ -66,7 +66,7 @@ function InfoContainer() {
             </>
           ) : (
             <>
-              <p>{user?.nickname}님</p>
+              <p className="text-xl font-semibold">{user?.nickname} 님</p>
               <button className="" onClick={() => setIsClicked(true)}>
                 수정
               </button>
@@ -75,7 +75,7 @@ function InfoContainer() {
 
           {nicknameError && <p className="">{nicknameError}</p>}
         </div>
-        <div className="">
+        <div className="flex gap-[18pt]">
           <p>이메일</p>
           <p>{user?.email}</p>
         </div>

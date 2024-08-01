@@ -11,15 +11,13 @@ function MypageContainer() {
         <h1 className="h-[29px] text-xl font-semibold">마이페이지</h1>
         <p className="h-[19px]">포인트와 등급을 확인해보세요!</p>
       </div>
-      <div>
+      <div className="">
         <InfoContainer />
-        <hr />
-        <PointContainer />
-        <hr />
-        <LevelContainer />
-        <hr />
+        <div className="p-6 rounded-3xl border border-gray-300 flex flex-col gap-12">
+          <LevelContainer />
+          <PointContainer />
+        </div>
         <MyPostsContainer />
-        <hr />
         <OtherPostsContainer />
       </div>
     </div>
