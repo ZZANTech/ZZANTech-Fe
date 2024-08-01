@@ -12,7 +12,6 @@ export const getGifts = async () => {
 
 export const getClaims = async (userId: Tables<"users">["userId"]) => {
   const res = await fetch(`${BASE_URL}/api/exchange/${userId}`);
-  console.log(res);
   if (!res.ok) {
     throw new Error();
   }
@@ -25,7 +24,6 @@ export const postClaim = async (newClaim: Partial<Tables<"gift_claims">>) => {
     method: "POST",
     body: JSON.stringify(newClaim)
   });
-  console.log(res);
   if (!res.ok) {
     const errorData = await res.json();
 
