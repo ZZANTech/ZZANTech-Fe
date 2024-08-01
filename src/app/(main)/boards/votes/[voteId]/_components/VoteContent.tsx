@@ -12,12 +12,10 @@ type VoteContentProps = {
 function VoteContent({ vote }: VoteContentProps) {
   const { title, product_name, product_price, nickname, image_url, vote_postId, content } = vote;
   const searchParams = useSearchParams();
-  const sortOrder = searchParams.get("sortOrder");
-  const showNavButtons = sortOrder === "latest";
 
   return (
     <section>
-      {showNavButtons && <NavButton vote={vote} direction="prev" />}
+      <NavButton vote={vote} direction="prev" />
       <div>{title}</div>
       <div>
         <div>
@@ -31,7 +29,7 @@ function VoteContent({ vote }: VoteContentProps) {
       </div>
       <VoteButtons voteId={vote_postId} />
       <div>{content}</div>
-      {showNavButtons && <NavButton vote={vote} direction="next" />}
+      <NavButton vote={vote} direction="next" />
     </section>
   );
 }
