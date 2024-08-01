@@ -120,6 +120,71 @@ export type Database = {
         };
         Relationships: [];
       };
+      gift_claims: {
+        Row: {
+          created_at: string;
+          gift_claimId: number;
+          gift_id: number;
+          is_sent: boolean;
+          sent_at: string | null;
+          user_id: string;
+        };
+        Insert: {
+          created_at?: string;
+          gift_claimId?: number;
+          gift_id: number;
+          is_sent: boolean;
+          sent_at?: string | null;
+          user_id: string;
+        };
+        Update: {
+          created_at?: string;
+          gift_claimId?: number;
+          gift_id?: number;
+          is_sent?: boolean;
+          sent_at?: string | null;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "gift_claims_user_id_fkey";
+            columns: ["user_id"];
+            isOneToOne: false;
+            referencedRelation: "users";
+            referencedColumns: ["userId"];
+          }
+        ];
+      };
+      gifts: {
+        Row: {
+          brand_name: string;
+          category: string | null;
+          created_at: string;
+          gift_name: string;
+          giftId: number;
+          img_url: string;
+          point: number;
+        };
+        Insert: {
+          brand_name: string;
+          category?: string | null;
+          created_at?: string;
+          gift_name: string;
+          giftId?: number;
+          img_url: string;
+          point: number;
+        };
+        Update: {
+          brand_name?: string;
+          category?: string | null;
+          created_at?: string;
+          gift_name?: string;
+          giftId?: number;
+          img_url?: string;
+          point?: number;
+        };
+        Relationships: [];
+      };
       knowhow_comments: {
         Row: {
           content: string;
