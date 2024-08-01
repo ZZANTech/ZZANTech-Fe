@@ -13,26 +13,30 @@ function PointContainer() {
   };
 
   return (
-    <div className="my-8">
-      <div className="flex">
-        <div className="flex">
+    <div className="">
+      <div className="flex justify-between">
+        <div className="flex ">
           <div className="">
             <p className="text-base font-bold color-gray-800 mb-4">현재 포인트</p>
             <div className="flex mr-[66px]">
-              <Image src={"/icons/mypage/diamond.png"} width={36} height={36} alt="diamond" />
-              <p className="ml-2 text-2xl font-bold text-[#999999]">P {user?.current_point}</p>
+              <Image
+                src={"/icons/mypage/coin.png"}
+                width={36}
+                height={36}
+                alt="diamond"
+                style={{ width: "36px", height: "auto" }}
+              />
+
+              <p className="ml-2 text-2xl font-bold text-[#999999]">{user?.current_point}P</p>
             </div>
           </div>
           <div>
             <p className="text-base font-bold color-gray-800 mb-4">누적 포인트</p>
-            <p className="text-2xl font-bold text-[#999999]">P {user?.total_point}</p>
+            <p className="text-2xl font-bold text-[#999999]">{user?.total_point}P</p>
           </div>
         </div>
 
-        <button
-          onClick={handlePointsHistoryClick}
-          className="w-[112px] ml-[174px] px-4 py-[10px] rounded-md bg-gray-200 font-semibold text-sm text-[#999999]"
-        >
+        <button onClick={handlePointsHistoryClick} className="">
           포인트 내역
         </button>
       </div>

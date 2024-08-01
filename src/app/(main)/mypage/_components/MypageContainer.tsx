@@ -13,9 +13,9 @@ function MypageContainer() {
       </div>
       <div className="">
         <InfoContainer />
-        <div className="p-6 rounded-3xl border border-gray-300 flex flex-col gap-12">
-          <LevelContainer />
+        <div className="p-6 my-8 rounded-3xl border border-gray-300 flex flex-col gap-12">
           <PointContainer />
+          <LevelContainer />
         </div>
         <MyPostsContainer />
         <OtherPostsContainer />
