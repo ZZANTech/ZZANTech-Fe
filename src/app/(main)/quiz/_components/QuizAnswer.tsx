@@ -7,11 +7,10 @@ import { useEffect, useState } from "react";
 type QuizAnswerProps = {
   isCorrect: boolean;
   explanation: string;
-  correctAnswer: boolean;
   onClose: () => void;
 };
 
-function QuizAnswer({ isCorrect, explanation, correctAnswer, onClose }: QuizAnswerProps) {
+function QuizAnswer({ isCorrect, explanation, onClose }: QuizAnswerProps) {
   const { setHasTakenQuiz } = useUserContext();
   const [showAnimation, setShowAnimation] = useState(true);
 
@@ -55,8 +54,8 @@ function QuizAnswer({ isCorrect, explanation, correctAnswer, onClose }: QuizAnsw
             <div className="text-4xl mb-4 font-bold">
               포인트 <span className="text-purple-500">{isCorrect ? 5 : 1}점</span>을 획득하셨습니다!
             </div>
-            <div className={`text-4xl mb-4 ${correctAnswer ? "text-green-500" : "text-red-500"}`}>
-              {correctAnswer ? "O" : "X"}
+            <div className={`text-4xl mb-4 ${isCorrect ? "text-green-500" : "text-red-500"}`}>
+              {isCorrect ? "O" : "X"}
             </div>
             <p className="text-#535353">해설: {explanation}</p>
           </section>
