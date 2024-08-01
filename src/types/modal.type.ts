@@ -1,4 +1,4 @@
-export type ModalProps = ConfirmModalProps | AlertModalProps;
+export type ModalProps = ConfirmModalProps | AlertModalProps | NicknameModalProps;
 
 export type ConfirmModalProps = {
   type: "confirm";
@@ -13,4 +13,8 @@ export type AlertModalProps = {
   content: string;
   subContent?: string;
   onClose?: () => void;
+};
+
+export type NicknameModalProps = {
+  type: "nickname";
 };
