@@ -3,7 +3,6 @@ import NavButton from "@/app/(main)/boards/votes/[voteId]/_components/NavButton"
 import VoteButtons from "@/app/(main)/boards/votes/[voteId]/_components/VoteButtons";
 import { TVote } from "@/types/vote.type";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 
 type VoteContentProps = {
   vote: TVote;
@@ -11,7 +10,6 @@ type VoteContentProps = {
 
 function VoteContent({ vote }: VoteContentProps) {
   const { title, product_name, product_price, nickname, image_url, vote_postId, content } = vote;
-  const searchParams = useSearchParams();
 
   return (
     <section>
