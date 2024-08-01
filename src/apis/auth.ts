@@ -2,8 +2,12 @@ import { TChangePassword } from "@/types/user.type";
 import { Dispatch, SetStateAction } from "react";
 
 export const logout = async () => {
-  const res = await fetch("/api/auth/login", { method: "DELETE" });
-  console.log("authentication >>", res);
+  const response = await fetch("/api/auth/login", { method: "DELETE" });
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || "로그아웃 실패");
+  }
+  return response.json();
 };
 
 export const updateNickname = async (

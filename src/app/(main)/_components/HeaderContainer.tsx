@@ -3,18 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { logout } from "@/apis/auth";
 
 function HeaderContainer() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
-
-  const { user } = useUserContext();
+  const { user, logOut } = useUserContext();
 
   const handleLogout = () => {
-    logout();
+    logOut();
     router.replace("/");
   };
 

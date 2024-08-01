@@ -13,18 +13,18 @@ export const checkEmailValidity = ({
 }) => {
   if (!email) {
     setEmailMessage("");
-    setEmailError("빈칸을 채워주세요.");
+    setEmailError("이메일을 입력해주세요.");
     return;
   }
 
   if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)) {
     setEmailMessage("");
-    setEmailError("이메일 형식이 아닙니다.");
+    setEmailError("유효한 이메일 형식이 아닙니다.");
     return;
   }
 
   if (email) {
-    setEmailMessage("이메일 성공");
+    setEmailMessage("유효한 이메일입니다.");
     setEmailError("");
   }
 };
@@ -40,7 +40,7 @@ export const checkPasswordValidity = ({
 }) => {
   if (!password) {
     setPasswordMessage("");
-    setPasswordError("빈칸을 채워주세요.");
+    setPasswordError("비밀번호를 입력해주세요.");
     return;
   }
 
@@ -57,7 +57,7 @@ export const checkPasswordValidity = ({
   }
 
   if (password) {
-    setPasswordMessage("비밀번호 성공");
+    setPasswordMessage("유효한 비밀번호입니다.");
     setPasswordError("");
   }
 };
