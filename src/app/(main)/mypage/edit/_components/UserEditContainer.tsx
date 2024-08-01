@@ -1,3 +1,5 @@
+"use client";
+
 import TestPassword from "@/app/(main)/mypage/edit/_components/TestPassword";
 import TestUpdatePassword from "@/app/(main)/mypage/edit/_components/TestUpdatePassword";
 import UserEditNickname from "@/app/(main)/mypage/edit/_components/UserEditNickname";

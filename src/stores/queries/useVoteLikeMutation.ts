@@ -1,5 +1,5 @@
 "use client";
-import { patchVoteLikeData, postVoteLikeData } from "@/apis/votes"; // PATCH 제거
+import { patchVoteLikeData, postVoteLikeData } from "@/apis/votes";
 import useAlertModal from "@/hooks/useAlertModal";
 import { Tables } from "@/types/supabase";
 import { TVoteLikeCountsResponse } from "@/types/vote.type";
@@ -8,7 +8,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const useVoteLikeMutation = () => {
   const { displayDefaultAlert } = useAlertModal();
   const queryClient = useQueryClient();
-
   const { mutateAsync: addVoteLike } = useMutation<
     void,
     Error,
