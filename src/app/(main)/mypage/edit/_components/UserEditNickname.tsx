@@ -1,8 +1,8 @@
 "use client";
 
 import { updateNickname } from "@/apis/auth";
-import { checkNicknameValidity } from "@/app/(auth)/authValidity";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import { checkNicknameValidity } from "@/utils/authValidity";
 import { useState } from "react";
 
 function UserEditNickname() {

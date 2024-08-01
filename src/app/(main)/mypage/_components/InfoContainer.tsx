@@ -1,10 +1,9 @@
 "use client";
 
 import { updateNickname } from "@/apis/auth";
-import { checkNicknameValidity } from "@/app/(auth)/authValidity";
-
 import { BASE_URL } from "@/constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import { checkNicknameValidity } from "@/utils/authValidity";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
