@@ -30,16 +30,19 @@ function NavButton({ vote, direction }: NavButtonProps) {
     return `/icons/vote/direction=${directionStr}, state=${state}.png`;
   };
 
+  const buttonClass = direction === "next" ? "ml-7" : "mr-7";
+
   return (
-    <button
-      className="w-[74px] h-[74px] relative rounded-[74px] border border-[#1b1b1b] bg-white"
-      onClick={handleClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      disabled={!targetVoteId}
-    >
-      <Image src={getImageSrc()} alt={`${direction} navigation`} width={74} height={74} className="object-contain" />
-    </button>
+    <div className={buttonClass}>
+      <button
+        onClick={handleClick}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        disabled={!targetVoteId}
+      >
+        <Image src={getImageSrc()} alt={`${direction} navigation`} width={74} height={74} className="object-contain" />
+      </button>
+    </div>
   );
 }
 
