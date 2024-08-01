@@ -69,6 +69,15 @@ body *:not([class*="letter-"]) {
   .line-shadow {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
+  .ChatInputPlaceholder::placeholder {
+    color: var(--Gray-600, #767676);
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    padding-left: 10px;
+  }
 }
 
 @layer base {

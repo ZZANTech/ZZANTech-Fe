@@ -3,7 +3,7 @@ import Image from "next/image";
 
 function TopSection() {
   return (
-    <section className="flex flex-col sm:flex-row gap-14 mx-auto">
+    <section className="flex flex-col lg:flex-row gap-14 mx-auto">
       <div className="flex-grow lg:w-[700px] w-full">
         <Image
           src="/home/home_banner.png"

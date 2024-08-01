@@ -19,8 +19,8 @@ const QuizUi = () => {
             </div>
           ) : (
             <div className="w-[180px]">
-              <p className="text-[20px]">{hasTakenQuiz ? "오늘의 퀴즈를" : "오늘의 퀴즈 풀고"}</p>
-              <p className="text-[20px]">{hasTakenQuiz ? "이미 풀었습니다!" : "포인트 받자!"}</p>
+              <p className="text-[20px]">{hasTakenQuiz ? "이미 오늘의 퀴즈를" : "오늘의 퀴즈 풀고"}</p>
+              <p className="text-[20px]">{hasTakenQuiz ? "풀었어요!" : "포인트 받자!"}</p>
             </div>
           )}
         </div>
@@ -38,7 +38,9 @@ const QuizUi = () => {
         {isLoading ? (
           <div></div>
         ) : hasTakenQuiz ? (
-          <p className="text-main">내일 다시 도전하세요!</p>
+          <button className="w-[312px] h-[56px] bg-gray-100 font-semibold rounded-md" disabled>
+            내일 또 참여해 주세요!
+          </button>
         ) : (
           <Link href="/quiz" passHref>
             <button className="w-[312px] h-[56px] bg-white font-semibold rounded-md">퀴즈풀기</button>
