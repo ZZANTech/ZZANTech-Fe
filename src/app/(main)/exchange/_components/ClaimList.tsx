@@ -1,12 +1,13 @@
 import ClaimItem from "@/app/(main)/exchange/_components/ClaimItem";
+import { TClaim } from "@/types/exchange.type";
 import { Tables } from "@/types/supabase";
 
 type ClaimListProps = {
-  claims: Tables<"gift_claims">[];
+  claims: TClaim[];
 };
 function ClaimList({ claims }: ClaimListProps) {
   return (
-    <ul>
+    <ul className="">
       {claims.map((claim) => (
         <ClaimItem key={claim.gift_id} claim={claim} />
       ))}

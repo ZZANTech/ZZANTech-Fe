@@ -26,7 +26,7 @@ function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
     if (currentPage !== pageFromParams) {
       setCurrentPage(pageFromParams);
     }
-  }, [searchParams]);
+  }, [searchParams, currentPage]);
 
   return (
     <article>

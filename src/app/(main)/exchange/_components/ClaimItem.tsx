@@ -1,17 +1,20 @@
+import { formatTime } from "@/app/(main)/boards/_utils";
+import { TClaim } from "@/types/exchange.type";
 import { Tables } from "@/types/supabase";
 import React from "react";
 
 type ClaimItemProps = {
-  claim: Tables<"gift_claims">;
+  claim: TClaim;
 };
 
 function ClaimItem({ claim }: ClaimItemProps) {
+  console.log(claim);
+  const { formattedDate } = formatTime(claim.created_at);
   return (
-    <li>
-      <div>{claim.gift_id}</div>
-      <div>{claim.user_id}</div>
-      <div>{claim.is_sent ? "Yes" : "No"}</div>
-      <div>{claim.sent_at}</div>
+    <li className="flex gap-2 w-full">
+      <div className="text-info-red">{claim.gift_name}</div>
+      <div className="text-blue-500">{claim.is_sent ? "완료" : "진행중"}</div>
+      <div>{formattedDate}</div>
     </li>
   );
 }

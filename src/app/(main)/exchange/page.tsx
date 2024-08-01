@@ -15,9 +15,11 @@ async function ExchangePage() {
   await queryClient.prefetchQuery(giftsOptions);
 
   return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <ExchangeContainer />
-    </HydrationBoundary>
+    <div className="w-full">
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <ExchangeContainer />
+      </HydrationBoundary>
+    </div>
   );
 }
 

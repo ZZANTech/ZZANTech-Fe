@@ -133,7 +133,7 @@ export type Database = {
           created_at?: string;
           gift_claimId?: number;
           gift_id: number;
-          is_sent: boolean;
+          is_sent?: boolean;
           sent_at?: string | null;
           user_id: string;
         };
@@ -146,6 +146,13 @@ export type Database = {
           user_id?: string;
         };
         Relationships: [
+          {
+            foreignKeyName: "gift_claims_gift_id_fkey";
+            columns: ["gift_id"];
+            isOneToOne: false;
+            referencedRelation: "gifts";
+            referencedColumns: ["giftId"];
+          },
           {
             foreignKeyName: "gift_claims_user_id_fkey";
             columns: ["user_id"];

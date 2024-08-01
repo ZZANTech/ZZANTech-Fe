@@ -28,7 +28,7 @@ function MyVotesContainer({ user }: MyVotesContainerProps) {
     if (currentPage !== pageFromParams) {
       setCurrentPage(pageFromParams);
     }
-  }, [searchParams]);
+  }, [searchParams, currentPage]);
 
   return (
     <article>
