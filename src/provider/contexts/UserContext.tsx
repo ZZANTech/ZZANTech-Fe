@@ -1,5 +1,6 @@
 "use client";
 
+import { logout } from "@/apis/auth";
 import { fetchQuizStatus } from "@/apis/quiz";
 import { BASE_URL } from "@/constants";
 import { TUser } from "@/types/user.type";
@@ -8,6 +9,7 @@ import { createContext, useContext, useEffect, useState } from "react";
 type UserContextType = {
   user: TUser | null;
   logIn: (email: string, password: string) => void;
+  logOut: () => Promise<void>;
   hasTakenQuiz: boolean;
   setHasTakenQuiz: (value: boolean) => void;
   isLoading: boolean;
@@ -15,7 +17,8 @@ type UserContextType = {
 
 const UserContext = createContext<UserContextType>({
   user: null,
-  logIn: () => {},
+  logIn: async () => {},
+  logOut: async () => {},
   hasTakenQuiz: false,
   setHasTakenQuiz: () => {},
   isLoading: true
@@ -45,23 +48,36 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logIn = async (email: string, password: string) => {
     setIsLoading(true);
-    const response = await fetch(`${BASE_URL}/api/auth/login`, {
-      method: "POST",
-      body: JSON.stringify({ email, password })
-    });
-    if (response.ok) {
-      await fetchUser();
-    } else {
-      console.log("로그인 실패");
+    try {
+      const response = await fetch(`${BASE_URL}/api/auth/login`, {
+        method: "POST",
+        body: JSON.stringify({ email, password })
+      });
+      if (response.ok) {
+        await fetchUser();
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "로그인 실패");
+      }
+    } catch (error: any) {
+      console.error(error.message);
       setIsLoading(false);
+      throw error;
     }
+  };
+  const logOut = async () => {
+    setIsLoading(true);
+    await logout();
+    setUser(null);
+    setHasTakenQuiz(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
     fetchUser();
   }, []);
   return (
-    <UserContext.Provider value={{ user, logIn, hasTakenQuiz, setHasTakenQuiz, isLoading }}>
+    <UserContext.Provider value={{ user, logIn, logOut, hasTakenQuiz, setHasTakenQuiz, isLoading }}>
       {children}
     </UserContext.Provider>
   );

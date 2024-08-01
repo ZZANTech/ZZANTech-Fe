@@ -1,6 +1,6 @@
 "use client";
 
-import { updatePassword } from "@/apis/auth";
+// import { updatePassword } from "@/apis/auth";
 import { useState } from "react";
 
 function TestUpdatePassword() {
@@ -20,8 +20,7 @@ function TestUpdatePassword() {
       return;
     }
 
-    const data = await updatePassword(password);
-    console.log("TestUpdatePassword >>", data);
+    // const data = await updatePassword(password);
 
     setLoading(false);
   };

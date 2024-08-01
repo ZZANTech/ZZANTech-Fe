@@ -36,14 +36,14 @@ body *:not([class*="letter-"]) {
     hover:font-bold hover:border-b-2 border-gray-800;
   }
   .AuthInputShort {
-    @apply w-[296px] h-[48px] px-[16px] border rounded-lg pointer-events-auto;
+    @apply w-[260px] h-[48px] px-[16px] mb-1 border rounded-lg pointer-events-auto;
   }
   .AuthInput {
-    @apply w-[400px] h-[48px] px-[16px] border rounded-lg;
+    @apply w-[348px] h-[48px] px-[16px] mb-1 border rounded-lg;
   }
 
   .AuthInputDiv {
-    @apply flex flex-col gap-2.5 p-2.5 bg-white;
+    @apply flex flex-col;
   }
   .AuthInputForm {
     @apply flex flex-row gap-2.5;
@@ -57,11 +57,17 @@ body *:not([class*="letter-"]) {
   }
 
   .AuthDupButton {
-    @apply w-[92px] text-white bg-[#C0C0C0] text-sm rounded-lg;
+    @apply w-[80px] text-white bg-[#C0C0C0] text-sm rounded-lg;
   }
 
   .AuthLoginButton {
-    @apply w-[340px] p-2.5 text-center items-center justify-center flex flex-row rounded-lg hover:font-bold gap-2.5;
+    @apply w-[348px] h-[56px] text-center items-center justify-center flex flex-row rounded-lg font-semibold gap-2.5 cursor-pointer;
+  }
+  .text-shadow {
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15); 
+  }
+  .line-shadow {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
 }
 
