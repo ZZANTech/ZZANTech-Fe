@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 function HeaderContainer() {
   const router = useRouter();
-  const { user, logOut } = useUserContext();
+  const { user, logOut, isLoading } = useUserContext();
 
   const handleLogout = () => {
     logOut();
@@ -37,7 +37,12 @@ function HeaderContainer() {
         </div>
       </div>
 
-      {user ? (
+      {isLoading ? (
+        <div className="flex items-center space-x-4">
+          <div className="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+          <div className="w-16 h-8 bg-gray-300 animate-pulse rounded"></div>
+        </div>
+      ) : user ? (
         <div className="flex flex-row items-center">
           <Link href={"/mypage"} className="text-gray-800 flex">
             <Image src={user.badge_url || defaultBadgeUrl} alt="badge" width={24} height={24} className="mr-2" />
