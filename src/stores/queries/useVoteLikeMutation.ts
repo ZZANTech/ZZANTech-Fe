@@ -83,7 +83,6 @@ const useVoteLikeMutation = () => {
     },
     onError: (error, newLikeData, context) => {
       const queryKey = ["voteLikes", { voteId: newLikeData.vote_post_id }];
-
       if (context?.previousVoteData) {
         queryClient.setQueryData(queryKey, context.previousVoteData);
       }
