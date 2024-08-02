@@ -1,9 +1,10 @@
 "use client";
 
 import GiftList from "@/app/(main)/exchange/_components/GiftList";
-import { Tables } from "@/types/supabase";
+import useGiftsQuery from "@/stores/queries/useGiftsQuery";
 
-function GiftContainer({ gifts }: { gifts: Tables<"gifts">[] }) {
+function GiftContainer() {
+  const { data: gifts } = useGiftsQuery();
   return (
     <article>
       <h2>기프티콘~</h2>
