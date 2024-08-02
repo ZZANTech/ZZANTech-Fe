@@ -9,7 +9,7 @@ export default function Home() {
         <TopSection />
       </section>
       <div className="flex flex-col lg:flex-row gap-14">
-        <div className="w-full lg:max-w-[700px] lg:w-[700px]">
+        <div className="w-full lg:w-[700px]">
           <LeftSection />
         </div>
         <div className="w-full flex-1">

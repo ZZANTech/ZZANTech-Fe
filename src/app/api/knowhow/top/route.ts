@@ -7,7 +7,7 @@ export async function GET() {
   try {
     const { data: posts, error: postsError } = await supabase.rpc("get_top_knowhows", {
       days: 7,
-      limit_param: 5
+      limit_param: 3
     });
 
     if (postsError || !posts) {
