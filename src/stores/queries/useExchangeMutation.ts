@@ -10,7 +10,6 @@ const useExchangeMutation = () => {
   const { mutateAsync: addClaim } = useMutation<TResponseStatus, Error, Partial<Tables<"gift_claims">>>({
     mutationFn: (newClaim) => postClaim(newClaim),
     onSuccess: (data, newClaim) => {
-      console.log(newClaim.user_id);
       displayDefaultAlert("교환신청 완료");
       queryClient.invalidateQueries({
         queryKey: ["claims", { userId: newClaim.user_id }]

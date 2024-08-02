@@ -8,7 +8,6 @@ function ClaimContainer() {
   const { user } = useUserContext();
   const userId = user?.userId ?? "";
   const { data: claims } = useClaimsQuery(userId);
-  claims && console.log(claims);
   return (
     <article className="w-full">
       <h2>~상태</h2>

@@ -8,7 +8,6 @@ type ClaimItemProps = {
 };
 
 function ClaimItem({ claim }: ClaimItemProps) {
-  console.log(claim);
   const { formattedDate } = formatTime(claim.created_at);
   return (
     <li className="flex gap-2 w-full">
