@@ -81,7 +81,6 @@ function KnowhowContainer() {
 
   return (
     <section>
-      <Button onClick={() => modal.open({ type: "nickname" })}>모달 여는 버튼</Button>
       <KnowhowFilter
         selectedSearchOption={selectedSearchOption}
         onSortOrderChange={handleSortOrderChange}
