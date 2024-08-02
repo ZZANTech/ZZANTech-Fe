@@ -33,8 +33,12 @@ function MyPointsHistoryTable() {
               // 첫 번째 항목일 경우 border-top도 주어야 함
               <tr key={point.pointId} className="py-4 border-b border-gray-300 flex justify-between items-center">
                 <td className="text-center text-gray-800 text-base">{formattedDate}</td>
-                <td className="text-center text-info-green text-base">{point.point > 0 ? `+${point.point}P` : ""}</td>
-                <td className="text-center text-info-red text-base">{point.point < 0 ? `${point.point}P` : ""}</td>
+                <td className="text-center text-info-green text-base">
+                  {point.point > 0 ? `+${point.point.toLocaleString()}P` : ""}
+                </td>
+                <td className="text-center text-info-red text-base">
+                  {point.point < 0 ? `${point.point.toLocaleString()}P` : ""}
+                </td>
                 <td className="text-center text-gray-800 text-base">{point.reason}</td>
               </tr>
             );
