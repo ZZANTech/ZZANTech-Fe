@@ -2,6 +2,11 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import right from "/public/icons/filter/arrow_right.svg";
+import left from "/public/icons/filter/arrow_left.svg";
+import doubleRight from "/public/icons/filter/double_arrow_right.svg";
+import doubleLeft from "/public/icons/filter/double_arrow_left.svg";
+import Image from "next/image";
 
 type PaginationProps = {
   itemsPerPage: number;
@@ -21,7 +26,14 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
   const activeButtonStyle = "bg-black text-white";
   const inactiveButtonStyle = "bg-white text-black";
 
-  const getButtonClasses = (isActive: boolean) => {
+  const numberButtonStyle = "w-8 h-8 flex items-center justify-center rounded-full";
+  const numberButtonActiveStyle = "bg-black text-white";
+  const numberButtonInactiveStyle = "text-black";
+
+  const getButtonClasses = (isActive: boolean, isNumberButton: boolean = false) => {
+    if (isNumberButton) {
+      return `${numberButtonStyle} ${isActive ? numberButtonActiveStyle : numberButtonInactiveStyle}`;
+    }
     return `${baseButtonStyle} ${isActive ? activeButtonStyle : inactiveButtonStyle}`;
   };
 
@@ -32,47 +44,53 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
     router.replace(`?${params.toString()}`);
   };
 
-  pageButtons.push(
-    <button key={1} onClick={() => handlePageChange(1)} className={getButtonClasses(currentPage === 1)}>
-      1
-    </button>
-  );
+  const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
+  const endPage = Math.min(startPage + 9, totalPages);
 
-  let startPage = Math.max(2, currentPage - 2);
-  let endPage = Math.min(totalPages - 1, currentPage + 2);
-
-  if (startPage > 2) {
+  if (startPage > 1) {
     pageButtons.push(
-      <span key="start-ellipsis" className="w-8 h-8 flex items-center justify-center">
-        ...
-      </span>
+      <button key="first" onClick={() => handlePageChange(1)} className={getButtonClasses(false)}>
+        <Image src={doubleLeft} alt="double_left" />
+      </button>
+    );
+  }
+
+  if (startPage > 1) {
+    pageButtons.push(
+      <button
+        key="prev"
+        onClick={() => handlePageChange(Math.max(1, startPage - 10))}
+        className={getButtonClasses(false)}
+      >
+        <Image src={left} alt="left" />
+      </button>
     );
   }
 
   for (let i = startPage; i <= endPage; i++) {
     pageButtons.push(
-      <button key={i} onClick={() => handlePageChange(i)} className={getButtonClasses(currentPage === i)}>
+      <button key={i} onClick={() => handlePageChange(i)} className={getButtonClasses(currentPage === i, true)}>
         {i}
       </button>
     );
   }
 
-  if (endPage < totalPages - 1) {
+  if (endPage < totalPages) {
     pageButtons.push(
-      <span key="end-ellipsis" className="w-8 h-8 flex items-center justify-center">
-        ...
-      </span>
+      <button
+        key="next"
+        onClick={() => handlePageChange(Math.min(totalPages, startPage + 10))}
+        className={getButtonClasses(false)}
+      >
+        <Image src={right} alt="right" />
+      </button>
     );
   }
 
-  if (totalPages > 1) {
+  if (endPage < totalPages) {
     pageButtons.push(
-      <button
-        key={totalPages}
-        onClick={() => handlePageChange(totalPages)}
-        className={getButtonClasses(currentPage === totalPages)}
-      >
-        {totalPages}
+      <button key="last" onClick={() => handlePageChange(totalPages)} className={getButtonClasses(false)}>
+        <Image src={doubleRight} alt="double_right" />
       </button>
     );
   }
@@ -83,17 +101,7 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
     }
   }, [currentPage, onPageChange]);
 
-  return (
-    <div className="flex items-center justify-center gap-2 w-full">
-      <button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-        이전
-      </button>
-      {pageButtons}
-      <button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
-        다음
-      </button>
-    </div>
-  );
+  return <div className="flex items-center justify-center gap-1 w-full my-10">{pageButtons}</div>;
 }
 
 export default Pagination;
