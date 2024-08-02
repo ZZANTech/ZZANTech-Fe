@@ -16,10 +16,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.png" sizes="any" />
-      <body className="flex flex-col min-h-screen">
+      <body className="max-w-[1120px] mx-auto">
         <Providers>
           <HeaderContainer />
-          <main className="flex-grow  flex items-center justify-center">{children}</main>
+          <main>{children}</main>
         </Providers>
       </body>
     </html>
