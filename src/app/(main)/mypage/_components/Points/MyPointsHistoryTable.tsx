@@ -14,7 +14,7 @@ function MyPointsHistoryTable() {
   const searchParams = useSearchParams();
 
   const [currentPage, setCurrentPage] = useState<number>(() => parseInt(searchParams.get("page") || "1", 10));
-  const itemsPerPage = 2;
+  const itemsPerPage = 10;
   const { data: response, isLoading } = usePointsQuery(currentPage, itemsPerPage, userId);
   const points = response?.data || [];
   const totalItems = response?.totalCount || 0;
@@ -30,28 +30,34 @@ function MyPointsHistoryTable() {
   }
 
   return (
-    <div>
-      <table className="w-full flex-col">
-        <thead className="py-4 border-t border-basic flex justify-between items-center">
-          <th className="text-center text-gray-800 text-base font-semibold">날짜</th>
-          <th className="text-center text-gray-800 text-base font-semibold">적립 포인트</th>
-          <th className="text-center text-gray-800 text-base font-semibold">사용 포인트</th>
-          <th className="text-center text-gray-800 text-base font-semibold">사용 내역</th>
+    <div className="w-[924px] mb-[120px]">
+      <table className="w-full border-collapse">
+        <thead className="border-t border-basic">
+          <tr className="flex w-full justify-between items-center">
+            <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">날짜</th>
+            <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">적립 포인트</th>
+            <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">사용 포인트</th>
+            <th className="w-2/5 text-center text-gray-800 text-base font-semibold py-4">내용</th>
+          </tr>
         </thead>
-        <tbody className="w-full flex-col">
-          {points.map((point) => {
+        <tbody className="flex-col w-full">
+          {points.map((point, index) => {
             const { formattedDate } = formatTime(point.created_at);
             return (
-              // 첫 번째 항목일 경우 border-top도 주어야 함
-              <tr key={point.pointId} className="py-4 border-b border-gray-300 flex justify-between items-center">
-                <td className="text-center text-gray-800 text-base">{formattedDate}</td>
-                <td className="text-center text-info-green text-base">
+              <tr
+                key={point.pointId}
+                className={`flex w-full justify-between items-center border-b border-gray-300 ${
+                  index === 0 ? "border-t" : ""
+                }`}
+              >
+                <td className="w-1/5 text-center text-gray-800 text-base py-4">{formattedDate}</td>
+                <td className="w-1/5 text-center text-info-green text-base py-4">
                   {point.point > 0 ? `+${point.point.toLocaleString()}P` : ""}
                 </td>
-                <td className="text-center text-info-red text-base">
+                <td className="w-1/5 text-center text-info-red text-base py-4">
                   {point.point < 0 ? `${point.point.toLocaleString()}P` : ""}
                 </td>
-                <td className="text-center text-gray-800 text-base">{point.reason}</td>
+                <td className="w-2/5 text-center text-gray-800 text-base py-4">{point.reason}</td>
               </tr>
             );
           })}
