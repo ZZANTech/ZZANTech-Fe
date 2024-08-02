@@ -3,8 +3,7 @@ import MyPointsHistoryTable from "@/app/(main)/mypage/_components/Points/MyPoint
 
 function MyPointDetailPage() {
   return (
-    <section>
-      <h3>나의 포인트</h3>
+    <section className="w-[933.08px] h-[771px] flex-col items-center gap-16">
       <MyCurrentPoints />
       <MyPointsHistoryTable />
     </section>

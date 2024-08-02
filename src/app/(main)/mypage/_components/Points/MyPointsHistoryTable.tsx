@@ -19,29 +19,30 @@ function MyPointsHistoryTable() {
 
   return (
     <div>
-      <h4>포인트 내역</h4>
-      <table>
-        <thead>
-          <tr>
-            <th>날짜</th>
-            <th>포인트</th>
-            <th>내역</th>
-          </tr>
+      <table className="w-full flex-col">
+        <thead className="py-4 border-t border-basic flex justify-between items-center">
+          <th className="text-center text-gray-800 text-base font-semibold">날짜</th>
+          <th className="text-center text-gray-800 text-base font-semibold">적립 포인트</th>
+          <th className="text-center text-gray-800 text-base font-semibold">사용 포인트</th>
+          <th className="text-center text-gray-800 text-base font-semibold">사용 내역</th>
         </thead>
-        <tbody>
-          {/* 추후 디자인에 맞춰 수정 */}
+        <tbody className="w-full flex-col">
           {data.map((point) => {
             const { formattedDate } = formatTime(point.created_at);
             return (
-              <tr key={point.pointId}>
-                <td>{formattedDate}</td>
-                <td>{point.point}p</td>
-                <td>{point.reason}</td>
+              // 첫 번째 항목일 경우 border-top도 주어야 함
+              <tr key={point.pointId} className="py-4 border-b border-gray-300 flex justify-between items-center">
+                <td className="text-center text-gray-800 text-base">{formattedDate}</td>
+                <td className="text-center text-info-green text-base">{point.point}p</td>
+                <td className="text-center text-info-red text-base">{point.point}p</td>
+                <td className="text-center text-gray-800 text-base">{point.reason}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      {/* 추후 페이지네이션 처리 */}
+      <div className="w-[428px] h-8 flex justify-start items-center gap-1">1 2 3 4 5</div>
     </div>
   );
 }
