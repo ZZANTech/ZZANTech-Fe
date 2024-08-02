@@ -2,11 +2,7 @@ import LikedKnowhowContainer from "@/app/(main)/mypage/like/_components/LikedKno
 import { Suspense } from "react";
 
 function LikedPostsPage() {
-  return (
-    <Suspense>
-      <LikedKnowhowContainer />
-    </Suspense>
-  );
+  return <LikedKnowhowContainer />;
 }
 
 export default LikedPostsPage;

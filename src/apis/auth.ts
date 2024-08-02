@@ -12,7 +12,7 @@ export const logout = async () => {
 
 export const updateNickname = async (
   nickname: string,
-  userId: string | undefined,
+  email: string | undefined,
   setNicknameError: Dispatch<SetStateAction<string>>,
   setIsNicknameValid: Dispatch<SetStateAction<boolean>>
 ) => {
@@ -22,22 +22,46 @@ export const updateNickname = async (
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ nickname, userId })
+    body: JSON.stringify({ nickname, email })
   });
 
   if (res.status === 409) {
     setNicknameError("동일한 닉네임이 있습니다.");
     setIsNicknameValid(false);
   }
+
   if (res.status === 500) {
-    setNicknameError("알 수 없는 에러가 발생 했습니다.");
+    setNicknameError("500 에러");
     setIsNicknameValid(false);
   }
+
+  if (res.status === 401) {
+    setNicknameError("401 에러");
+    setIsNicknameValid(false);
+  }
+
   if (res.status === 200) {
-    console.log("닉네임 변경 성공");
+    console.log("통과 200");
     setNicknameError("");
     setIsNicknameValid(true);
   }
+
+  // const res2 = await fetch("/api/auth/mypage/nickname", {
+  //   method: "PATCH",
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   },
+  //   body: JSON.stringify({ nickname, email })
+  // // });
+  // if (res.status === 500) {
+  //   setNicknameError("알 수 없는 에러가 발생 했습니다.");
+  //   setIsNicknameValid(false);
+  // }
+  // if (res.status === 200) {
+  //   console.log("updateNickname>>", res2);
+  //   // setNicknameError("");
+  //   // setIsNicknameValid(true);
+  // }
 };
 
 export const resetPassword = async (email: string) => {

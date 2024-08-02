@@ -22,7 +22,7 @@ function LikedKnowhowContainer() {
     if (currentPage !== pageFromParams) {
       setCurrentPage(pageFromParams);
     }
-  }, [searchParams]);
+  }, [searchParams, currentPage]);
 
   return (
     <section>

@@ -10,7 +10,9 @@ function MyPostsContainer() {
         <p>내가 쓴 글 확인하기</p>
       </div>
 
-      <Link href="/mypage/posts">➡️</Link>
+      <Link href="/mypage/posts" className="w-6 h-6">
+        <Image src="/icons/mypage/right_arrow.png" width={24} height={24} alt="right_arrow" />
+      </Link>
     </div>
   );
 }

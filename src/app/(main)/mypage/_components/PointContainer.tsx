@@ -2,6 +2,7 @@
 
 import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 function PointContainer() {
@@ -14,27 +15,34 @@ function PointContainer() {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="flex flex-row gap-5 justify-between">
-        <div className="flex flex-row gap-5">
-          <div>
-            <p className="text-lg font-bold">현재 포인트</p>
-            <div className="flex flex-row gap-2.5">
-              <Image src={"/icons/mypage/diamond.png"} width={36} height={36} alt="diamond" />
-              <p className="text-xl font-bold">P {user?.current_point}</p>
+      <div className="flex justify-between">
+        <div className="flex justify-between gap-12">
+          <div className="flex flex-col gap-3">
+            <p className="font-bold text-point leading-5">사용 가능 포인트</p>
+            <div className="flex gap-2 items-center">
+              <Image src={"/icons/mypage/coin.png"} width={36} height={36} alt="diamond" />
+              <p className="text-2xl font-bold">{user?.current_point} P</p>
             </div>
           </div>
-          <div>
-            <p className="text-lg font-bold">누적 포인트</p>
-            <p className="text-xl font-bold">P {user?.total_point}</p>
+          <div className="flex flex-col gap-3">
+            <p className="font-bold leading-5">누적 포인트</p>
+            <p className="text-2xl font-bold text-gray-800">{user?.total_point} P</p>
           </div>
         </div>
 
-        <button onClick={handlePointsHistoryClick} className="bg-gray-300 rounded-lg text-sm p-2.5">
-          포인트 내역
+        <button
+          onClick={handlePointsHistoryClick}
+          className="w-[112px] h-10 p-3 text-sm font-semibold bg-black text-white rounded-md"
+        >
+          사용 내역
         </button>
       </div>
-
-      <p>포인트 3,000점이 넘으면 기프티콘으로 교환하실 수 있어요</p>
+      <div className="flex justify-between">
+        <p className="text-sm">포인트 3000점이 넘으면 기프티콘으로 교환하실 수 있어요</p>
+        <Link href={"/exchange"} className="text-sm font-semibold underline">
+          교환하기
+        </Link>
+      </div>
     </div>
   );
 }

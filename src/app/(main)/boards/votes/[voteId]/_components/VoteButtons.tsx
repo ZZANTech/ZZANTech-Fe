@@ -8,6 +8,7 @@ import { useModal } from "@/provider/contexts/ModalContext";
 import useVoteLikeMutation from "@/stores/queries/useVoteLikeMutation";
 import { TVoteLikeCountsResponse } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
+import Image from "next/image";
 
 type VoteButtonsProps = {
   voteId: number;
@@ -103,31 +104,39 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
   const downvoteCount = optimisticVoteData ? optimisticVoteData.downvoteCount : 0;
 
   return (
-    <div className="flex flex-col space-y-4">
+    <div className="self-stretch h-[76px] justify-between items-center inline-flex">
       {voteType === null ? (
-        <div className="flex space-x-4">
-          <Button className="px-4 py-2 rounded bg-gray-800 text-white" onClick={() => handleVote("GOOD")}>
-            👍 GOOD
-          </Button>
-          <Button className="px-4 py-2 rounded bg-gray-800 text-white" onClick={() => handleVote("BAD")}>
-            👎 BAD
-          </Button>
-        </div>
-      ) : (
-        <div className="flex space-x-4">
+        <>
           <Button
-            className={`px-4 py-2 rounded ${voteType === "GOOD" ? "bg-green-500 text-white" : "bg-gray-800 text-white"}`}
+            className="w-[212px] h-[76px] px-[55px] py-[26px] bg-basic rounded-xl justify-center items-center inline-flex text-white text-xl font-semibold"
             onClick={() => handleVote("GOOD")}
           >
-            {`👍 ${upvotePercentage.toFixed(0)}% (${upvoteCount}명)`}
+            <Image src="/icons/vote/upvote.png" alt="Upvote icon" width={32} height={32} className="mr-2" />
+            GOOD
           </Button>
           <Button
-            className={`px-4 py-2 rounded ${voteType === "BAD" ? "bg-green-500 text-white" : "bg-gray-800 text-white"}`}
+            className="w-[212px] h-[76px] px-[55px] py-[26px] bg-basic rounded-xl justify-center items-center inline-flex text-white text-xl font-semibold"
             onClick={() => handleVote("BAD")}
           >
-            {`👎 ${downvotePercentage.toFixed(0)}% (${downvoteCount}명)`}
+            <Image src="/icons/vote/downvote.png" alt="Downvote icon" width={32} height={32} className="mr-2" />
+            BAD
           </Button>
-        </div>
+        </>
+      ) : (
+        <>
+          <button
+            className={`w-[212px] h-[76px] px-[55px] py-[26px] rounded-xl justify-center items-center inline-flex text-xl font-semibold ${voteType === "GOOD" ? "bg-[#e1ff49] text-[#121212]" : "bg-basic text-[#b3b3b3]"}`}
+            onClick={() => handleVote("GOOD")}
+          >
+            {`${upvotePercentage.toFixed(0)}% (${upvoteCount}명)`}
+          </button>
+          <Button
+            className={`w-[212px] h-[76px] px-[55px] py-[26px] rounded-xl justify-center items-center inline-flex text-[#b3b3b3] text-xl font-semibold ${voteType === "BAD" ? "bg-[#e1ff49] text-[#121212]" : "bg-basic text-[#b3b3b3]"}`}
+            onClick={() => handleVote("BAD")}
+          >
+            {`${downvotePercentage.toFixed(0)}% (${downvoteCount}명)`}
+          </Button>
+        </>
       )}
     </div>
   );

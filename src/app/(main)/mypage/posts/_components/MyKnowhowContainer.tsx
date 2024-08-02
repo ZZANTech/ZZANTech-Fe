@@ -17,7 +17,7 @@ function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
   const [currentPage, setCurrentPage] = useState<number>(parseInt(searchParams.get("page") || "1", 10));
 
   const { data: knowhows } = useMyKnowhowsQuery(currentPage, ITEMS_PER_PAGE, user?.userId);
-  const totalItems = knowhows && knowhows[0].total_count;
+  const totalItems = knowhows?.[0]?.total_count ?? 1;
 
   const handlePageChange = (page: number) => setCurrentPage(page);
 
@@ -26,14 +26,16 @@ function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
     if (currentPage !== pageFromParams) {
       setCurrentPage(pageFromParams);
     }
-  }, [searchParams]);
+  }, [searchParams, currentPage]);
 
   return (
     <article>
       {knowhows && knowhows.length > 0 && <KnowhowList knowhows={knowhows} />}
-      <Suspense>
-        <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
-      </Suspense>
+      {knowhows && knowhows[0] && (
+        <Suspense>
+          <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
+        </Suspense>
+      )}
     </article>
   );
 }

@@ -27,7 +27,7 @@ function MyPostsContainer() {
 
   return (
     <section>
-      <FilterOption onFilterOptionChange={handleFilterOptionChange} />
+      <FilterOption options={MY_POSTS_FILTER_OPTION} onFilterOptionChange={handleFilterOptionChange} />
       {user && (filterOption === VOTES ? <MyVotesContainer user={user} /> : <MyKnowhowContainer user={user} />)}
     </section>
   );

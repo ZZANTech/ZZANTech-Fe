@@ -13,6 +13,8 @@ import {
 import dynamic from "next/dynamic";
 import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
 import { useRouter, useSearchParams } from "next/navigation";
+import Button from "@/components/Button/Button";
+import { useModal } from "@/provider/contexts/ModalContext";
 
 const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
   loading: () => (
@@ -27,6 +29,7 @@ const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_component
 });
 
 function KnowhowContainer() {
+  const modal = useModal();
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
@@ -74,7 +77,7 @@ function KnowhowContainer() {
     if (sortOrder !== sortFromParams) {
       setSortOrder(sortFromParams);
     }
-  }, [searchParams]);
+  }, [searchParams, sortOrder, currentPage]);
 
   return (
     <section>
@@ -86,7 +89,7 @@ function KnowhowContainer() {
         sortOrder={sortOrder}
       />
       <KnowhowList knowhows={knowhows?.posts} />
-      <div className="flex self-center relative">
+      <div className="flex flex-col self-center relative">
         <Suspense>
           <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
         </Suspense>
