@@ -19,7 +19,7 @@ function SearchOptions({ selectedSearchOption, onSearch, onSearchOptionChange }:
   return (
     <form onSubmit={handleSearch} className=" flex absolute right-[5%]">
       <select
-        className="border border-gray-500 rounded-lg "
+        className="w-[118px] h-10 px-3 py-2  border border-gray-500 rounded-lg"
         value={selectedSearchOption}
         onChange={(e) => onSearchOptionChange(e.target.value)}
       >
