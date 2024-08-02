@@ -15,6 +15,7 @@ import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions
 import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/components/Button/Button";
 import { useModal } from "@/provider/contexts/ModalContext";
+import useAlertModal from "@/hooks/useAlertModal";
 
 const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
   loading: () => (
@@ -29,7 +30,8 @@ const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_component
 });
 
 function KnowhowContainer() {
-  const modal = useModal();
+  const { displayDefaultAlert } = useAlertModal();
+  const { open } = useModal();
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
