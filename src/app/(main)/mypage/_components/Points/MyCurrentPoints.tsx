@@ -8,12 +8,12 @@ function MyCurrentPoints() {
 
   return (
     <div className="w-full flex justify-between items-center">
-      <div className="w-[250px] flex-col gap-6">
+      <div className="w-[400px] flex-col gap-6">
         <div className="text-black text-xl font-semibold">현재 사용 가능한 포인트</div>
         <div className="flex items-center gap-3">
           <Image src={"/icons/mypage/coin.png"} width={52} height={52} alt="동전 이미지" />
           <div className="flex items-center gap-2">
-            <div className="text-point text-[56px] font-semibold">{user?.current_point} P</div>
+            <div className="text-point text-[56px] font-semibold">{user?.current_point.toLocaleString()} P</div>
           </div>
         </div>
       </div>
