@@ -84,9 +84,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
     return Object.values(newErrors).every((err) => err === "");
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     if (!validateForm()) return;
 
     let uploadedImageUrl: string | null = imageUrl;
@@ -128,9 +126,18 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
     }
   };
 
+  const handleOpenConfirmModal: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    modal.open({
+      content: `글을 ${previousContent ? "수정" : "작성"}하시겠습니까?`,
+      type: "confirm",
+      onConfirm: handleSubmit
+    });
+  };
+
   const handleCancel = () => {
     modal.open({
-      content: "정말 게시글 작성을 취소하시겠습니까?",
+      content: `정말 게시글 ${previousContent ? "수정" : "작성"}을 취소하시겠습니까?`,
       type: "confirm",
       onConfirm: () => router.back()
     });
@@ -138,7 +145,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
 
   return (
     <section className="w-[592px] h-[454px] flex-col justify-start items-start gap-3 inline-flex">
-      <form onSubmit={handleSubmit} className="self-stretch flex-col justify-start items-start gap-3 flex">
+      <form onSubmit={handleOpenConfirmModal} className="self-stretch flex-col justify-start items-start gap-3 flex">
         <div className="self-stretch justify-start items-center gap-3 flex">
           <div className="flex justify-between items-center w-full">
             <label htmlFor="title" className="w-[100px] flex items-center gap-1">

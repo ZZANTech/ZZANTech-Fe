@@ -147,9 +147,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     return true;
   };
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
-    e.preventDefault();
-
+  const handleSubmit = async () => {
     const quillObj = quillRef.current?.getEditor();
     let content = quillObj?.root.innerHTML;
 
@@ -232,6 +230,16 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     setEditorContent(content);
   };
 
+  const handleOpenSubmitModal: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    open({
+      type: "confirm",
+      content: "글을 등록하시겠습니까?",
+      buttonContent: "등록",
+      onConfirm: handleSubmit
+    });
+  };
+
   const handleCancel = () =>
     open({
       type: "confirm",
@@ -240,7 +248,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     });
 
   return (
-    <form onSubmit={handleSubmit} className="h-full flex flex-col">
+    <form onSubmit={handleOpenSubmitModal} className="h-full flex flex-col">
       <input
         className="w-full h-14  text-3xl outline-none mt-[120px] border-b-2 border-[#000]"
         id="title"

@@ -1,5 +1,6 @@
 "use client";
 import Button from "@/components/Button/Button";
+import useConfirmModal from "@/hooks/useConfirmModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
@@ -10,20 +11,14 @@ type ActionNavProps = {
 };
 
 function ActionNav({ knowhow }: ActionNavProps) {
-  const modal = useModal();
+  const { displayDeleteModal } = useConfirmModal();
   const { user } = useUserContext();
   const { removeKnowhow } = useKnowhowMutation();
   const handleDeleteKnowhow = async () => {
     await removeKnowhow(knowhow.knowhow_postId);
   };
 
-  const handleOpenModal = () =>
-    modal.open({
-      content: "게시글을 삭제하시겠습니까?",
-      subContent: "qwdq",
-      type: "confirm",
-      onConfirm: handleDeleteKnowhow
-    });
+  const handleOpenModal = () => displayDeleteModal(handleDeleteKnowhow);
 
   return (
     <nav className="flex gap-1">
