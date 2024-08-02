@@ -4,8 +4,12 @@ import BackDrop from "@/components/Modal/BackDrop";
 import ConfirmModal from "@/components/Modal/ConfirmModal";
 import NicknameModal from "@/components/Modal/NicknameModal";
 import { ModalProps, ConfirmModalProps, AlertModalProps, NicknameModalProps } from "@/types/modal.type";
+import xBtn from "/public/icons/x_btn.svg";
+import Image from "next/image";
+import { useModal } from "@/provider/contexts/ModalContext";
 
 const Modal = (props: ModalProps) => {
+  const { close } = useModal();
   const renderModal = () => {
     switch (props.type) {
       case "confirm":
@@ -16,6 +20,7 @@ const Modal = (props: ModalProps) => {
             content={confirmProps.content}
             subContent={confirmProps.subContent || ""}
             onConfirm={confirmProps.onConfirm}
+            buttonContent={confirmProps.buttonContent}
             onCancel={confirmProps.onCancel || (() => {})}
           />
         );
@@ -26,6 +31,7 @@ const Modal = (props: ModalProps) => {
             type={alertProps.type}
             content={alertProps.content}
             subContent={alertProps.subContent || ""}
+            buttonContent={alertProps.buttonContent}
             onClose={alertProps.onClose || (() => {})}
           />
         );
@@ -39,8 +45,18 @@ const Modal = (props: ModalProps) => {
 
   return (
     <BackDrop>
-      <div className="relative bg-white p-10 rounded min-w-[340px]">
-        <article className="px-6 py-2 text-lg">{renderModal()}</article>
+      <div className="relative px-[50px] bg-white rounded-3xl min-w-[500px] min-h-[300px]">
+        <article className=" text-lg">
+          <Image
+            onClick={close}
+            className="absolute cursor-pointer top-5 right-4"
+            src={xBtn}
+            alt="x_btn"
+            width={28}
+            height={28}
+          />
+          {renderModal()}
+        </article>
       </div>
     </BackDrop>
   );
