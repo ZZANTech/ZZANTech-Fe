@@ -11,7 +11,8 @@ export const getGifts = async () => {
 };
 
 export const getClaims = async (userId: Tables<"users">["userId"]) => {
-  const res = await fetch(`${BASE_URL}/api/exchange/${userId}`);
+  const res = await fetch(`${BASE_URL}/api/exchange/${userId}`, { cache: "no-store" });
+  console.log(res);
   if (!res.ok) {
     throw new Error();
   }
