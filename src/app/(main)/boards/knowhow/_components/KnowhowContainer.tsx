@@ -89,7 +89,7 @@ function KnowhowContainer() {
         sortOrder={sortOrder}
       />
       <KnowhowList knowhows={knowhows?.posts} />
-      <div className="flex self-center relative">
+      <div className="flex flex-col self-center relative">
         <Suspense>
           <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
         </Suspense>
