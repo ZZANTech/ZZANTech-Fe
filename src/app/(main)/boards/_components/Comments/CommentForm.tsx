@@ -26,9 +26,10 @@ function CommentForm({ postId, board }: CommentFormProps) {
 
   const handleOpenModal = () =>
     modal.open({
-      type: "confirm",
-      content: "로그인 후 이용해 주세요.",
-      onConfirm: () => router.push("/login")
+      type: "alert",
+      content: "로그인이 필요한 서비스에요",
+      buttonContent: "로그인하기",
+      onClose: () => router.push("/login")
     });
 
   const handleCommentSubmit: FormEventHandler<HTMLFormElement> = async (e) => {

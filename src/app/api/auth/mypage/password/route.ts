@@ -49,24 +49,27 @@ export const PATCH = async (req: NextRequest) => {
       data: { user: authorizedUser }
     } = await supabase.auth.signInWithPassword({ email: user.email, password: oldPassword });
     if (!authorizedUser) {
-      return NextResponse.json({ error: "비밀번호가 일치하지 않습니다." }, { status: 401 });
+      return NextResponse.json(
+        { error: "기존 비밀번호와 일치하지 않습니다 정확하게 다시 입력해 주세요" },
+        { status: 401 }
+      );
     }
 
     const { data, error } = await supabase.auth.updateUser({ password: newPassword });
 
     if (data.user) {
-      return NextResponse.json({ message: "비밀번호가 성공적으로 변경되었습니다" });
+      return NextResponse.json({ message: "비밀번호가 변경되었습니다" });
     }
 
     if (error) {
       if (error.code === "same_password") {
         console.log(error);
-        return NextResponse.json({ error: "기존 비밀번호와 동일합니다" }, { status: 422 });
+        return NextResponse.json({ error: "현재 비밀번호와 동일합니다" }, { status: 422 });
       }
-      return NextResponse.json({ error: "비밀번호 변경에 실패하였습니다." }, { status: 500 });
+      return NextResponse.json({ error: "비밀번호 변경에 실패하였습니다" }, { status: 500 });
     }
   } catch (error) {
     console.error(error);
-    return NextResponse.json({ error: "비밀번호 변경에 실패하였습니다." }, { status: 500 });
+    return NextResponse.json({ error: "비밀번호 변경에 실패하였습니다" }, { status: 500 });
   }
 };

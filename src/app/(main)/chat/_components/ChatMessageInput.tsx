@@ -64,7 +64,7 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
       <div>
         <div className="flex">
           <label htmlFor="image-upload" className="cursor-pointer mr-2 mt-1">
-            <Image src="/icons/picture.png" alt="이미지 업로드" width={36} height={36} />
+            <Image src="/icons/picture.png" alt="이미지 업로드" width={40} height={40} />
             <input id="image-upload" type="file" accept="image/*" onChange={handleImageSelect} className="hidden" />
           </label>
           <div className="relative">
@@ -85,7 +85,7 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                 ref={textareaRef}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="메시지를 입력하세요."
-                className="flex-grow rounded-2xl outline-none resize-none scrollbar-hide h-auto min-w-[558px] min-h-[44px] max-h-[200px] p-2 mt-1 pr-12"
+                className="flex-grow rounded-2xl outline-none resize-none scrollbar-hide h-auto min-w-[558px] min-h-[44px] max-h-[200px] p-2 mt-1 pr-12 ChatInputPlaceholder"
                 rows={1}
               />
               <button type="submit" className="absolute right-2 top-1/2 transform -translate-y-1/2">

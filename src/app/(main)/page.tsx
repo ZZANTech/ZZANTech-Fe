@@ -5,14 +5,14 @@ import TopSection from "@/app/(main)/_components/TopSection/TopSection";
 export default function Home() {
   return (
     <main>
-      <section className="flex flex-col sm:flex-row">
+      <section className="flex flex-col lg:flex-row">
         <TopSection />
       </section>
-      <div className="flex flex-col sm:flex-row space-x-14">
-        <div className="max-w-[700px] w-full">
+      <div className="flex flex-col lg:flex-row gap-14">
+        <div className="w-full lg:w-[700px]">
           <LeftSection />
         </div>
-        <div>
+        <div className="w-full flex-1">
           <RightSection />
         </div>
       </div>
