@@ -15,7 +15,7 @@ function ChatMessageContainer({ roomId }: { roomId: number }) {
           <div className="flex-grow overflow-y-auto p-4">
             <ChatMessageList roomId={roomId} />
           </div>
-          <div className="p-4 bg-gray-200">
+          <div className="p-3 bg-gray-200">
             <ChatMessageInput roomId={roomId} />
           </div>
         </div>
