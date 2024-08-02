@@ -48,13 +48,13 @@ function HeaderContainer() {
             <Image src={user.badge_url || defaultBadgeUrl} alt="badge" width={24} height={24} className="mr-2" />
             {user.nickname} 님
           </Link>
-          <button onClick={handleLogout} className="text-sm border border-[#111111] ml-4 px-3 py-2 rounded">
+          <button onClick={handleLogout} className="text-sm border border-[#111111] ml-4 mr-2 px-3 py-2 rounded">
             로그아웃
           </button>
         </div>
       ) : (
         <Link href={"/login"}>
-          <button className="text-sm border border-[#111111] ml-4 px-3 py-2 rounded">로그인</button>
+          <button className="text-sm border border-[#111111] ml-4 mr-2 px-3 py-2 rounded">로그인</button>
         </Link>
       )}
     </div>
