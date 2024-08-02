@@ -10,8 +10,10 @@ function ExchangeContainer() {
 
   const handleFilterOptionChange = (value: TOption["value"]) => setFilterOption(value);
   return (
-    <div className="w-full">
-      <FilterOption options={EXCHANGE_FILTER_OPTION} onFilterOptionChange={handleFilterOptionChange} />
+    <div className="flex flex-col items-center w-full">
+      <div className="flex w-full justify-center">
+        <FilterOption options={EXCHANGE_FILTER_OPTION} onFilterOptionChange={handleFilterOptionChange} />
+      </div>
       {filterOption === GIFTS ? <GiftContainer /> : <ClaimContainer />}
     </div>
   );

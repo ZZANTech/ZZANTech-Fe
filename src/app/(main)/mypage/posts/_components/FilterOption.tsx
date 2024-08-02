@@ -9,7 +9,7 @@ type FilterOptionProps = {
 function FilterOption({ options, onFilterOptionChange }: FilterOptionProps) {
   return (
     <>
-      <ul className="w-full flex gap-2 mb-5">
+      <ul className=" flex gap-2 mb-5">
         {options.map((option) => (
           <Button onClick={() => onFilterOptionChange(option.value)} key={option.value}>
             {option.label}

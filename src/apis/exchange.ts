@@ -28,7 +28,7 @@ export const postClaim = async (newClaim: Partial<Tables<"gift_claims">>) => {
     const errorData = await res.json();
 
     const errorMessage = errorData.error;
-    throw new Error(errorMessage);
+    throw { message: errorMessage, status: res.status };
   }
   const gifts = await res.json();
   return gifts;

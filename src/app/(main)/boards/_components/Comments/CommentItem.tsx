@@ -12,6 +12,7 @@ import CommentEditForm from "@/app/(main)/boards/_components/Comments/CommentEdi
 import useAlertModal from "@/hooks/useAlertModal";
 import useVoteCommentMutation from "@/stores/queries/useVoteCommentMutation";
 import Image from "next/image";
+import useConfirmModal from "@/hooks/useConfirmModal";
 
 type CommentItemPropsForKnowhow = {
   comment: TKnowhowComment;
@@ -26,6 +27,7 @@ type CommentItemPropsForVote = {
 function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentItemPropsForVote) {
   const { user } = useUserContext();
   const modal = useModal();
+  const { displayDeleteModal } = useConfirmModal();
   const { displayDefaultAlert } = useAlertModal();
   const { nickname, content, created_at } = comment;
 
@@ -37,12 +39,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
 
   const { formattedDate, formattedTime } = formatTime(created_at);
 
-  const handleOpenModal = () =>
-    modal.open({
-      type: "confirm",
-      content: "댓글을 삭제하시겠습니까?",
-      onConfirm: handleCommentDelete
-    });
+  const handleOpenModal = () => displayDeleteModal(handleCommentDelete);
 
   const handleEditModeChange = () => setIsEditing(true);
 
