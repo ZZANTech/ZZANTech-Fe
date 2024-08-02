@@ -26,9 +26,9 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
   const activeButtonStyle = "bg-black text-white";
   const inactiveButtonStyle = "bg-white text-black";
 
-  const numberButtonStyle = "w-8 h-8 flex items-center justify-center rounded-full";
+  const numberButtonStyle = "w-8 h-8 flex items-center justify-center rounded-full transition";
   const numberButtonActiveStyle = "bg-black text-white";
-  const numberButtonInactiveStyle = "text-black";
+  const numberButtonInactiveStyle = "text-black hover:bg-black hover:text-white";
 
   const getButtonClasses = (isActive: boolean, isNumberButton: boolean = false) => {
     if (isNumberButton) {
