@@ -27,9 +27,7 @@ function GiftItem({ gift }: GiftItemProps) {
       <div>{gift.brand_name}</div>
       <div>{gift.point}</div>
       <div>{gift.category}</div>
-      <Button disabled={userCurrentPoints < gift.point} onClick={handleExchange}>
-        교환버튼
-      </Button>
+      <Button onClick={handleExchange}>교환버튼</Button>
     </li>
   );
 }
