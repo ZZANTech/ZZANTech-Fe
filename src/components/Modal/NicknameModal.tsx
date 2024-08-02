@@ -4,7 +4,7 @@ import { updateNickname } from "@/apis/auth";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { checkNicknameValidity } from "@/utils/authValidity";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function NicknameModal() {
   const { user } = useUserContext();
@@ -13,7 +13,7 @@ function NicknameModal() {
 
   const [nickname, setNickname] = useState<string>(oldNickname || "");
   const [nicknameError, setNicknameError] = useState<string>("");
-  const [isNicknameValid, setIsNicknameValid] = useState<boolean>(false);
+  const [isNicknameValid, setIsNicknameValid] = useState<boolean | null>(null);
   const { close } = useModal(); // 모달 닫을땐 여기서 close 꺼내쓰시면 됩니다.
 
   const handleChangeNickname = async () => {
@@ -25,13 +25,15 @@ function NicknameModal() {
     if (!nicknameError) {
       await updateNickname(nickname, email || "", setNicknameError, setIsNicknameValid);
     }
-
-    if (!isNicknameValid) {
-      console.log("handleChangeNickname 변경 안 됐어>>", nickname);
-    } else {
-      console.log("handleChangeNickname 변경 됐다>>", nickname);
-    }
   };
+
+  useEffect(() => {
+    if (isNicknameValid === false) {
+      console.log("변경 실패>>", nickname);
+    } else {
+      console.log("변경 완료>>", nickname);
+    }
+  }, [isNicknameValid]);
 
   return (
     <div className="relative bg-white p-10 rounded min-w-[340px] flex flex-col gap-8 items-center">

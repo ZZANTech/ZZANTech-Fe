@@ -9,7 +9,6 @@ function LevelContainer() {
   const levelName = checkLevelName(total_point);
   const levelImageURL = checkLevelImageURL(total_point);
   const level = checkLevel(total_point);
-
   return (
     <div className="">
       <div className="flex justify-between align-center mb-5">
