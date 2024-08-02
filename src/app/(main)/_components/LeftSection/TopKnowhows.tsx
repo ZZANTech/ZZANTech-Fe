@@ -5,7 +5,7 @@ import Link from "next/link";
 
 function TopKnowhows() {
   const { data } = useTopKnowhowQuery();
-  data && console.log(data);
+
   return (
     <div>
       <h3 className="text-xl mb-4">Best 짠노하우 👑</h3>

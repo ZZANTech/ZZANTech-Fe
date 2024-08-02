@@ -8,7 +8,6 @@ import { useRouter } from "next/navigation";
 function HeaderContainer() {
   const router = useRouter();
   const { user, logOut } = useUserContext();
-  console.log(user);
 
   const handleLogout = () => {
     logOut();

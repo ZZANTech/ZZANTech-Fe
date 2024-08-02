@@ -6,7 +6,7 @@ import Link from "next/link";
 
 function TopVotes() {
   const { data } = useTopVotesQuery();
-  data && console.log(data);
+
   return (
     <>
       <h3 className="text-xl font-semibold mt-14 mb-4">이번주 소비왕 🏆</h3>
