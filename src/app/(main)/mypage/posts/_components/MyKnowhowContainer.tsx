@@ -45,7 +45,7 @@ function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
           )}
         </>
       ) : (
-        <NoPostsMessage />
+        <NoPostsMessage type="myPosts" />
       )}
     </article>
   );
