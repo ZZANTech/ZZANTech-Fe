@@ -77,7 +77,7 @@ body *:not([class*="letter-"]) {
     font-style: normal;
     font-weight: 400;
     line-height: 24px;
-    padding-left: 10px;
+    padding-left: 3px;
   }
 }
 

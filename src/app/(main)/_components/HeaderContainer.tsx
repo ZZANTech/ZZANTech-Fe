@@ -15,7 +15,7 @@ function HeaderContainer() {
   };
   const defaultBadgeUrl = "/badges/lv1.png";
   return (
-    <div className="mx-auto my-5 flex flex-row items-center justify-between">
+    <header className="mx-auto my-5 flex flex-row items-center justify-between">
       <div className="flex">
         <Link href={"/"} className="mr-10">
           <Image src={"/logos/mainLogo.png"} width={132} height={24} alt="mainLogo" />
@@ -57,7 +57,7 @@ function HeaderContainer() {
           <button className="text-sm border border-[#111111] ml-4 mr-2 px-3 py-2 rounded">로그인</button>
         </Link>
       )}
-    </div>
+    </header>
   );
 }
 
