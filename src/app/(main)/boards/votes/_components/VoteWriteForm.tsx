@@ -48,15 +48,15 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       image: ""
     };
 
-    if (title.length < 2 || title.length > 100) {
-      newErrors.title = "제목을 2자 이상 100자 이하로 입력해 주세요.";
+    if (title.length < 2 || title.length > 30) {
+      newErrors.title = "제목을 2자 이상 30자 이하로 입력해 주세요.";
     }
     if (!title.trim()) {
       newErrors.title = "제목은 필수 입력 항목입니다.";
     }
 
-    if (productName.length < 2 || productName.length > 100) {
-      newErrors.productName = "소비 내역을 2자 이상 100자 이하로 입력해 주세요.";
+    if (productName.length < 2 || productName.length > 20) {
+      newErrors.productName = "소비 내역을 2자 이상 20자 이하로 입력해 주세요.";
     }
     if (!productName.trim()) {
       newErrors.productName = "소비 내역은 필수 입력 항목입니다.";
@@ -69,8 +69,8 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       newErrors.productPrice = "가격은 숫자만 입력해 주세요.";
     }
 
-    if (content.length < 2 || content.length > 200) {
-      newErrors.content = "내용을 2자 이상 200자 이하로 입력해 주세요.";
+    if (content.length < 2 || content.length > 100) {
+      newErrors.content = "내용을 2자 이상 100자 이하로 입력해 주세요.";
     }
     if (!content.trim()) {
       newErrors.content = "내용은 필수 입력 항목입니다.";
@@ -159,8 +159,8 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                 onChange={(e) => setTitle(e.target.value)}
                 value={title}
                 className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
-                placeholder="제목을 입력해 주세요 (2~100자)"
-                maxLength={100}
+                placeholder="제목을 입력해 주세요 (2~30자)"
+                maxLength={30}
               />
               <div className="h-4">
                 {errors.title && <span className="text-red-500 text-[13px]">{errors.title}</span>}
@@ -181,8 +181,8 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                 onChange={(e) => setProductName(e.target.value)}
                 value={productName}
                 className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
-                placeholder="소비 내역을 입력해 주세요 (2~100자)"
-                maxLength={100}
+                placeholder="소비 내역을 입력해 주세요 (2~20자)"
+                maxLength={20}
               />
               <div className="h-4">
                 {errors.productName && <span className="text-red-500 text-[13px]">{errors.productName}</span>}
@@ -208,7 +208,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                 }}
                 value={productPrice}
                 className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
-                placeholder="가격을 입력해 주세요 (숫자만, 3~10자)"
+                placeholder="가격을 입력해 주세요 (숫자만, 2~10자)"
                 maxLength={10}
               />
               <div className="h-4">
@@ -229,8 +229,8 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                 onChange={(e) => setContent(e.target.value)}
                 value={content}
                 className="w-full h-[94px] px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
-                placeholder="내용을 입력해 주세요 (2~200자)"
-                maxLength={200}
+                placeholder="내용을 입력해 주세요 (2~100자)"
+                maxLength={100}
               />
               <div className="h-4">
                 {errors.content && <span className="text-red-500 text-[13px]">{errors.content}</span>}
