@@ -5,14 +5,24 @@ type SortButtonsProps = {
 
 function SortButtons({ sortOrder, handleSortOrderChange }: SortButtonsProps) {
   return (
-    <div>
-      <button onClick={() => handleSortOrderChange("latest")} className={sortOrder === "latest" ? "active" : ""}>
+    <nav className="justify-start items-center gap-[11px] flex">
+      <button
+        onClick={() => handleSortOrderChange("latest")}
+        className={`text-base font-semibold leading-normal ${
+          sortOrder === "latest" ? "text-[#ff6000]" : "text-[#767676]"
+        }`}
+      >
         최신 순
       </button>
-      <button onClick={() => handleSortOrderChange("votes")} className={sortOrder === "votes" ? "active" : ""}>
+      <button
+        onClick={() => handleSortOrderChange("votes")}
+        className={`text-base font-semibold leading-normal ${
+          sortOrder === "votes" ? "text-[#ff6000]" : "text-[#767676]"
+        }`}
+      >
         투표수 순
       </button>
-    </div>
+    </nav>
   );
 }
 

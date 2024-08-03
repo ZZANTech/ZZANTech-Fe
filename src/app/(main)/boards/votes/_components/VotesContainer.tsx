@@ -6,6 +6,7 @@ import Button from "@/components/Button/Button";
 import SortButtons from "@/app/(main)/boards/votes/_components/SortButtons";
 import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 function VotesContainer() {
   const router = useRouter();
@@ -48,8 +49,26 @@ function VotesContainer() {
 
   return (
     <section>
-      <Button onClick={handleWriteClick}>글쓰기</Button>
-      <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
+      <div className="h-12 justify-between items-end flex">
+        <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
+        <Button
+          onClick={handleWriteClick}
+          className="w-[124px] h-12 px-4 py-3.5 bg-[#e1ff01] rounded-lg justify-center items-center gap-2.5 inline-flex"
+        >
+          <div className="justify-center items-center gap-1 flex">
+            <div className="w-5 h-5 justify-center items-center flex">
+              <Image
+                src={"/icons/mypage/pencil_white.png"}
+                width={20}
+                height={20}
+                alt="연필 이미지"
+                className="w-5 h-5 relative flex-col justify-start items-start flex"
+              />
+            </div>
+            <span className="text-center text-[#1b1b1b] text-base font-semibold leading-tight">글쓰기</span>
+          </div>
+        </Button>
+      </div>
       <VotesList
         votes={data?.pages.flatMap((page) => page.data)}
         lastVoteElementRef={lastVoteElementRef}
