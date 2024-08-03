@@ -1,9 +1,9 @@
-"use clinet";
+"use client";
 
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
-import useMyKnowhowsQuery from "@/stores/queries/useMyKnowhowsQuery";
+import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import useMyVotesQuery from "@/stores/queries/useMyVotesQuery";
 import { Tables } from "@/types/supabase";
 import { useSearchParams } from "next/navigation";
@@ -32,11 +32,15 @@ function MyVotesContainer({ user }: MyVotesContainerProps) {
 
   return (
     <article>
-      {votes && votes.length > 0 && <VotesList votes={votes} />}
-      {votes && votes[0] && (
-        <Suspense>
-          <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
-        </Suspense>
+      {votes && votes.length > 0 ? (
+        <>
+          <VotesList votes={votes} />
+          <Suspense>
+            <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
+          </Suspense>
+        </>
+      ) : (
+        <NoPostsMessage />
       )}
     </article>
   );

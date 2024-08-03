@@ -6,6 +6,8 @@ import useExchangeMutation from "@/stores/queries/useExchangeMutation";
 import { Tables } from "@/types/supabase";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import point from "/public/icons/point.png";
+import { formatNumberWithCommas } from "@/app/(main)/boards/_utils";
 
 type GiftItemProps = {
   gift: Tables<"gifts">;
@@ -15,6 +17,7 @@ function GiftItem({ gift }: GiftItemProps) {
   const { user } = useUserContext();
   const { open } = useModal();
   const { addClaim } = useExchangeMutation();
+  const formattedPoint = formatNumberWithCommas(gift.point);
   const router = useRouter();
   const handleExchange = async () => {
     const newExchange = {
@@ -45,13 +48,25 @@ function GiftItem({ gift }: GiftItemProps) {
 
   const userCurrentPoints = user?.current_point ?? 0;
   return (
-    <li className="">
-      <Image src={gift.img_url} alt={gift.gift_name} width={150} height={150} />
-      <div>{gift.gift_name}</div>
-      <div>{gift.brand_name}</div>
-      <div>{gift.point}</div>
-      <div>{gift.category}</div>
-      <Button onClick={handleOpenConfirmModal}>교환버튼</Button>
+    <li className="flex flex-col  items-center p-4 w-[268px] y-[403px] border border-[#e3e3e5] rounded-2xl box-border">
+      <div className="w-[236px] h-[200px] mb-3 flex justify-center items-center relative aspect-square">
+        <Image className=" object-cover" src={gift.img_url} alt={gift.gift_name} fill />
+      </div>
+
+      <div className="mb-2 text-[#777] text-[13px]">[{gift.brand_name}]</div>
+      <div className="mb-5 text-[#333] font-bold text-sm">{gift.gift_name}</div>
+      <div className=" flex items-center gap-[5px] mb-7">
+        <div className="w-8 h-8  relative aspect-square">
+          <Image className="object-cover" src={point} alt="point" fill />
+        </div>
+        <span className="text-[#FF6000] font-semibold">{formattedPoint}P</span>
+      </div>
+      <button
+        className="flex justify-center font-semibold rounded-lg items-center text-white w-[236px] bg-[#FF6000] h-10 p-4 box-border"
+        onClick={handleOpenConfirmModal}
+      >
+        교환버튼
+      </button>
     </li>
   );
 }
