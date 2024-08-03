@@ -37,9 +37,9 @@ function VoteContent({ vote }: VoteContentProps) {
               <div className="relative w-full h-[300px] overflow-hidden">
                 <Image src={image_url} alt="게시글 이미지" className="rounded-xl object-cover" layout="fill" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-xl"></div>
-                <div className="absolute bottom-4 right-8 text-right text-white text-base font-normal">
+                <div className="absolute bottom-4 right-[20px] text-right text-white text-base font-normal">
                   <div>{product_name}</div>
-                  <div>{product_price} 원</div>
+                  <div>{product_price.toLocaleString()} 원</div>
                 </div>
               </div>
               <VoteButtons voteId={vote_postId} />
