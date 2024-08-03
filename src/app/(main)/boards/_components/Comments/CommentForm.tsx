@@ -17,26 +17,18 @@ function CommentForm({ postId, board }: CommentFormProps) {
   const { user } = useUserContext();
   const modal = useModal();
   const router = useRouter();
-  const { displayDefaultAlert } = useAlertModal();
+  const { displayDefaultAlert, displayLoginAlert } = useAlertModal();
 
   const { addKnowhowComment } = useKnowhowCommentMutation();
   const { addVoteComment } = useVoteCommentMutation();
 
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleOpenModal = () =>
-    modal.open({
-      type: "alert",
-      content: "로그인이 필요한 서비스에요",
-      buttonContent: "로그인하기",
-      onClose: () => router.push("/login")
-    });
-
   const handleCommentSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
     if (!user) {
-      handleOpenModal();
+      displayLoginAlert();
       return;
     }
 
