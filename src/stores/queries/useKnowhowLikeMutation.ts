@@ -22,8 +22,10 @@ const useKnowhowLikeMutation = () => {
     },
     onMutate: async ({ likeData, likeCountData }) => {
       const knowhowId = likeData.knowhow_post_id;
+      const userId = likeData.user_id;
 
       await queryClient.cancelQueries({ queryKey: ["knowhowLikes", { knowhowId }] });
+      await queryClient.cancelQueries({ queryKey: ["likedKnowhows", { page: 1, limit: 5, userId }] });
 
       const previousLikes = queryClient.getQueryData<TKnowhowLikesCountResponse>(["knowhowLikes", { knowhowId }]);
 
@@ -46,8 +48,10 @@ const useKnowhowLikeMutation = () => {
     },
     onSettled: (status, error, { likeData }) => {
       const knowhowId = likeData.knowhow_post_id?.toString();
+      const userId = likeData.user_id;
 
       queryClient.invalidateQueries({ queryKey: ["knowhowLikes", { knowhowId }] });
+      queryClient.invalidateQueries({ queryKey: ["likedKnowhows", { page: 1, limit: 5, userId }] });
     }
   });
 

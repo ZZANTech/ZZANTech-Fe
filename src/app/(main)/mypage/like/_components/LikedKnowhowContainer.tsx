@@ -1,6 +1,7 @@
 "use client";
 import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
+import SkeletonKnowhowList from "@/app/(main)/boards/knowhow/_components/SkeletonKnowhowList";
 import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import { useUserContext } from "@/provider/contexts/UserContext";
@@ -14,7 +15,7 @@ function LikedKnowhowContainer() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const searchParams = useSearchParams();
 
-  const { data: knowhows } = useLikedKnowhowsQuery(currentPage, ITEMS_PER_PAGE, userId || "");
+  const { data: knowhows, isPending } = useLikedKnowhowsQuery(currentPage, ITEMS_PER_PAGE, userId || "");
 
   const handlePageChange = (page: number) => setCurrentPage(page);
 
@@ -31,7 +32,11 @@ function LikedKnowhowContainer() {
   return (
     <section>
       <h1 className="my-[63px] ml-[11px] text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
-      {knowhows && knowhows.length > 0 ? (
+
+      {isPending ? (
+
+        <SkeletonKnowhowList />
+      ) : knowhows && knowhows.length > 0 ? (
         <>
           <Suspense>
             <KnowhowList knowhows={knowhows} />
@@ -41,7 +46,7 @@ function LikedKnowhowContainer() {
           </Suspense>
         </>
       ) : (
-        <NoPostsMessage isLikedPosts />
+        <NoPostsMessage type="likedPosts" />
       )}
     </section>
   );

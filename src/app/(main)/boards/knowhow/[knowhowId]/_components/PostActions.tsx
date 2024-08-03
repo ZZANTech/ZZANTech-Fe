@@ -10,7 +10,7 @@ type PostActionsProps = {
 
 function PostActions({ knowhow }: PostActionsProps) {
   return (
-    <section className="flex gap-1 justify-between items-center mr-[28px] mb-[45px]">
+    <section className="flex gap-1 justify-between items-center mr-[28px] mb-10">
       <KnowhowLikes knowhowId={knowhow.knowhow_postId} />
       <ActionNav knowhow={knowhow} />
     </section>

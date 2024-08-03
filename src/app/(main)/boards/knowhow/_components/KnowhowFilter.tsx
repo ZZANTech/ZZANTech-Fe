@@ -24,7 +24,7 @@ function KnowhowFilter({
     onSortOrderChange;
   };
   return (
-    <nav className="w-full h-12 flex justify-between items-end">
+    <nav className="w-full h-12 mb-6 flex justify-between items-end">
       <SortOptions sortOrder={sortOrder} onSortOrderChange={onSortOrderChange} />
 
       <Button

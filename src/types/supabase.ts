@@ -102,24 +102,6 @@ export type Database = {
           }
         ];
       };
-      debug_logs: {
-        Row: {
-          created_at: string | null;
-          id: number;
-          log_message: string | null;
-        };
-        Insert: {
-          created_at?: string | null;
-          id?: number;
-          log_message?: string | null;
-        };
-        Update: {
-          created_at?: string | null;
-          id?: number;
-          log_message?: string | null;
-        };
-        Relationships: [];
-      };
       gift_claims: {
         Row: {
           created_at: string;
@@ -584,6 +566,27 @@ export type Database = {
         }[];
       };
       get_liked_knowhows: {
+        Args: {
+          user_id_param: string;
+          limit_param: number;
+          offset_param: number;
+        };
+        Returns: {
+          knowhow_postId: number;
+          title: string;
+          content: string;
+          image_urls: Json;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          nickname: string;
+          badge_url: string;
+          likes_count: number;
+          comments_count: number;
+          total_count: number;
+        }[];
+      };
+      get_liked_knowhows_by_like_time: {
         Args: {
           user_id_param: string;
           limit_param: number;
