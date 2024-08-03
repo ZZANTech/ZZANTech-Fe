@@ -249,17 +249,17 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   return (
     <form onSubmit={handleOpenSubmitModal} className="h-full flex flex-col">
       <input
-        className="w-full h-14  text-3xl outline-none mt-[120px] border-b-2 border-[#000]"
+        className="w-full h-14  text-3xl outline-none mt-[91px] border-b-2 border-[#000]"
         id="title"
         placeholder="제목을 입력해주세요"
         onChange={(e) => setEditorTitle(e.target.value)}
         value={editorTitle}
         type="text"
       />
-      <ErrorMessage className="mb-[17px]">{errorMessage?.title}</ErrorMessage>
+      <ErrorMessage className="quillnn mb-[34px]">{errorMessage?.title}</ErrorMessage>
       <QuillNoSSRWrapper
         forwardedRef={quillRef}
-        className="h-[550px]"
+        className="quill_wrapper h-[550px]"
         modules={modules}
         formats={formats}
         value={editorContent}
@@ -269,10 +269,10 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
       {<ErrorMessage className="translate-y-11">{errorMessage?.content}</ErrorMessage>}
 
       <div className="flex gap-[18px] self-end translate-y-16">
-        <Button type="button" bgColor="white" onClick={handleCancel}>
+        <Button className="h-12" type="button" bgColor="white" onClick={handleCancel}>
           취소하기
         </Button>
-        <Button>등록하기</Button>
+        <Button className="h-12">등록하기</Button>
       </div>
     </form>
   );

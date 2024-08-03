@@ -13,7 +13,7 @@ function PostContent({ knowhow }: PostContentProps) {
 
   if (knowhow)
     return (
-      <section className="py-9 w-full min-h-[700px] overflow-auto  mb-[38px] border-b border-[#000]">
+      <section className="py-9 w-full min-h-[700px]   mb-[38px] border-b border-[#000]">
         <h1 className="text-[32px] mb-3  text-[#000] font-semibold ">{knowhow.title}</h1>
 
         <div className="flex gap-5 items-center mb-10">
@@ -29,7 +29,7 @@ function PostContent({ knowhow }: PostContentProps) {
         </div>
 
         <article
-          className=" text-[#5A5A5A] knowhow-content mt-12"
+          className="knowhow-content text-[#5A5A5A]  break-words break-all mt-12"
           dangerouslySetInnerHTML={{ __html: knowhow.content }}
         />
       </section>
