@@ -148,7 +148,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-center w-full">
               <label htmlFor="title" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">제목</span>
-                <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+                <span className="text-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px]">
                 <input
@@ -156,7 +156,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                   id="title"
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}
-                  className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
+                  className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-gray-500"
                   placeholder="제목을 입력해 주세요 (2~30자)"
                   maxLength={30}
                 />
@@ -170,7 +170,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-center w-full">
               <label htmlFor="productName" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">소비 내역</span>
-                <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+                <span className="text-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px]">
                 <input
@@ -178,7 +178,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                   id="productName"
                   onChange={(e) => setProductName(e.target.value)}
                   value={productName}
-                  className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
+                  className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-gray-500"
                   placeholder="소비 내역을 입력해 주세요 (2~20자)"
                   maxLength={20}
                 />
@@ -192,7 +192,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-center w-full">
               <label htmlFor="productPrice" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">가격</span>
-                <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+                <span className="text-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px]">
                 <input
@@ -205,7 +205,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                     }
                   }}
                   value={productPrice}
-                  className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
+                  className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-gray-500"
                   placeholder="가격을 입력해 주세요 (숫자만, 2~10자)"
                   maxLength={10}
                 />
@@ -219,14 +219,14 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-center w-full">
               <label htmlFor="content" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">내용</span>
-                <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+                <span className="text-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px]">
                 <textarea
                   id="content"
                   onChange={(e) => setContent(e.target.value)}
                   value={content}
-                  className="w-full h-[94px] px-4 py-3 bg-white rounded-lg border border-[#b3b3ae]"
+                  className="w-full h-[94px] px-4 py-3 bg-white rounded-lg border border-gray-500"
                   placeholder="내용을 입력해 주세요 (2~100자)"
                   maxLength={100}
                 />
@@ -240,7 +240,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-start w-full">
               <label htmlFor="image" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">사진 첨부</span>
-                <span className="text-[#dc0000] text-base font-normal leading-[18px]">*</span>
+                <span className="text-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px] flex flex-col">
                 {image || imageUrl ? (
@@ -282,11 +282,11 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <button
               type="button"
               onClick={handleCancel}
-              className="w-40 h-12 px-4 py-3 bg-white rounded-md border border-[#1b1b1b] justify-center items-center gap-2.5 flex"
+              className="w-40 h-12 px-4 py-3 bg-white rounded-md border border-basic justify-center items-center gap-2.5 flex"
             >
               <div className="text-center text-[#111111] text-base font-semibold leading-tight">취소하기</div>
             </button>
-            <button className="w-40 h-12 px-4 py-3 bg-[#1b1b1b] rounded-lg justify-center items-center gap-2.5 flex">
+            <button className="w-40 h-12 px-4 py-3 bg-basic rounded-lg justify-center items-center gap-2.5 flex">
               <div className="text-center text-white text-base font-semibold leading-tight">등록하기</div>
             </button>
           </div>
