@@ -1,10 +1,11 @@
 "use client";
-import Button from "@/components/Button/Button";
+
 import useAlertModal from "@/hooks/useAlertModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
 import useVoteCommentMutation from "@/stores/queries/useVoteCommentMutation";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEventHandler, useRef } from "react";
 
@@ -58,15 +59,21 @@ function CommentForm({ postId, board }: CommentFormProps) {
   };
 
   return (
-    <form onSubmit={handleCommentSubmit} className="w-full flex flex-col gap-[19px]">
-      <textarea ref={commentInputRef} className="h-[90px] w-full bg-white border border-gray-800 resize-none" />
-      <div className="flex justify-end">
-        <Button
+    <form onSubmit={handleCommentSubmit} className="w-full flex flex-col gap-[12px]">
+      <textarea
+        ref={commentInputRef}
+        className="h-[90px] pl-[19px] pr-[481px] pt-3.5 pb-[52px] bg-white rounded-lg border border-[#8b8b8b] justify-start items-center inline-flex scrollbar-hide"
+      />
+      <div className="flex justify-end mb-[36px]">
+        <button
           type="submit"
-          className="w-[83px] h-[42px] bg-gray-900 text-[#e1ff01] text-[13px] font-semibold leading-[30px] rounded-none"
+          className="w-[124px] h-[44px] bg-[#1b1b1b] text-white text-[13px] font-semibold leading-[30px] rounded-lg flex justify-center items-center gap-2.5"
         >
-          작성하기
-        </Button>
+          <div className="w-5 h-5 flex justify-center items-center">
+            <Image src="/icons/mypage/pen_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
+          </div>
+          <div className="text-center text-white text-sm font-semibold leading-tight">댓글쓰기</div>
+        </button>
       </div>
     </form>
   );

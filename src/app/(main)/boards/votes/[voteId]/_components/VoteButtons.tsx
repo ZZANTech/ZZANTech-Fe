@@ -128,12 +128,12 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
           >
             {`${upvotePercentage.toFixed(0)}% (${upvoteCount}명)`}
           </button>
-          <Button
-            className={`w-[212px] h-[76px] px-[55px] py-[26px] rounded-xl justify-center items-center inline-flex text-[#b3b3b3] text-xl font-semibold ${voteType === "BAD" ? "bg-[#e1ff49] text-[#121212]" : "bg-basic text-[#b3b3b3]"}`}
+          <button
+            className={`w-[212px] h-[76px] px-[55px] py-[26px] rounded-xl justify-center items-center inline-flex text-xl font-semibold ${voteType === "BAD" ? "bg-[#e1ff49] text-[#121212]" : "bg-basic text-[#b3b3b3]"}`}
             onClick={() => handleVote("BAD")}
           >
             {`${downvotePercentage.toFixed(0)}% (${downvoteCount}명)`}
-          </Button>
+          </button>
         </>
       )}
     </div>
