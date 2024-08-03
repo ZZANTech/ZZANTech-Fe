@@ -148,7 +148,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-center w-full">
               <label htmlFor="title" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">제목</span>
-                <span className="text-red text-base font-normal leading-[18px]">*</span>
+                <span className="text-info-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px]">
                 <input
@@ -161,7 +161,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                   maxLength={30}
                 />
                 <div className="h-4">
-                  {errors.title && <span className="text-red-500 text-[13px]">{errors.title}</span>}
+                  {errors.title && <span className="text-info-red-500 text-[13px]">{errors.title}</span>}
                 </div>
               </div>
             </div>
@@ -170,7 +170,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-center w-full">
               <label htmlFor="productName" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">소비 내역</span>
-                <span className="text-red text-base font-normal leading-[18px]">*</span>
+                <span className="text-info-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px]">
                 <input
@@ -192,7 +192,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-center w-full">
               <label htmlFor="productPrice" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">가격</span>
-                <span className="text-red text-base font-normal leading-[18px]">*</span>
+                <span className="text-info-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px]">
                 <input
@@ -219,7 +219,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-center w-full">
               <label htmlFor="content" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">내용</span>
-                <span className="text-red text-base font-normal leading-[18px]">*</span>
+                <span className="text-info-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px]">
                 <textarea
@@ -240,7 +240,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="flex justify-between items-start w-full">
               <label htmlFor="image" className="w-[100px] flex items-center gap-1">
                 <span className="text-black text-base font-normal leading-normal">사진 첨부</span>
-                <span className="text-red text-base font-normal leading-[18px]">*</span>
+                <span className="text-info-red text-base font-normal leading-[18px]">*</span>
               </label>
               <div className="w-[500px] flex flex-col">
                 {image || imageUrl ? (
@@ -278,7 +278,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
               </div>
             </div>
           </div>
-          <div className="h-12 w-full justify-center items-center gap-[18px] flex mt-4">
+          <div className="h-12 w-full justify-center items-center gap-[18px] flex mt-12">
             <button
               type="button"
               onClick={handleCancel}
