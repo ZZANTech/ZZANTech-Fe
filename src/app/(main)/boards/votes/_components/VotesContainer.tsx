@@ -49,24 +49,14 @@ function VotesContainer() {
 
   return (
     <section className="w-full">
-      <div className="w-full h-12 justify-between items-end flex">
+      <div className="w-full h-12 flex justify-between items-end">
         <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
         <Button
           onClick={handleWriteClick}
-          className="w-[124px] h-12 px-4 py-3.5 bg-[#e1ff01] rounded-lg justify-center items-center gap-2.5 inline-flex"
+          className="w-[124px] h-12 px-4 py-3.5 bg-[#e1ff01] rounded-lg flex justify-center items-center gap-2.5"
         >
-          <div className="justify-center items-center gap-1 flex">
-            <div className="w-5 h-5 justify-center items-center flex">
-              <Image
-                src={"/icons/mypage/pencil_white.png"}
-                width={20}
-                height={20}
-                alt="연필 이미지"
-                className="w-5 h-5 relative flex-col justify-start items-start flex"
-              />
-            </div>
-            <span className="text-center text-[#1b1b1b] text-base font-semibold leading-tight">글쓰기</span>
-          </div>
+          <Image src="/icons/mypage/pencil_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
+          <span className="text-[#1b1b1b] text-base font-semibold leading-tight">글쓰기</span>
         </Button>
       </div>
       <VotesList
