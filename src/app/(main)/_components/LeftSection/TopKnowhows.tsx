@@ -14,7 +14,7 @@ function TopKnowhows() {
       <h3 className="text-xl mb-4">Best 짠노하우 💎</h3>
       <ul className="space-y-4">
         {data?.map((knowhow, index) => (
-          <li key={knowhow.knowhow_postId} className="my-2">
+          <li key={knowhow.knowhow_postId} className="my-2 transition duration-300 ease-in-out hover:scale-105">
             <Link href={`/boards/knowhow/${knowhow.knowhow_postId}`}>
               <div className="relative rounded-xl overflow-hidden h-40">
                 <Image

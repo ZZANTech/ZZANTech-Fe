@@ -12,7 +12,7 @@ function TopVotes() {
       <h3 className="text-xl font-semibold mt-14 mb-4">이번주 소비왕 🏆</h3>
       <ul className="flex w-full justify-between space-x-3">
         {data?.map((vote) => (
-          <li key={vote.vote_postId} className="flex-1">
+          <li key={vote.vote_postId} className="flex-1 transition duration-300 ease-in-out hover:scale-105">
             <Link href={`/boards/votes/${vote.vote_postId}`}>
               <div className="flex flex-col h-full">
                 <div className="relative w-full pb-[75%] overflow-hidden rounded-xl">
