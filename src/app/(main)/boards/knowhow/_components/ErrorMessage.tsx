@@ -6,7 +6,7 @@ type ErrorMessageProps = {
 };
 
 function ErrorMessage({ children, className }: ErrorMessageProps) {
-  return <span className={`block mt-2 text-red-500 h-5  ${className || ""}`}>{children}</span>;
+  return <span className={`block mt-2 text-info-red h-5  ${className || ""}`}>{children}</span>;
 }
 
 export default ErrorMessage;

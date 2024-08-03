@@ -12,7 +12,7 @@ export const GET = async (
   const limit = parseInt(url.searchParams.get("limit") || "5");
   const offset = (page - 1) * limit;
   try {
-    const { data: posts, error: postsError } = await supabase.rpc("get_liked_knowhows", {
+    const { data: posts, error: postsError } = await supabase.rpc("get_liked_knowhows_by_like_time", {
       limit_param: limit,
       offset_param: offset,
       user_id_param: userId

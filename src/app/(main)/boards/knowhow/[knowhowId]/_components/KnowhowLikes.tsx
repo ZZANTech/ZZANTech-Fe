@@ -27,11 +27,11 @@ function KnowhowLikes({ knowhowId }: knowhowLikesProps) {
   };
 
   return (
-    <div className="flex px-[15px] items-center gap-[11px] ">
+    <div className="flex px-[15px] items-center gap-2 ">
       <div className="cursor-pointer" onClick={handleUpdateLike}>
         {<Image src={likeCountData?.isLiked ? filledHeart : emptyHeart} alt="like" width={28} height={28} />}
       </div>
-      <div className="flex gap-1 text-xl font-semibold">
+      <div className="flex gap-[2px] text-sm">
         <span className="">좋아요</span>
         <span className="w-5 rounded">{likeCountData ? `${likeCountData.likeCount}` : "0"}</span>
       </div>
