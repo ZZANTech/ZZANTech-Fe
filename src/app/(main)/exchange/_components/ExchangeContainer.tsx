@@ -12,12 +12,13 @@ function ExchangeContainer() {
   const [filterOption, setFilterOption] = useState<TOption["value"]>(initialFilter);
 
   const handleFilterOptionChange = (value: TOption["value"]) => setFilterOption(value);
+
   useEffect(() => {
     const filterFromParams = searchParams.get("filter");
     if (filterFromParams && filterFromParams !== filterOption) {
       setFilterOption(filterFromParams);
     }
-  }, [searchParams, filterOption]);
+  }, [searchParams]);
 
   return (
     <div className="flex flex-col items-center w-full">

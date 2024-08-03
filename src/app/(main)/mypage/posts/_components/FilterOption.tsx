@@ -19,19 +19,17 @@ function FilterOption({ options, onFilterOptionChange, filterOption }: FilterOpt
   };
 
   return (
-    <>
-      <ul className="flex">
-        {options.map((option) => (
-          <button
-            className={`w-40 h-[52px] p-2 mb-12 border-b text-base font-semibold ${filterOption === option.value ? "border-[#FF6000] text-[#FF6000]" : "border-gray-500 text-gray-500"} cursor-pointer`}
-            onClick={() => handleFilterOptionChange(option.value)}
-            key={option.value}
-          >
-            {option.label}
-          </button>
-        ))}
-      </ul>
-    </>
+    <ul className="flex">
+      {options.map((option) => (
+        <button
+          className={`w-40 h-[52px] p-2 mb-12 border-b text-base font-semibold ${filterOption === option.value ? "border-[#FF6000] text-[#FF6000]" : "border-gray-500 text-gray-500"} cursor-pointer`}
+          onClick={() => handleFilterOptionChange(option.value)}
+          key={option.value}
+        >
+          {option.label}
+        </button>
+      ))}
+    </ul>
   );
 }
 
