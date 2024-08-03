@@ -157,7 +157,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                   onChange={(e) => setTitle(e.target.value)}
                   value={title}
                   className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-gray-500"
-                  placeholder="제목을 입력해 주세요 (2~30자)"
+                  placeholder="제목을 30자 이내로 입력해 주세요."
                   maxLength={30}
                 />
                 <div className="h-4">
@@ -179,7 +179,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                   onChange={(e) => setProductName(e.target.value)}
                   value={productName}
                   className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-gray-500"
-                  placeholder="소비 내역을 입력해 주세요 (2~20자)"
+                  placeholder="소비한 물건이나 내역을 20자 이내로 입력해 주세요."
                   maxLength={20}
                 />
                 <div className="h-4">
@@ -206,7 +206,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                   }}
                   value={productPrice}
                   className="w-full h-11 px-4 py-3 bg-white rounded-lg border border-gray-500"
-                  placeholder="가격을 입력해 주세요 (숫자만, 2~10자)"
+                  placeholder="구매한 가격을 10자 이내로 입력해 주세요. 예) 9900"
                   maxLength={10}
                 />
                 <div className="h-4">
@@ -227,7 +227,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                   onChange={(e) => setContent(e.target.value)}
                   value={content}
                   className="w-full h-[94px] px-4 py-3 bg-white rounded-lg border border-gray-500"
-                  placeholder="내용을 입력해 주세요 (2~100자)"
+                  placeholder="내용을 100자 이내로 입력해 주세요."
                   maxLength={100}
                 />
                 <div className="h-4">
