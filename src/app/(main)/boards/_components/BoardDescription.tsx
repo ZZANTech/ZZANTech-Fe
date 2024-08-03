@@ -8,13 +8,13 @@ type BoardDescriptionProps = {
 
 function BoardDescription({ title, description, children }: BoardDescriptionProps) {
   return (
-    <main className="mx-9">
-      <section className="flex w-full flex-col gap-3.5  mb-[42px] mt-[69px]">
-        <h1 className="text-2xl font-semibold">{title}</h1>
-        <p className="">{description}</p>
-      </section>
+    <section className="h-[120px] px-[30px] py-[29px] flex-col justify-start items-start gap-2.5 inline-flex">
+      <div className="flex-col justify-start items-start gap-3.5 flex">
+        <h1 className="self-stretch h-[29px] text-black text-2xl font-semibold">{title}</h1>
+        <p className="w-[495px] text-black text-base font-normal">{description}</p>
+      </div>
       {children}
-    </main>
+    </section>
   );
 }
 
