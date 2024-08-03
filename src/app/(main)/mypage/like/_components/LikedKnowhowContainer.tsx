@@ -32,7 +32,9 @@ function LikedKnowhowContainer() {
   return (
     <section>
       <h1 className="my-[63px] ml-[11px] text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
+
       {isPending ? (
+
         <SkeletonKnowhowList />
       ) : knowhows && knowhows.length > 0 ? (
         <>
