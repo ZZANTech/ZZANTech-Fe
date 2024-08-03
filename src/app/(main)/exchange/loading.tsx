@@ -1,5 +1,5 @@
 function loading() {
-  return <div>ads</div>;
+  return <></>;
 }
 
 export default loading;

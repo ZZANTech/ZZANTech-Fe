@@ -1,8 +1,18 @@
 "use client";
 
-import ClaimList from "@/app/(main)/exchange/_components/ClaimList";
+import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useClaimsQuery from "@/stores/queries/useClaimsQuery";
+import dynamic from "next/dynamic";
+
+const ClaimList = dynamic(() => import("@/app/(main)/exchange/_components/ClaimList"), {
+  loading: () => (
+    <div className="mt-40">
+      <SmallLoadingSpinner />
+    </div>
+  ),
+  ssr: false
+});
 
 function ClaimContainer() {
   const { user } = useUserContext();

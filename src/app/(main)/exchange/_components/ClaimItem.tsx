@@ -10,7 +10,7 @@ type ClaimItemProps = {
 function ClaimItem({ claim }: ClaimItemProps) {
   const { formattedDate } = formatTime(claim.created_at);
   return (
-    <li className="flex justify-between gap-2 w-full font-semibold text-[#000]">
+    <li className="flex justify-between gap-2 w-full  text-[#000]">
       <div>{formattedDate}</div>
       <div>{claim.gift_name}</div>
       <div
