@@ -48,8 +48,8 @@ function VotesContainer() {
   }
 
   return (
-    <section>
-      <div className="h-12 justify-between items-end flex">
+    <section className="w-full">
+      <div className="w-full h-12 justify-between items-end flex">
         <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
         <Button
           onClick={handleWriteClick}
