@@ -75,8 +75,13 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
     setIsEditing(false);
   };
 
+  const handleCancelEdit = () => {
+    setIsEditing(false);
+    setEditedContent(content);
+  };
+
   return (
-    <li className="w-full h-24 flex flex-col gap-3">
+    <li className="w-full flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-[7px]">
@@ -104,6 +109,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
           editedContent={editedContent}
           onContentChange={handleContentChange}
           onCommentUpdate={handleCommentUpdate}
+          onCancel={handleCancelEdit}
         />
       )}
     </li>
