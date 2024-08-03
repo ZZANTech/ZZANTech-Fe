@@ -2,6 +2,7 @@
 import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
+import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useLikedKnowhowsQuery from "@/stores/queries/useLikedKnowhowsQuery";
 import { useSearchParams } from "next/navigation";
@@ -30,7 +31,7 @@ function LikedKnowhowContainer() {
   return (
     <section>
       <h1 className="my-[63px] ml-[11px] text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
-      {knowhows && knowhows.length > 0 && (
+      {knowhows && knowhows.length > 0 ? (
         <>
           <Suspense>
             <KnowhowList knowhows={knowhows} />
@@ -39,6 +40,8 @@ function LikedKnowhowContainer() {
             )}
           </Suspense>
         </>
+      ) : (
+        <NoPostsMessage isLikedPosts />
       )}
     </section>
   );

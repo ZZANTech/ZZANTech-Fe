@@ -7,6 +7,7 @@ import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import useMyKnowhowsQuery from "@/stores/queries/useMyKnowhowsQuery";
 import { Tables } from "@/types/supabase";
+import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 
 type MyKnowhowContainerProps = {
   user: Tables<"users">;
@@ -30,11 +31,15 @@ function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
 
   return (
     <article>
-      {knowhows && knowhows.length > 0 && <KnowhowList knowhows={knowhows} />}
-      {knowhows && knowhows[0] && (
-        <Suspense>
-          <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
-        </Suspense>
+      {knowhows && knowhows.length > 0 ? (
+        <>
+          <KnowhowList knowhows={knowhows} />
+          <Suspense>
+            <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
+          </Suspense>
+        </>
+      ) : (
+        <NoPostsMessage />
       )}
     </article>
   );
