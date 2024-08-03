@@ -32,7 +32,9 @@ function LikedKnowhowContainer() {
   return (
     <section>
       <h1 className="my-[63px] ml-[11px] text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
-      {isPending ? ( // 로딩 중일 때 스켈레톤 표시
+
+      {isPending ? (
+
         <SkeletonKnowhowList />
       ) : knowhows && knowhows.length > 0 ? (
         <>
@@ -44,7 +46,7 @@ function LikedKnowhowContainer() {
           </Suspense>
         </>
       ) : (
-        <NoPostsMessage isLikedPosts />
+        <NoPostsMessage type="likedPosts" />
       )}
     </section>
   );

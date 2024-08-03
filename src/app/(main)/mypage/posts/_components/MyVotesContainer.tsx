@@ -46,7 +46,7 @@ function MyVotesContainer({ user }: MyVotesContainerProps) {
           )}
         </>
       ) : (
-        <NoPostsMessage />
+        <NoPostsMessage type="myPosts" />
       )}
     </article>
   );
