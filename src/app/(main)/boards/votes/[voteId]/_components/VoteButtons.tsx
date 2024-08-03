@@ -20,7 +20,7 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
   const modal = useModal();
   const router = useRouter();
 
-  const { data: voteData } = useVoteLikesQuery(voteId);
+  const { data: voteData, isPending } = useVoteLikesQuery(voteId);
 
   const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
   const [optimisticVoteData, setOptimisticVoteData] = useState<TVoteLikeCountsResponse | null>(null);
@@ -45,6 +45,9 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
     });
 
   const handleVote = async (type: "GOOD" | "BAD") => {
+    if (isPending) {
+      return;
+    }
     if (!user) {
       handleOpenModal();
       return;
