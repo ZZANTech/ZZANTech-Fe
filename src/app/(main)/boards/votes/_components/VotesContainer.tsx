@@ -53,10 +53,10 @@ function VotesContainer() {
         <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
         <Button
           onClick={handleWriteClick}
-          className="w-[124px] h-12 px-4 py-3.5 bg-[#e1ff01] rounded-lg flex justify-center items-center gap-2.5"
+          className="w-[124px] h-12 px-4 py-3.5 bg-main rounded-lg flex justify-center items-center gap-2.5"
         >
           <Image src="/icons/mypage/pencil_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
-          <span className="text-[#1b1b1b] text-base font-semibold leading-tight">글쓰기</span>
+          <span className="text-basic text-base font-semibold leading-tight">글쓰기</span>
         </Button>
       </div>
       <VotesList

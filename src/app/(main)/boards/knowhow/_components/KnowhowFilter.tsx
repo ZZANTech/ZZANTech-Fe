@@ -28,7 +28,7 @@ function KnowhowFilter({
       <SortOptions sortOrder={sortOrder} onSortOrderChange={onSortOrderChange} />
 
       <Button
-        className="w-[124px] h-12 px-4 py-3.5 bg-[#e1ff01] rounded-lg flex justify-center items-center gap-2.5"
+        className="w-[124px] h-12 px-4 py-3.5 bg-main rounded-lg flex justify-center items-center gap-2.5"
         href={"/boards/knowhow/write"}
       >
         <Image src="/icons/mypage/pencil_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
