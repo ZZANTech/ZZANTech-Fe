@@ -60,6 +60,7 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
           content={"content" in modalOptions ? modalOptions.content : ""}
           subContent={"subContent" in modalOptions ? modalOptions.subContent : ""}
           onConfirm={modalOptions.type === "confirm" ? handleConfirm : () => {}}
+          buttonContent={"buttonContent" in modalOptions ? modalOptions.buttonContent : ""}
           onCancel={modalOptions.type === "confirm" ? handleCancel : () => {}}
           onClose={modalOptions.type === "alert" || modalOptions.type === "nickname" ? handleClose : () => {}}
         />

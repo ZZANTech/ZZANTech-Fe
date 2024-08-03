@@ -32,8 +32,9 @@ body *:not([class*="letter-"]) {
 }
 @layer utilities {
   .MainLinkButton {
-    @apply px-2 py-5 mx-5 text-gray-800 text-[16px] text-center 
-    hover:font-bold hover:border-b-2 border-gray-800;
+    @apply px-3 py-4 border-b-2 border-transparent
+    transition-all duration-300 ease-in-out
+    hover:border-b-gray-800 hover:scale-125;
   }
   .AuthInputShort {
     @apply w-[260px] h-[48px] px-[16px] mb-1 border rounded-lg pointer-events-auto;
@@ -64,10 +65,19 @@ body *:not([class*="letter-"]) {
     @apply w-[348px] h-[56px] text-center items-center justify-center flex flex-row rounded-lg font-semibold gap-2.5 cursor-pointer;
   }
   .text-shadow {
-    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15); 
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
   }
   .line-shadow {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .ChatInputPlaceholder::placeholder {
+    color: var(--Gray-600, #767676);
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    padding-left: 10px;
   }
 }
 
@@ -99,9 +109,6 @@ body *:not([class*="letter-"]) {
 
   .knowhow-content li {
     @apply mb-2;
-  }
-
-  .knowhow-content p {
   }
 
   .knowhow-content .ql-indent-1 {
@@ -136,7 +143,11 @@ body *:not([class*="letter-"]) {
     @apply pl-32;
   }
 
-  .ql-toolbar ql-snow {
-    @apply overflow-hidden;
+  /* .quill_wrapper .ql-editor.ql-blank {
+    @apply border border-gray-900;
   }
+
+  .quill_wrapper .ql-toolbar.ql-snow {
+    @apply border-t border-x border-x-gray-900 border-t-gray-900;
+  } */
 }

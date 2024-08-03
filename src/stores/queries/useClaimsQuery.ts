@@ -4,9 +4,8 @@ import { useQuery } from "@tanstack/react-query";
 
 const useClaimsQuery = (userId: string) => {
   return useQuery({
-    queryKey: ["claims", userId],
+    queryKey: ["claims", { userId }],
     queryFn: () => getClaims(userId)
-    // enabled: !!userId
   });
 };
 

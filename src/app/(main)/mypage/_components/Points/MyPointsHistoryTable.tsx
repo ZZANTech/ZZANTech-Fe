@@ -3,45 +3,69 @@
 import { useUserContext } from "@/provider/contexts/UserContext";
 import usePointsQuery from "@/stores/queries/usePointsQuery";
 import { formatTime } from "@/app/(main)/boards/_utils";
+import { Suspense, useState } from "react";
+import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
+import { useSearchParams } from "next/navigation";
 
 function MyPointsHistoryTable() {
   const { user } = useUserContext();
   const userId = user?.userId ?? "";
-  const { data, isLoading, isError } = usePointsQuery(userId);
+
+  const searchParams = useSearchParams();
+
+  const [currentPage, setCurrentPage] = useState<number>(() => parseInt(searchParams.get("page") || "1", 10));
+  const itemsPerPage = 10;
+  const { data: response, isLoading } = usePointsQuery(currentPage, itemsPerPage, userId);
+  const points = response?.data || [];
+  const totalItems = response?.totalCount || 0;
+
+  const handlePageChange = (page: number) => setCurrentPage(page);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
   }
 
-  if (!data || data.length === 0) {
+  if (!points || points.length === 0) {
     return <div>포인트 내역이 존재하지 않습니다.</div>;
   }
 
   return (
-    <div>
-      <h4>포인트 내역</h4>
-      <table>
-        <thead>
-          <tr>
-            <th>날짜</th>
-            <th>포인트</th>
-            <th>내역</th>
+    <div className="w-[924px] mb-[120px]">
+      <table className="w-full border-collapse">
+        <thead className="border-t border-basic">
+          <tr className="flex w-full justify-between items-center">
+            <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">날짜</th>
+            <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">적립 포인트</th>
+            <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">사용 포인트</th>
+            <th className="w-2/5 text-center text-gray-800 text-base font-semibold py-4">내용</th>
           </tr>
         </thead>
-        <tbody>
-          {/* 추후 디자인에 맞춰 수정 */}
-          {data.map((point) => {
+        <tbody className="flex-col w-full">
+          {points.map((point, index) => {
             const { formattedDate } = formatTime(point.created_at);
             return (
-              <tr key={point.pointId}>
-                <td>{formattedDate}</td>
-                <td>{point.point}p</td>
-                <td>{point.reason}</td>
+              <tr
+                key={point.pointId}
+                className={`flex w-full justify-between items-center border-b border-gray-300 ${
+                  index === 0 ? "border-t" : ""
+                }`}
+              >
+                <td className="w-1/5 text-center text-gray-800 text-base py-4">{formattedDate}</td>
+                <td className="w-1/5 text-center text-info-green text-base py-4">
+                  {point.point > 0 ? `+${point.point.toLocaleString()}P` : ""}
+                </td>
+                <td className="w-1/5 text-center text-info-red text-base py-4">
+                  {point.point < 0 ? `${point.point.toLocaleString()}P` : ""}
+                </td>
+                <td className="w-2/5 text-center text-gray-800 text-base py-4">{point.reason}</td>
               </tr>
             );
           })}
         </tbody>
       </table>
+      <Suspense>
+        <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} onPageChange={handlePageChange} />
+      </Suspense>
     </div>
   );
 }

@@ -7,7 +7,7 @@ async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowI
   const knowhow = await getKnowhow(knowhowId);
 
   return (
-    <main className="p-3">
+    <main className="max-w-[922px] mt-9 mx-auto flex flex-col">
       <PostContent knowhow={knowhow} />
       <PostActions knowhow={knowhow} />
       <CommentsContainer postId={knowhowId} board="knowhow" />

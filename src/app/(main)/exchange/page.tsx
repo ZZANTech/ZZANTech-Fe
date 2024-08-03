@@ -1,7 +1,5 @@
 import { getGifts } from "@/apis/exchange";
 import ExchangeContainer from "@/app/(main)/exchange/_components/ExchangeContainer";
-import GiftContainer from "@/app/(main)/exchange/_components/GiftContainer";
-import FilterOption from "@/app/(main)/mypage/posts/_components/FilterOption";
 import { HydrationBoundary, QueryClient, dehydrate, queryOptions } from "@tanstack/react-query";
 
 async function ExchangePage() {
@@ -15,7 +13,7 @@ async function ExchangePage() {
   await queryClient.prefetchQuery(giftsOptions);
 
   return (
-    <div className="w-full">
+    <div className="w-full mt-24">
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ExchangeContainer />
       </HydrationBoundary>

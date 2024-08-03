@@ -31,8 +31,8 @@ export const GIFTS = "gifts";
 export const CLAIM = "claim";
 
 export const EXCHANGE_FILTER_OPTION = [
-  { value: GIFTS, label: "기프티콘" },
-  { value: CLAIM, label: "ㅁㄴㅇ상태" }
+  { value: GIFTS, label: "상품목록" },
+  { value: CLAIM, label: "교환내역" }
 ];
 
 export const MAX_CONTENT_LENGTH = 1000;

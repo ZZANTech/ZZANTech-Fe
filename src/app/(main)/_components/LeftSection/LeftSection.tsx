@@ -4,11 +4,17 @@ import TopVotes from "@/app/(main)/_components/LeftSection/TopVotes";
 
 function LeftSection() {
   return (
-    <section className="flex flex-col">
-      <TopVotes />
-      <LiveChattingBanner />
-      <TopKnowhows />
-    </section>
+    <div className="flex flex-col">
+      <section>
+        <TopVotes />
+      </section>
+      <section>
+        <LiveChattingBanner />
+      </section>
+      <section className="mt-[55px]">
+        <TopKnowhows />
+      </section>
+    </div>
   );
 }
 
