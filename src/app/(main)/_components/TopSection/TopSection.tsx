@@ -1,4 +1,4 @@
-import QuizUi from "@/app/(main)/_components/QuizUi";
+import QuizUi from "@/app/(main)/_components/TopSection/QuizUi";
 import Image from "next/image";
 import Link from "next/link";
 
