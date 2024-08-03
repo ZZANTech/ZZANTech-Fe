@@ -39,17 +39,16 @@ const getModules = (imageHandler: () => void) => ({
   toolbar: {
     container: [
       [{ header: [1, 2, 3, 4, 5, false] }],
-      ["bold", "italic", "underline", "strike"],
-      [{ list: "ordered" }, { list: "bullet" }],
-      [{ script: "sub" }, { script: "super" }],
+      ["bold"],
+      // [{ list: "ordered" }, { list: "bullet" }],
+      // [{ script: "sub" }, { script: "super" }],
       // [{ indent: "-1" }, { indent: "+1" }],
       // [{ direction: "rtl" }],
-      [{ size: ["small", false, "large", "huge"] }],
-      [{ color: [] }, { background: [] }],
+      // [{ size: ["small", false, "large", "huge"] }],
+      // [{ color: [] }, { background: [] }],
       // [{ font: [] }],
-      [{ align: [] }],
-      ["link", "image"],
-      ["clean"]
+      // [{ align: [] }],
+      ["link", "image"]
     ],
     handlers: {
       image: imageHandler

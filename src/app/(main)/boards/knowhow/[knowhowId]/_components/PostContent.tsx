@@ -13,11 +13,12 @@ function PostContent({ knowhow }: PostContentProps) {
 
   if (knowhow)
     return (
-      <section className="px-[70px] py-11 min-h-[700px] border border-[#000] rounded-xl mb-[38px]">
-        <h1 className="text-[32px] text-[#000] font-semibold ">{knowhow.title}</h1>
-        <div className="flex gap-11">
-          <div className="flex gap-2">
-            <Image src={knowhow.badge_url || ""} alt="badge" width={24} height={24} />
+      <section className="py-9 w-full min-h-[700px] overflow-auto  mb-[38px] border-b border-[#000]">
+        <h1 className="text-[32px] mb-3  text-[#000] font-semibold ">{knowhow.title}</h1>
+
+        <div className="flex gap-5 items-center mb-10">
+          <div className="flex gap-1">
+            {/* <Image src={knowhow.badge_url || ""} alt="badge" width={24} height={24} /> */}
             <span className="font-semibold text-[#2D2D2D]">{knowhow.nickname}</span>
           </div>
           <time className="flex items-center text-[#5A5A5A] ">
@@ -26,8 +27,9 @@ function PostContent({ knowhow }: PostContentProps) {
             <span className="ml-[7px]">{formattedTime}</span>
           </time>
         </div>
+
         <article
-          className="text-[#5A5A5A] knowhow-content mt-12"
+          className=" text-[#5A5A5A] knowhow-content mt-12"
           dangerouslySetInnerHTML={{ __html: knowhow.content }}
         />
       </section>

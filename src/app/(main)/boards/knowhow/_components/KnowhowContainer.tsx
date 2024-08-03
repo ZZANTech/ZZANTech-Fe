@@ -16,18 +16,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Button from "@/components/Button/Button";
 import { useModal } from "@/provider/contexts/ModalContext";
 import useAlertModal from "@/hooks/useAlertModal";
+import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 
-const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
-  loading: () => (
-    <ul className="flex flex-col  gap-8 mb-[13px]">
-      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
-      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
-      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
-      <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
-    </ul>
-  ),
-  ssr: false
-});
+// const KnowhowList = dynamic(() => import("@/app/(main)/boards/knowhow/_components/KnowhowList"), {
+//   loading: () => (
+//     <ul className="flex flex-col  gap-8 mb-[13px]">
+//       <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+//       <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+//       <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+//       <li className="w-full h-[220px] bg-gray-50 rounded-xl px-10 py-5"></li>
+//     </ul>
+//   ),
+//   ssr: false
+// });
 
 function KnowhowContainer() {
   const { displayDefaultAlert } = useAlertModal();
