@@ -20,7 +20,7 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
   const modal = useModal();
   const router = useRouter();
 
-  const { data: voteData } = useVoteLikesQuery(voteId);
+  const { data: voteData, isPending } = useVoteLikesQuery(voteId);
 
   const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
   const [optimisticVoteData, setOptimisticVoteData] = useState<TVoteLikeCountsResponse | null>(null);
@@ -38,12 +38,16 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
 
   const handleOpenModal = () =>
     modal.open({
-      type: "confirm",
-      content: "로그인 후 이용해 주세요.",
-      onConfirm: () => router.push("/login")
+      type: "alert",
+      content: "로그인이 필요한 서비스에요",
+      buttonContent: "로그인하기",
+      onClose: () => router.push("/login")
     });
 
   const handleVote = async (type: "GOOD" | "BAD") => {
+    if (isPending) {
+      return;
+    }
     if (!user) {
       handleOpenModal();
       return;

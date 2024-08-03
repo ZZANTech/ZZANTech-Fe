@@ -19,10 +19,10 @@ function SortOptions({ onSortOrderChange, sortOrder }: SortOptionsProps) {
   };
 
   return (
-    <div className="flex gap-[11px]">
+    <div className="justify-start items-center gap-[11px] flex">
       {SORT_OPTIONS.map((option) => (
         <button
-          className={` ${option.value === sortOrder ? "text-[#569A68]" : "text-[#767676]"}`}
+          className={`text-base font-semibold leading-normal ${option.value === sortOrder ? "text-point" : "text-[#767676]"}`}
           key={option.value}
           onClick={() => handleSortOrderChange(option.value)}
         >

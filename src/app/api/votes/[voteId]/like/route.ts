@@ -86,6 +86,21 @@ export const POST = async (req: NextRequest) => {
 
   try {
     if (voteData) {
+      const { data: existingVoteData, error: existingVoteError } = await supabase
+        .from("vote_likes")
+        .select("*")
+        .eq("user_id", voteData.user_id)
+        .eq("vote_post_id", voteData.vote_post_id)
+        .single();
+
+      if (existingVoteError && existingVoteError.code !== "PGRST116") {
+        throw new Error("좋아요 기록을 가져오지 못했습니다.");
+      }
+
+      if (existingVoteData) {
+        throw new Error("이미 이 게시물에 좋아요를 눌렀습니다.");
+      }
+
       const { status, statusText, error } = await supabase.from("vote_likes").insert(voteData).single();
 
       if (error) {

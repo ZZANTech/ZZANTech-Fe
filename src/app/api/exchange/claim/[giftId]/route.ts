@@ -1,4 +1,6 @@
+import { revalidateRoute } from "@/utils/revalidation";
 import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest, { params }: { params: { giftId: string } }) => {
@@ -8,12 +10,6 @@ export const POST = async (req: NextRequest, { params }: { params: { giftId: str
 
   try {
     if (giftId) {
-      const { status, statusText, error } = await supabase.from("gift_claims").insert(newClaim).single();
-
-      if (error) {
-        throw new Error("기프티콘 교환에 실패했습니다.");
-      }
-
       const { data: gift, error: giftError } = await supabase
         .from("gifts")
         .select("*")
@@ -42,6 +38,12 @@ export const POST = async (req: NextRequest, { params }: { params: { giftId: str
         return NextResponse.json({ error: "포인트가 부족합니다" }, { status: 400 });
       }
 
+      const { status, statusText, error } = await supabase.from("gift_claims").insert(newClaim).single();
+
+      if (error) {
+        throw new Error("기프티콘 교환에 실패했습니다.");
+      }
+
       const newPoint = currentPoint - POINT_TO_SUBSTRACT;
 
       const { error: pointError } = await supabase.from("points").insert({
@@ -64,6 +66,7 @@ export const POST = async (req: NextRequest, { params }: { params: { giftId: str
         throw new Error("유저의 포인트 업데이트 실패");
       }
 
+      revalidatePath("/", "layout");
       return NextResponse.json({ status, statusText });
     } else {
       return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });

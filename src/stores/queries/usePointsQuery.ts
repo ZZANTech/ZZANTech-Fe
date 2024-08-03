@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { TPoint } from "@/types/point.type";
 import { getPointsDetail } from "@/apis/point";
+import { Tables } from "@/types/supabase";
+import { TPointResponse } from "@/types/point.type";
 
-const usePointsQuery = (userId: string) => {
-  return useQuery<TPoint[], Error>({
-    queryKey: ["points", { userId }],
-    queryFn: () => getPointsDetail(userId),
+const usePointsQuery = (page: number, limit: number, userId: Tables<"users">["userId"]) => {
+  return useQuery<TPointResponse, Error>({
+    queryKey: ["points", { page, limit, userId }],
+    queryFn: () => getPointsDetail(userId, page, limit),
     enabled: !!userId
   });
 };

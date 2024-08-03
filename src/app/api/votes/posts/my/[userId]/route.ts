@@ -1,7 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
-export const GET = async (req: Request) => {
+export const GET = async (req: Request, { params }: { params: { userId: string } }) => {
+  const userId = params.userId;
   const supabase = createClient();
   const url = new URL(req.url);
   const page = parseInt(url.searchParams.get("page") || "1");
@@ -12,7 +13,7 @@ export const GET = async (req: Request) => {
     const { data: posts, error: postsError } = await supabase.rpc("get_my_votes", {
       limit_param: limit,
       offset_param: offset,
-      user_id_param: "a16e76cd-30fb-4130-b321-ec457d17783c"
+      user_id_param: userId
     });
     if (postsError) {
       throw new Error("게시글을 불러오지 못했습니다.");

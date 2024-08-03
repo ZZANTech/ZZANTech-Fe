@@ -1,18 +1,22 @@
+import { splitMessage } from "@/utils/splitMessage";
+
 export const validatePassword = (
   oldPassword: string,
   newPassword: string,
   confirmPassword: string,
-  displayDefaultAlert: (content: string) => void
+  displayDefaultAlert: (content: string, subContent?: string, buttonContent?: string) => void
 ): void => {
   if (!oldPassword) {
-    displayDefaultAlert("비밀번호를 입력 해 주세요.");
+    displayDefaultAlert("비밀번호를 입력 해 주세요");
   }
 
   if (!newPassword || newPassword.length < 5 || newPassword.length > 20) {
-    displayDefaultAlert("비밀번호는 6자 이상 20자 이하이어야 합니다.");
+    const { firstLine, secondLine } = splitMessage("적합하지 않은 비밀번호입니다 8~16자 이내로 다시 입력해 주세요");
+    displayDefaultAlert(firstLine, secondLine);
   }
 
   if (newPassword !== confirmPassword) {
-    displayDefaultAlert("새 비밀번호의 값이 일치하지 않습니다.");
+    const { firstLine, secondLine } = splitMessage("새 비밀번호가 일치하지 않습니다 정확하게 다시 입력해 주세요");
+    displayDefaultAlert(firstLine, secondLine);
   }
 };

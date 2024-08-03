@@ -5,12 +5,7 @@ import useGiftsQuery from "@/stores/queries/useGiftsQuery";
 
 function GiftContainer() {
   const { data: gifts } = useGiftsQuery();
-  return (
-    <article>
-      <h2>기프티콘~</h2>
-      {gifts && <GiftList gifts={gifts} />}
-    </article>
-  );
+  return <article>{gifts && <GiftList gifts={gifts} />}</article>;
 }
 
 export default GiftContainer;

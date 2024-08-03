@@ -6,6 +6,7 @@ import { useUserContext } from "@/provider/contexts/UserContext";
 import { useRouter } from "next/navigation";
 import useVoteMutation from "@/stores/queries/useVoteMutation";
 import { TVote } from "@/types/vote.type";
+import useConfirmModal from "@/hooks/useConfirmModal";
 
 type ActionNavProps = {
   vote: TVote;
@@ -16,6 +17,7 @@ function ActionNav({ vote }: ActionNavProps) {
   const router = useRouter();
 
   const { displayDefaultAlert } = useAlertModal();
+  const { displayDeleteModal } = useConfirmModal();
 
   const modal = useModal();
   const { removeVote } = useVoteMutation();
@@ -30,12 +32,11 @@ function ActionNav({ vote }: ActionNavProps) {
     }
   };
 
-  const handleOpenModal = () =>
-    modal.open({
-      content: "정말 게시글을 삭제하시겠습니까?",
-      type: "confirm",
-      onConfirm: handleDeleteVote
-    });
+  const handleOpenModal = () => displayDeleteModal(handleDeleteVote);
+
+  const handleNavigate = (url: string) => {
+    router.push(url);
+  };
 
   const handleNavigate = (url: string) => {
     router.push(url);
