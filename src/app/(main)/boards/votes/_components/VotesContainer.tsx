@@ -7,6 +7,7 @@ import SortButtons from "@/app/(main)/boards/votes/_components/SortButtons";
 import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import SkeletonVoteList from "@/app/(main)/boards/votes/_components/SkeletonVoteList";
 
 function VotesContainer() {
   const router = useRouter();
@@ -43,10 +44,6 @@ function VotesContainer() {
     [isLoading, hasNextPage, fetchNextPage]
   );
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <section className="w-full flex flex-col gap-6">
       <div className="w-full h-12 flex justify-between items-end">
@@ -59,11 +56,15 @@ function VotesContainer() {
           <span className="text-basic text-base font-semibold leading-tight">글쓰기</span>
         </Button>
       </div>
-      <VotesList
-        votes={data?.pages.flatMap((page) => page.data)}
-        lastVoteElementRef={lastVoteElementRef}
-        sortOrder={sortOrder}
-      />
+      {isLoading ? (
+        <SkeletonVoteList />
+      ) : (
+        <VotesList
+          votes={data?.pages.flatMap((page) => page.data)}
+          lastVoteElementRef={lastVoteElementRef}
+          sortOrder={sortOrder}
+        />
+      )}
     </section>
   );
 }
