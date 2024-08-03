@@ -7,7 +7,7 @@ type ClaimListProps = {
 };
 function ClaimList({ claims }: ClaimListProps) {
   return (
-    <ul className="">
+    <ul className="flex flex-col gap-7 mt-8">
       {claims.map((claim) => (
         <ClaimItem key={claim.gift_id} claim={claim} />
       ))}

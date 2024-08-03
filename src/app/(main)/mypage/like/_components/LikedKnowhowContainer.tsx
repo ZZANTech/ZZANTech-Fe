@@ -24,17 +24,19 @@ function LikedKnowhowContainer() {
     }
   }, [searchParams, currentPage]);
 
+  const totalItems = knowhows ? knowhows[0]?.total_count || 0 : 0;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
   return (
     <section>
+      <h1 className="my-[63px] ml-[11px] text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
       {knowhows && knowhows.length > 0 && (
         <>
           <Suspense>
             <KnowhowList knowhows={knowhows} />
-            <Pagination
-              totalItems={knowhows[0]?.total_count || 0}
-              itemsPerPage={ITEMS_PER_PAGE}
-              onPageChange={handlePageChange}
-            />
+            {totalPages > 1 && (
+              <Pagination totalItems={totalItems} itemsPerPage={ITEMS_PER_PAGE} onPageChange={handlePageChange} />
+            )}
           </Suspense>
         </>
       )}
