@@ -36,7 +36,6 @@ function UserEditPassword() {
           </div>
 
           <div className="flex flex-col gap-2">
-            {" "}
             <label className="text-sm leading-5">새 비밀번호</label>
             <input
               type="password"
@@ -49,7 +48,6 @@ function UserEditPassword() {
           </div>
 
           <div className="flex flex-col gap-2">
-            {" "}
             <label className="text-sm leading-5">새 비밀번호 확인</label>
             <input
               type="password"

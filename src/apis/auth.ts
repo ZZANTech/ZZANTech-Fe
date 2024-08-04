@@ -1,5 +1,7 @@
 import { TChangePassword } from "@/types/user.type";
 import { Dispatch, SetStateAction } from "react";
+import { BASE_URL } from "@/constants";
+import { TUserInsert } from "@/types/user.type";
 
 export const logout = async () => {
   const response = await fetch("/api/auth/login", { method: "DELETE" });
@@ -10,7 +12,24 @@ export const logout = async () => {
   return response.json();
 };
 
-//중복확인 및 update API
+// 회원가입
+export async function signUp(data: TUserInsert) {
+  const response = await fetch(`${BASE_URL}/api/auth/signup`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    throw new Error("회원가입에 실패했습니다.");
+  }
+
+  return response.json();
+}
+
+//마이페이지 : 중복확인 및 update API
 export const updateNickname = async (
   nickname: string,
   email: string | undefined,
@@ -48,6 +67,7 @@ export const updateNickname = async (
   return res;
 };
 
+// 마이페이지 : 비밀번호 변경 apis
 export const patchPassword = async (password: TChangePassword) => {
   const res = await fetch("/api/auth/mypage/password", {
     method: "PATCH",

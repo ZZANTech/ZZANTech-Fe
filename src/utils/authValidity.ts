@@ -1,7 +1,6 @@
-//유효성 검사
-
 import { Dispatch, SetStateAction } from "react";
 
+// 로그인 : 이메일
 export const checkEmailValidity = ({
   email,
   setEmailMessage,
@@ -29,6 +28,7 @@ export const checkEmailValidity = ({
   }
 };
 
+// 로그인 : 비밀번호
 export const checkPasswordValidity = ({
   password,
   setPasswordMessage,
@@ -56,6 +56,7 @@ export const checkPasswordValidity = ({
   }
 };
 
+// 마이페이지: 닉네임 변경
 export const checkNicknameValidity = ({
   nickname,
   setNicknameError
@@ -68,8 +69,8 @@ export const checkNicknameValidity = ({
     return;
   }
 
-  if (nickname.length < 2 || nickname.length > 40) {
-    setNicknameError("닉네임은 2자 이상이어야 합니다.");
+  if (nickname.length < 2 || nickname.length > 8) {
+    setNicknameError("닉네임은 2자 이상 7자 이하이어야 합니다.");
     return;
   }
 
