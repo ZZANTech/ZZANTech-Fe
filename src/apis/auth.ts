@@ -10,13 +10,13 @@ export const logout = async () => {
   return response.json();
 };
 
+//중복확인 및 update API
 export const updateNickname = async (
   nickname: string,
   email: string | undefined,
   setNicknameError: Dispatch<SetStateAction<string>>,
   setIsNicknameValid: Dispatch<SetStateAction<boolean | null>>
 ) => {
-  //중복확인 및 update API
   const res = await fetch("/api/auth/mypage/nickname", {
     method: "POST",
     headers: {
@@ -45,7 +45,6 @@ export const updateNickname = async (
     setNicknameError("");
     setIsNicknameValid(true);
   }
-
   return res;
 };
 

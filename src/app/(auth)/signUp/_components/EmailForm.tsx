@@ -21,6 +21,7 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
       return;
     }
     let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
+
     if (users!.length > 0) {
       //users의 타입정의 필요
       setIsDuplicated(true);
