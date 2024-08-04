@@ -1,6 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
+// 로그인
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
@@ -38,6 +39,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
+// 로그아웃
 export async function DELETE() {
   const supabase = createClient();
 

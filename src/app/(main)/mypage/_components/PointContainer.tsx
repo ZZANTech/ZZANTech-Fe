@@ -35,7 +35,7 @@ function PointContainer() {
 
         <button
           onClick={handlePointsHistoryClick}
-          className="flex items-center justify-center  w-[112px] h-10 px-4 py-3.5 text-sm font-semibold bg-[#111111] text-white rounded-md"
+          className="flex items-center justify-center w-[120px] h-10 px-4 py-3.5 text-sm font-semibold bg-[#111111] text-white rounded-md"
         >
           사용 내역
         </button>

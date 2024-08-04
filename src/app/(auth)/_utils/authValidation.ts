@@ -1,5 +1,6 @@
 import { splitMessage } from "@/utils/splitMessage";
 
+// 마이페이지 : 비밀번호 유효성 검사
 export const validatePassword = (
   oldPassword: string,
   newPassword: string,

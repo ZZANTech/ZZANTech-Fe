@@ -34,10 +34,11 @@ function VoteContent({ vote }: VoteContentProps) {
           </div>
           <div className="w-[436px] flex flex-col justify-start items-center gap-8">
             <div className="w-full flex flex-col gap-6">
-              <div className="relative w-full h-[300px] overflow-hidden">
+              <div className="relative w-full h-[300px] overflow-hidden group">
                 <Image src={image_url} alt="게시글 이미지" className="rounded-xl object-cover" layout="fill" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent rounded-xl"></div>
-                <div className="absolute bottom-4 right-[20px] text-right text-white text-base font-normal">
+                <div className="transition-opacity duration-300 absolute inset-0 rounded-xl group-hover:opacity-0 bg-[linear-gradient(to_top,rgba(0,0,0,0.7),transparent_30%)]"></div>
+
+                <div className="absolute bottom-4 right-[20px] text-right text-white  text-base font-normal transition-opacity duration-300 group-hover:opacity-0">
                   <div>{product_name}</div>
                   <div>{product_price.toLocaleString()} 원</div>
                 </div>

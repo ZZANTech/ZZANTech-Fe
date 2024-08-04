@@ -1,6 +1,6 @@
 "use client";
 
-import { signUp } from "@/apis/signup";
+import { signUp } from "@/apis/auth";
 import EmailForm from "@/app/(auth)/signUp/_components/EmailForm";
 import NicknameForm from "@/app/(auth)/signUp/_components/NicknameForm";
 import PasswordForm from "@/app/(auth)/signUp/_components/PasswordForm";

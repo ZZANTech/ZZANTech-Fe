@@ -21,6 +21,7 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
       return;
     }
     let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
+
     if (users!.length > 0) {
       //users의 타입정의 필요
       setIsDuplicated(true);
@@ -38,6 +39,7 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
         <input
           type="email"
           value={email}
+          maxLength={40}
           placeholder="이메일을 입력해주세요"
           className={`AuthInputShort ${isDuplicated || isInvalidEmail ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
           onChange={(e) => {

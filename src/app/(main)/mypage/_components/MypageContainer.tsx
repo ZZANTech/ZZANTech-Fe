@@ -1,9 +1,9 @@
 "use client";
 import InfoContainer from "@/app/(main)/mypage/_components/InfoContainer";
-import LevelContainer from "@/app/(main)/mypage/_components/LevelContainer";
-import MyPostsContainer from "@/app/(main)/mypage/_components/MyPosts/MyPostsContainer";
-import OtherPostsContainer from "@/app/(main)/mypage/_components/OtherPosts/OtherPostsContainer";
 import PointContainer from "@/app/(main)/mypage/_components/PointContainer";
+import LevelContainer from "@/app/(main)/mypage/_components/LevelContainer";
+import MyPostsContainer from "@/app/(main)/mypage/_components/MyPostsContainer";
+import OtherPostsContainer from "@/app/(main)/mypage/_components/OtherPostsContainer";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import { useUserContext } from "@/provider/contexts/UserContext";
 
