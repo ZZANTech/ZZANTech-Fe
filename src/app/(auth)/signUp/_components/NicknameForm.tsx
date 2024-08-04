@@ -40,6 +40,7 @@ function NicknameForm({ nickname, setNickname }: { nickname: string; setNickname
         <input
           type="text"
           value={nickname}
+          maxLength={40}
           placeholder="닉네임을 입력해주세요"
           className={`AuthInputShort ${
             isDuplicated || isInvalidNickname ? "border-info-red" : isCorrected ? "border-info-green" : ""

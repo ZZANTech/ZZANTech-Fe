@@ -22,6 +22,7 @@ function PasswordForm({ password, setPassword }: { password: string; setPassword
       <input
         type="password"
         value={password}
+        maxLength={40}
         placeholder="비밀번호를 입력해주세요"
         className={`AuthInput ${isPasswordInvalid ? "border-info-red" : isPasswordValid ? "border-info-green" : ""}`}
         onChange={handlePasswordChange}
