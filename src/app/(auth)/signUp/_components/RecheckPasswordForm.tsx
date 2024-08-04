@@ -17,6 +17,7 @@ function RecheckPasswordForm({
       <input
         type="password"
         value={confirmPassword}
+        maxLength={40}
         placeholder="비밀번호를 다시 입력해주세요"
         className={`AuthInput ${confirmPassword && (confirmPassword !== password ? "border-info-red" : "border-info-green")}`}
         onChange={handleConfirmPasswordChange}

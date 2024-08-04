@@ -38,6 +38,7 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
         <input
           type="email"
           value={email}
+          maxLength={40}
           placeholder="이메일을 입력해주세요"
           className={`AuthInputShort ${isDuplicated || isInvalidEmail ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
           onChange={(e) => {
