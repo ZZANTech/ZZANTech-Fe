@@ -5,7 +5,7 @@ import SkeletonKnowhowList from "@/app/(main)/boards/knowhow/_components/Skeleto
 import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import useLikedKnowhowsQuery from "@/stores/queries/useLikedKnowhowsQuery";
+import useLikedKnowhowsQuery from "@/stores/queries/knowhow/post/useLikedKnowhowsQuery";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
@@ -34,7 +34,6 @@ function LikedKnowhowContainer() {
       <h1 className="my-[63px] ml-[11px] text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
 
       {isPending ? (
-
         <SkeletonKnowhowList />
       ) : knowhows && knowhows.length > 0 ? (
         <>

@@ -2,13 +2,13 @@
 import Button from "@/components/Button/Button";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import useExchangeMutation from "@/stores/queries/useExchangeMutation";
 import { Tables } from "@/types/supabase";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import point from "/public/icons/point.png";
 import { formatNumberWithCommas } from "@/app/(main)/boards/_utils";
 import useAlertModal from "@/hooks/useAlertModal";
+import useExchangeMutation from "@/stores/queries/exchange/useExchangeMutation";
 
 type GiftItemProps = {
   gift: Tables<"gifts">;

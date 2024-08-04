@@ -3,7 +3,7 @@
 import { FormEventHandler, useState } from "react";
 import { useRouter } from "next/navigation";
 import { TVote } from "@/types/vote.type";
-import useVoteMutation from "@/stores/queries/useVoteMutation";
+import useVoteMutation from "@/stores/queries/vote/post/useVoteMutation";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { uploadImage } from "@/apis/chat";
 import useAlertModal from "@/hooks/useAlertModal";

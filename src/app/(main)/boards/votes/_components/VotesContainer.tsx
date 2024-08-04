@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
-import useVotesQuery from "@/stores/queries/useVotesQuery";
+import useVotesQuery from "@/stores/queries/vote/post/useVotesQuery";
 import Button from "@/components/Button/Button";
 import SortButtons from "@/app/(main)/boards/votes/_components/SortButtons";
 import VotesList from "@/app/(main)/boards/votes/_components/VotesList";

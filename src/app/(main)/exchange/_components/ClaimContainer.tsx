@@ -5,8 +5,7 @@ import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage
 import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
 import useAlertModal from "@/hooks/useAlertModal";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import useClaimsQuery from "@/stores/queries/useClaimsQuery";
-import { useEffect } from "react";
+import useClaimsQuery from "@/stores/queries/exchange/useClaimsQuery";
 
 function ClaimContainer() {
   const { user } = useUserContext();

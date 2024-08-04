@@ -3,8 +3,8 @@
 import useAlertModal from "@/hooks/useAlertModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
-import useVoteCommentMutation from "@/stores/queries/useVoteCommentMutation";
+import useKnowhowCommentMutation from "@/stores/queries/knowhow/comment/useKnowhowCommentMutation";
+import useVoteCommentMutation from "@/stores/queries/vote/comment/useVoteCommentMutation";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { FormEventHandler, useRef } from "react";

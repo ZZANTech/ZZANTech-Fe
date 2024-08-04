@@ -3,7 +3,7 @@ import Button from "@/components/Button/Button";
 import useConfirmModal from "@/hooks/useConfirmModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import useKnowhowMutation from "@/stores/queries/useKnowhowMutation";
+import useKnowhowMutation from "@/stores/queries/knowhow/post/useKnowhowMutation";
 import { TKnowhow } from "@/types/knowhow.type";
 import Link from "next/link";
 

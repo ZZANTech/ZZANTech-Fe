@@ -1,5 +1,5 @@
 "use client";
-import useKnowhowsQuery from "@/stores/queries/useKnowhowsQuery";
+import useKnowhowsQuery from "@/stores/queries/knowhow/post/useKnowhowsQuery";
 import { Suspense, useEffect, useState } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import useVoteLikesQuery from "@/stores/queries/useVoteLikesQuery";
+import useVoteLikesQuery from "@/stores/queries/vote/like/useVoteLikesQuery";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/provider/contexts/ModalContext";
-import useVoteLikeMutation from "@/stores/queries/useVoteLikeMutation";
+import useVoteLikeMutation from "@/stores/queries/vote/like/useVoteLikeMutation";
 import { TVoteLikeCountsResponse } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
 import Image from "next/image";

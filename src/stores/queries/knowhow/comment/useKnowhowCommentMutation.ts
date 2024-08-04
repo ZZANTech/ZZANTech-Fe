@@ -1,6 +1,6 @@
 import { deleteKnowhowComment, patchKnowhowComment, postKnowhowComment } from "@/apis/knowhow";
 import useAlertModal from "@/hooks/useAlertModal";
-import { DEFAULT_KNOWHOWS_QUERY_KEY } from "@/stores/queries/useKnowhowMutation";
+import { DEFAULT_KNOWHOWS_QUERY_KEY } from "@/stores/queries/knowhow/post/useKnowhowMutation";
 import { TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
