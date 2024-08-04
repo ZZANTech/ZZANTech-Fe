@@ -23,24 +23,24 @@ function PointContainer() {
             <p className="font-bold text-point leading-5">사용 가능 포인트</p>
             <div className="flex gap-2 items-center">
               <Image src={"/icons/mypage/coin.png"} width={36} height={36} alt="diamond" />
-              <p className="text-2xl font-bold">{current_point} P</p>
+              <p className="text-2xl font-bold">{current_point || 0} P</p>
             </div>
           </div>
           <div className="flex flex-col gap-3">
-            <p className="font-bold leading-5">누적 포인트</p>
-            <p className="text-2xl font-bold text-gray-800">{total_point} P</p>
+            <p className="font-bold text-[#333333] leading-5">누적 포인트</p>
+            <p className="text-2xl font-bold text-[#8b8b8b]">{total_point || 0} P</p>
           </div>
         </div>
 
         <button
           onClick={handlePointsHistoryClick}
-          className="w-[112px] h-10 p-3 text-sm font-semibold bg-black text-white rounded-md"
+          className="flex items-center justify-center  w-[112px] h-10 px-4 py-3.5 text-sm font-semibold bg-[#111111] text-white rounded-md"
         >
           사용 내역
         </button>
       </div>
-      <div className="flex justify-between">
-        <p className="text-sm">포인트 3,000점이 넘으면 기프티콘으로 교환하실 수 있어요</p>
+      <div className="flex justify-between ">
+        <p className="text-sm text-[#1b1b1b]">포인트 3,000점이 넘으면 기프티콘으로 교환하실 수 있어요</p>
         <Link href={"/exchange"} className="text-sm font-semibold underline">
           교환하기
         </Link>
