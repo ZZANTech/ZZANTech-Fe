@@ -38,10 +38,6 @@ function ActionNav({ vote }: ActionNavProps) {
     router.push(url);
   };
 
-  const handleNavigate = (url: string) => {
-    router.push(url);
-  };
-
   return (
     <div className="justify-start items-center gap-[22px] inline-flex">
       {user?.userId === vote.user_id && (
