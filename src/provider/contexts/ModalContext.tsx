@@ -1,5 +1,4 @@
 "use client";
-
 import Modal from "@/components/Modal/Modal";
 import { ModalProps } from "@/types/modal.type";
 import { createContext, ReactNode, useContext, useState } from "react";
@@ -25,28 +24,25 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
 
   const handleConfirm = () => {
     if (modalOptions?.type === "confirm") {
-      modalOptions?.onConfirm();
+      modalOptions.onConfirm();
       value.close();
     }
   };
 
   const handleCancel = () => {
     if (modalOptions?.type === "confirm") {
-      if (modalOptions.onCancel) {
-        modalOptions.onCancel();
-      }
+      modalOptions.onCancel?.();
       value.close();
     }
   };
 
   const handleClose = () => {
     if (modalOptions?.type === "alert") {
-      if (modalOptions.onClose) {
-        modalOptions.onClose();
-      }
+      modalOptions.onClose?.();
       value.close();
     }
   };
+
   const value = {
     open: (option: ModalProps) => {
       setModalOptions(option);
@@ -61,11 +57,12 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
       {modalOptions && (
         <Modal
           type={modalOptions.type}
-          content={modalOptions.content}
-          subContent={modalOptions.subContent}
-          onConfirm={handleConfirm}
-          onCancel={modalOptions.type === "confirm" ? handleCancel : undefined}
-          onClose={modalOptions.type === "alert" ? handleClose : undefined}
+          content={"content" in modalOptions ? modalOptions.content : ""}
+          subContent={"subContent" in modalOptions ? modalOptions.subContent : ""}
+          onConfirm={modalOptions.type === "confirm" ? handleConfirm : () => {}}
+          buttonContent={"buttonContent" in modalOptions ? modalOptions.buttonContent : ""}
+          onCancel={modalOptions.type === "confirm" ? handleCancel : () => {}}
+          onClose={modalOptions.type === "alert" || modalOptions.type === "nickname" ? handleClose : () => {}}
         />
       )}
     </ModalContext.Provider>

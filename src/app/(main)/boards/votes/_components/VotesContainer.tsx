@@ -6,15 +6,18 @@ import Button from "@/components/Button/Button";
 import SortButtons from "@/app/(main)/boards/votes/_components/SortButtons";
 import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import SkeletonVoteList from "@/app/(main)/boards/votes/_components/SkeletonVoteList";
 
 function VotesContainer() {
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState("latest");
+
   const { data, isLoading, fetchNextPage, hasNextPage } = useVotesQuery(sortOrder);
   const observer = useRef<IntersectionObserver | null>(null);
 
   const handleWriteClick = () => {
-    router.push("/boards/votes/write");
+    router.push(`/boards/votes/write`);
   };
 
   const handleSortOrderChange = (order: string) => {
@@ -41,15 +44,27 @@ function VotesContainer() {
     [isLoading, hasNextPage, fetchNextPage]
   );
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
-    <section>
-      <Button onClick={handleWriteClick}>글쓰기</Button>
-      <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
-      <VotesList votes={data?.pages.flatMap((page) => page.data)} lastVoteElementRef={lastVoteElementRef} />
+    <section className="w-full flex flex-col gap-6">
+      <div className="w-full h-12 flex justify-between items-end">
+        <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
+        <Button
+          onClick={handleWriteClick}
+          className="w-[124px] h-12 px-4 py-3.5 bg-main rounded-lg flex justify-center items-center gap-2.5"
+        >
+          <Image src="/icons/mypage/pencil_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
+          <span className="text-basic text-base font-semibold leading-tight">글쓰기</span>
+        </Button>
+      </div>
+      {isLoading ? (
+        <SkeletonVoteList />
+      ) : (
+        <VotesList
+          votes={data?.pages.flatMap((page) => page.data)}
+          lastVoteElementRef={lastVoteElementRef}
+          sortOrder={sortOrder}
+        />
+      )}
     </section>
   );
 }

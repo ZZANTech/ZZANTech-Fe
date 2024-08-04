@@ -1,48 +1,135 @@
 "use client";
 
+import { checkEmailValidity, checkPasswordValidity } from "@/utils/authValidity";
+import { useUserContext } from "@/provider/contexts/UserContext";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { MouseEventHandler, useState } from "react";
-import { useUserContext } from "@/provider/contexts/UserContext";
-import LoginEmailForm from "@/app/(auth)/login/_components/LoginEmailForm";
-import LoginPasswordForm from "@/app/(auth)/login/_components/LoginPasswordForm";
+import { useEffect, useRef, useState } from "react";
+import { useModal } from "@/provider/contexts/ModalContext";
 
 function LoginContainer() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+  const [emailMessage, setEmailMessage] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [passwordMessage, setPasswordMessage] = useState<string>("");
+  const [passwordError, setPasswordError] = useState<string>("");
+  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  const modal = useModal();
   const router = useRouter();
-  const { logIn } = useUserContext();
+  const { user, logIn } = useUserContext();
 
-  const handleClickLogin: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    e.preventDefault();
-    logIn(email, password);
-    router.replace("/");
+  const handleLogin = async () => {
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
+
+    //로그인 서버 통신 로직
+    try {
+      await logIn(email, password);
+    } catch (error: any) {
+      modal.open({
+        type: "alert",
+        content: error.message
+      });
+    }
   };
 
-  const handleClickKakaoLogin: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    e.preventDefault();
-    // logIn(email, password);
-    // router.replace("/");
+  useEffect(() => {
+    if (user) {
+      router.replace("/");
+    }
+  }, [user, router]);
+
+  useEffect(() => {
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
+
+    if (email) {
+      checkEmailValidity({ email, setEmailMessage, setEmailError });
+    }
+    if (password) {
+      checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
+    }
+  }, []);
+
+  const validateInputs = () => {
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
+
+    if (!email) {
+      setEmailMessage("");
+      setEmailError("이메일을 입력해주세요.");
+    } else {
+      checkEmailValidity({ email, setEmailMessage, setEmailError });
+    }
+
+    if (!password) {
+      setPasswordMessage("");
+      setPasswordError("비밀번호를 입력해주세요.");
+    } else {
+      checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
+    }
+
+    setIsFormValid(email !== "" && password !== "");
   };
 
   return (
-    <div className="flex flex-col items-center w-[340px] mx-auto my-10 p-10 gap-2.5">
-      <h1>로그인</h1>
-      <form>
-        <LoginEmailForm email={email} setEmail={setEmail} />
-        <LoginPasswordForm password={password} setPassword={setPassword} />
-        <button className="AuthLoginButton bg-[#111111] text-white" onClick={handleClickLogin}>
-          이메일로 계속하기
-        </button>
-      </form>
-      <div className="AuthLoginButton">---------------- 또는 ----------------</div>
-      <button className="AuthLoginButton bg-[#FDE500]" onClick={handleClickKakaoLogin}>
-        카카오로 계속하기
+    <div className="flex flex-col items-center w-[340px] mx-auto gap-6">
+      <Image src={"/logos/mainLogo.png"} width={300} height={100} alt="mainLogo" />
+      <div className="AuthInputDiv">
+        <input
+          ref={emailRef}
+          type="email"
+          maxLength={20}
+          className={`AuthInput ${emailError ? "border-info-red" : emailMessage ? "border-info-green" : ""}`}
+          placeholder="이메일을 입력해주세요"
+          onChange={validateInputs}
+        />
+        {emailMessage && <p className="AuthStateInfoGreen">{emailMessage}</p>}
+        {emailError && <p className="AuthStateInfo">{emailError}</p>}
+      </div>
+
+      <div className="AuthInputDiv">
+        <input
+          ref={passwordRef}
+          type="password"
+          maxLength={20}
+          className={`AuthInput ${passwordError ? "border-info-red" : passwordMessage ? "border-info-green" : ""}`}
+          placeholder="비밀번호를 입력해주세요"
+          onChange={validateInputs}
+        />
+        {passwordMessage && <p className="AuthStateInfoGreen">{passwordMessage}</p>}
+        {passwordError && <p className="AuthStateInfo">{passwordError}</p>}
+      </div>
+
+      <button
+        onClick={handleLogin}
+        className={`AuthLoginButton text-white ${isFormValid ? "bg-black" : "bg-gray-400 cursor-not-allowed"}`}
+        disabled={!isFormValid}
+      >
+        이메일로 계속하기
       </button>
-      <button className="AuthLoginButton border border-[#CCCCC6]">Google로 계속하기</button>
-      <div className="flex flex-row gap-2.5 w-[340px] font-sm items-center justify-center">
-        <p>아직 짠테크 회원이 아니신가요?</p>
-        <Link href="/signUp" className="text-[#FF6000] hover:font-bold">
+
+      <div className="container flex items-center gap-[87px]">
+        <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
+        <div className="text text-gray-500 text-shadow">또는</div>
+        <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
+      </div>
+
+      <div className="AuthLoginButton bg-[#FDE500]">
+        <Image src={"/logos/kakao_black.png"} width={25} height={25} alt="kakao_black" />
+        카카오로 계속하기
+      </div>
+
+      <div className="AuthLoginButton border border-[#CCCCC6]">
+        <Image src={"/logos/Google_color.png"} width={25} height={25} alt="Google_color" />
+        Google로 계속하기
+      </div>
+
+      <div className="flex flex-row gap-2.5 w-[340px] font-sm items-center justify-center mt-3">
+        <p className="text-[#676767] font-semibold">아직 짠테크 회원이 아니신가요?</p>
+        <Link href="/signUp" className="text-point font-semibold">
           회원가입
         </Link>
       </div>

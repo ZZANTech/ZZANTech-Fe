@@ -1,4 +1,5 @@
 import { SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type SortOptionsProps = {
   onSortOrderChange: (value: TOption["value"]) => void;
@@ -6,13 +7,24 @@ type SortOptionsProps = {
 };
 
 function SortOptions({ onSortOrderChange, sortOrder }: SortOptionsProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const handleSortOrderChange = (value: TOption["value"]) => {
+    onSortOrderChange(value);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sortOrder", value);
+    params.set("page", "1");
+    router.replace(`?${params.toString()}`);
+  };
+
   return (
-    <div className="flex gap-[11px]">
+    <div className="justify-start items-center gap-[11px] flex">
       {SORT_OPTIONS.map((option) => (
         <button
-          className={` ${option.value === sortOrder ? "text-[#569A68]" : "text-[#767676]"}`}
+          className={`text-base font-semibold leading-normal ${option.value === sortOrder ? "text-point" : "text-[#767676]"}`}
           key={option.value}
-          onClick={() => onSortOrderChange(option.value)}
+          onClick={() => handleSortOrderChange(option.value)}
         >
           {option.label}
         </button>

@@ -1,11 +1,12 @@
 "use client";
 
-import Button from "@/components/Button/Button";
 import useAlertModal from "@/hooks/useAlertModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import { useRouter } from "next/navigation";
 import useVoteMutation from "@/stores/queries/useVoteMutation";
 import { TVote } from "@/types/vote.type";
+import useConfirmModal from "@/hooks/useConfirmModal";
 
 type ActionNavProps = {
   vote: TVote;
@@ -13,8 +14,10 @@ type ActionNavProps = {
 
 function ActionNav({ vote }: ActionNavProps) {
   const { user } = useUserContext();
+  const router = useRouter();
 
   const { displayDefaultAlert } = useAlertModal();
+  const { displayDeleteModal } = useConfirmModal();
 
   const modal = useModal();
   const { removeVote } = useVoteMutation();
@@ -29,23 +32,41 @@ function ActionNav({ vote }: ActionNavProps) {
     }
   };
 
-  const handleOpenModal = () =>
-    modal.open({
-      content: "정말 게시글을 삭제하시겠습니까?",
-      type: "confirm",
-      onConfirm: handleDeleteVote
-    });
+  const handleOpenModal = () => displayDeleteModal(handleDeleteVote);
+
+  const handleNavigate = (url: string) => {
+    router.push(url);
+  };
+
+  const handleNavigate = (url: string) => {
+    router.push(url);
+  };
 
   return (
-    <nav className="flex gap-1">
+    <div className="justify-start items-center gap-[22px] inline-flex">
       {user?.userId === vote.user_id && (
-        <>
-          <Button href={`/boards/votes/edit/${vote.vote_postId}`}>수정</Button>
-          <Button onClick={handleOpenModal}>삭제</Button>
-        </>
+        <div className="justify-start items-center gap-2 flex">
+          <button
+            onClick={() => handleNavigate(`/boards/votes/edit/${vote.vote_postId}`)}
+            className="text-center text-gray-500 text-sm font-semibold leading-tight"
+          >
+            수정
+          </button>
+          <div className="w-px h-3 bg-[#d9d9d9]" />
+          <div className="justify-center items-center gap-1 flex">
+            <button onClick={handleOpenModal} className="text-center text-gray-500 text-sm font-semibold leading-tight">
+              삭제
+            </button>
+          </div>
+        </div>
       )}
-      <Button href="/boards/votes">목록으로</Button>
-    </nav>
+      <button
+        onClick={() => handleNavigate("/boards/votes")}
+        className="text-center text-gray-800 text-base font-semibold leading-normal"
+      >
+        목록으로
+      </button>
+    </div>
   );
 }
 

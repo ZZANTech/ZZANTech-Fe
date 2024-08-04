@@ -1,5 +1,6 @@
 import { BASE_URL } from "@/constants";
-import { TKnowhowLikesCountResponse } from "@/types/knowhow.type";
+import { TKnowhow, TKnowhowLikesCountResponse } from "@/types/knowhow.type";
+import { TVote } from "@/types/vote.type";
 import { useQuery } from "@tanstack/react-query";
 
 export const getTopVotes = async () => {
@@ -11,7 +12,7 @@ export const getTopVotes = async () => {
 };
 
 const useTopVotesQuery = () => {
-  return useQuery<TKnowhowLikesCountResponse, Error>({
+  return useQuery<TVote[], Error>({
     queryKey: ["topVotes"],
     queryFn: getTopVotes
   });

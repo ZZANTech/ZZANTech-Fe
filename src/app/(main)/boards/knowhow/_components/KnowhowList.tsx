@@ -7,7 +7,7 @@ type knowhowListProps = {
 
 function KnowhowList({ knowhows }: knowhowListProps) {
   return (
-    <ul className="flex flex-col  gap-8 mb-[13px] ">
+    <ul className="flex flex-col border-t border-t-basic mt-1.5 mb-[13px]">
       {knowhows?.map((knowhow) => <KnowhowItem key={knowhow.knowhow_postId} knowhow={knowhow} />)}
     </ul>
   );

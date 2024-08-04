@@ -1,5 +1,5 @@
 import { BASE_URL } from "@/constants";
-import { TVotesResponse } from "@/types/vote.type";
+import { TVotesResponse, TVoteWithNavigation } from "@/types/vote.type";
 import { TVote } from "@/types/vote.type";
 import { Tables } from "@/types/supabase";
 
@@ -9,9 +9,12 @@ export const getVotes = async (sortOrder: string, page: number) => {
   return votes;
 };
 
-export const getVote = async (voteId: TVote["vote_postId"]) => {
+export const getVote = async (voteId: number): Promise<TVoteWithNavigation> => {
   const res = await fetch(`${BASE_URL}/api/votes/${voteId}`, { cache: "no-store" });
-  const vote: TVote = await res.json();
+  if (!res.ok) {
+    throw new Error("Failed to fetch vote data");
+  }
+  const vote: TVoteWithNavigation = await res.json();
   return vote;
 };
 
@@ -62,6 +65,61 @@ export const deleteVote = async (voteId: Tables<"vote_posts">["vote_postId"]) =>
   return vote;
 };
 
+export const getVoteComments = async (voteId: TVote["vote_postId"]) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${voteId}/comments`);
+  const data = await res.json();
+  const comments = data.comments;
+  return comments;
+};
+
+export const postVoteComment = async (newComment: Partial<Tables<"vote_comments">>) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${newComment.vote_post_id}/comments`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newComment)
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "댓글 작성에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
+  const data = await res.json();
+  return data;
+};
+
+export const patchVoteComment = async (updatedComment: Partial<Tables<"vote_comments">>) => {
+  const res = await fetch(`${BASE_URL}/api/votes/comments/${updatedComment.vote_commentId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(updatedComment)
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "댓글 수정에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
+
+  const data = await res.json();
+  return data;
+};
+
+export const deleteVoteComment = async (commentId: Tables<"vote_comments">["vote_commentId"]) => {
+  const res = await fetch(`${BASE_URL}/api/votes/comments/${commentId}`, {
+    method: "DELETE"
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "댓글 삭제에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
+  const data = await res.json();
+  return data;
+};
+
 export const getVoteLikesData = async (voteId: TVote["vote_postId"]) => {
   const res = await fetch(`${BASE_URL}/api/votes/${voteId}/like`);
   if (!res.ok) {
@@ -69,7 +127,41 @@ export const getVoteLikesData = async (voteId: TVote["vote_postId"]) => {
     const errorMessage = errorData.error || "해당 게시글의 투표 정보를 가져오는 데 실패했습니다";
     throw new Error(errorMessage);
   }
-  const data = await res.json();
 
+  const data = await res.json();
   return data;
+};
+
+export const postVoteLikeData = async (newLikeData: Partial<Tables<"vote_likes">>) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${newLikeData.vote_post_id}/like`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newLikeData)
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "투표 업데이트에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
+  const likeData = await res.json();
+  return likeData;
+};
+
+export const patchVoteLikeData = async (newLikeData: Partial<Tables<"vote_likes">>) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${newLikeData.vote_post_id}/like`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newLikeData)
+  });
+  if (!res.ok) {
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "투표 업데이트에 실패했습니다.";
+    throw new Error(errorMessage);
+  }
+  const likeData = await res.json();
+  return likeData;
 };

@@ -1,64 +1,83 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "react-quill/dist/quill.snow.css";
+
 @font-face {
-  font-family: 'Pretendard';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+  font-family: "Pretendard";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretendard';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Semibold.woff') format('woff');
+  font-family: "Pretendard";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Semibold.woff") format("woff");
   font-weight: 600;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'Pretendard';
-  src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff') format('woff');
+  font-family: "Pretendard";
+  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff") format("woff");
   font-weight: 300;
   font-style: normal;
 }
 body {
-font-family: 'Pretendard', sans-serif;
-font-weight: 400;
+  font-family: "Pretendard", sans-serif;
+  font-weight: 400;
 }
-
-@import "react-quill/dist/quill.snow.css";
+body *:not([class*="letter-"]) {
+  letter-spacing: var(--tw-letter-spacing-tight-korean, -0.025em);
+}
 @layer utilities {
   .MainLinkButton {
-    @apply px-2 py-5 mx-5 text-gray-800 text-[16px] text-center 
-    hover:font-bold hover:border-b-2 border-gray-800;
-  }
-  .AuthInput {
-    @apply w-[340px] h-[56px] p-[16px] border rounded-lg pointer-events-auto;
+    @apply px-3 py-4 border-b-2 border-transparent
+    transition-all duration-300 ease-in-out
+    hover:border-b-gray-800 hover:scale-125;
   }
   .AuthInputShort {
-    @apply w-[400px] h-[56px] p-[16px] border;
+    @apply w-[260px] h-[48px] px-[16px] mb-1 border rounded-lg pointer-events-auto;
+  }
+  .AuthInput {
+    @apply w-[348px] h-[48px] px-[16px] mb-1 border rounded-lg;
   }
 
   .AuthInputDiv {
-    @apply flex flex-col gap-2.5 p-2.5 bg-white;
+    @apply flex flex-col;
   }
   .AuthInputForm {
     @apply flex flex-row gap-2.5;
   }
 
   .AuthStateInfo {
-    @apply text-red-500 text-xs;
+    @apply text-info-red text-xs;
   }
   .AuthStateInfoGreen {
-    @apply text-green-500 text-xs;
+    @apply text-info-green text-xs;
   }
 
   .AuthDupButton {
-    @apply w-[92px] text-white bg-[#C0C0C0] text-sm rounded-lg;
+    @apply w-[80px] text-white bg-[#C0C0C0] text-sm rounded-lg;
   }
 
   .AuthLoginButton {
-    @apply w-[340px] p-2.5 text-center rounded-lg hover:font-bold;
+    @apply w-[348px] h-[56px] text-center items-center justify-center flex flex-row rounded-lg font-semibold gap-2.5 cursor-pointer;
+  }
+  .text-shadow {
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
+  }
+  .line-shadow {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  }
+  .ChatInputPlaceholder::placeholder {
+    color: var(--Gray-600, #767676);
+    font-family: Pretendard, sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    padding-left: 10px;
   }
 }
 
@@ -92,9 +111,6 @@ font-weight: 400;
     @apply mb-2;
   }
 
-  .knowhow-content p {
-  }
-
   .knowhow-content .ql-indent-1 {
     @apply pl-4;
   }
@@ -126,4 +142,12 @@ font-weight: 400;
   .knowhow-content .ql-indent-8 {
     @apply pl-32;
   }
+
+  /* .quill_wrapper .ql-editor.ql-blank {
+    @apply border border-gray-900;
+  }
+
+  .quill_wrapper .ql-toolbar.ql-snow {
+    @apply border-t border-x border-x-gray-900 border-t-gray-900;
+  } */
 }

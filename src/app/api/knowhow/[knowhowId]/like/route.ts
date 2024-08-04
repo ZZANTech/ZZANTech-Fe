@@ -10,12 +10,8 @@ export const GET = async (req: NextRequest, { params }: { params: { knowhowId: s
       data: { user },
       error: userError
     } = await supabase.auth.getUser();
-    if (userError) {
-      throw new Error("사용자 정보를 가져오지 못했습니다.");
-    }
-    const userId = user?.id;
 
-    if (knowhowId && userId) {
+    if (userError || !user) {
       const { count: likeCount, error: countError } = await supabase
         .from("knowhow_likes")
         .select("*", { count: "exact" })
@@ -25,22 +21,33 @@ export const GET = async (req: NextRequest, { params }: { params: { knowhowId: s
         throw new Error("좋아요 수를 가져오지 못했습니다");
       }
 
-      const { data: userLike, error: userLikeError } = await supabase
-        .from("knowhow_likes")
-        .select("*")
-        .eq("knowhow_post_id", knowhowId)
-        .eq("user_id", userId)
-        .single();
-
-      if (userLikeError && userLikeError.code !== "PGRST116") {
-        throw new Error("사용자의 좋아요 상태를 확인하지 못했습니다");
-      }
-
-      const isLiked = !!userLike;
-      return NextResponse.json({ likeCount: likeCount ?? 0, isLiked });
-    } else {
-      return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });
+      return NextResponse.json({ likeCount: likeCount ?? 0, isLiked: false });
     }
+
+    const userId = user.id;
+
+    const { count: likeCount, error: countError } = await supabase
+      .from("knowhow_likes")
+      .select("*", { count: "exact" })
+      .eq("knowhow_post_id", knowhowId);
+
+    if (countError) {
+      throw new Error("좋아요 수를 가져오지 못했습니다");
+    }
+
+    const { data: userLike, error: userLikeError } = await supabase
+      .from("knowhow_likes")
+      .select("*")
+      .eq("knowhow_post_id", knowhowId)
+      .eq("user_id", userId)
+      .single();
+
+    if (userLikeError && userLikeError.code !== "PGRST116") {
+      throw new Error("사용자의 좋아요 상태를 확인하지 못했습니다");
+    }
+
+    const isLiked = !!userLike;
+    return NextResponse.json({ likeCount: likeCount ?? 0, isLiked: isLiked || false });
   } catch (e) {
     if (e instanceof Error) {
       return NextResponse.json({ error: e.message }, { status: 500 });

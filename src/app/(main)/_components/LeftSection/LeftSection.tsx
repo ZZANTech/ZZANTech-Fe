@@ -1,0 +1,21 @@
+import LiveChattingBanner from "@/app/(main)/_components/LeftSection/LiveChattingBanner";
+import TopKnowhows from "@/app/(main)/_components/LeftSection/TopKnowhows";
+import TopVotes from "@/app/(main)/_components/LeftSection/TopVotes";
+
+function LeftSection() {
+  return (
+    <div className="flex flex-col">
+      <section>
+        <TopVotes />
+      </section>
+      <section>
+        <LiveChattingBanner />
+      </section>
+      <section className="mt-[55px]">
+        <TopKnowhows />
+      </section>
+    </div>
+  );
+}
+
+export default LeftSection;
