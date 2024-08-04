@@ -2,6 +2,7 @@
 import { checkLevelName, checkLevelImageURL, checkLevel } from "@/app/(main)/mypage/_utils/checkLevel";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
+import Link from "next/link";
 
 function LevelContainer() {
   const { user } = useUserContext();
@@ -17,7 +18,9 @@ function LevelContainer() {
           <div className="w-5 h-5">
             <Image src={"/icons/mypage/circular_question.png"} width={20} height={20} alt="circular_question" />
           </div>
-          <p className="text-sm underline text-gray-800">등급제 설명</p>
+          <Link href="/mypage/grade">
+            <p className="text-sm underline text-gray-800">등급제 설명</p>
+          </Link>
         </div>
       </div>
 
