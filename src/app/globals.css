@@ -37,10 +37,10 @@ body *:not([class*="letter-"]) {
     hover:border-b-gray-800 hover:scale-125;
   }
   .AuthInputShort {
-    @apply w-[260px] h-[48px] px-[16px] mb-1 border rounded-lg pointer-events-auto;
+    @apply w-[260px] h-12 px-4 mb-1 border rounded-lg pointer-events-auto;
   }
   .AuthInput {
-    @apply w-[348px] h-[48px] px-[16px] mb-1 border rounded-lg;
+    @apply w-[348px] h-12 px-4 mb-3 border rounded-lg;
   }
 
   .AuthInputDiv {

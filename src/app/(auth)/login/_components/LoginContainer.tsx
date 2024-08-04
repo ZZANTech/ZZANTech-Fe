@@ -24,6 +24,10 @@ function LoginContainer() {
     const email = emailRef.current?.value || "";
     const password = passwordRef.current?.value || "";
 
+    checkEmailValidity({ email, setEmailMessage, setEmailError });
+    checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
+    setIsFormValid(email !== "" && password !== "");
+
     //로그인 서버 통신 로직
     try {
       await logIn(email, password);
@@ -35,74 +39,46 @@ function LoginContainer() {
     }
   };
 
+  const validateInputs = () => {
+    const email = emailRef.current?.value || "";
+    const password = passwordRef.current?.value || "";
+    setIsFormValid(email !== "" && password !== "");
+  };
+
   useEffect(() => {
     if (user) {
       router.replace("/");
     }
   }, [user, router]);
 
-  useEffect(() => {
-    const email = emailRef.current?.value || "";
-    const password = passwordRef.current?.value || "";
-
-    if (email) {
-      checkEmailValidity({ email, setEmailMessage, setEmailError });
-    }
-    if (password) {
-      checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
-    }
-  }, []);
-
-  const validateInputs = () => {
-    const email = emailRef.current?.value || "";
-    const password = passwordRef.current?.value || "";
-
-    if (!email) {
-      setEmailMessage("");
-      setEmailError("이메일을 입력해주세요.");
-    } else {
-      checkEmailValidity({ email, setEmailMessage, setEmailError });
-    }
-
-    if (!password) {
-      setPasswordMessage("");
-      setPasswordError("비밀번호를 입력해주세요.");
-    } else {
-      checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
-    }
-
-    setIsFormValid(email !== "" && password !== "");
-  };
-
   return (
-    <div className="flex flex-col items-center w-[340px] mx-auto gap-6">
-      <Image src={"/logos/mainLogo.png"} width={300} height={100} alt="mainLogo" />
+    <div className="flex flex-col items-center w-[320px] mx-auto p-3">
+      <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
       <div className="AuthInputDiv">
         <input
           ref={emailRef}
           type="email"
-          maxLength={20}
+          maxLength={40}
           className={`AuthInput ${emailError ? "border-info-red" : emailMessage ? "border-info-green" : ""}`}
           placeholder="이메일을 입력해주세요"
           onChange={validateInputs}
         />
-        {emailMessage && <p className="AuthStateInfoGreen">{emailMessage}</p>}
-        {emailError && <p className="AuthStateInfo">{emailError}</p>}
       </div>
 
       <div className="AuthInputDiv">
         <input
           ref={passwordRef}
           type="password"
-          maxLength={20}
+          maxLength={40}
           className={`AuthInput ${passwordError ? "border-info-red" : passwordMessage ? "border-info-green" : ""}`}
           placeholder="비밀번호를 입력해주세요"
           onChange={validateInputs}
         />
-        {passwordMessage && <p className="AuthStateInfoGreen">{passwordMessage}</p>}
-        {passwordError && <p className="AuthStateInfo">{passwordError}</p>}
       </div>
 
+      <div className="w-[348px] h-4 px-3 mb-3">
+        {(emailError || passwordError) && <p className="AuthStateInfo">이메일 또는 비밀번호가 잘못 되었습니다.</p>}
+      </div>
       <button
         onClick={handleLogin}
         className={`AuthLoginButton text-white ${isFormValid ? "bg-black" : "bg-gray-400 cursor-not-allowed"}`}
