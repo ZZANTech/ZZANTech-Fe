@@ -6,9 +6,7 @@ function MyPointDetailPage() {
   return (
     <section className="w-[933.08px] flex flex-col items-center justify-center gap-16 mx-auto">
       <MyCurrentPoints />
-      <Suspense>
-        <MyPointsHistoryTable />
-      </Suspense>
+      <MyPointsHistoryTable />
     </section>
   );
 }
