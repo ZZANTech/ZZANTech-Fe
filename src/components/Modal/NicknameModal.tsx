@@ -1,11 +1,10 @@
 "use client";
 
 import { updateNickname } from "@/apis/auth";
-import useAlertModal from "@/hooks/useAlertModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { checkNicknameValidity } from "@/utils/authValidity";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function NicknameModal() {
   const { user } = useUserContext();
@@ -15,7 +14,7 @@ function NicknameModal() {
   const [nickname, setNickname] = useState<string>(oldNickname || "");
   const [nicknameError, setNicknameError] = useState<string>("");
   const [isNicknameValid, setIsNicknameValid] = useState<boolean | null>(null);
-  const { open, close } = useModal(); // 모달 닫을땐 여기서 close 꺼내쓰시면 됩니다.
+  const { open } = useModal();
   const handleChangeNickname = async () => {
     // 유효성 검사: 빈칸, 글자 수, 특수문자
     setNicknameError("");
@@ -32,14 +31,6 @@ function NicknameModal() {
       }
     }
   };
-
-  useEffect(() => {
-    if (isNicknameValid === false) {
-      console.log("변경 실패>>", nickname);
-    } else {
-      console.log("변경 완료>>", nickname);
-    }
-  }, [isNicknameValid]);
 
   return (
     <div className="relative bg-white p-10 rounded min-w-[340px] flex flex-col gap-8 items-center">

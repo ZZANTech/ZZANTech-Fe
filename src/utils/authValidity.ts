@@ -68,8 +68,8 @@ export const checkNicknameValidity = ({
     return;
   }
 
-  if (nickname.length < 2 || nickname.length > 7) {
-    setNicknameError("닉네임은 2자 이상 7자 이하여야 합니다.");
+  if (nickname.length < 2 || nickname.length > 40) {
+    setNicknameError("닉네임은 2자 이상이어야 합니다.");
     return;
   }
 
