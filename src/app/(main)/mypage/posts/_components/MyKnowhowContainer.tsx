@@ -6,7 +6,7 @@ import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import SkeletonKnowhowList from "@/app/(main)/boards/knowhow/_components/SkeletonKnowhowList"; // 스켈레톤 컴포넌트
 import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
-import useMyKnowhowsQuery from "@/stores/queries/useMyKnowhowsQuery";
+import useMyKnowhowsQuery from "@/stores/queries/knowhow/post/useMyKnowhowsQuery";
 import { Tables } from "@/types/supabase";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 

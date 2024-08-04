@@ -85,11 +85,14 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                 ref={textareaRef}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="메시지를 입력하세요."
-                className="flex-grow rounded-2xl outline-none resize-none scrollbar-hide h-auto min-w-[558px] min-h-[44px] max-h-[200px] p-2 mt-1 pr-12 ChatInputPlaceholder"
+                className="flex-grow rounded-2xl outline-none resize-none scrollbar-hide h-auto min-w-[558px] min-h-[44px] max-h-[200px] pt-2 pl-4  mt-1 pr-12 ChatInputPlaceholder"
                 rows={1}
               />
-              <button type="submit" className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                <Image src="/icons/submit.png" alt="전송" width={36} height={36} />
+              <button
+                type="submit"
+                className="absolute right-5 top-1/2 transform -translate-y-1/2 w-9 h-9 bg-no-repeat bg-center bg-contain bg-[url('/icons/submit.svg')] hover:bg-[url('/icons/submit_hover.svg')]"
+              >
+                <span className="sr-only">전송</span>
               </button>
             </div>
           </div>

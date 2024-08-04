@@ -3,14 +3,14 @@
 import { TKnowhowComment } from "@/types/knowhow.type";
 import { TVoteComment } from "@/types/vote.type";
 import { formatTime } from "@/app/(main)/boards/_utils";
-import useKnowhowCommentMutation from "@/stores/queries/useKnowhowCommentMutation";
+import useKnowhowCommentMutation from "@/stores/queries/knowhow/comment/useKnowhowCommentMutation";
 import { ChangeEventHandler, useState } from "react";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import CommentActions from "@/app/(main)/boards/_components/Comments/CommentActions";
 import CommentEditForm from "@/app/(main)/boards/_components/Comments/CommentEditForm";
 import useAlertModal from "@/hooks/useAlertModal";
-import useVoteCommentMutation from "@/stores/queries/useVoteCommentMutation";
+import useVoteCommentMutation from "@/stores/queries/vote/comment/useVoteCommentMutation";
 import Image from "next/image";
 import useConfirmModal from "@/hooks/useConfirmModal";
 

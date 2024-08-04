@@ -1,8 +1,8 @@
 "use client";
 
 import { useUserContext } from "@/provider/contexts/UserContext";
-import useKnowhowLikeMutation from "@/stores/queries/useKnowhowLikeMutation";
-import useKnowhowLikesCountQuery from "@/stores/queries/useKnowhowLikesCountQuery";
+import useKnowhowLikeMutation from "@/stores/queries/knowhow/like/useKnowhowLikeMutation";
+import useKnowhowLikesCountQuery from "@/stores/queries/knowhow/like/useKnowhowLikesCountQuery";
 import filledHeart from "/public/icons/filled_heart.svg";
 import emptyHeart from "/public/icons/empty_heart.svg";
 import { Tables } from "@/types/supabase";
@@ -27,7 +27,7 @@ function KnowhowLikes({ knowhowId }: knowhowLikesProps) {
   };
 
   return (
-    <div className="flex px-[15px] items-center gap-2 ">
+    <div className="flex  items-center gap-2 ">
       <div className="cursor-pointer" onClick={handleUpdateLike}>
         {<Image src={likeCountData?.isLiked ? filledHeart : emptyHeart} alt="like" width={28} height={28} />}
       </div>

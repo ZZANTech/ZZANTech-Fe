@@ -2,7 +2,7 @@
 
 import { validatePassword } from "@/app/(auth)/_utils/authValidation";
 import useAlertModal from "@/hooks/useAlertModal";
-import useChangePasswordMutation from "@/stores/queries/useChangePasswordMutation";
+import useChangePasswordMutation from "@/stores/queries/auth/useChangePasswordMutation";
 import { FormEventHandler, useState } from "react";
 
 function UserEditPassword() {

@@ -4,9 +4,9 @@ import useAlertModal from "@/hooks/useAlertModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { useRouter } from "next/navigation";
-
-import useVoteMutation from "@/stores/queries/useVoteMutation";
+import useVoteMutation from "@/stores/queries/vote/post/useVoteMutation";
 import { TVote } from "@/types/vote.type";
+import useConfirmModal from "@/hooks/useConfirmModal";
 
 type ActionNavProps = {
   vote: TVote;

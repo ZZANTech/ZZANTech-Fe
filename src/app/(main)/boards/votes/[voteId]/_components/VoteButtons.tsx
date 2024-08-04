@@ -1,14 +1,15 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import useVoteLikesQuery from "@/stores/queries/useVoteLikesQuery";
+import useVoteLikesQuery from "@/stores/queries/vote/like/useVoteLikesQuery";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { useRouter } from "next/navigation";
 import { useModal } from "@/provider/contexts/ModalContext";
-import useVoteLikeMutation from "@/stores/queries/useVoteLikeMutation";
+import useVoteLikeMutation from "@/stores/queries/vote/like/useVoteLikeMutation";
 import { TVoteLikeCountsResponse } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
+import useAlertModal from "@/hooks/useAlertModal";
 
 type VoteButtonsProps = {
   voteId: number;
@@ -16,6 +17,7 @@ type VoteButtonsProps = {
 
 function VoteButtons({ voteId }: VoteButtonsProps) {
   const { user } = useUserContext();
+  const { displayLoginAlert } = useAlertModal();
   const { addVoteLike, updateVoteLike } = useVoteLikeMutation();
   const modal = useModal();
   const router = useRouter();
@@ -36,20 +38,12 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
     setOptimisticVoteData(voteData || null);
   }, [voteData]);
 
-  const handleOpenModal = () =>
-    modal.open({
-      type: "alert",
-      content: "로그인이 필요한 서비스에요",
-      buttonContent: "로그인하기",
-      onClose: () => router.push("/login")
-    });
-
   const handleVote = async (type: "GOOD" | "BAD") => {
     if (isPending) {
       return;
     }
     if (!user) {
-      handleOpenModal();
+      displayLoginAlert();
       return;
     }
 

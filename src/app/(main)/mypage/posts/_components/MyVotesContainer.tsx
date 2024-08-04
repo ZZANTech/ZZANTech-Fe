@@ -4,7 +4,7 @@ import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import SkeletonVoteList from "@/app/(main)/boards/votes/_components/SkeletonVoteList";
 import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
-import useMyVotesQuery from "@/stores/queries/useMyVotesQuery";
+import useMyVotesQuery from "@/stores/queries/vote/post/useMyVotesQuery";
 import { Tables } from "@/types/supabase";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";

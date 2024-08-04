@@ -25,7 +25,7 @@ function ChatMessageItem({ message, showNickname }: ChatMessageItemProps) {
           <div className="text-xs text-gray-500 mr-2">{new Date(message.created_at).toLocaleTimeString()}</div>
         )}
         <div
-          className={`max-w-xs px-5 py-2 flex items-center gap-2 ${
+          className={`max-w-56 px-5 py-2 flex items-center gap-2 ${
             isCurrentUser
               ? "bg-main rounded-bl-[28px] rounded-br-[28px] rounded-tl-[28px]"
               : "bg-[#EEE2FA] rounded-br-[28px] rounded-bl-[28px] rounded-tr-[28px]"

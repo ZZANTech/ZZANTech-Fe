@@ -1,4 +1,4 @@
-import useKnowhowLikesCountQuery from "@/stores/queries/useKnowhowLikesCountQuery";
+import useKnowhowLikesCountQuery from "@/stores/queries/knowhow/like/useKnowhowLikesCountQuery";
 import { TKnowhow } from "@/types/knowhow.type";
 import filledHeart from "/public/icons/filled_heart.svg";
 import emptyHeart from "/public/icons/empty_heart.svg";
