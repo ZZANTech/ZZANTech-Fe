@@ -32,9 +32,10 @@ body *:not([class*="letter-"]) {
 }
 @layer utilities {
   .MainLinkButton {
-    @apply px-3 py-4 border-b-2 border-transparent
-    transition-all duration-300 ease-in-out
-    hover:border-b-gray-800
+    @apply px-3 py-4 border-b-2 border-transparent transition-all duration-300 ease-in-out hover:border-b-gray-800;
+  }
+  .MainLinkButtonActive {
+    @apply border-b-2 border-gray-800;
   }
   .AuthInputShort {
     @apply w-[260px] h-[48px] px-[16px] mb-1 border rounded-lg pointer-events-auto;
