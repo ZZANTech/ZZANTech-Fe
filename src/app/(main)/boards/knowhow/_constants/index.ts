@@ -35,4 +35,4 @@ export const EXCHANGE_FILTER_OPTION = [
   { value: CLAIM, label: "교환내역" }
 ];
 
-export const MAX_CONTENT_LENGTH = 1000;
+export const MAX_CONTENT_LENGTH = 10000;
