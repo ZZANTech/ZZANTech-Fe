@@ -81,8 +81,8 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
   };
 
   return (
-    <li className="w-full flex flex-col gap-3">
-      <div className="flex items-center justify-between">
+    <li className="w-full flex flex-col gap-3　">
+      <div className="flex items-center justify-between ">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-[7px]">
             <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
@@ -101,7 +101,9 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
       </div>
       {!isEditing && (
         <>
-          <p className="w-full text-black text-base font-normal leading-normal">{content}</p>
+          <p className="w-full text-black text-base font-normal leading-normal break-words whitespace-pre-wrap">
+            {content}
+          </p>
         </>
       )}
       {isEditing && (

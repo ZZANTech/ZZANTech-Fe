@@ -30,7 +30,7 @@ function MyPointsHistoryTable() {
   }
 
   return (
-    <div className="w-[924px] mb-[120px]">
+    <div className="w-[924px] ">
       <table className="w-full border-collapse">
         <thead className="border-t border-basic">
           <tr className="flex w-full justify-between items-center">

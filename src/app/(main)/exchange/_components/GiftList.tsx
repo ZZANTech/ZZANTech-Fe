@@ -7,7 +7,7 @@ type GiftListProps = {
 
 function GiftList({ gifts }: GiftListProps) {
   return (
-    <ul className="grid mb-10  grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[15px] gap-y-8">
+    <ul className="grid   grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[15px] gap-y-8">
       {gifts.map((gift) => (
         <GiftItem key={gift.giftId} gift={gift} />
       ))}

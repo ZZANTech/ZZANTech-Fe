@@ -16,7 +16,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <link rel="icon" href="/favicon.png" sizes="any" />
-      <body className="max-w-[1120px] mx-auto">
+      <body className="max-w-[1120px] pb-[100px] mx-auto">
         <Providers>
           <HeaderContainer />
           {children}
