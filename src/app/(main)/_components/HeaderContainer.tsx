@@ -3,16 +3,24 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 function HeaderContainer() {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, logOut, isLoading } = useUserContext();
+
+  useEffect(() => {
+    console.log("Current pathname:", pathname);
+  }, [pathname]);
 
   const handleLogout = () => {
     logOut();
     router.replace("/");
   };
+  const linkStyled = (path: string) => `MainLinkButton ${pathname.startsWith(path) ? "MainLinkButtonActive" : ""}`;
+
   const defaultBadgeUrl = "/badges/lv1.png";
   return (
     <header className="mx-auto my-5 flex flex-row items-center justify-between">
@@ -22,16 +30,16 @@ function HeaderContainer() {
         </Link>
 
         <div className="flex flex-row items-center justify-center font-bold space-x-6">
-          <Link href={"/boards/votes"} className="MainLinkButton">
+          <Link href={"/boards/votes"} className={linkStyled("/boards/votes")}>
             짠-소비구경
           </Link>
-          <Link href={"/boards/knowhow"} className="MainLinkButton">
+          <Link href={"/boards/knowhow"} className={linkStyled("/boards/knowhow")}>
             짠-노하우
           </Link>
-          <Link href={"/chat"} className="MainLinkButton">
+          <Link href={"/chat"} className={linkStyled("/chat")}>
             살까말까?LIVE
           </Link>
-          <Link href={"/exchange"} className="MainLinkButton">
+          <Link href={"/exchange"} className={linkStyled("/exchange")}>
             포인트샵
           </Link>
         </div>
