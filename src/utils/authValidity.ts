@@ -50,12 +50,6 @@ export const checkPasswordValidity = ({
     return;
   }
 
-  if (/[^a-zA-Z0-9]/.test(password)) {
-    setPasswordMessage("");
-    setPasswordError("비밀번호에는 특수문자를 사용할 수 없습니다.");
-    return;
-  }
-
   if (password) {
     setPasswordMessage("유효한 비밀번호입니다.");
     setPasswordError("");
@@ -74,8 +68,8 @@ export const checkNicknameValidity = ({
     return;
   }
 
-  if (nickname.length < 3 || nickname.length > 12) {
-    setNicknameError("닉네임은 3자 이상 12자 이하여야 합니다.");
+  if (nickname.length < 2 || nickname.length > 10) {
+    setNicknameError("닉네임은 2자 이상 10자 이하여야 합니다.");
     return;
   }
   if (/[^a-zA-Z0-9]/.test(nickname)) {
