@@ -1,6 +1,7 @@
 "use client";
 
 import { updateNickname } from "@/apis/auth";
+import useAlertModal from "@/hooks/useAlertModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { checkNicknameValidity } from "@/utils/authValidity";
@@ -14,8 +15,7 @@ function NicknameModal() {
   const [nickname, setNickname] = useState<string>(oldNickname || "");
   const [nicknameError, setNicknameError] = useState<string>("");
   const [isNicknameValid, setIsNicknameValid] = useState<boolean | null>(null);
-  const { close } = useModal(); // 모달 닫을땐 여기서 close 꺼내쓰시면 됩니다.
-
+  const { open, close } = useModal(); // 모달 닫을땐 여기서 close 꺼내쓰시면 됩니다.
   const handleChangeNickname = async () => {
     // 유효성 검사: 빈칸, 글자 수, 특수문자
     setNicknameError("");
@@ -23,7 +23,13 @@ function NicknameModal() {
 
     // 중복확인 및 update API
     if (!nicknameError) {
-      await updateNickname(nickname, email || "", setNicknameError, setIsNicknameValid);
+      const res = await updateNickname(nickname, email || "", setNicknameError, setIsNicknameValid);
+      if (res.ok) {
+        open({
+          type: "alert",
+          content: "닉네임 변경이 완료되었습니다"
+        });
+      }
     }
   };
 

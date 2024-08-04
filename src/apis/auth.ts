@@ -45,6 +45,8 @@ export const updateNickname = async (
     setNicknameError("");
     setIsNicknameValid(true);
   }
+
+  return res;
 };
 
 export const patchPassword = async (password: TChangePassword) => {
