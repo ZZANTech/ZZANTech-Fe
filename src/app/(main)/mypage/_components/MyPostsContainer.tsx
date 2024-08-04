@@ -8,7 +8,7 @@ function MyPostsContainer() {
   return (
     <Link href="/mypage/posts">
       <div className="flex flex-row gap-5 justify-between">
-        <div className="flex flex-row gap-2.5">
+        <div className="flex flex-row gap-2.5 items-center">
           <Image src={pencel} width={28} height={28} alt="pencil" />
           <p>내가 쓴 글 확인하기</p>
         </div>
