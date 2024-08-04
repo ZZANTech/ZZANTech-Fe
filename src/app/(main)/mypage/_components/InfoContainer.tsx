@@ -40,9 +40,9 @@ function InfoContainer() {
 
       <Link
         href={`${BASE_URL}/mypage/edit`}
-        className="flex items-center w-[112px] h-10 px-4 py-3.5 text-sm font-semibold bg-black text-white rounded-md"
+        className="flex items-center w-[120px] h-10 px-4 py-3.5 text-sm font-semibold bg-black text-white rounded-md"
       >
-        비밀 번호 변경
+        비밀번호 변경
       </Link>
     </div>
   );
