@@ -4,7 +4,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import "dayjs/locale/ko";
 import Link from "next/link";
 import Image from "next/image";
-import useKnowhowLikesCountQuery from "@/stores/queries/useKnowhowLikesCountQuery";
+import useKnowhowLikesCountQuery from "@/stores/queries/knowhow/like/useKnowhowLikesCountQuery";
 import CommentCount from "@/app/(main)/boards/knowhow/_components/knowhowItem/CommentCount";
 import LikeCount from "@/app/(main)/boards/knowhow/_components/knowhowItem/LikeCount";
 

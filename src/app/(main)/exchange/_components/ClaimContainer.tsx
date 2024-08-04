@@ -3,13 +3,16 @@
 import ClaimList from "@/app/(main)/exchange/_components/ClaimList";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
+import useAlertModal from "@/hooks/useAlertModal";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import useClaimsQuery from "@/stores/queries/useClaimsQuery";
+import useClaimsQuery from "@/stores/queries/exchange/useClaimsQuery";
 
 function ClaimContainer() {
   const { user } = useUserContext();
+  const { displayLoginAlert } = useAlertModal();
   const userId = user?.userId ?? "";
   const { data: claims, isPending } = useClaimsQuery(userId);
+
   return (
     <article className="max-w-[755px] w-full">
       <div className="flex justify-between text-[#000] font-semibold">

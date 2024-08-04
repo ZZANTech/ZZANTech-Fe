@@ -1,5 +1,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
-import { TOption } from "@/app/(main)/boards/knowhow/_constants";
+import { CLAIM, TOption } from "@/app/(main)/boards/knowhow/_constants";
+import { useUserContext } from "@/provider/contexts/UserContext";
+import useAlertModal from "@/hooks/useAlertModal";
 
 type FilterOptionProps = {
   options: TOption[];
@@ -8,10 +10,17 @@ type FilterOptionProps = {
 };
 
 function FilterOption({ options, onFilterOptionChange, filterOption }: FilterOptionProps) {
+  const { user } = useUserContext();
+  const { displayLoginAlert } = useAlertModal();
   const router = useRouter();
   const searchParams = useSearchParams();
 
   const handleFilterOptionChange = (value: TOption["value"]) => {
+    if (value === CLAIM && !user) {
+      displayLoginAlert();
+      return;
+    }
+
     const params = new URLSearchParams(searchParams);
     params.set("filter", value);
     router.push(`?${params.toString()}`);

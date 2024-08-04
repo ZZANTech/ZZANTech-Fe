@@ -58,6 +58,12 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
+  if (!user && request.nextUrl.pathname === "/exchange" && request.nextUrl.searchParams.get("filter") === "claim") {
+    const url = request.nextUrl.clone();
+    url.searchParams.delete("filter");
+    return NextResponse.redirect(url);
+  }
+
   // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
   // creating a new response object with NextResponse.next() make sure to:
   // 1. Pass the request in it, like so:

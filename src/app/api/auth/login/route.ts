@@ -18,18 +18,19 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "이메일 또는 비밀번호가 잘못되었습니다." }, { status: 401 });
     }
 
-    // if (response.data.session) {
-    //   const accessToken = response.data.session?.access_token;
-    //   const refreshToken = response.data.session?.refresh_token;
-    //   const { error: sessionError } = await supabase.auth.setSession({
-    //     access_token: accessToken,
-    //     refresh_token: refreshToken
-    //   });
-    //   if (sessionError) {
-    //     console.error("세션 설정 중 오류 발생:", sessionError);
-    //     return NextResponse.json({ error: "세션 설정 중 오류가 발생했습니다." }, { status: 500 });
-    //   }
-    // }
+    if (response.data.session) {
+      const accessToken = response.data.session?.access_token;
+      const refreshToken = response.data.session?.refresh_token;
+      const { error: sessionError } = await supabase.auth.setSession({
+        access_token: accessToken,
+        refresh_token: refreshToken
+      });
+      if (sessionError) {
+        console.error("세션 설정 중 오류 발생:", sessionError);
+        return NextResponse.json({ error: "세션 설정 중 오류가 발생했습니다." }, { status: 500 });
+      }
+    }
+
     return NextResponse.json(response);
   } catch (error: any) {
     console.error("요청 처리 중 오류 발생:", error);

@@ -1,7 +1,7 @@
 "use client";
 
 import GiftList from "@/app/(main)/exchange/_components/GiftList";
-import useGiftsQuery from "@/stores/queries/useGiftsQuery";
+import useGiftsQuery from "@/stores/queries/exchange/useGiftsQuery";
 
 function GiftContainer() {
   const { data: gifts } = useGiftsQuery();

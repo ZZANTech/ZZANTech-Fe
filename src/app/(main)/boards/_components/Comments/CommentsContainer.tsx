@@ -2,8 +2,8 @@
 
 import CommentForm from "@/app/(main)/boards/_components/Comments/CommentForm";
 import CommentsList from "@/app/(main)/boards/_components/Comments/CommentsList";
-import useKnowhowCommentsQuery from "@/stores/queries/useKnowhowCommentsQuery";
-import useVoteCommentsQuery from "@/stores/queries/useVoteCommentsQuery";
+import useKnowhowCommentsQuery from "@/stores/queries/knowhow/comment/useKnowhowCommentsQuery";
+import useVoteCommentsQuery from "@/stores/queries/vote/comment/useVoteCommentsQuery";
 
 type CommentsContainerProps = {
   postId: number;
