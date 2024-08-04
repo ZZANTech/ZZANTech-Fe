@@ -18,7 +18,8 @@ function CommentEditForm({
   return (
     <form className="w-full flex flex-col gap-3">
       <textarea
-        className="h-[90px] pl-[19px] pr-[481px] pt-3.5 pb-[52px] bg-white rounded-lg border border-[#8b8b8b] justify-start items-center inline-flex scrollbar-hide"
+        maxLength={500}
+        className="h-[90px] px-[19px] pt-3.5 pb-[52px] bg-white rounded-lg border border-[#8b8b8b] justify-start items-center inline-flex scrollbar-hide"
         value={editedContent}
         onChange={handleContentChange}
       />

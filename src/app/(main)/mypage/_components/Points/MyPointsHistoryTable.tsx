@@ -6,6 +6,8 @@ import { formatTime } from "@/app/(main)/boards/_utils";
 import { Suspense, useState } from "react";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import { useSearchParams } from "next/navigation";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
 
 function MyPointsHistoryTable() {
   const { user } = useUserContext();
@@ -22,7 +24,7 @@ function MyPointsHistoryTable() {
   const handlePageChange = (page: number) => setCurrentPage(page);
 
   if (isLoading) {
-    return <div>로딩 중...</div>;
+    return <SmallLoadingSpinner />;
   }
 
   if (!points || points.length === 0) {
@@ -30,7 +32,7 @@ function MyPointsHistoryTable() {
   }
 
   return (
-    <div className="w-[924px] mb-[120px]">
+    <div className="w-[924px] ">
       <table className="w-full border-collapse">
         <thead className="border-t border-basic">
           <tr className="flex w-full justify-between items-center">
