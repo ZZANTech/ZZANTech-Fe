@@ -1,10 +1,16 @@
+"use client";
 import InfoContainer from "@/app/(main)/mypage/_components/InfoContainer";
 import LevelContainer from "@/app/(main)/mypage/_components/LevelContainer";
 import MyPostsContainer from "@/app/(main)/mypage/_components/MyPosts/MyPostsContainer";
 import OtherPostsContainer from "@/app/(main)/mypage/_components/OtherPosts/OtherPostsContainer";
 import PointContainer from "@/app/(main)/mypage/_components/PointContainer";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import { useUserContext } from "@/provider/contexts/UserContext";
 
 function MypageContainer() {
+  const { user } = useUserContext();
+
+  if (!user) return <LoadingSpinner />;
   return (
     <div className="max-w-[540px] flex flex-col mt-[90px] mx-auto">
       <div className="mb-10">

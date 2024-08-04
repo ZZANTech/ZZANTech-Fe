@@ -24,12 +24,12 @@ function PointContainer() {
             <div className="flex gap-2 items-center">
               <Image src={"/icons/mypage/coin.png"} width={36} height={36} alt="diamond" />
 
-              <p className="text-2xl font-bold">{current_point} P</p>
+              <p className="text-2xl font-bold">{current_point || 0} P</p>
             </div>
           </div>
           <div className="flex flex-col gap-3">
             <p className="font-bold leading-5">누적 포인트</p>
-            <p className="text-2xl font-bold text-gray-800">{total_point} P</p>
+            <p className="text-2xl font-bold text-gray-800">{total_point || 0} P</p>
           </div>
         </div>
 

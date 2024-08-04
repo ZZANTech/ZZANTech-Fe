@@ -110,7 +110,7 @@ function LoginContainer() {
       >
         이메일로 계속하기
       </button>
-
+      {/* 
       <div className="container flex items-center gap-[87px]">
         <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
         <div className="text text-gray-500 text-shadow">또는</div>
@@ -125,7 +125,7 @@ function LoginContainer() {
       <div className="AuthLoginButton border border-[#CCCCC6]">
         <Image src={"/logos/Google_color.png"} width={25} height={25} alt="Google_color" />
         Google로 계속하기
-      </div>
+      </div> */}
 
       <div className="flex flex-row gap-2.5 w-[340px] font-sm items-center justify-center mt-3">
         <p className="text-[#676767] font-semibold">아직 짠테크 회원이 아니신가요?</p>

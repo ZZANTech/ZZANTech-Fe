@@ -68,13 +68,10 @@ export const checkNicknameValidity = ({
     return;
   }
 
-  if (nickname.length < 2 || nickname.length > 10) {
-    setNicknameError("닉네임은 2자 이상 10자 이하여야 합니다.");
+  if (nickname.length < 2 || nickname.length > 7) {
+    setNicknameError("닉네임은 2자 이상 7자 이하여야 합니다.");
     return;
   }
-  if (/[^a-zA-Z0-9]/.test(nickname)) {
-    setNicknameError("닉네임에는 특수문자를 사용할 수 없습니다.");
-    return;
-  }
+
   setNicknameError("");
 };
