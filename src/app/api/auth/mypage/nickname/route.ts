@@ -2,6 +2,7 @@ import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
+  console.log("아무거나");
   const supabase = createClient();
 
   const body = await req.json();
@@ -15,19 +16,12 @@ export const POST = async (req: NextRequest) => {
   }
 
   // 닉네임 update
-  const { data, error } = await supabase
-    .from("users")
-    .update({ nickname: "qwer1" })
-    .eq("email", "joy@gmail.com")
-    .select();
-
-  console.log("route error >>", error);
-  console.log("route data >>", data);
+  const { data, error } = await supabase.from("users").update({ nickname: nickname }).eq("email", email).select();
 
   if (data) {
-    // console.log("route >>", data);
-    return NextResponse.json({ message: "변경되었다" }, { status: 200 });
+    return NextResponse.json({ message: "변경 완료" }, { status: 200 });
   }
+
   if (error) {
     return NextResponse.json({ error: `${error}` }, { status: 401 });
   }

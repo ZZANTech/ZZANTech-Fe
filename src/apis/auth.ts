@@ -14,7 +14,7 @@ export const updateNickname = async (
   nickname: string,
   email: string | undefined,
   setNicknameError: Dispatch<SetStateAction<string>>,
-  setIsNicknameValid: Dispatch<SetStateAction<boolean>>
+  setIsNicknameValid: Dispatch<SetStateAction<boolean | null>>
 ) => {
   //중복확인 및 update API
   const res = await fetch("/api/auth/mypage/nickname", {
@@ -30,52 +30,20 @@ export const updateNickname = async (
     setIsNicknameValid(false);
   }
 
-  if (res.status === 500) {
-    setNicknameError("500 에러");
+  if (res.status === 401) {
+    setNicknameError("401");
     setIsNicknameValid(false);
   }
 
-  if (res.status === 401) {
-    setNicknameError("401 에러");
+  if (res.status === 500) {
+    setNicknameError("500");
     setIsNicknameValid(false);
   }
 
   if (res.status === 200) {
-    console.log("통과 200");
+    console.log("200");
     setNicknameError("");
     setIsNicknameValid(true);
-  }
-
-  // const res2 = await fetch("/api/auth/mypage/nickname", {
-  //   method: "PATCH",
-  //   headers: {
-  //     "Content-Type": "application/json"
-  //   },
-  //   body: JSON.stringify({ nickname, email })
-  // // });
-  // if (res.status === 500) {
-  //   setNicknameError("알 수 없는 에러가 발생 했습니다.");
-  //   setIsNicknameValid(false);
-  // }
-  // if (res.status === 200) {
-  //   console.log("updateNickname>>", res2);
-  //   // setNicknameError("");
-  //   // setIsNicknameValid(true);
-  // }
-};
-
-export const resetPassword = async (email: string) => {
-  const res = await fetch("/api/auth/mypage/password", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(email)
-  });
-
-  const result = await res.json();
-  if (res.ok) {
-    // console.log("resetPassword >> ", result);
   }
 };
 
