@@ -8,11 +8,13 @@ export const validatePassword = (
   displayDefaultAlert: (content: string, subContent?: string, buttonContent?: string) => void
 ): void => {
   if (!oldPassword) {
-    displayDefaultAlert("비밀번호를 입력 해 주세요");
+    displayDefaultAlert("비밀번호를 입력해 주세요");
   }
 
-  if (!newPassword || newPassword.length < 5 || newPassword.length > 20) {
-    const { firstLine, secondLine } = splitMessage("적합하지 않은 비밀번호입니다 8~16자 이내로 다시 입력해 주세요");
+  if (!newPassword || newPassword.length < 6 || newPassword.length > 40) {
+    const { firstLine, secondLine } = splitMessage(
+      "적합하지 않은 비밀번호입니다. 6자 ~ 40자 이내로 다시 입력해 주세요"
+    );
     displayDefaultAlert(firstLine, secondLine);
   }
 
