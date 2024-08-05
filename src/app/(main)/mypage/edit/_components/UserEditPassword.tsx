@@ -29,7 +29,7 @@ function UserEditPassword() {
               type="password"
               value={oldPassword}
               placeholder="기존 비밀번호를 입력해주세요"
-              className="AuthInput"
+              className="auth-input"
               maxLength={20}
               onChange={(e) => setOldPassword(e.target.value)}
             />
@@ -41,7 +41,7 @@ function UserEditPassword() {
               type="password"
               value={newPassword}
               placeholder="새로운 비밀번호를 입력해주세요"
-              className="AuthInput"
+              className="auth-input"
               maxLength={20}
               onChange={(e) => setNewPassword(e.target.value)}
             />
@@ -53,7 +53,7 @@ function UserEditPassword() {
               type="password"
               value={confirmPassword}
               placeholder="새로운 비밀번호를 다시 입력해주세요"
-              className="AuthInput"
+              className="auth-input"
               maxLength={20}
               onChange={(e) => setConfirmPassword(e.target.value)}
             />

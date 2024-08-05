@@ -19,7 +19,7 @@ function HeaderContainer() {
     logOut();
     router.replace("/");
   };
-  const linkStyled = (path: string) => `MainLinkButton ${pathname.startsWith(path) ? "MainLinkButtonActive" : ""}`;
+  const linkStyled = (path: string) => `main-link-button ${pathname.startsWith(path) ? "main-link-button-active" : ""}`;
 
   const defaultBadgeUrl = "/badges/lv1.png";
   return (

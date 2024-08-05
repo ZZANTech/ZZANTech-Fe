@@ -33,15 +33,15 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
   };
 
   return (
-    <div className="AuthInputDiv">
+    <div className="flex flex-col">
       <label>이메일</label>
-      <form className="AuthInputForm">
+      <form className="flex flex-row gap-2.5">
         <input
           type="email"
           value={email}
           maxLength={40}
           placeholder="이메일을 입력해주세요"
-          className={`AuthInputShort ${isDuplicated || isInvalidEmail ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
+          className={`auth-input-short ${isDuplicated || isInvalidEmail ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
           onChange={(e) => {
             setEmail(e.target.value);
             setIsDuplicated(false);
@@ -49,13 +49,13 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
             setIsInvalidEmail(false);
           }}
         />
-        <button className="AuthDupButton" onClick={handleCheckDuplicate}>
+        <button className="auth-dup-button" onClick={handleCheckDuplicate}>
           중복체크
         </button>
       </form>
-      {isDuplicated && <p className="AuthStateInfo">동일한 이메일이 있습니다.</p>}
-      {isCorrected && <p className="AuthStateInfoGreen">사용 가능한 이메일입니다.</p>}
-      {isInvalidEmail && <p className="AuthStateInfo">유효한 이메일 형식이 아닙니다.</p>}
+      {isDuplicated && <p className="text-info-red text-xs">동일한 이메일이 있습니다.</p>}
+      {isCorrected && <p className="text-info-green text-xs">사용 가능한 이메일입니다.</p>}
+      {isInvalidEmail && <p className="text-info-red text-xs">유효한 이메일 형식이 아닙니다.</p>}
     </div>
   );
 }

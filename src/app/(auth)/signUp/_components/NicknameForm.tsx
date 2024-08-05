@@ -34,15 +34,15 @@ function NicknameForm({ nickname, setNickname }: { nickname: string; setNickname
   };
 
   return (
-    <div className="AuthInputDiv">
+    <div className="flex flex-col">
       <label>닉네임</label>
-      <form className="AuthInputForm">
+      <form className="flex flex-row gap-2.5">
         <input
           type="text"
           value={nickname}
           maxLength={40}
           placeholder="닉네임을 입력해주세요"
-          className={`AuthInputShort ${
+          className={`auth-input-short ${
             isDuplicated || isInvalidNickname ? "border-info-red" : isCorrected ? "border-info-green" : ""
           }`}
           onChange={(e) => {
@@ -52,13 +52,13 @@ function NicknameForm({ nickname, setNickname }: { nickname: string; setNickname
             setIsInvalidNickname(false);
           }}
         />
-        <button className="AuthDupButton" onClick={handleCheckDuplicate}>
+        <button className="auth-dup-button" onClick={handleCheckDuplicate}>
           중복체크
         </button>
       </form>
-      {isDuplicated && <p className="AuthStateInfo">동일한 닉네임이 있습니다.</p>}
-      {isCorrected && <p className="AuthStateInfoGreen">사용 가능한 닉네임입니다.</p>}
-      {isInvalidNickname && <p className="AuthStateInfo">유효한 닉네임 형식이 아닙니다.</p>}
+      {isDuplicated && <p className="text-info-red text-xs">동일한 닉네임이 있습니다.</p>}
+      {isCorrected && <p className="text-info-green text-xs">사용 가능한 닉네임입니다.</p>}
+      {isInvalidNickname && <p className="text-info-red text-xs">유효한 닉네임 형식이 아닙니다.</p>}
     </div>
   );
 }

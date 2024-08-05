@@ -97,7 +97,7 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder="메시지를 입력하세요."
-                className="flex-grow rounded-2xl outline-none resize-none scrollbar-hide h-auto min-w-[558px] min-h-[44px] max-h-[200px] pt-2 pl-4  mt-1 pr-12 ChatInputPlaceholder"
+                className="flex-grow rounded-2xl outline-none resize-none scrollbar-hide h-auto min-w-[558px] min-h-[44px] max-h-[200px] pt-2 pl-4  mt-1 pr-12 chat-input-placeholder"
                 rows={1}
               />
               <button

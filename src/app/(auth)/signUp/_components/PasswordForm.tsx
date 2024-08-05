@@ -17,18 +17,18 @@ function PasswordForm({ password, setPassword }: { password: string; setPassword
   };
 
   return (
-    <div className="AuthInputDiv">
+    <div className="flex flex-col">
       <label>비밀번호</label>
       <input
         type="password"
         value={password}
         maxLength={40}
         placeholder="비밀번호를 입력해주세요"
-        className={`AuthInput ${isPasswordInvalid ? "border-info-red" : isPasswordValid ? "border-info-green" : ""}`}
+        className={`auth-input ${isPasswordInvalid ? "border-info-red" : isPasswordValid ? "border-info-green" : ""}`}
         onChange={handlePasswordChange}
       />
-      {isPasswordInvalid && <p className="AuthStateInfo">비밀번호는 6자리 이상 30자리 이하로 설정해 주세요.</p>}
-      {isPasswordValid && <p className="AuthStateInfoGreen">가능한 비밀번호 입니다</p>}
+      {isPasswordInvalid && <p className="text-info-red text-xs">비밀번호는 6자리 이상 30자리 이하로 설정해 주세요.</p>}
+      {isPasswordValid && <p className="text-info-green text-xs">가능한 비밀번호 입니다</p>}
     </div>
   );
 }

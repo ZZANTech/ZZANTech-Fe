@@ -54,34 +54,36 @@ function LoginContainer() {
   return (
     <div className="flex flex-col items-center w-[320px] mx-auto p-3">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
-      <div className="AuthInputDiv">
+      <div className="flex flex-col">
         <input
           ref={emailRef}
           type="email"
           maxLength={40}
-          className={`AuthInput ${emailError ? "border-info-red" : emailMessage ? "border-info-green" : ""}`}
+          className={`auth-input ${emailError ? "border-info-red" : emailMessage ? "border-info-green" : ""}`}
           placeholder="이메일을 입력해주세요"
           onChange={validateInputs}
         />
       </div>
 
-      <div className="AuthInputDiv">
+      <div className="flex flex-col">
         <input
           ref={passwordRef}
           type="password"
           maxLength={40}
-          className={`AuthInput ${passwordError ? "border-info-red" : passwordMessage ? "border-info-green" : ""}`}
+          className={`auth-input ${passwordError ? "border-info-red" : passwordMessage ? "border-info-green" : ""}`}
           placeholder="비밀번호를 입력해주세요"
           onChange={validateInputs}
         />
       </div>
 
       <div className="w-[348px] h-4 px-3 mb-3">
-        {(emailError || passwordError) && <p className="AuthStateInfo">이메일 또는 비밀번호가 잘못 되었습니다.</p>}
+        {(emailError || passwordError) && (
+          <p className="text-info-red text-xs">이메일 또는 비밀번호가 잘못 되었습니다.</p>
+        )}
       </div>
       <button
         onClick={handleLogin}
-        className={`AuthLoginButton text-white ${isFormValid ? "bg-black" : "bg-gray-400 cursor-not-allowed"}`}
+        className={`auth-login-button text-white ${isFormValid ? "bg-black" : "bg-gray-400 cursor-not-allowed"}`}
         disabled={!isFormValid}
       >
         이메일로 계속하기
@@ -93,12 +95,12 @@ function LoginContainer() {
         <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
       </div>
 
-      <div className="AuthLoginButton bg-[#FDE500]">
+      <div className="auth-login-button bg-[#FDE500]">
         <Image src={"/logos/kakao_black.png"} width={25} height={25} alt="kakao_black" />
         카카오로 계속하기
       </div>
 
-      <div className="AuthLoginButton border border-[#CCCCC6]">
+      <div className="auth-login-button border border-[#CCCCC6]">
         <Image src={"/logos/Google_color.png"} width={25} height={25} alt="Google_color" />
         Google로 계속하기
       </div> */}
