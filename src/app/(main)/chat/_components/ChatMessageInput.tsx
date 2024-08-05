@@ -42,8 +42,11 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
     } catch (error) {
       console.error("Error sending message:", error);
       setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setImage(e.target.files?.[0] || null);
   };

@@ -20,22 +20,36 @@ function ChatMessageItem({ message, showNickname }: ChatMessageItemProps) {
       {!isCurrentUser && showNickname && (
         <p className="leading-6 text-[#9500DC] mb-1">{getDisplayNickname(message.users?.nickname)}</p>
       )}
-      <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} items-end`}>
+      <div className={`flex flex-col ${isCurrentUser ? "justify-end" : "justify-start"} items-end`}>
         {isCurrentUser && (
           <div className="text-xs text-gray-500 mr-2">{new Date(message.created_at).toLocaleTimeString()}</div>
         )}
-        <div
-          className={`max-w-56 px-5 py-2 flex items-center gap-2 ${
-            isCurrentUser
-              ? "bg-main rounded-bl-[28px] rounded-br-[28px] rounded-tl-[28px]"
-              : "bg-[#EEE2FA] rounded-br-[28px] rounded-bl-[28px] rounded-tr-[28px]"
-          } relative`}
-        >
-          <div className={`text-sm ${isCurrentUser ? "text-right" : "text-left"}`}>
-            {message.image_url && <Image src={message.image_url} alt="chat image" width={100} height={100} />}
-            <p className="break-all">{message.content}</p>
+        {message.image_url && (
+          <div className="mb-2">
+            <Image
+              src={message.image_url}
+              alt="chat image"
+              width={200}
+              height={200}
+              className="rounded"
+              layout="intrinsic"
+              objectFit="contain"
+            />
           </div>
-        </div>
+        )}
+        {message.content && (
+          <div
+            className={`max-w-56 px-5 py-2 flex items-center gap-2 ${
+              isCurrentUser
+                ? "bg-main rounded-bl-[28px] rounded-br-[28px] rounded-tl-[28px]"
+                : "bg-[#EEE2FA] rounded-br-[28px] rounded-bl-[28px] rounded-tr-[28px]"
+            } relative`}
+          >
+            <div className={`text-sm ${isCurrentUser ? "text-right" : "text-left"}`}>
+              <p className="break-all">{message.content}</p>
+            </div>
+          </div>
+        )}
         {!isCurrentUser && (
           <div className="text-xs text-gray-500 ml-2">{new Date(message.created_at).toLocaleTimeString()}</div>
         )}
