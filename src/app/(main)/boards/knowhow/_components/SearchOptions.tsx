@@ -33,7 +33,7 @@ function SearchOptions({ selectedSearchOption, onSearch, onSearchOptionChange }:
       </select>
       <div className="flex justify-between items-center p-2 border-b border-[#111111] w-[277px]">
         <input
-          className="placeholder:text-[#767676] font-semibold"
+          className="placeholder:text-[#767676] font-semibold outline-none"
           ref={searchInputRef}
           type="text"
           placeholder="검색어를 입력해주세요"

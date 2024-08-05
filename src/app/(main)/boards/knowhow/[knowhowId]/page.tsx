@@ -2,8 +2,22 @@ import { getKnowhow } from "@/apis/knowhow";
 import CommentsContainer from "@/app/(main)/boards/_components/Comments/CommentsContainer";
 import PostActions from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostActions";
 import PostContent from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostContent";
+import { Metadata } from "next";
 
-async function KnowhowDetailPage({ params: { knowhowId } }: { params: { knowhowId: number } }) {
+type KnowhowDetailPageProps = {
+  params: { knowhowId: number };
+};
+
+export async function generateMetadata({ params: { knowhowId } }: KnowhowDetailPageProps): Promise<Metadata> {
+  const knowhow = await getKnowhow(knowhowId);
+  const textOnlyContent = knowhow.content.replace(/<[^>]+>/g, "");
+  return {
+    title: knowhow.title,
+    description: `ZZAN - ${textOnlyContent}`
+  };
+}
+
+async function KnowhowDetailPage({ params: { knowhowId } }: KnowhowDetailPageProps) {
   const knowhow = await getKnowhow(knowhowId);
 
   return (
