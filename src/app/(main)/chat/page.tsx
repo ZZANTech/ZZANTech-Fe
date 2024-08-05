@@ -1,4 +1,11 @@
+import { Metadata } from "next";
 import ChatRoomList from "./_components/ChatRoomList";
+
+export const metadata: Metadata = {
+  title: "ZZAN | 살까말까 LIVE",
+  description:
+    "살까 말까 고민되는 상품을 올리면 실시간으로 고민을 해결해주는 라이브 채팅방입니다! 우리 다같이 똑똑한 소비자가 되어 보자구"
+};
 
 function ChatPage() {
   return (
