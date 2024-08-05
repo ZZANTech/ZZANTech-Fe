@@ -85,9 +85,9 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                   <Image
                     src={previewUrl}
                     alt="이미지 미리보기"
-                    width={40}
-                    height={40}
-                    className="rounded max-w-40 max-h-40"
+                    width={50}
+                    height={50}
+                    className="rounded max-w-50 max-h-50 pl-3 pt-3"
                   />
                 </div>
               )}
