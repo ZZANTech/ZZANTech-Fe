@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 export async function GET() {
@@ -18,6 +19,7 @@ export async function GET() {
       console.error(error);
     }
     if (users) {
+      revalidatePath("/", "layout");
       return NextResponse.json({ users });
     }
   }
