@@ -9,6 +9,7 @@ import point from "/public/icons/point.png";
 import { formatNumberWithCommas } from "@/app/(main)/boards/_utils";
 import useAlertModal from "@/hooks/useAlertModal";
 import useExchangeMutation from "@/stores/queries/exchange/useExchangeMutation";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 type GiftItemProps = {
   gift: Tables<"gifts">;
@@ -18,7 +19,7 @@ function GiftItem({ gift }: GiftItemProps) {
   const { user } = useUserContext();
   const { open } = useModal();
   const { displayLoginAlert } = useAlertModal();
-  const { addClaim } = useExchangeMutation();
+  const { addClaim, isPending } = useExchangeMutation();
   const formattedPoint = formatNumberWithCommas(gift.point);
   const router = useRouter();
   const handleExchange = async () => {
@@ -65,11 +66,13 @@ function GiftItem({ gift }: GiftItemProps) {
         <span className="text-[#FF6000] font-semibold">{formattedPoint}P</span>
       </div>
       <button
+        disabled={isPending}
         className="flex justify-center font-semibold rounded-lg items-center text-white w-[236px] bg-[#FF6000] h-10 p-4 box-border"
         onClick={handleOpenConfirmModal}
       >
         교환버튼
       </button>
+      {isPending && <LoadingSpinner isSubmitting />}
     </li>
   );
 }
