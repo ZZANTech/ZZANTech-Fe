@@ -42,8 +42,11 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
     } catch (error) {
       console.error("Error sending message:", error);
       setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
   const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setImage(e.target.files?.[0] || null);
   };
@@ -85,9 +88,9 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                   <Image
                     src={previewUrl}
                     alt="이미지 미리보기"
-                    width={40}
-                    height={40}
-                    className="rounded max-w-40 max-h-40"
+                    width={50}
+                    height={50}
+                    className="rounded max-w-50 max-h-50 pl-3 pt-3"
                   />
                 </div>
               )}
@@ -96,13 +99,14 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                 ref={textareaRef}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="메시지를 입력하세요."
+                placeholder={user ? "메시지를 입력하세요." : "로그인 후 메시지를 입력할 수 있습니다."}
                 className="flex-grow rounded-2xl outline-none resize-none scrollbar-hide h-auto min-w-[558px] min-h-[44px] max-h-[200px] pt-2 pl-4  mt-1 pr-12 ChatInputPlaceholder"
                 rows={1}
+                disabled={!user}
               />
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !user}
                 className="absolute right-5 top-1/2 transform -translate-y-1/2 w-9 h-9 bg-no-repeat bg-center bg-contain bg-[url('/icons/submit.svg')] hover:bg-[url('/icons/submit_hover.svg')]"
               >
                 <span className="sr-only">전송</span>
