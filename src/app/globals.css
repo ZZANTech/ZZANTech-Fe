@@ -41,12 +41,11 @@ body *:not([class*="letter-"]) {
     @apply w-[260px] h-12 px-4 mb-1 border rounded-lg pointer-events-auto;
   }
   .auth-input {
-    @apply w-[348px] h-12 px-4 mb-3 border rounded-lg;
+    @apply w-[348px] h-12 px-4 mb-3 my-2 border rounded-lg;
   }
   .auth-dup-button {
     @apply w-[80px] text-white bg-[#C0C0C0] text-sm rounded-lg;
   }
-
   .auth-login-button {
     @apply w-[348px] h-12 text-center items-center justify-center flex flex-row rounded-lg font-semibold gap-2.5 cursor-pointer;
   }
