@@ -46,7 +46,9 @@ function VoteContent({ vote }: VoteContentProps) {
               <VoteButtons voteId={vote_postId} />
             </div>
             <div className="self-stretch grow shrink basis-0 justify-start items-center gap-2.5 inline-flex">
-              <div className="grow shrink basis-0 text-[#090909] text-base font-normal leading-normal">{content}</div>
+              <div className="grow shrink basis-0 text-[#090909] text-base font-normal leading-normal whitespace-pre-wrap">
+                {content}
+              </div>
             </div>
           </div>
         </div>

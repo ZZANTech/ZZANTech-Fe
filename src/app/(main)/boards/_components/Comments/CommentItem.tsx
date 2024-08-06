@@ -5,7 +5,6 @@ import { TVoteComment } from "@/types/vote.type";
 import { formatTime } from "@/app/(main)/boards/_utils";
 import useKnowhowCommentMutation from "@/stores/queries/knowhow/comment/useKnowhowCommentMutation";
 import { ChangeEventHandler, useState } from "react";
-import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import CommentActions from "@/app/(main)/boards/_components/Comments/CommentActions";
 import CommentEditForm from "@/app/(main)/boards/_components/Comments/CommentEditForm";
@@ -13,6 +12,7 @@ import useAlertModal from "@/hooks/useAlertModal";
 import useVoteCommentMutation from "@/stores/queries/vote/comment/useVoteCommentMutation";
 import Image from "next/image";
 import useConfirmModal from "@/hooks/useConfirmModal";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 type CommentItemPropsForKnowhow = {
   comment: TKnowhowComment;
@@ -26,7 +26,6 @@ type CommentItemPropsForVote = {
 
 function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentItemPropsForVote) {
   const { user } = useUserContext();
-  const modal = useModal();
   const { displayDeleteModal } = useConfirmModal();
   const { displayDefaultAlert } = useAlertModal();
   const { nickname, content, created_at } = comment;
@@ -34,10 +33,12 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [editedContent, setEditedContent] = useState<string>(content || "");
 
-  const { updateKnowhowComment, removeKnowhowComment } = useKnowhowCommentMutation();
-  const { updateVoteComment, removeVoteComment } = useVoteCommentMutation();
+  const { updateKnowhowComment, isKnowhowCommentPostPending, removeKnowhowComment } = useKnowhowCommentMutation();
+  const { updateVoteComment, isVoteCommentPostPending, removeVoteComment } = useVoteCommentMutation();
 
   const { formattedDate, formattedTime } = formatTime(created_at);
+
+  const isPending = isKnowhowCommentPostPending || isVoteCommentPostPending;
 
   const handleOpenModal = () => displayDeleteModal(handleCommentDelete);
 
@@ -45,11 +46,15 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
 
   const handleContentChange: ChangeEventHandler<HTMLTextAreaElement> = (e) => setEditedContent(e.target.value);
 
-  const handleCommentDelete = () => {
-    if (board === "knowhow") {
-      removeKnowhowComment(comment as TKnowhowComment);
-    } else {
-      removeVoteComment(comment as TVoteComment);
+  const handleCommentDelete = async () => {
+    try {
+      if (board === "knowhow") {
+        await removeKnowhowComment(comment as TKnowhowComment);
+      } else {
+        await removeVoteComment(comment as TVoteComment);
+      }
+    } catch (error) {
+      displayDefaultAlert("댓글 삭제에 실패했습니다.");
     }
   };
 
@@ -66,13 +71,16 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
       content: editedContent
     };
 
-    if (board === "knowhow") {
-      await updateKnowhowComment(updatedComment as TKnowhowComment);
-    } else {
-      await updateVoteComment(updatedComment as TVoteComment);
+    try {
+      if (board === "knowhow") {
+        await updateKnowhowComment(updatedComment as TKnowhowComment);
+      } else {
+        await updateVoteComment(updatedComment as TVoteComment);
+      }
+      setIsEditing(false);
+    } catch (error) {
+      displayDefaultAlert("댓글 수정에 실패했습니다.");
     }
-
-    setIsEditing(false);
   };
 
   const handleCancelEdit = () => {
@@ -81,8 +89,8 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
   };
 
   return (
-    <li className="w-full flex flex-col gap-3　">
-      <div className="flex items-center justify-between ">
+    <li className="w-full flex flex-col gap-3">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-[7px]">
             <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
@@ -95,24 +103,30 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
             <div className="text-[#acacac] text-sm font-normal leading-3">{formattedTime}</div>
           </div>
         </div>
-        {!isEditing && user?.userId === comment?.user_id && (
+        {!isEditing && user?.userId === comment?.user_id && !isPending && (
           <CommentActions onEditModeChange={handleEditModeChange} onOpenModal={handleOpenModal} />
         )}
       </div>
-      {!isEditing && (
+      {isPending ? (
+        <div className="flex justify-center items-center h-[90px]">
+          <LoadingSpinner />
+        </div>
+      ) : (
         <>
-          <p className="w-full text-black text-base font-normal leading-normal break-words whitespace-pre-wrap">
-            {content}
-          </p>
+          {!isEditing && (
+            <p className="w-full text-black text-base font-normal leading-normal break-words whitespace-pre-wrap">
+              {content}
+            </p>
+          )}
+          {isEditing && (
+            <CommentEditForm
+              editedContent={editedContent}
+              onContentChange={handleContentChange}
+              onCommentUpdate={handleCommentUpdate}
+              onCancel={handleCancelEdit}
+            />
+          )}
         </>
-      )}
-      {isEditing && (
-        <CommentEditForm
-          editedContent={editedContent}
-          onContentChange={handleContentChange}
-          onCommentUpdate={handleCommentUpdate}
-          onCancel={handleCancelEdit}
-        />
       )}
     </li>
   );
