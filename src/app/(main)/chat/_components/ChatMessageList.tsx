@@ -5,7 +5,6 @@ import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import { useChatMessagesQuery } from "@/stores/queries/chat/useChatMessagesQuery";
 import { TChatWithUser } from "@/types/chat.type";
 import { useEffect, useRef, useState } from "react";
-import _ from "lodash";
 
 type ChatMessageListProps = {
   roomId: number;
