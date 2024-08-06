@@ -1,5 +1,6 @@
 "use client";
 
+import { checkNicknameValidity } from "@/utils/authValidity";
 import { createClient } from "@/utils/supabase/client";
 import { MouseEventHandler, useState } from "react";
 
@@ -25,23 +26,21 @@ function NicknameForm({
     setNicknameDup(null);
 
     //유효성 검사: 한글, 영어, 숫자
-    const nicknameRegex = /^[a-zA-Z0-9가-힣]{3,20}$/;
-    if (!nicknameRegex.test(nickname)) {
-      setNicknameError("한글, 영어, 숫자만 가능합니다.");
-      setIsCorrected(false);
-      return;
-    }
+    checkNicknameValidity({ nickname, setNicknameError });
 
-    let { data: users, error } = await supabase.from("users").select("*").eq("nickname", nickname);
-    if (users!.length > 0) {
-      //users의 타입정의 필요
-      setNicknameError("이미 사용 중인 닉네임입니다.");
-      setIsCorrected(false);
-      setNicknameDup(false);
-      return;
-    } else {
-      setIsCorrected(true);
-      setNicknameDup(true);
+    //유효성 검사: 중복확인
+    if (!nicknameError) {
+      let { data: users, error } = await supabase.from("users").select("*").eq("nickname", nickname);
+      if (users!.length > 0) {
+        //users의 타입정의 필요
+        setNicknameError("이미 사용 중인 닉네임입니다.");
+        setIsCorrected(false);
+        setNicknameDup(false);
+        return;
+      } else {
+        setIsCorrected(true);
+        setNicknameDup(true);
+      }
     }
   };
 

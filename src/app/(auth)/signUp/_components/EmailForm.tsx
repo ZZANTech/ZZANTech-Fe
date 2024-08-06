@@ -1,5 +1,6 @@
 "use client";
 
+import { checkEmailValidity } from "@/utils/authValidity";
 import { createClient } from "@/utils/supabase/client";
 import { MouseEventHandler, useState } from "react";
 
@@ -25,21 +26,21 @@ function EmailForm({
     setEmailDup(null);
 
     //유효성 검사: 이메일 형식
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      setEmailError("이메일 형식에 맞게 입력해주세요");
-      return;
-    }
-    let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
 
-    if (users!.length > 0) {
-      //users의 타입정의 필요
-      setEmailError("이미 사용 중인 이메일입니다.");
-      setEmailDup(false);
-      return;
-    } else {
-      setIsCorrected(true);
-      setEmailDup(true);
+    checkEmailValidity({ email, setEmailError });
+
+    //유효성 검사: 중복확인
+    if (!emailError) {
+      let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
+      if (users!.length > 0) {
+        //users의 타입정의 필요
+        setEmailError("이미 사용 중인 이메일입니다.");
+        setEmailDup(false);
+        return;
+      } else {
+        setIsCorrected(true);
+        setEmailDup(true);
+      }
     }
   };
 
