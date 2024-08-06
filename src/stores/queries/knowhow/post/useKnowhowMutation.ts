@@ -38,7 +38,7 @@ const useKnowhowMutation = () => {
     onError: (e) => displayDefaultAlert(e.message)
   });
 
-  const { mutateAsync: updateKnowhow, isPatchPending } = useMutation<
+  const { mutateAsync: updateKnowhow, isPending: isPatchPending } = useMutation<
     TResponseStatus,
     Error,
     Partial<Tables<"knowhow_posts">>
