@@ -5,6 +5,7 @@ import EmailForm from "@/app/(auth)/signUp/_components/EmailForm";
 import NicknameForm from "@/app/(auth)/signUp/_components/NicknameForm";
 import PasswordForm from "@/app/(auth)/signUp/_components/PasswordForm";
 import RecheckPasswordForm from "@/app/(auth)/signUp/_components/RecheckPasswordForm";
+import TestSignup from "@/app/(auth)/signUp/_components/TestSignup";
 import { TUserInsert } from "@/types/user.type";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -47,6 +48,7 @@ function SignUpContainer() {
           회원가입 완료하기
         </button>
       </div>
+      {/* <TestSignup /> */}
     </div>
   );
 }

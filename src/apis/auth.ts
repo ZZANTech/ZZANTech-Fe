@@ -12,6 +12,35 @@ export const logout = async () => {
   return response.json();
 };
 
+// 중복확인 : 이메일
+export async function checkEmailDuplication(email: string, setEmailError: Dispatch<SetStateAction<string>>) {
+  const res = await fetch(`${BASE_URL}/api/auth/signup/duplication/email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(email)
+  });
+
+  if (res.status === 409) {
+    setEmailError("동일한 이메일이 있습니다.");
+  }
+}
+
+// 중복확인 : 이메일
+export async function checkNicknameDuplication(nickname: string, setNicknameError: Dispatch<SetStateAction<string>>) {
+  const res = await fetch(`${BASE_URL}/api/auth/signup/duplication/nickname`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(nickname)
+  });
+  if (res.status === 409) {
+    setNicknameError("동일한 닉네임이 있습니다.");
+  }
+}
+
 // 회원가입
 export async function signUp(data: TUserInsert) {
   const response = await fetch(`${BASE_URL}/api/auth/signup`, {

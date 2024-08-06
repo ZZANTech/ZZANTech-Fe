@@ -11,11 +11,10 @@ import { useModal } from "@/provider/contexts/ModalContext";
 function LoginContainer() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const [emailMessage, setEmailMessage] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
-  const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
+  //input 빈칸 여부 ==> 로그인 버튼 활성화
+  const [isFormValid, setIsFormValid] = useState<boolean | null>(null);
   const modal = useModal();
   const router = useRouter();
   const { user, logIn } = useUserContext();
@@ -24,8 +23,8 @@ function LoginContainer() {
     const email = emailRef.current?.value || "";
     const password = passwordRef.current?.value || "";
 
-    checkEmailValidity({ email, setEmailMessage, setEmailError });
-    checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
+    checkEmailValidity({ email, setEmailError });
+    checkPasswordValidity({ password, setPasswordError });
     setIsFormValid(email !== "" && password !== "");
 
     //로그인 서버 통신 로직
@@ -59,7 +58,7 @@ function LoginContainer() {
           ref={emailRef}
           type="email"
           maxLength={40}
-          className={`auth-input ${emailError ? "border-info-red" : emailMessage ? "border-info-green" : ""}`}
+          className={`auth-input ${emailError ? "border-info-red" : ""}`}
           placeholder="이메일을 입력해주세요"
           onChange={validateInputs}
         />
@@ -70,7 +69,7 @@ function LoginContainer() {
           ref={passwordRef}
           type="password"
           maxLength={40}
-          className={`auth-input ${passwordError ? "border-info-red" : passwordMessage ? "border-info-green" : ""}`}
+          className={`auth-input ${passwordError ? "border-info-red" : ""}`}
           placeholder="비밀번호를 입력해주세요"
           onChange={validateInputs}
         />
