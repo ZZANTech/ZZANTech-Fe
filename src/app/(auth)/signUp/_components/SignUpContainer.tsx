@@ -11,7 +11,9 @@ import { useState } from "react";
 
 function SignUpContainer() {
   const [email, setEmail] = useState<string>("");
+  const [emailDup, setEmailDup] = useState<boolean | null>(null);
   const [nickname, setNickname] = useState<string>("");
+  const [nicknameDup, setNicknameDup] = useState<boolean | null>(null);
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const router = useRouter();
@@ -25,14 +27,14 @@ function SignUpContainer() {
       alert(error.message);
     }
   };
-  const isFormValid = email && nickname && password && confirmPassword;
+  const isFormValid = emailDup && nicknameDup && password && confirmPassword;
 
   return (
     <div className="flex flex-col justify-center gap-12">
       <h1 className="text-xl font-semibold">회원가입</h1>
       <div className="flex flex-col gap-6">
-        <EmailForm email={email} setEmail={setEmail} />
-        <NicknameForm nickname={nickname} setNickname={setNickname} />
+        <EmailForm email={email} setEmail={setEmail} setEmailDup={setEmailDup} />
+        <NicknameForm nickname={nickname} setNickname={setNickname} setNicknameDup={setNicknameDup} />
         <PasswordForm password={password} setPassword={setPassword} />
         <RecheckPasswordForm
           confirmPassword={confirmPassword}

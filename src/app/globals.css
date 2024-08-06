@@ -59,7 +59,7 @@ body *:not([class*="letter-"]) {
   }
 
   .AuthDupButton {
-    @apply w-[80px] text-white bg-[#C0C0C0] text-sm rounded-lg;
+    @apply w-[80px] text-white text-sm rounded-lg;
   }
 
   .AuthLoginButton {

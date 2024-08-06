@@ -3,32 +3,43 @@
 import { createClient } from "@/utils/supabase/client";
 import { MouseEventHandler, useState } from "react";
 
-function EmailForm({ email, setEmail }: { email: string; setEmail: (email: string) => void }) {
-  const [isDuplicated, setIsDuplicated] = useState<boolean>(false);
-  const [isCorrected, setIsCorrected] = useState<boolean>(false);
-  const [isInvalidEmail, setIsInvalidEmail] = useState<boolean>(false);
+function EmailForm({
+  email,
+  setEmail,
+  setEmailDup
+}: {
+  email: string;
+  setEmail: (email: string) => void;
+  setEmailDup: (emailDup: boolean | null) => void;
+}) {
+  const [isCorrected, setIsCorrected] = useState<boolean | null>(null);
+  const [emailError, setEmailError] = useState<string>("");
   const supabase = createClient();
 
   const handleCheckDuplicate: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
-    setIsInvalidEmail(false);
 
+    //초기화
+    setIsCorrected(null);
+    setEmailError("");
+    setEmailDup(null);
+
+    //유효성 검사: 이메일 형식
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setIsInvalidEmail(true);
-      setIsCorrected(false);
-      setIsDuplicated(false);
+      setEmailError("이메일 형식에 맞게 입력해주세요");
       return;
     }
     let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
 
     if (users!.length > 0) {
       //users의 타입정의 필요
-      setIsDuplicated(true);
-      setIsCorrected(false);
+      setEmailError("이미 사용 중인 이메일입니다.");
+      setEmailDup(false);
+      return;
     } else {
-      setIsDuplicated(false);
       setIsCorrected(true);
+      setEmailDup(true);
     }
   };
 
@@ -39,23 +50,20 @@ function EmailForm({ email, setEmail }: { email: string; setEmail: (email: strin
         <input
           type="email"
           value={email}
-          maxLength={40}
-          placeholder="이메일을 입력해주세요"
-          className={`AuthInputShort ${isDuplicated || isInvalidEmail ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            setIsDuplicated(false);
-            setIsCorrected(false);
-            setIsInvalidEmail(false);
-          }}
+          maxLength={30}
+          placeholder="zzan@zzan.com"
+          className={`AuthInputShort ${emailError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
+          onChange={(e) => setEmail(e.target.value)}
         />
-        <button className="AuthDupButton" onClick={handleCheckDuplicate}>
+        <button
+          className={`AuthDupButton ${email ? "bg-black" : " bg-[#C0C0C0]"}`}
+          onClick={handleCheckDuplicate}
+          disabled={!email}
+        >
           중복체크
         </button>
       </form>
-      {isDuplicated && <p className="AuthStateInfo">동일한 이메일이 있습니다.</p>}
-      {isCorrected && <p className="AuthStateInfoGreen">사용 가능한 이메일입니다.</p>}
-      {isInvalidEmail && <p className="AuthStateInfo">유효한 이메일 형식이 아닙니다.</p>}
+      {emailError && <p className="AuthStateInfo">{emailError}</p>}
     </div>
   );
 }
