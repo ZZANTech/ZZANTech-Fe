@@ -1,6 +1,6 @@
 "use client";
 
-import { useChatRoomsQuery } from "@/stores/queries/useChatRoomsQuery";
+import { useChatRoomsQuery } from "@/stores/queries/chat/useChatRoomsQuery";
 import Image from "next/image";
 import Link from "next/link";
 
