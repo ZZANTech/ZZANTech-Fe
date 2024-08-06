@@ -23,7 +23,11 @@ const useKnowhowMutation = () => {
 
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { mutateAsync: addKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
+  const { mutateAsync: addKnowhow, isPending: isPostPending } = useMutation<
+    TResponseStatus,
+    Error,
+    Partial<Tables<"knowhow_posts">>
+  >({
     mutationFn: (newKnowhow) => postKnowhow(newKnowhow),
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -34,7 +38,11 @@ const useKnowhowMutation = () => {
     onError: (e) => displayDefaultAlert(e.message)
   });
 
-  const { mutateAsync: updateKnowhow } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_posts">>>({
+  const { mutateAsync: updateKnowhow, isPatchPending } = useMutation<
+    TResponseStatus,
+    Error,
+    Partial<Tables<"knowhow_posts">>
+  >({
     mutationFn: (updatedKnowhow) => patchKnowhow(updatedKnowhow),
     onSuccess: (status, updatedKnowhow) => {
       queryClient.invalidateQueries({
@@ -58,7 +66,7 @@ const useKnowhowMutation = () => {
       onError: (e) => displayDefaultAlert(e.message)
     }
   );
-  return { addKnowhow, updateKnowhow, removeKnowhow };
+  return { addKnowhow, updateKnowhow, isPostPending, isPatchPending, removeKnowhow };
 };
 
 export default useKnowhowMutation;
