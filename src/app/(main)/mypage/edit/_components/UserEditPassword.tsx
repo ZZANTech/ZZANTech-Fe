@@ -40,7 +40,7 @@ function UserEditPassword() {
             <input
               type="password"
               value={newPassword}
-              placeholder="새로운 비밀번호를 입력해주세요"
+              placeholder="최소 6~20자, 영어+특수문자 조합"
               className="AuthInput"
               maxLength={20}
               onChange={(e) => setNewPassword(e.target.value)}
@@ -52,7 +52,7 @@ function UserEditPassword() {
             <input
               type="password"
               value={confirmPassword}
-              placeholder="새로운 비밀번호를 다시 입력해주세요"
+              placeholder="최소 6~20자, 영어+특수문자 조합"
               className="AuthInput"
               maxLength={20}
               onChange={(e) => setConfirmPassword(e.target.value)}
