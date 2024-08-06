@@ -23,6 +23,7 @@ function GiftItem({ gift }: GiftItemProps) {
   const formattedPoint = formatNumberWithCommas(gift.point);
   const router = useRouter();
   const handleExchange = async () => {
+    if (isPending) return;
     const newExchange = {
       gift_id: gift.giftId,
       user_id: user?.userId
