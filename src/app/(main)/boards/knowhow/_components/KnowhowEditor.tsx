@@ -14,6 +14,7 @@ import { useRouter } from "next/navigation";
 import { Tables } from "@/types/supabase";
 import { MAX_CONTENT_LENGTH } from "@/app/(main)/boards/knowhow/_constants";
 import ErrorMessage from "@/app/(main)/boards/knowhow/_components/ErrorMessage";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
@@ -92,13 +93,14 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   const { user } = useUserContext();
   const { open } = useModal();
   const { addKnowhowImage } = useKnowhowImageMutation();
-  const { addKnowhow, updateKnowhow } = useKnowhowMutation();
+  const { addKnowhow, isPostPending, updateKnowhow, isPatchPending } = useKnowhowMutation();
   const quillRef = useRef<ReactQuill>(null);
   const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
   const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
   const [errorMessage, setErrorMessage] = useState<{ title: string; content: string }>({ title: "", content: "" });
+  const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
 
-  const handleImageUpload = (file: File) => {
+  const handleImageUpload = async (file: File) => {
     const reader = new FileReader();
     reader.onload = (e) => {
       const base64Image = e.target?.result;
@@ -108,6 +110,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         quillObj?.insertEmbed(range.index, "image", base64Image);
         quillObj?.setSelection(range.index + 1, 0);
       }
+      setIsUploadingImage(false);
     };
     reader.readAsDataURL(file);
   };
@@ -147,6 +150,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   };
 
   const handleSubmit = async () => {
+    setIsUploadingImage(true);
     const quillObj = quillRef.current?.getEditor();
     let content = quillObj?.root.innerHTML;
 
@@ -272,8 +276,11 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         <Button className="h-12" type="button" bgColor="white" onClick={handleCancel}>
           취소하기
         </Button>
-        <Button className="h-12">등록하기</Button>
+        <Button disabled={isPostPending || isUploadingImage} className="h-12">
+          등록하기
+        </Button>
       </div>
+      {(isPostPending || isPatchPending || isUploadingImage) && <LoadingSpinner isSubmitting />}
     </form>
   );
 }

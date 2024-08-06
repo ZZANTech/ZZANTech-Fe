@@ -18,9 +18,6 @@ import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import SkeletonKnowhowList from "@/app/(main)/boards/knowhow/_components/SkeletonKnowhowList";
 
 function KnowhowContainer() {
-  const { displayDefaultAlert } = useAlertModal();
-  const { open } = useModal();
-  const router = useRouter();
   const [sortOrder, setSortOrder] = useState<TOption["value"]>(SORT_OPTIONS[0].value);
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
   const [searchKeyword, setSearchKeyword] = useState<string>("");

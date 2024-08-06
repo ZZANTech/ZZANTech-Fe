@@ -82,56 +82,56 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: numb
 export const POST = async (req: NextRequest) => {
   const supabase = createClient();
 
-  const voteData = await req.json();
-
   try {
-    if (voteData) {
-      const { data: existingVoteData, error: existingVoteError } = await supabase
-        .from("vote_likes")
-        .select("*")
-        .eq("user_id", voteData.user_id)
-        .eq("vote_post_id", voteData.vote_post_id)
+    const voteData = await req.json();
+
+    if (!voteData) {
+      return NextResponse.json({ error: "유효한 투표 데이터가 없습니다." }, { status: 400 });
+    }
+
+    const { data: existingVoteData, error: existingVoteError } = await supabase
+      .from("vote_likes")
+      .select("*")
+      .eq("user_id", voteData.user_id)
+      .eq("vote_post_id", voteData.vote_post_id)
+      .single();
+
+    if (existingVoteError && existingVoteError.code !== "PGRST116") {
+      throw new Error("좋아요 기록을 가져오지 못했습니다.");
+    }
+
+    if (existingVoteData) {
+      return NextResponse.json({ error: "이미 이 게시물에 좋아요를 눌렀습니다." }, { status: 400 });
+    }
+
+    const { status, statusText, error } = await supabase.from("vote_likes").insert(voteData).single();
+
+    if (error) {
+      throw new Error("투표 업데이트에 실패했습니다.");
+    }
+
+    if (voteData.is_upvote) {
+      const { data: authorData, error: authorError } = await supabase
+        .from("vote_posts")
+        .select("user_id")
+        .eq("vote_postId", voteData.vote_post_id)
         .single();
 
-      if (existingVoteError && existingVoteError.code !== "PGRST116") {
-        throw new Error("좋아요 기록을 가져오지 못했습니다.");
+      if (authorError) {
+        throw new Error("작성자 정보를 가져오지 못했습니다");
       }
 
-      if (existingVoteData) {
-        throw new Error("이미 이 게시물에 좋아요를 눌렀습니다.");
-      }
-
-      const { status, statusText, error } = await supabase.from("vote_likes").insert(voteData).single();
-
-      if (error) {
-        throw new Error("투표 업데이트에 실패했습니다.");
-      }
-
-      if (voteData.is_upvote) {
-        const { data: authorData, error: authorError } = await supabase
-          .from("vote_posts")
-          .select("user_id")
-          .eq("vote_postId", voteData.vote_post_id)
-          .single();
-
-        if (authorError) {
-          throw new Error("작성자 정보를 가져오지 못했습니다");
-        }
-
-        const authorId = authorData.user_id;
-        if (authorId === voteData.user_id) {
-          return;
-        }
+      const authorId = authorData.user_id;
+      if (authorId === voteData.user_id) {
+      } else {
         const POINTS_TO_ADD = 1;
         const REASON_FOR_ADD_POINTS = "따봉";
 
-        checkAndAddPoints(authorId, POINTS_TO_ADD, REASON_FOR_ADD_POINTS).catch((e) => {
-          console.error(e);
-        });
+        checkAndAddPoints(authorId, POINTS_TO_ADD, REASON_FOR_ADD_POINTS).catch((e) => {});
       }
-
-      return NextResponse.json({ status, statusText });
     }
+
+    return NextResponse.json({ status, statusText });
   } catch (e) {
     if (e instanceof Error) {
       return NextResponse.json({ error: e.message }, { status: 500 });
