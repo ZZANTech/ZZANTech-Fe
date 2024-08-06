@@ -23,38 +23,22 @@ function TestSignup() {
   const [recheckedPasswordError, setRecheckedPasswordError] = useState<string>("");
   const router = useRouter();
   const modal = useModal();
-  const activeButton = email && nickname && password && recheckedPassword;
+  const activeButton = !emailError && !nicknameError && !passwordError && !recheckedPasswordError;
 
   const handleClickSignUpButton = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // if (!emailError && !nicknameError) {
-    //   try {
-    //     const emailRes = await checkEmailDuplication(email, setEmailError);
-    //     console.log("emailRes >>", emailRes);
-    //     const nicknameRes = await checkNicknameDuplication(nickname, setNicknameError);
-    //     // if (!emailError && !nicknameError) {
-    //     //   console.log("회원가입 성공");
-    //     // }
-    //   } catch (error) {
-    //     console.error("회원가입 실패:", error);
-    //   }
-    // }
   };
 
   const handleClickDupEmail = async (e: FormEvent) => {
     e.preventDefault();
-    // setNicknameError("");
-    //   //중복확인 api
-    //   try {
-    //     const emailRes = await checkEmailDuplication(email, setEmailError);
-    //     console.log("emailRes >>", emailRes);
-    //     // if (!emailError && !nicknameError) {
-    //     //   console.log("회원가입 성공");
-    //     // }
-    //   } catch (error) {
-    //     console.error("중복확인 실패", error);
-    //   }
-    // }
+    setNicknameError("");
+    //중복확인 api
+
+    const emailRes = await checkEmailDuplication(email);
+    console.log("emailRes >>", emailRes);
+    if (!emailError && !nicknameError) {
+      console.log("회원가입 성공");
+    }
   };
 
   const handleClickDupNickname = () => {
@@ -115,7 +99,6 @@ function TestSignup() {
         </button>
       </section>
 
-      {/*비밀번호 */}
       <section>
         <label>비밀번호</label>
         <input
