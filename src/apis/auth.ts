@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { BASE_URL } from "@/constants";
 import { TUserInsert } from "@/types/user.type";
 import { createClient } from "@/utils/supabase/client";
+import { redirect } from "next/navigation";
 
 //로그아웃
 export const logout = async () => {
@@ -131,6 +132,15 @@ export const patchPassword = async (password: TChangePassword) => {
 export async function signInWithKakao() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "kakao"
+    provider: "kakao",
+    options: {
+      redirectTo: "https://kwjdpavgvqhllxtfeljb.supabase.co/auth/v1/callback"
+    }
   });
+
+  console.error(error);
+
+  if (data.url) {
+    redirect(data.url); // use the redirect API for your server framework
+  }
 }
