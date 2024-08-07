@@ -9,6 +9,7 @@ import { uploadImage } from "@/apis/chat";
 import useAlertModal from "@/hooks/useAlertModal";
 import Image from "next/image";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 type VoteWriteFormProps = {
   previousContent?: TVote;
@@ -17,7 +18,7 @@ type VoteWriteFormProps = {
 function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   const { user } = useUserContext();
   const { displayDefaultAlert } = useAlertModal();
-  const { addVote, updateVote } = useVoteMutation();
+  const { addVote, isPostPending, updateVote, isPatchPending } = useVoteMutation();
   const router = useRouter();
   const modal = useModal();
 
@@ -27,6 +28,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   const [content, setContent] = useState<string>(previousContent?.content || "");
   const [image, setImage] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(previousContent?.image_url || null);
+  const [isUploading, setIsUploading] = useState<boolean>(false);
 
   const [errors, setErrors] = useState({
     title: "",
@@ -83,6 +85,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
 
   const handleSubmit = async () => {
     if (!validateForm()) return;
+    setIsUploading(true);
 
     let uploadedImageUrl: string | null = imageUrl;
 
@@ -93,8 +96,10 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       } catch (error) {
         displayDefaultAlert("이미지 업로드에 실패했습니다.");
         console.log(error);
+        setIsUploading(false);
         return;
       }
+      setIsUploading(false);
     }
 
     const newVote = {
@@ -110,6 +115,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
       if (previousContent) {
         await updateVote({ ...newVote, vote_postId: previousContent.vote_postId });
       } else {
+        if (isPostPending) return;
         await addVote(newVote);
       }
     } catch (error) {
@@ -124,6 +130,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   };
 
   const handleOpenConfirmModal: FormEventHandler<HTMLFormElement> = (e) => {
+    if (isPostPending || isUploading) return;
     e.preventDefault();
     modal.open({
       content: `글을 ${previousContent ? "수정" : "작성"}하시겠습니까?`,
@@ -286,11 +293,15 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             >
               <div className="text-center text-[#111111] text-base font-semibold leading-tight">취소하기</div>
             </button>
-            <button className="w-40 h-12 px-4 py-3 bg-basic rounded-lg justify-center items-center gap-2.5 flex">
+            <button
+              disabled={isPostPending || isUploading}
+              className="w-40 h-12 px-4 py-3 bg-basic rounded-lg justify-center items-center gap-2.5 flex"
+            >
               <div className="text-center text-white text-base font-semibold leading-tight">등록하기</div>
             </button>
           </div>
         </form>
+        {(isPostPending || isUploading || isPatchPending) && <LoadingSpinner isSubmitting />}
       </section>
     </div>
   );

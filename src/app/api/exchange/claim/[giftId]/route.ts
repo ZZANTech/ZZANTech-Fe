@@ -1,4 +1,3 @@
-import { revalidateRoute } from "@/utils/revalidation";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";

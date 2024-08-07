@@ -1,13 +1,12 @@
 "use client";
 
 import useAlertModal from "@/hooks/useAlertModal";
-import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useKnowhowCommentMutation from "@/stores/queries/knowhow/comment/useKnowhowCommentMutation";
 import useVoteCommentMutation from "@/stores/queries/vote/comment/useVoteCommentMutation";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { FormEventHandler, useRef } from "react";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 type CommentFormProps = {
   postId: number;
@@ -16,12 +15,10 @@ type CommentFormProps = {
 
 function CommentForm({ postId, board }: CommentFormProps) {
   const { user } = useUserContext();
-  const modal = useModal();
-  const router = useRouter();
   const { displayDefaultAlert, displayLoginAlert } = useAlertModal();
 
-  const { addKnowhowComment } = useKnowhowCommentMutation();
-  const { addVoteComment } = useVoteCommentMutation();
+  const { addKnowhowComment, isKnowhowCommentPostPending } = useKnowhowCommentMutation();
+  const { addVoteComment, isVoteCommentPostPending } = useVoteCommentMutation();
 
   const commentInputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -58,22 +55,32 @@ function CommentForm({ postId, board }: CommentFormProps) {
     }
   };
 
+  const isPending = isKnowhowCommentPostPending || isVoteCommentPostPending;
+
   return (
     <form onSubmit={handleCommentSubmit} className="w-full flex flex-col gap-[12px]">
       <textarea
         ref={commentInputRef}
         maxLength={500}
         className="h-[90px] px-[19px] pt-3.5 pb-[52px] bg-white rounded-lg border border-[#8b8b8b] justify-start items-center inline-flex scrollbar-hide"
+        disabled={isPending}
       />
       <div className="flex justify-end mb-[36px]">
         <button
           type="submit"
           className="w-[124px] h-[44px] bg-[#1b1b1b] text-white text-[13px] font-semibold leading-[30px] rounded-lg flex justify-center items-center gap-2.5"
+          disabled={isPending}
         >
-          <div className="w-5 h-5 flex justify-center items-center">
-            <Image src="/icons/mypage/pen_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
-          </div>
-          <div className="text-center text-white text-sm font-semibold leading-tight">댓글쓰기</div>
+          {isPending ? (
+            <LoadingSpinner />
+          ) : (
+            <>
+              <div className="w-5 h-5 flex justify-center items-center">
+                <Image src="/icons/mypage/pen_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
+              </div>
+              <div className="text-center text-white text-sm font-semibold leading-tight">댓글쓰기</div>
+            </>
+          )}
         </button>
       </div>
     </form>
