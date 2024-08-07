@@ -37,9 +37,9 @@ function NicknameModal() {
       <h2 className="px-6 py-2 text-2xl font-bold">닉네임 변경</h2>
       <input
         type="text"
-        maxLength={20}
+        maxLength={7}
         value={nickname}
-        placeholder="변경할 닉네임을 입력해주세요"
+        placeholder="최소 2~7자 한글, 영어, 슷자"
         onChange={(e) => setNickname(e.target.value)}
         className="AuthInput"
       />

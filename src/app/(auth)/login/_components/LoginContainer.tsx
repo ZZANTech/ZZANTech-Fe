@@ -24,8 +24,8 @@ function LoginContainer() {
     const email = emailRef.current?.value || "";
     const password = passwordRef.current?.value || "";
 
-    checkEmailValidity({ email, setEmailMessage, setEmailError });
-    checkPasswordValidity({ password, setPasswordMessage, setPasswordError });
+    checkEmailValidity({ email, setEmailError });
+    checkPasswordValidity({ password, setPasswordError });
     setIsFormValid(email !== "" && password !== "");
 
     //로그인 서버 통신 로직

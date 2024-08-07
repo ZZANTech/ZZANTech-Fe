@@ -18,6 +18,8 @@ function UserEditPassword() {
     await updatePassword({ oldPassword, newPassword });
   };
 
+  const activeButton = oldPassword && newPassword && confirmPassword;
+
   return (
     <div className="w-[348px] h-[412px] mx-auto mt-[100pt]">
       <h1 className="font-xl font-semibold mb-12 leading-7">비밀번호 변경</h1>
@@ -40,7 +42,7 @@ function UserEditPassword() {
             <input
               type="password"
               value={newPassword}
-              placeholder="새로운 비밀번호를 입력해주세요"
+              placeholder="최소 6~20자, 영어+특수문자 조합"
               className="AuthInput"
               maxLength={20}
               onChange={(e) => setNewPassword(e.target.value)}
@@ -52,7 +54,7 @@ function UserEditPassword() {
             <input
               type="password"
               value={confirmPassword}
-              placeholder="새로운 비밀번호를 다시 입력해주세요"
+              placeholder="최소 6~20자, 영어+특수문자 조합"
               className="AuthInput"
               maxLength={20}
               onChange={(e) => setConfirmPassword(e.target.value)}
@@ -60,7 +62,12 @@ function UserEditPassword() {
           </div>
         </div>
 
-        <button className="p-4 rounded-lg font-semibold leading-6 bg-gray-100 text-[#999999]">비밀번호 변경</button>
+        <button
+          className={`p-4 rounded-lg font-semibold leading-6 text-white ${activeButton ? "bg-black" : "bg-gray-400"}`}
+          disabled={!activeButton}
+        >
+          비밀번호 변경
+        </button>
       </form>
     </div>
   );
