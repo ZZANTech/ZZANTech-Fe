@@ -13,7 +13,6 @@ export async function POST(request: NextRequest) {
       email,
       password
     });
-    console.log(response.data.user?.user_metadata.is_blocked);
     const isBlocked: true | null = response.data.user?.user_metadata.is_blocked;
     if (isBlocked) {
       await supabase.auth.signOut();
