@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useModal } from "@/provider/contexts/ModalContext";
+import { signInWithKakao } from "@/apis/auth";
 
 function LoginContainer() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -42,6 +43,18 @@ function LoginContainer() {
     const email = emailRef.current?.value || "";
     const password = passwordRef.current?.value || "";
     setIsFormValid(email !== "" && password !== "");
+  };
+
+  const handleKakaoLogin = async () => {
+    try {
+      const res = await signInWithKakao();
+      console.log("클라이언트 컴포넌트 >> ", res);
+    } catch (error: any) {
+      modal.open({
+        type: "alert",
+        content: error.message
+      });
+    }
   };
 
   useEffect(() => {
@@ -94,7 +107,7 @@ function LoginContainer() {
         <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
       </div>
 
-      <div className="auth-login-button bg-[#FDE500]">
+      <div className="auth-login-button bg-[#FDE500]" onClick={handleKakaoLogin}>
         <Image src={"/logos/kakao_black.png"} width={25} height={25} alt="kakao_black" />
         카카오로 계속하기
       </div>

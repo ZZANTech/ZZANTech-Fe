@@ -2,7 +2,9 @@ import { TChangePassword } from "@/types/user.type";
 import { Dispatch, SetStateAction } from "react";
 import { BASE_URL } from "@/constants";
 import { TUserInsert } from "@/types/user.type";
+import { createClient } from "@/utils/supabase/client";
 
+//로그아웃
 export const logout = async () => {
   const response = await fetch("/api/auth/login", { method: "DELETE" });
   if (!response.ok) {
@@ -12,7 +14,7 @@ export const logout = async () => {
   return response.json();
 };
 
-// 중복확인 : 이메일
+//중복확인 : 이메일
 export async function checkEmailDuplication(email: string, setEmailError: Dispatch<SetStateAction<string>>) {
   const res = await fetch(`${BASE_URL}/api/auth/signup/duplication/email`, {
     method: "POST",
@@ -27,7 +29,7 @@ export async function checkEmailDuplication(email: string, setEmailError: Dispat
   }
 }
 
-// 중복확인 : 이메일
+//중복확인 : 이메일
 export async function checkNicknameDuplication(nickname: string, setNicknameError: Dispatch<SetStateAction<string>>) {
   const res = await fetch(`${BASE_URL}/api/auth/signup/duplication/nickname`, {
     method: "POST",
@@ -41,7 +43,7 @@ export async function checkNicknameDuplication(nickname: string, setNicknameErro
   }
 }
 
-// 회원가입
+//회원가입
 export async function signUp(data: TUserInsert) {
   const response = await fetch(`${BASE_URL}/api/auth/signup`, {
     method: "POST",
@@ -96,7 +98,7 @@ export const updateNickname = async (
   return res;
 };
 
-// 마이페이지 : 비밀번호 변경 apis
+//마이페이지 : 비밀번호 변경 apis
 export const patchPassword = async (password: TChangePassword) => {
   const res = await fetch("/api/auth/mypage/password", {
     method: "PATCH",
@@ -115,3 +117,20 @@ export const patchPassword = async (password: TChangePassword) => {
   const data = await res.json();
   return data.message;
 };
+
+//소셜로그인: 카카오톡
+// export const signInWithKakao = async () => {
+//   const res = await fetch("/api/auth/kakao/login", {
+//     method: "GET"
+//   });
+//   console.log(res);
+// };
+
+// 소셜로그아웃 : 카카오톡
+
+export async function signInWithKakao() {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "kakao"
+  });
+}
