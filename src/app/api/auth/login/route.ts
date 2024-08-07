@@ -9,11 +9,16 @@ export async function POST(request: NextRequest) {
     const password = data.password as string;
 
     const supabase = createClient();
-
     const response = await supabase.auth.signInWithPassword({
       email,
       password
     });
+    console.log(response.data.user?.user_metadata.is_blocked);
+    const isBlocked: true | null = response.data.user?.user_metadata.is_blocked;
+    if (isBlocked) {
+      await supabase.auth.signOut();
+      return NextResponse.json({ error: "로그인이 제한된 사용자입니다" }, { status: 403 });
+    }
     if (response.error) {
       console.error("Supabase 인증 오류:", response.error);
       return NextResponse.json({ error: "이메일 또는 비밀번호가 잘못되었습니다." }, { status: 401 });
