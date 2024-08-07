@@ -27,10 +27,10 @@ function RecheckPasswordForm({
         value={confirmPassword}
         maxLength={20}
         placeholder="최소 6~20자, 특수문자 가능"
-        className={`AuthInput ${confirmPassword && (confirmPassword !== password ? "border-info-red" : "border-info-green")}`}
+        className={`AuthInput ${confirmPassword && confirmPassword !== password ? "border-info-red" : "border-info-green"}`}
         onChange={handleConfirmPasswordChange}
       />
-      {confirmPassword && confirmPassword !== password && <p className="AuthStateInfo">비밀번호가 틀립니다.</p>}
+      {confirmPassword !== password && <p className="AuthStateInfo">비밀번호가 틀립니다.</p>}
     </div>
   );
 }
