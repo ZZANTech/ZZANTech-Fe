@@ -9,7 +9,11 @@ const useVoteMutation = () => {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: addVote } = useMutation<TVotesResponse, Error, Partial<Tables<"vote_posts">>>({
+  const { mutateAsync: addVote, isPending: isPostPending } = useMutation<
+    TVotesResponse,
+    Error,
+    Partial<Tables<"vote_posts">>
+  >({
     mutationFn: (newVote) => postVote(newVote),
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -19,7 +23,11 @@ const useVoteMutation = () => {
     }
   });
 
-  const { mutateAsync: updateVote } = useMutation<TVotesResponse, Error, Partial<Tables<"vote_posts">>>({
+  const { mutateAsync: updateVote, isPending: isPatchPending } = useMutation<
+    TVotesResponse,
+    Error,
+    Partial<Tables<"vote_posts">>
+  >({
     mutationFn: (updatedVote) => patchVote(updatedVote),
     onSuccess: (status, updatedVote) => {
       queryClient.invalidateQueries({
@@ -40,7 +48,7 @@ const useVoteMutation = () => {
     }
   });
 
-  return { addVote, updateVote, removeVote };
+  return { addVote, isPostPending, updateVote, isPatchPending, removeVote };
 };
 
 export default useVoteMutation;

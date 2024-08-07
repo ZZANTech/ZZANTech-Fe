@@ -11,9 +11,13 @@ import { useState } from "react";
 
 function SignUpContainer() {
   const [email, setEmail] = useState<string>("");
+  const [emailDup, setEmailDup] = useState<boolean | null>(null);
   const [nickname, setNickname] = useState<string>("");
+  const [nicknameDup, setNicknameDup] = useState<boolean | null>(null);
   const [password, setPassword] = useState<string>("");
+  const [passwordValid, setPasswordValid] = useState<boolean | null>(null);
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [confirmPasswordValid, setConfirmPasswordValid] = useState<boolean | null>(null);
   const router = useRouter();
 
   const handleClickSignUp = async () => {
@@ -25,19 +29,20 @@ function SignUpContainer() {
       alert(error.message);
     }
   };
-  const isFormValid = email && nickname && password && confirmPassword;
+  const isFormValid = emailDup && nicknameDup && passwordValid && confirmPasswordValid;
 
   return (
     <div className="flex flex-col justify-center gap-12">
       <h1 className="text-xl font-semibold">회원가입</h1>
       <div className="flex flex-col gap-6">
-        <EmailForm email={email} setEmail={setEmail} />
-        <NicknameForm nickname={nickname} setNickname={setNickname} />
-        <PasswordForm password={password} setPassword={setPassword} />
+        <EmailForm email={email} setEmail={setEmail} setEmailDup={setEmailDup} />
+        <NicknameForm nickname={nickname} setNickname={setNickname} setNicknameDup={setNicknameDup} />
+        <PasswordForm password={password} setPassword={setPassword} setPasswordValid={setPasswordValid} />
         <RecheckPasswordForm
           confirmPassword={confirmPassword}
           setConfirmPassword={setConfirmPassword}
           password={password}
+          setConfirmPasswordValid={setConfirmPasswordValid}
         />
         <button
           className={`mx-auto w-[348px] h-14 px-4 text-center text-white rounded-lg ${isFormValid ? "bg-black" : "bg-gray-400"}`}

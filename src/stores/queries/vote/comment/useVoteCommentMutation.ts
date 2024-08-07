@@ -8,7 +8,11 @@ const useVoteCommentMutation = () => {
   const { displayDefaultAlert } = useAlertModal();
   const queryClient = useQueryClient();
 
-  const { mutateAsync: addVoteComment } = useMutation<TResponseStatus, Error, Partial<Tables<"vote_comments">>>({
+  const { mutateAsync: addVoteComment, isPending: isVoteCommentPostPending } = useMutation<
+    TResponseStatus,
+    Error,
+    Partial<Tables<"vote_comments">>
+  >({
     mutationFn: (updatedComment) => postVoteComment(updatedComment),
     onSuccess: (status, updatedComment) => {
       queryClient.invalidateQueries({
@@ -21,7 +25,11 @@ const useVoteCommentMutation = () => {
     onError: (e) => displayDefaultAlert(e.message)
   });
 
-  const { mutateAsync: updateVoteComment } = useMutation<TResponseStatus, Error, Partial<Tables<"vote_comments">>>({
+  const { mutateAsync: updateVoteComment, isPending: isVoteCommentPatchPending } = useMutation<
+    TResponseStatus,
+    Error,
+    Partial<Tables<"vote_comments">>
+  >({
     mutationFn: (updatedComment) => patchVoteComment(updatedComment),
     onSuccess: (status, updatedComment) => {
       queryClient.invalidateQueries({
@@ -41,7 +49,7 @@ const useVoteCommentMutation = () => {
     onError: (e) => displayDefaultAlert(e.message)
   });
 
-  return { addVoteComment, updateVoteComment, removeVoteComment };
+  return { addVoteComment, isVoteCommentPostPending, updateVoteComment, isVoteCommentPatchPending, removeVoteComment };
 };
 
 export default useVoteCommentMutation;

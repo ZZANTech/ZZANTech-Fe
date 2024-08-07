@@ -1,35 +1,46 @@
 "use client";
 
+import { checkNicknameValidity } from "@/utils/authValidity";
 import { createClient } from "@/utils/supabase/client";
-import { ChangeEvent, MouseEventHandler, useState } from "react";
+import { MouseEventHandler, useState } from "react";
 
-function NicknameForm({ nickname, setNickname }: { nickname: string; setNickname: (nickname: string) => void }) {
-  const [isDuplicated, setIsDuplicated] = useState<boolean>(false);
-  const [isCorrected, setIsCorrected] = useState<boolean>(false);
-  const [isInvalidNickname, setIsInvalidNickname] = useState<boolean>(false);
+function NicknameForm({
+  nickname,
+  setNickname,
+  setNicknameDup
+}: {
+  nickname: string;
+  setNickname: (nickname: string) => void;
+  setNicknameDup: (nicknameDup: boolean | null) => void;
+}) {
+  const [isCorrected, setIsCorrected] = useState<boolean | null>(null);
+  const [nicknameError, setNicknameError] = useState<string>("");
   const supabase = createClient();
 
   const handleCheckDuplicate: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
-    setIsInvalidNickname(false);
 
-    const nicknameRegex = /^[a-zA-Z0-9가-힣]{3,20}$/;
-    if (!nicknameRegex.test(nickname)) {
-      setIsInvalidNickname(true);
-      setIsCorrected(false);
-      setIsDuplicated(false);
-      return;
-    }
+    //초기화
+    setIsCorrected(null);
+    setNicknameError("");
+    setNicknameDup(null);
 
-    e.preventDefault();
-    let { data: users, error } = await supabase.from("users").select("*").eq("nickname", nickname);
-    if (users!.length > 0) {
-      //users의 타입정의 필요
-      setIsDuplicated(true);
-      setIsCorrected(false);
-    } else {
-      setIsDuplicated(false);
-      setIsCorrected(true);
+    //유효성 검사: 한글, 영어, 숫자
+    checkNicknameValidity({ nickname, setNicknameError });
+
+    //유효성 검사: 중복확인
+    if (!nicknameError) {
+      let { data: users, error } = await supabase.from("users").select("*").eq("nickname", nickname);
+      if (users!.length > 0) {
+        //users의 타입정의 필요
+        setNicknameError("이미 사용 중인 닉네임입니다.");
+        setIsCorrected(false);
+        setNicknameDup(false);
+        return;
+      } else {
+        setIsCorrected(true);
+        setNicknameDup(true);
+      }
     }
   };
 
@@ -40,25 +51,20 @@ function NicknameForm({ nickname, setNickname }: { nickname: string; setNickname
         <input
           type="text"
           value={nickname}
-          maxLength={40}
-          placeholder="닉네임을 입력해주세요"
-          className={`AuthInputShort ${
-            isDuplicated || isInvalidNickname ? "border-info-red" : isCorrected ? "border-info-green" : ""
-          }`}
-          onChange={(e) => {
-            setNickname(e.target.value);
-            setIsDuplicated(false);
-            setIsCorrected(false);
-            setIsInvalidNickname(false);
-          }}
+          maxLength={7}
+          placeholder="최소 2~7자 한글, 영어, 슷자"
+          className={`AuthInputShort ${nicknameError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
+          onChange={(e) => setNickname(e.target.value)}
         />
-        <button className="AuthDupButton" onClick={handleCheckDuplicate}>
+        <button
+          className={`AuthDupButton ${nickname ? "bg-black" : " bg-[#C0C0C0]"}`}
+          onClick={handleCheckDuplicate}
+          disabled={!nickname}
+        >
           중복체크
         </button>
       </form>
-      {isDuplicated && <p className="AuthStateInfo">동일한 닉네임이 있습니다.</p>}
-      {isCorrected && <p className="AuthStateInfoGreen">사용 가능한 닉네임입니다.</p>}
-      {isInvalidNickname && <p className="AuthStateInfo">유효한 닉네임 형식이 아닙니다.</p>}
+      {nicknameError && <p className="AuthStateInfo">{nicknameError}</p>}
     </div>
   );
 }
