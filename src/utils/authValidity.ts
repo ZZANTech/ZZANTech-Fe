@@ -13,11 +13,11 @@ export const checkEmailValidity = ({
     setEmailError("이메일을 입력해주세요.");
     return;
   }
-  //이메일 형식이 아닐 경우
   if (!/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(email)) {
-    setEmailError("이메일 형식이 아닙니다. (예: zzan123@gmail.com");
+    setEmailError("이메일 형식에 알맞게 입력해주세요.");
     return;
   }
+  setEmailError("");
 };
 
 //비밀번호 유효성검사
@@ -32,33 +32,15 @@ export const checkPasswordValidity = ({
     setPasswordError("비밀번호를 입력해주세요.");
     return;
   }
-  if (password.length < 5 || password.length > 40) {
-    setPasswordError("비밀번호는 6자 이상이어야 합니다.");
+  if (password.length < 5 || password.length > 20) {
+    setPasswordError("비밀번호는 6자 이상 20자 이하이어야 합니다.");
     return;
   }
-};
+  if (!/^[a-zA-Z\d!@#$%^&*()_+~`|}{[\]:;?><,./-=]{6,20}$/.test(password)) {
+    setPasswordError("영어, 특수문자 조합 필수");
+  }
 
-//비밀번호 확인 유효성검사
-export const checkRecheckedPasswordValidity = ({
-  password,
-  recheckedPassword,
-  setRecheckedPasswordError
-}: {
-  password: string;
-  recheckedPassword: string;
-  setRecheckedPasswordError: Dispatch<SetStateAction<string>>;
-}) => {
-  if (!recheckedPassword) {
-    setRecheckedPasswordError("비밀번호를 입력해주세요.");
-    return;
-  }
-  if (recheckedPassword.length < 5 || recheckedPassword.length > 40) {
-    setRecheckedPasswordError("비밀번호는 6자 이상이어야 합니다.");
-    return;
-  }
-  if (password !== recheckedPassword) {
-    setRecheckedPasswordError("비밀번호와 일치하지 않습니다.");
-  }
+  setPasswordError("");
 };
 
 // 마이페이지: 닉네임 변경
@@ -75,6 +57,10 @@ export const checkNicknameValidity = ({
   }
   if (nickname.length < 2 || nickname.length > 8) {
     setNicknameError("닉네임은 2자 이상 7자 이하이어야 합니다.");
+    return;
+  }
+  if (!/^[a-zA-Z0-9가-힣]{3,20}$/.test(nickname)) {
+    setNicknameError("한글, 영어, 숫자만 가능합니다.");
     return;
   }
   setNicknameError("");

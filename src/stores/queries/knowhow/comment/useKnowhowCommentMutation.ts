@@ -8,7 +8,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const useKnowhowCommentMutation = () => {
   const { displayDefaultAlert } = useAlertModal();
   const queryClient = useQueryClient();
-  const { mutateAsync: addKnowhowComment } = useMutation<TResponseStatus, Error, Partial<Tables<"knowhow_comments">>>({
+  const { mutateAsync: addKnowhowComment, isPending: isKnowhowCommentPostPending } = useMutation<
+    TResponseStatus,
+    Error,
+    Partial<Tables<"knowhow_comments">>
+  >({
     mutationFn: (updatedComment) => postKnowhowComment(updatedComment),
     onSuccess: (status, updatedComment) => {
       queryClient.invalidateQueries({
@@ -21,7 +25,7 @@ const useKnowhowCommentMutation = () => {
     onError: (e) => displayDefaultAlert(e.message)
   });
 
-  const { mutateAsync: updateKnowhowComment } = useMutation<
+  const { mutateAsync: updateKnowhowComment, isPending: isKnowhowCommentPatchPending } = useMutation<
     TResponseStatus,
     Error,
     Partial<Tables<"knowhow_comments">>
@@ -44,7 +48,13 @@ const useKnowhowCommentMutation = () => {
     },
     onError: (e) => displayDefaultAlert(e.message)
   });
-  return { addKnowhowComment, updateKnowhowComment, removeKnowhowComment };
+  return {
+    addKnowhowComment,
+    isKnowhowCommentPostPending,
+    updateKnowhowComment,
+    isKnowhowCommentPatchPending,
+    removeKnowhowComment
+  };
 };
 
 export default useKnowhowCommentMutation;
