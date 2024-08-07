@@ -87,8 +87,8 @@ function LoginContainer() {
       >
         이메일로 계속하기
       </button>
-      {/* 
-      <div className="container flex items-center gap-[87px]">
+
+      <div className="container flex items-center gap-[87px] my-8">
         <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
         <div className="text text-gray-500 text-shadow">또는</div>
         <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
@@ -98,7 +98,7 @@ function LoginContainer() {
         <Image src={"/logos/kakao_black.png"} width={25} height={25} alt="kakao_black" />
         카카오로 계속하기
       </div>
-
+      {/* 
       <div className="auth-login-button border border-[#CCCCC6]">
         <Image src={"/logos/Google_color.png"} width={25} height={25} alt="Google_color" />
         Google로 계속하기
