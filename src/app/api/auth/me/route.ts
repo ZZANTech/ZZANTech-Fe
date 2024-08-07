@@ -6,7 +6,13 @@ export async function GET() {
   const supabase = createClient();
 
   const { data } = await supabase.auth.getUser();
-
+  const isBlocked: true | null = data.user?.user_metadata.is_blocked;
+  if (isBlocked) {
+    if (isBlocked) {
+      await supabase.auth.signOut();
+      return NextResponse.json({ error: "로그인이 제한된 사용자입니다" }, { status: 403 });
+    }
+  }
   if (!data) return NextResponse.json("", { status: 401 });
   else {
     let { data: users, error } = await supabase
