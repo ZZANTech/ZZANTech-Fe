@@ -98,6 +98,7 @@ function LoginContainer() {
         <Image src={"/logos/kakao_black.png"} width={25} height={25} alt="kakao_black" />
         카카오로 계속하기
       </div>
+
       {/* 
       <div className="auth-login-button border border-[#CCCCC6]">
         <Image src={"/logos/Google_color.png"} width={25} height={25} alt="Google_color" />
