@@ -54,13 +54,19 @@ function LoginContainer() {
         redirectTo: `${BASE_URL}/api/auth/callback`
       }
     });
+    if (data) {
+      modal.open({
+        type: "alert",
+        content: "환영합니다.!"
+      });
+    }
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     router.replace("/");
-  //   }
-  // }, [user, router]);
+  useEffect(() => {
+    if (user) {
+      router.replace("/");
+    }
+  }, [user, router]);
 
   return (
     <div className="flex flex-col items-center w-[320px] mx-auto p-3">

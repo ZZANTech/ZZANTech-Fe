@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     .insert({
       userId: data.user?.id,
       email,
-      nickname, //full_name으로 잡아야 소셜로그인도 같이 처리할 수 있다...!
+      nickname,
       created_at: data.user?.created_at,
       provider: "email",
       total_point: 0,
