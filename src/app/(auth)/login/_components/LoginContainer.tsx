@@ -7,7 +7,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useModal } from "@/provider/contexts/ModalContext";
-import { signInWithKakao } from "@/apis/auth";
 import { createClient } from "@/utils/supabase/client";
 import { BASE_URL } from "@/constants";
 
@@ -47,32 +46,21 @@ function LoginContainer() {
     setIsFormValid(email !== "" && password !== "");
   };
 
-  const handleSocialLogin = async (provider: "google" | "kakao") => {
+  const handleSocialLogin = async () => {
     const supabase = createClient();
     const { data, error } = await supabase.auth.signInWithOAuth({
-      provider,
+      provider: "kakao",
       options: {
-        redirectTo: `http://localhost:3000/api/auth/callback`,
-        queryParams: {
-          access_type: "offline",
-          prompt: "select_account"
-        }
+        redirectTo: `${BASE_URL}/api/auth/callback`
       }
     });
-    console.log("handleSocialLoginData >>", data);
-
-    if (error) {
-      console.error("소셜 로그인 중 오류 발생:", error);
-      alert("소셜 로그인 중 오류가 발생했습니다.");
-      return;
-    }
   };
 
-  useEffect(() => {
-    if (user) {
-      router.replace("/");
-    }
-  }, [user, router]);
+  // useEffect(() => {
+  //   if (user) {
+  //     router.replace("/");
+  //   }
+  // }, [user, router]);
 
   return (
     <div className="flex flex-col items-center w-[320px] mx-auto p-3">
@@ -118,7 +106,7 @@ function LoginContainer() {
         <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
       </div>
 
-      <div className="auth-login-button bg-[#FDE500]" onClick={() => handleSocialLogin("kakao")}>
+      <div className="auth-login-button bg-[#FDE500]" onClick={handleSocialLogin}>
         <Image src={"/logos/kakao_black.png"} width={25} height={25} alt="kakao_black" />
         카카오로 계속하기
       </div>
