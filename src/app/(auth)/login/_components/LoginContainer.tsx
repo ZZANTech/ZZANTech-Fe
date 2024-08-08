@@ -46,11 +46,11 @@ function LoginContainer() {
     setIsFormValid(email !== "" && password !== "");
   };
 
-  const handleSocialLogin = async () => {
+  const handleSocialLogin = async (provider: "google" | "kakao") => {
     const supabase = createClient();
     try {
       const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: "kakao",
+        provider,
         options: {
           redirectTo: `${BASE_URL}/api/auth/callback`
         }
@@ -116,16 +116,15 @@ function LoginContainer() {
         <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
       </div>
 
-      <div className="auth-login-button bg-[#FDE500]" onClick={handleSocialLogin}>
+      <div className="auth-login-button bg-[#FDE500]" onClick={() => handleSocialLogin("kakao")}>
         <Image src={"/logos/kakao_black.png"} width={25} height={25} alt="kakao_black" />
         카카오로 계속하기
       </div>
 
-      {/* 
-      <div className="auth-login-button border border-[#CCCCC6]" onClick={()=>handleSocialLogin("google")}>
+      <div className="auth-login-button border border-[#CCCCC6]" onClick={() => handleSocialLogin("google")}>
         <Image src={"/logos/Google_color.png"} width={25} height={25} alt="Google_color" />
         Google로 계속하기
-      </div> */}
+      </div>
 
       <div className="flex flex-row gap-2.5 w-[340px] font-sm items-center justify-center mt-3">
         <p className="text-[#676767] font-semibold">아직 짠테크 회원이 아니신가요?</p>
