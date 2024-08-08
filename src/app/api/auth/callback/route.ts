@@ -22,7 +22,7 @@ export async function GET(request: Request) {
       const { data: users, error: usersError } = await supabase.from("users").select("*").eq("userId", userId).single();
 
       if (users === null) {
-        const { data: newUser, error } = await supabase
+        await supabase
           .from("users")
           .insert([
             {

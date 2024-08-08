@@ -48,17 +48,21 @@ function LoginContainer() {
 
   const handleSocialLogin = async () => {
     const supabase = createClient();
-    const { data, error } = await supabase.auth.signInWithOAuth({
-      provider: "kakao",
-      options: {
-        redirectTo: `${BASE_URL}/api/auth/callback`
-      }
-    });
-    if (data) {
-      modal.open({
-        type: "alert",
-        content: "환영합니다.!"
+    try {
+      const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: "kakao",
+        options: {
+          redirectTo: `${BASE_URL}/api/auth/callback`
+        }
       });
+      if (data) {
+        modal.open({
+          type: "alert",
+          content: "환영합니다.!"
+        });
+      }
+    } catch (error) {
+      console.log("error", error);
     }
   };
 
