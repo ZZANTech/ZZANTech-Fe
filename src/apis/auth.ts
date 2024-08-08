@@ -152,6 +152,11 @@ export const signInWithKakao = async () => {
   });
 
   if (res.ok) {
-    console.log("res", res);
+    const data = await res.json();
+    console.log("data", data);
+    return data;
+  } else {
+    const error = await res.json();
+    throw new Error(error.message);
   }
 };

@@ -16,6 +16,7 @@ export const GET = async () => {
     console.error(error);
     return NextResponse.json({ error });
   }
+
   // if (data.url) {
   //   console.log("data.url>>", data.url);
   //   redirect(data.url);

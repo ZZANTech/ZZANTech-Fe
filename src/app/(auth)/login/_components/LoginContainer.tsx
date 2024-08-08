@@ -48,7 +48,9 @@ function LoginContainer() {
   const handleKakaoLogin = async () => {
     try {
       const res = await signInWithKakao();
-      // console.log("handleKakaoLogin>> ", res);
+      if (res.url) {
+        window.location.href = res.url; // 브라우저에서 리디렉션 수행
+      }
     } catch (error: any) {
       modal.open({
         type: "alert",
