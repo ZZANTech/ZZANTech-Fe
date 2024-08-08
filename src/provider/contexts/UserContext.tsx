@@ -30,6 +30,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [hasTakenQuiz, setHasTakenQuiz] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  // 퀴즈풀기 여부 판별
   const fetchUser = async () => {
     setIsLoading(true);
     const response = await fetch(`${BASE_URL}/api/auth/me`);
@@ -46,6 +47,11 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(false);
   };
 
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  // 로그인 시 유저 정보 가져오기
   const logIn = async (email: string, password: string) => {
     setIsLoading(true);
     try {
@@ -65,6 +71,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       throw error;
     }
   };
+
+  // 로그아웃
   const logOut = async () => {
     setIsLoading(true);
     await logout();
@@ -73,9 +81,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(false);
   };
 
-  useEffect(() => {
-    fetchUser();
-  }, []);
   return (
     <UserContext.Provider value={{ user, logIn, logOut, hasTakenQuiz, setHasTakenQuiz, isLoading }}>
       {children}

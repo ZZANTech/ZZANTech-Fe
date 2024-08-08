@@ -120,15 +120,6 @@ export const patchPassword = async (password: TChangePassword) => {
 };
 
 //소셜로그인: 카카오톡
-// export const signInWithKakao = async () => {
-//   const res = await fetch("/api/auth/kakao/login", {
-//     method: "GET"
-//   });
-//   console.log(res);
-// };
-
-// 소셜로그아웃 : 카카오톡
-
 export async function signInWithKakao() {
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
@@ -137,10 +128,13 @@ export async function signInWithKakao() {
       redirectTo: "https://kwjdpavgvqhllxtfeljb.supabase.co/auth/v1/callback"
     }
   });
-
-  console.error(error);
+  if (error) {
+    console.error(error);
+    return;
+  }
 
   if (data.url) {
-    redirect(data.url); // use the redirect API for your server framework
+    console.log("data.url>>", data.url);
+    redirect(data.url);
   }
 }
