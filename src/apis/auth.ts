@@ -16,7 +16,7 @@ export const logout = async () => {
 };
 
 //중복확인 : 이메일
-export async function checkEmailDuplication(email: string, setEmailError: Dispatch<SetStateAction<string>>) {
+export const checkEmailDuplication = async (email: string, setEmailError: Dispatch<SetStateAction<string>>) => {
   const res = await fetch(`${BASE_URL}/api/auth/signup/duplication/email`, {
     method: "POST",
     headers: {
@@ -28,10 +28,13 @@ export async function checkEmailDuplication(email: string, setEmailError: Dispat
   if (res.status === 409) {
     setEmailError("동일한 이메일이 있습니다.");
   }
-}
+};
 
 //중복확인 : 이메일
-export async function checkNicknameDuplication(nickname: string, setNicknameError: Dispatch<SetStateAction<string>>) {
+export const checkNicknameDuplication = async (
+  nickname: string,
+  setNicknameError: Dispatch<SetStateAction<string>>
+) => {
   const res = await fetch(`${BASE_URL}/api/auth/signup/duplication/nickname`, {
     method: "POST",
     headers: {
@@ -42,10 +45,10 @@ export async function checkNicknameDuplication(nickname: string, setNicknameErro
   if (res.status === 409) {
     setNicknameError("동일한 닉네임이 있습니다.");
   }
-}
+};
 
 //회원가입
-export async function signUp(data: TUserInsert) {
+export const signUp = async (data: TUserInsert) => {
   const response = await fetch(`${BASE_URL}/api/auth/signup`, {
     method: "POST",
     headers: {
@@ -59,7 +62,7 @@ export async function signUp(data: TUserInsert) {
   }
 
   return response.json();
-}
+};
 
 //마이페이지 : 중복확인 및 update API
 export const updateNickname = async (
@@ -120,21 +123,25 @@ export const patchPassword = async (password: TChangePassword) => {
 };
 
 //소셜로그인: 카카오톡
-export async function signInWithKakao() {
+export const signInWithKakao = async () => {
   const supabase = createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "kakao",
-    options: {
-      redirectTo: "https://kwjdpavgvqhllxtfeljb.supabase.co/auth/v1/callback"
-    }
+    provider: "kakao"
+    // options: {
+    //   redirectTo: "https://kwjdpavgvqhllxtfeljb.supabase.co/auth/v1/callback"
+    // }
   });
+  console.log("data", data);
+
+  if (data) {
+    console.log("data 있다", data);
+  }
   if (error) {
     console.error(error);
     return;
   }
-
-  if (data.url) {
-    console.log("data.url>>", data.url);
-    redirect(data.url);
-  }
-}
+  // if (data.url) {
+  //   console.log("data.url>>", data.url);
+  //   redirect(data.url);
+  // }
+};
