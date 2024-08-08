@@ -123,25 +123,35 @@ export const patchPassword = async (password: TChangePassword) => {
 };
 
 //소셜로그인: 카카오톡
-export const signInWithKakao = async () => {
-  const supabase = createClient();
-  const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: "kakao"
-    // options: {
-    //   redirectTo: "https://kwjdpavgvqhllxtfeljb.supabase.co/auth/v1/callback"
-    // }
-  });
-  console.log("data", data);
+// export const signInWithKakao = async () => {
+//   const supabase = createClient();
+//   const { data, error } = await supabase.auth.signInWithOAuth({
+//     provider: "kakao"
+//     // options: {
+//     //   redirectTo: "https://kwjdpavgvqhllxtfeljb.supabase.co/auth/v1/callback"
+//     // }
+//   });
+//   console.log("data", data);
 
-  if (data) {
-    console.log("data 있다", data);
+//   if (data) {
+//     console.log("data 있다", data);
+//   }
+//   if (error) {
+//     console.error(error);
+//     return;
+//   }
+//   // if (data.url) {
+//   //   console.log("data.url>>", data.url);
+//   //   redirect(data.url);
+//   // }
+// };
+
+export const signInWithKakao = async () => {
+  const res = await fetch("/api/auth/kakao/login", {
+    method: "GET"
+  });
+
+  if (res.ok) {
+    console.log("res", res);
   }
-  if (error) {
-    console.error(error);
-    return;
-  }
-  // if (data.url) {
-  //   console.log("data.url>>", data.url);
-  //   redirect(data.url);
-  // }
 };

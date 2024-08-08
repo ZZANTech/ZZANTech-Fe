@@ -48,7 +48,7 @@ function LoginContainer() {
   const handleKakaoLogin = async () => {
     try {
       const res = await signInWithKakao();
-      console.log("handleKakaoLogin>> ", res);
+      // console.log("handleKakaoLogin>> ", res);
     } catch (error: any) {
       modal.open({
         type: "alert",
