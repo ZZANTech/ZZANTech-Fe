@@ -1,3 +1,4 @@
+import { MAX_POINTS_PER_DAY } from "@/utils/points";
 import { createClient } from "@/utils/supabase/server";
 import dayjs from "dayjs";
 
@@ -18,7 +19,7 @@ export const checkAndAddPoints = async (user_id: string, pointsToAdd: number, re
 
   const totalPointsToday = pointsData.reduce((acc: number, curr: { point: number }) => acc + curr.point, 0);
 
-  if (totalPointsToday + pointsToAdd > 50) {
+  if (totalPointsToday + pointsToAdd > MAX_POINTS_PER_DAY) {
     throw new Error("하루 최대 포인트 획득량을 초과했습니다.");
   }
 

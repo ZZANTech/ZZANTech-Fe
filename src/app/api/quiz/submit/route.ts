@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { checkAndAddPoints } from "@/utils/checkPoints";
+import { addPoints, POINTS, REASONS } from "@/utils/points";
 
 export const POST = async (req: Request) => {
   const supabase = createClient();
@@ -43,15 +43,10 @@ export const POST = async (req: Request) => {
       return NextResponse.json({ error: "답변을 저장하는 도중 문제가 발생했습니다." }, { status: 500 });
     }
 
-    const points = isCorrect ? 5 : 1;
-    const reason = isCorrect ? "퀴즈 정답" : "퀴즈 참여";
+    const points = isCorrect ? POINTS.QUIZ_CORRECT : POINTS.QUIZ_PARTICIPATION;
+    const reason = isCorrect ? REASONS.QUIZ_CORRECT : REASONS.QUIZ_PARTICIPATION;
 
-    try {
-      await checkAndAddPoints(user_id, points, reason);
-    } catch (error: any) {
-      console.error("포인트를 추가 도중 오류 발생:", error.message);
-      return NextResponse.json({ error: "포인트를 추가하는 도중 문제가 발생했습니다." }, { status: 400 });
-    }
+    await addPoints(user_id, points, reason);
 
     return NextResponse.json({ isCorrect, explanation: quizData.explanation });
   } catch (err) {
