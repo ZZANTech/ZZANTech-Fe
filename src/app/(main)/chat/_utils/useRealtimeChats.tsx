@@ -21,7 +21,7 @@ export const useRealtimeChats = (roomId: number) => {
         .single();
 
       if (error) {
-        console.error("Failed to fetch user nickname:", error);
+        console.error("사용자 닉네임을 가져오는데 실패했습니다.", error);
         return;
       }
 
@@ -32,9 +32,14 @@ export const useRealtimeChats = (roomId: number) => {
         }
       };
 
-      queryClient.setQueryData<TChatWithUser[]>(["chats", roomId], (prev) => [...(prev || []), messageWithNickname]);
+      queryClient.setQueryData<{ pages: TChatWithUser[][]; pageParams: number[] }>(["chats", roomId], (prev) => {
+        if (!prev) return { pages: [[messageWithNickname]], pageParams: [] };
+        return {
+          ...prev,
+          pages: [[messageWithNickname], ...prev.pages]
+        };
+      });
     };
-
     const channel = supabase
       .channel(`chat_${roomId}`)
       .on(
@@ -50,7 +55,7 @@ export const useRealtimeChats = (roomId: number) => {
       .subscribe();
 
     return () => {
-      channel.unsubscribe();
+      channel.unsubscribe().catch((error) => console.error("realTime 오류 발생:", error));
     };
   }, [roomId, queryClient]);
 };

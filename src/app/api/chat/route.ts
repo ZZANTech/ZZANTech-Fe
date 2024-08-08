@@ -4,25 +4,34 @@ import { createClient } from "@/utils/supabase/server";
 export const GET = async (req: Request) => {
   const { searchParams } = new URL(req.url);
   const roomId = searchParams.get("roomId");
+  const cursor = searchParams.get("cursor");
+  const limit = 15;
 
   if (!roomId) {
     return NextResponse.json({ error: "roomId가 필요합니다." }, { status: 400 });
   }
 
   const supabase = createClient();
-  const { data, error } = await supabase
+
+  let query = supabase
     .from("chats")
     .select("*, users(nickname)")
     .eq("room_id", parseInt(roomId, 10))
-    .order("created_at", { ascending: true });
+    .order("created_at", { ascending: false })
+    .limit(limit);
+
+  if (cursor && cursor !== "null") {
+    query = query.lt("created_at", new Date(cursor).toISOString());
+  }
+  const { data, error } = await query;
 
   if (error) {
+    console.error("Error fetching chats:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
   return NextResponse.json(data);
 };
-
 export const POST = async (req: Request) => {
   const supabase = createClient();
   const { room_id, content, image_url, user_id } = await req.json();

@@ -26,12 +26,11 @@ export const uploadImage = async (file: File, bucketName: string): Promise<TUplo
   return response.json();
 };
 
-export const fetchInitialChats = async (roomId: number): Promise<TChatWithUser[]> => {
-  const response = await fetch(`/api/chat?roomId=${roomId}`);
-
+export const fetchInitialChats = async (roomId: number, pageParam: string | null): Promise<TChatWithUser[]> => {
+  const response = await fetch(`/api/chat?roomId=${roomId}&cursor=${pageParam}`);
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.error || "Failed to fetch initial chats.");
+    throw new Error(errorData.error || "채팅을 가져오는데 실패했습니다.");
   }
 
   const data = await response.json();
