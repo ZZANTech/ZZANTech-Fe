@@ -1,5 +1,5 @@
-import { SEARCH_TITLECONTENT, SORT_LATEST, SORT_POPULAR } from "@/app/(main)/boards/knowhow/_constants";
-import { checkAndAddPoints } from "@/utils/checkPoints";
+import { SEARCH_TITLECONTENT, SORT_LATEST } from "@/app/(main)/boards/knowhow/_constants";
+import { addPoints, POINTS, REASONS } from "@/utils/points";
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
@@ -55,12 +55,7 @@ export const POST = async (req: Request) => {
       throw new Error("게시글 작성에 실패했습니다");
     }
 
-    const POINTS_TO_ADD = 10; // 항목별 포인트와 이유는 한곳에 모아두면 좋을듯 함
-    const REASON_FOR_ADD_POINTS = "짠 노하우 게시글 작성";
-
-    checkAndAddPoints(newKnowhow.user_id, POINTS_TO_ADD, REASON_FOR_ADD_POINTS).catch((e) => {
-      console.error(e);
-    });
+    await addPoints(newKnowhow.user_id, POINTS.KNOWHOW_POST, REASONS.KNOWHOW_POST);
 
     return NextResponse.json({ status, statusText });
   } catch (e) {
