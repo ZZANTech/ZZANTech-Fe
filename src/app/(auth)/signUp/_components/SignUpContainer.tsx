@@ -5,6 +5,7 @@ import EmailForm from "@/app/(auth)/signUp/_components/EmailForm";
 import NicknameForm from "@/app/(auth)/signUp/_components/NicknameForm";
 import PasswordForm from "@/app/(auth)/signUp/_components/PasswordForm";
 import RecheckPasswordForm from "@/app/(auth)/signUp/_components/RecheckPasswordForm";
+import useAlertModal from "@/hooks/useAlertModal";
 import { TUserInsert } from "@/types/user.type";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -19,17 +20,22 @@ function SignUpContainer() {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
   const [confirmPasswordValid, setConfirmPasswordValid] = useState<boolean | null>(null);
   const router = useRouter();
+  const modal = useAlertModal();
 
   const handleClickSignUp = async () => {
     const data: TUserInsert = { email, nickname, password, confirmPassword };
+    if (!(emailDup && nicknameDup && passwordValid && confirmPassword === password)) {
+      modal.displayDefaultAlert("이메일 및 닉네임 중복확인, 비밀번호, 비밀번호 확인을 다시 확인해주세요.");
+      return;
+    }
     try {
       await signUp(data);
+      modal.displayDefaultAlert("회원가입이 성공되었습니다.");
       router.replace("/login");
     } catch (error: any) {
       alert(error.message);
     }
   };
-  const isFormValid = emailDup && nicknameDup && passwordValid && confirmPasswordValid;
 
   return (
     <div className="flex flex-col justify-center gap-12">
@@ -45,9 +51,9 @@ function SignUpContainer() {
           setConfirmPasswordValid={setConfirmPasswordValid}
         />
         <button
-          className={`mx-auto w-[348px] h-14 px-4 text-center text-white rounded-lg ${isFormValid ? "bg-black" : "bg-gray-400"}`}
+          className={`mx-auto w-[348px] h-14 px-4 text-center text-white rounded-lg ${emailDup && nicknameDup && passwordValid && confirmPassword === password ? "bg-black" : "bg-gray-400"}`}
           onClick={handleClickSignUp}
-          disabled={!isFormValid}
+          disabled={!(emailDup && nicknameDup && passwordValid && confirmPassword === password)}
         >
           회원가입 완료하기
         </button>
