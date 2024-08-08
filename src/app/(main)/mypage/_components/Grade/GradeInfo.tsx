@@ -16,9 +16,9 @@ function GradeInfo({ onClose }: GradeInfoProps) {
   ];
 
   const pointMethods = [
-    { text: "짠 노하우 글 작성 시 10p 획득", icon: "/icons/mypage/green_twinkle.png" },
-    { text: "오늘의 퀴즈 정답 시 5p 오답 시 1p 획득", icon: "/icons/mypage/green_twinkle.png" },
-    { text: "짠 소비구경 글 작성 후 좋아요 10개당 1p 획득", icon: "/icons/mypage/green_twinkle.png" }
+    { text: "짠 노하우 글 작성 시 100p 획득", icon: "/icons/mypage/green_twinkle.png" },
+    { text: "오늘의 퀴즈 정답 시 50p 오답 시 10p 획득", icon: "/icons/mypage/green_twinkle.png" },
+    { text: "짠 소비구경 글 작성 후 좋아요 10개당 10p 획득", icon: "/icons/mypage/green_twinkle.png" }
   ];
 
   return (

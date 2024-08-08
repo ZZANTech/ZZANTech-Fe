@@ -1,4 +1,4 @@
-import { checkAndAddPoints } from "@/utils/checkPoints";
+import { addPoints, POINTS, REASONS } from "@/utils/points";
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -122,12 +122,8 @@ export const POST = async (req: NextRequest) => {
       }
 
       const authorId = authorData.user_id;
-      if (authorId === voteData.user_id) {
-      } else {
-        const POINTS_TO_ADD = 1;
-        const REASON_FOR_ADD_POINTS = "따봉";
-
-        checkAndAddPoints(authorId, POINTS_TO_ADD, REASON_FOR_ADD_POINTS).catch((e) => {});
+      if (authorId !== voteData.user_id) {
+        await addPoints(authorId, POINTS.VOTE_LIKE, REASONS.VOTE_LIKE);
       }
     }
 
