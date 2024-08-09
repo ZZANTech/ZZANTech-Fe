@@ -8,7 +8,8 @@ type ButtonProps = VariantProps<typeof ButtonVariants> & {
   className?: string;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
-  href?: string; // href가 있으면 버튼이 링크로 동작
+  href?: string;
+  onClick?: () => void;
 };
 
 const ButtonVariants = cva("flex justify-center items-center rounded", {
@@ -16,7 +17,7 @@ const ButtonVariants = cva("flex justify-center items-center rounded", {
     variant: {
       white: "bg-white border border-gray-900 text-black",
       black: "bg-gray-900 text-white",
-      TrueBlack: "bg-black text-white",
+      trueBlack: "bg-black text-white",
       main: "bg-main text-black",
       yellow: "bg-info-yellow text-black",
       green: "bg-info-green text-black",
@@ -32,13 +33,14 @@ const ButtonVariants = cva("flex justify-center items-center rounded", {
     textSize: {
       small: "text-sm",
       medium: "text-base",
-      large: "text-lg"
+      large: "text-lg", //18px
+      xl: "text-xl" //20px
     },
     weight: {
-      light: "font-light",
-      normal: "font-normal",
-      semibold: "font-semibold",
-      bold: "font-bold"
+      light: "font-light", //300
+      normal: "font-normal", //400
+      semibold: "font-semibold", //600
+      bold: "font-bold" //700
     },
     rounded: {
       small: "rounded-4",
@@ -74,6 +76,7 @@ const Button = ({
   disabled = false,
   type = "button",
   href,
+  onClick,
   ...props
 }: ButtonProps) => {
   const buttonClassName = cn(
@@ -101,7 +104,7 @@ const Button = ({
 
   // href가 없으면 기본 button 요소로 렌더링
   return (
-    <button className={buttonClassName} disabled={disabled} type={type} {...props}>
+    <button className={buttonClassName} disabled={disabled} type={type} onClick={onClick} {...props}>
       {children}
     </button>
   );
