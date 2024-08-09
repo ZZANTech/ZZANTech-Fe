@@ -273,10 +273,10 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
       {<ErrorMessage className="translate-y-11">{errorMessage?.content}</ErrorMessage>}
 
       <div className="flex gap-[18px] self-end translate-y-16">
-        <Button className="h-12" type="button" bgColor="white" onClick={handleCancel}>
+        <Button variant="white" size="medium" type="button" onClick={handleCancel}>
           취소하기
         </Button>
-        <Button disabled={isPostPending || isUploadingImage} className="h-12">
+        <Button variant="black" size="medium" type="submit" disabled={isPostPending || isUploadingImage}>
           등록하기
         </Button>
       </div>
