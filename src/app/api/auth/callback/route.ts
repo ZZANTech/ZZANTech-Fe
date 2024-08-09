@@ -21,6 +21,7 @@ export async function GET(request: Request) {
     if (data) {
       const { data: users, error: usersError } = await supabase.from("users").select("*").eq("userId", userId).single();
 
+      console.log("users", users);
       if (users === null) {
         await supabase
           .from("users")

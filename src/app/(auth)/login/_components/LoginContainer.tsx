@@ -102,6 +102,7 @@ function LoginContainer() {
           <p className="text-info-red text-xs">이메일 또는 비밀번호가 잘못 되었습니다.</p>
         )}
       </div>
+
       <button
         onClick={handleLogin}
         className={`auth-login-button text-white ${isFormValid ? "bg-black" : "bg-gray-400 cursor-not-allowed"}`}
