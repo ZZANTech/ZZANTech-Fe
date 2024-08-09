@@ -1,24 +1,27 @@
 "use client";
 
-import { useQuizStore } from "@/stores/zustand/quizStore";
-import { useRouter } from "next/navigation";
-import { useQuiz } from "@/stores/queries/useQuizQuery";
-import { useSubmitAnswer } from "@/stores/queries/useSubmitAnswerMutation";
 import QuizAnswer from "@/app/(main)/quiz/_components/QuizAnswer";
 import QuizQuestion from "@/app/(main)/quiz/_components/QuizQuestion";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import { useQuiz } from "@/stores/queries/useQuizQuery";
+import { useSubmitAnswer } from "@/stores/queries/useSubmitAnswerMutation";
+import { useQuizStore } from "@/stores/zustand/quizStore";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Image from "next/image";
 
 function QuizContainer() {
   const router = useRouter();
-  const { data: quizData, isLoading, error } = useQuiz();
+  const { data: quizData, isPending, error } = useQuiz();
   const { mutate: submitAnswer } = useSubmitAnswer();
   const { isCorrect, explanation, showAnswer, setQuizResult, setShowAnswer } = useQuizStore();
   const { user, setHasTakenQuiz } = useUserContext();
   const modal = useModal();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  if (isLoading) {
+  if (isPending) {
     return <LoadingSpinner />;
   }
 
@@ -40,7 +43,7 @@ function QuizContainer() {
       });
       return;
     }
-
+    setIsSubmitting(true);
     submitAnswer(
       { user_id, quiz_id: quizData!.quizId, answer },
       {
@@ -58,6 +61,9 @@ function QuizContainer() {
               modal.close();
             }
           });
+        },
+        onSettled: () => {
+          setIsSubmitting(false);
         }
       }
     );
@@ -70,11 +76,13 @@ function QuizContainer() {
 
   return (
     <div>
-      {showAnswer ? (
-        <QuizAnswer isCorrect={isCorrect} explanation={explanation} onClose={handleClose} />
-      ) : (
-        <QuizQuestion question={quizData!.question} onAnswer={handleAnswer} />
-      )}
+      {isSubmitting && <Image src="/home/loading.svg" alt="loading" width={100} height={100} />}
+      {!isSubmitting &&
+        (showAnswer ? (
+          <QuizAnswer isCorrect={isCorrect} explanation={explanation} onClose={handleClose} />
+        ) : (
+          <QuizQuestion question={quizData!.question} onAnswer={handleAnswer} />
+        ))}
     </div>
   );
 }
