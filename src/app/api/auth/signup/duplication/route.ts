@@ -7,12 +7,17 @@ export async function POST(req: NextRequest) {
     const email = data.email as string;
     const supabase = createClient();
 
-    let { data: users, error } = await supabase.from("users").select("*").eq(`${email}`, email);
-    if (users!.length > 0) {
+    const { data: user, error } = await supabase.from("users").select("*").eq("email", email);
+
+    console.log("user", user);
+    if (user) {
+      return NextResponse.json({ error: "이미 사용 중입니다." }, { status: 409 });
     } else {
       console.log("error", error);
-      return NextResponse.json({ error }, { status: 500 });
+      return NextResponse.json({ error: error?.message }, { status: 500 });
     }
-  } catch (error) {}
-  return NextResponse.json("");
+  } catch (error) {
+    console.log("error", error);
+    return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다." }, { status: 500 });
+  }
 }

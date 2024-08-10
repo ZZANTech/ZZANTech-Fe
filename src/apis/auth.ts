@@ -3,6 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 import { BASE_URL } from "@/constants";
 import { TUserInsert } from "@/types/user.type";
 
+//로그아웃
 export const logout = async () => {
   const res = await fetch("/api/auth/login", { method: "DELETE" });
   if (!res.ok) {
@@ -38,6 +39,7 @@ export const checkDuplication = async (email: string) => {
     },
     body: JSON.stringify({ email })
   });
+  console.log("res", res);
 };
 
 //마이페이지 : 중복확인 및 update API

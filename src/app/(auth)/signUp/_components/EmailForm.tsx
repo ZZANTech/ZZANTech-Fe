@@ -19,14 +19,16 @@ function EmailForm({
   const [emailError, setEmailError] = useState<string>("");
   const supabase = createClient();
 
-  const handleCheckDuplicate: React.MouseEventHandler<HTMLButtonElement> = async () => {
+  const handleCheckDuplicate: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+    console.log("찍히냐?");
+    e.preventDefault();
+
     //초기화
     setIsCorrected(null);
     setEmailError("");
     setEmailDup(null);
 
     //유효성 검사: 이메일 형식
-
     checkEmailValidity({ email, setEmailError });
 
     //유효성 검사: 중복확인
@@ -61,7 +63,7 @@ function EmailForm({
           className={`auth-input-short ${emailError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <Button size={"small"} disabled={!email} onClick={() => handleCheckDuplicate}>
+        <Button size={"small"} disabled={!email} onClick={handleCheckDuplicate}>
           중복체크
         </Button>
       </form>
