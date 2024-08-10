@@ -31,9 +31,6 @@ export async function signUp(data: TUserInsert) {
 
 export const fetchUser = async (): Promise<TUser | null> => {
   const response = await fetch(`${BASE_URL}/api/auth/me`, { cache: "no-store" });
-  if (!response.ok) {
-    throw new Error("Failed to fetch user");
-  }
   const data = await response.json();
   return data.users || null;
 };
