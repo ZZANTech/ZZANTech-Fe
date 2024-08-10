@@ -64,6 +64,7 @@ const formats = [
   "align",
   "blockquote",
   "list",
+  "bullet",
   "script",
   "indent",
   "direction",
@@ -82,30 +83,38 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   const { addKnowhow, isPostPending, updateKnowhow, isPatchPending } = useKnowhowMutation();
   const quillRef = useRef<ReactQuill>(null);
   const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
-  const [editorContent, setEditorContent] = useState<string>("");
+  const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
   const [errorMessage, setErrorMessage] = useState<{ title: string; content: string }>({ title: "", content: "" });
   const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (previousContent && quillRef.current) {
-      const quill = quillRef.current.getEditor();
-      quill.clipboard.dangerouslyPasteHTML(previousContent.content || "");
-      setEditorContent(previousContent.content || "");
-    }
-  }, [previousContent]);
-
   const handleImageUpload = async (file: File) => {
     const reader = new FileReader();
+    const img = new Image();
+
     reader.onload = (e) => {
       const base64Image = e.target?.result;
-      const quillObj = quillRef.current?.getEditor();
-      const range = quillObj?.getSelection();
-      if (range && typeof base64Image === "string") {
-        quillObj?.insertEmbed(range.index, "image", base64Image);
-        quillObj?.setSelection(range.index + 1, 0);
+      if (typeof base64Image === "string") {
+        img.src = base64Image;
+        img.onload = () => {
+          const quillObj = quillRef.current?.getEditor();
+          const range = quillObj?.getSelection();
+          if (quillObj && range) {
+            quillObj.insertEmbed(range.index, "image", base64Image);
+            quillObj.setSelection(range.index + 1, 0);
+
+            let editorContent = quillObj.root.innerHTML;
+            editorContent = editorContent.replace(
+              `<img src="${base64Image}"`,
+              `<img src="${base64Image}" width="${img.width}" height="${img.height}"`
+            );
+
+            quillObj.root.innerHTML = editorContent;
+          }
+        };
       }
       setIsUploadingImage(false);
     };
+
     reader.readAsDataURL(file);
   };
 
@@ -214,9 +223,51 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     return new File([u8arr], filename, { type: mime });
   };
 
+  const modules = getModules(imageHandler);
+
+  useEffect(() => {
+    if (previousContent) {
+      setEditorTitle(previousContent.title);
+      setEditorContent(previousContent.content);
+    }
+  }, [previousContent]);
+
   const handleEditorChange = (content: string) => {
     setEditorContent(content);
+
+    const quillObj = quillRef.current?.getEditor();
+    if (quillObj) {
+      const images = quillObj.root.querySelectorAll("img");
+      images.forEach((img) => {
+        if (!img.width || !img.height) {
+          const newImg = new Image();
+          newImg.src = img.src;
+          newImg.onload = () => {
+            img.setAttribute("width", newImg.width.toString());
+            img.setAttribute("height", newImg.height.toString());
+          };
+        }
+      });
+    }
   };
+
+  useEffect(() => {
+    const quillObj = quillRef.current?.getEditor();
+    if (quillObj) {
+      const observer = new MutationObserver(() => {
+        handleEditorChange(quillObj.root.innerHTML);
+      });
+
+      observer.observe(quillObj.root, {
+        childList: true,
+        subtree: true
+      });
+
+      return () => {
+        observer.disconnect();
+      };
+    }
+  }, []);
 
   const handleOpenSubmitModal: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -234,12 +285,11 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
       content: `정말 게시글 ${previousContent ? "수정" : "작성"}을 취소하시겠습니까?`,
       onConfirm: () => router.back()
     });
-  const modules = getModules(imageHandler);
 
   return (
     <form onSubmit={handleOpenSubmitModal} className="h-full flex flex-col">
       <input
-        className="w-full h-14  text-3xl outline-none mt-[91px] border-b-2 border-[#000]"
+        className="w-full h-14 text-3xl outline-none mt-[91px] border-b-2 border-[#000]"
         id="title"
         placeholder="제목을 입력해주세요"
         onChange={(e) => setEditorTitle(e.target.value)}
