@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, useState, FormEventHandler, useEffect } from "react";
+import { useCallback, useRef, useState, useEffect, FormEventHandler } from "react";
 import "react-quill/dist/quill.snow.css";
 import dynamic from "next/dynamic";
 import Button from "@/components/Button/Button";
@@ -38,19 +38,7 @@ const QuillNoSSRWrapper = dynamic<ForwardedQuillComponent>(
 
 const getModules = (imageHandler: () => void) => ({
   toolbar: {
-    container: [
-      [{ header: [1, 2, 3, 4, 5, false] }],
-      ["bold"],
-      // [{ list: "ordered" }, { list: "bullet" }],
-      // [{ script: "sub" }, { script: "super" }],
-      // [{ indent: "-1" }, { indent: "+1" }],
-      // [{ direction: "rtl" }],
-      // [{ size: ["small", false, "large", "huge"] }],
-      // [{ color: [] }, { background: [] }],
-      // [{ font: [] }],
-      // [{ align: [] }],
-      ["link", "image"]
-    ],
+    container: [[{ header: [1, 2, 3, 4, 5, false] }], ["bold"], ["link", "image"]],
     handlers: {
       image: imageHandler
     }
@@ -58,7 +46,6 @@ const getModules = (imageHandler: () => void) => ({
   clipboard: {
     matchVisual: false
   },
-
   history: {
     delay: 2000,
     maxStack: 500,
@@ -77,7 +64,6 @@ const formats = [
   "align",
   "blockquote",
   "list",
-  "bullet",
   "script",
   "indent",
   "direction",
@@ -96,9 +82,17 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   const { addKnowhow, isPostPending, updateKnowhow, isPatchPending } = useKnowhowMutation();
   const quillRef = useRef<ReactQuill>(null);
   const [editorTitle, setEditorTitle] = useState<string>(previousContent?.title || "");
-  const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
+  const [editorContent, setEditorContent] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<{ title: string; content: string }>({ title: "", content: "" });
   const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (previousContent && quillRef.current) {
+      const quill = quillRef.current.getEditor();
+      quill.clipboard.dangerouslyPasteHTML(previousContent.content || "");
+      setEditorContent(previousContent.content || "");
+    }
+  }, [previousContent]);
 
   const handleImageUpload = async (file: File) => {
     const reader = new FileReader();
@@ -220,15 +214,6 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     return new File([u8arr], filename, { type: mime });
   };
 
-  const modules = getModules(imageHandler);
-
-  useEffect(() => {
-    if (previousContent) {
-      setEditorTitle(previousContent.title);
-      setEditorContent(previousContent.content);
-    }
-  }, [previousContent]);
-
   const handleEditorChange = (content: string) => {
     setEditorContent(content);
   };
@@ -249,6 +234,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
       content: `정말 게시글 ${previousContent ? "수정" : "작성"}을 취소하시겠습니까?`,
       onConfirm: () => router.back()
     });
+  const modules = getModules(imageHandler);
 
   return (
     <form onSubmit={handleOpenSubmitModal} className="h-full flex flex-col">
@@ -270,7 +256,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         onChange={handleEditorChange}
       />
 
-      {<ErrorMessage className="translate-y-11">{errorMessage?.content}</ErrorMessage>}
+      <ErrorMessage className="translate-y-11">{errorMessage?.content}</ErrorMessage>
 
       <div className="flex gap-[18px] self-end translate-y-16">
         <Button className="h-12" type="button" bgColor="white" onClick={handleCancel}>
