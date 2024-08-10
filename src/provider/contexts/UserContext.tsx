@@ -40,11 +40,9 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const data = await response.json();
     const users = data.users;
     if (users) {
-      // setUser(users);
       const quizStatus = await fetchQuizStatus();
       setHasTakenQuiz(quizStatus.hasTakenQuiz);
     } else {
-      // setUser(null);
       setHasTakenQuiz(false);
     }
     setIsLoading(false);
@@ -58,7 +56,6 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify({ email, password })
       });
       if (response.ok) {
-        // await fetchUser();
         refetch();
       } else {
         const errorData = await response.json();
@@ -73,10 +70,9 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const logOut = async () => {
     setIsLoading(true);
     await logout();
-    // setUser(null);
-    // queryClient.invalidateQueries({
-    //   queryKey: ["user"]
-    // });
+    queryClient.invalidateQueries({
+      queryKey: ["user"]
+    });
     setHasTakenQuiz(false);
     setIsLoading(false);
   };
