@@ -105,35 +105,39 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
     <div className="self-stretch h-[76px] justify-between items-center inline-flex">
       {voteType === null ? (
         <>
-          <Button
-            className="w-[212px] h-[76px] px-[55px] py-[26px] bg-basic rounded-xl justify-center items-center inline-flex text-white text-xl font-semibold"
-            onClick={() => handleVote("GOOD")}
-          >
+          <Button variant="trueBlack" size="xl" textSize="xl" weight="semibold" onClick={() => handleVote("GOOD")}>
             <Image src="/icons/vote/upvote.png" alt="Upvote icon" width={32} height={32} className="mr-2" />
             GOOD
           </Button>
-          <Button
-            className="w-[212px] h-[76px] px-[55px] py-[26px] bg-basic rounded-xl justify-center items-center inline-flex text-white text-xl font-semibold"
-            onClick={() => handleVote("BAD")}
-          >
+
+          <Button variant="trueBlack" size="xl" textSize="xl" weight="semibold" onClick={() => handleVote("BAD")}>
             <Image src="/icons/vote/downvote.png" alt="Downvote icon" width={32} height={32} className="mr-2" />
             BAD
           </Button>
         </>
       ) : (
         <>
-          <button
-            className={`w-[212px] h-[76px] px-[55px] py-[26px] rounded-xl justify-center items-center inline-flex text-xl font-semibold ${voteType === "GOOD" ? "bg-[#e1ff49] text-[#121212]" : "bg-basic text-[#b3b3b3]"}`}
+          <Button
+            variant={voteType === "GOOD" ? "main" : "black"}
+            size="xl"
+            textSize="xl"
+            weight="semibold"
+            className={voteType === "GOOD" ? "text-gray-900" : "text-gray-300"}
             onClick={() => handleVote("GOOD")}
           >
             {`${upvotePercentage.toFixed(0)}% (${upvoteCount}명)`}
-          </button>
-          <button
-            className={`w-[212px] h-[76px] px-[55px] py-[26px] rounded-xl justify-center items-center inline-flex text-xl font-semibold ${voteType === "BAD" ? "bg-[#e1ff49] text-[#121212]" : "bg-basic text-[#b3b3b3]"}`}
+          </Button>
+
+          <Button
+            variant={voteType === "BAD" ? "main" : "black"}
+            size="xl"
+            textSize="xl"
+            weight="semibold"
+            className={voteType === "BAD" ? "text-gray-900" : "text-gray-300"}
             onClick={() => handleVote("BAD")}
           >
             {`${downvotePercentage.toFixed(0)}% (${downvoteCount}명)`}
-          </button>
+          </Button>
         </>
       )}
     </div>

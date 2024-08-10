@@ -17,13 +17,18 @@ type GiftItemProps = {
 
 function GiftItem({ gift }: GiftItemProps) {
   const { user } = useUserContext();
-  const { open } = useModal();
-  const { displayLoginAlert } = useAlertModal();
+  const { open, close } = useModal();
+  const { displayDefaultAlert, displayLoginAlert } = useAlertModal();
   const { addClaim, isPending } = useExchangeMutation();
   const formattedPoint = formatNumberWithCommas(gift.point);
   const router = useRouter();
   const handleExchange = async () => {
+    console.log("adsads");
     if (isPending) return;
+    if (Number(gift?.point) > Number(user?.current_point)) {
+      setTimeout(() => displayDefaultAlert("포인트가 부족합니다"), 100);
+      return;
+    }
     const newExchange = {
       gift_id: gift.giftId,
       user_id: user?.userId

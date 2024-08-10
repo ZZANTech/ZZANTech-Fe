@@ -67,7 +67,7 @@ function GradeInfo({ onClose }: GradeInfoProps) {
         </ul>
       </section>
       <div className="flex justify-center">
-        <Button onClick={onClose} bgColor="black" className="w-full h-full py-3">
+        <Button onClick={onClose} variant="black" fullWidth={true} size="large">
           확인
         </Button>
       </div>

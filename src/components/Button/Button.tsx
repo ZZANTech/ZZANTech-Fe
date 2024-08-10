@@ -1,63 +1,113 @@
-"use client";
+import { ReactNode } from "react";
+import { cva, VariantProps } from "class-variance-authority";
+import { cn } from "@/utils/cn";
 import Link from "next/link";
-import { ComponentProps, MouseEventHandler, ReactNode } from "react";
 
-type ButtonProps = CustomButtonProps & {
-  bgColor?: "black" | "white" | "main" | "none";
-  disabled?: boolean;
+type ButtonProps = VariantProps<typeof ButtonVariants> & {
   children: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+  href?: string;
+  onClick?: () => void;
 };
 
-type CustomButtonProps =
-  | ({ href?: undefined } & ComponentProps<"button">)
-  | ({ href: string } & ComponentProps<typeof Link>);
-
-function Button({ children, bgColor, disabled, className = "", ...props }: ButtonProps) {
-  const bgBlack = "bg-black text-white border-none";
-  const bgWhite = "bg-white text-black border border-[#111111]";
-  const bgMain = "bg-main text-black border-none";
-
-  const getColorClass = (bgColor?: "black" | "white" | "main" | "none") => {
-    switch (bgColor) {
-      case "black":
-        return bgBlack;
-      case "white":
-        return bgWhite;
-      case "main":
-        return bgMain;
-      case "none":
-        return "";
-      default:
-        return bgBlack;
+const ButtonVariants = cva("flex justify-center items-center rounded", {
+  variants: {
+    variant: {
+      white: "bg-white border border-gray-900 text-black",
+      black: "bg-gray-900 text-white",
+      trueBlack: "bg-black text-white",
+      main: "bg-main text-black",
+      yellow: "bg-info-yellow text-black",
+      green: "bg-info-green text-black",
+      orange: "bg-point text-white",
+      kakaoyellow: "bg-[#FDE500] text-black"
+    },
+    size: {
+      small: "w-20 h-11 p-3", // 80x44
+      medium: "w-[124px] h-11 px-4 py-3", // 124x44
+      large: "w-80 h-14 p-4", // 320x56
+      xl: "w-[212px] h-19 px-[55px] py-[26px]" // 212x76
+    },
+    textSize: {
+      small: "text-sm",
+      medium: "text-base",
+      large: "text-lg", //18px
+      xl: "text-xl" //20px
+    },
+    weight: {
+      light: "font-light", //300
+      normal: "font-normal", //400
+      semibold: "font-semibold", //600
+      bold: "font-bold" //700
+    },
+    rounded: {
+      small: "rounded-4",
+      medium: "rounded-8"
+    },
+    fullWidth: {
+      true: "w-full"
+    },
+    disabled: {
+      true: "bg-gray-50 text-gray-400 cursor-default",
+      false: ""
     }
-  };
-  const color = getColorClass(bgColor);
+  },
+  defaultVariants: {
+    variant: "black",
+    size: "medium",
+    weight: "normal",
+    rounded: "small",
+    fullWidth: false,
+    disabled: false
+  }
+});
 
-  const buttonBaseStyle = `flex justify-center items-center w-40 h-[52px] px-4 py-3 font-semibold border rounded-lg `;
-  const combinedClassName = `${buttonBaseStyle} ${color} ${className}`;
-  const disableClassName = `${buttonBaseStyle} ${className} !bg-[#f1f1f5] !text-[#999999] cursor-default`;
-  const finalClassName = disabled ? disableClassName : combinedClassName;
-
-  if (props.href) {
+const Button = ({
+  children,
+  className,
+  variant,
+  size,
+  textSize,
+  weight,
+  rounded,
+  fullWidth,
+  disabled = false,
+  type = "button",
+  href,
+  onClick,
+  ...props
+}: ButtonProps) => {
+  const buttonClassName = cn(
+    ButtonVariants({ variant, size, textSize, weight, rounded, fullWidth, disabled }),
+    className
+  );
+  // href가 있는 경우 Link로 렌더링
+  if (href) {
+    // 비활성화된 상태라면 span으로 대체하여 클릭을 막음
     if (disabled) {
       return (
-        <span className={finalClassName} onClick={(e) => e.preventDefault()}>
+        <span className={buttonClassName} onClick={(e) => e.preventDefault()}>
           {children}
         </span>
       );
     }
+
+    // 활성화된 상태라면 Link 컴포넌트로 렌더링
     return (
-      <Link className={finalClassName} {...props}>
+      <Link href={href} className={buttonClassName} {...props}>
         {children}
       </Link>
     );
-  } else if (typeof props.href === "undefined") {
-    return (
-      <button className={finalClassName} disabled={disabled} {...props}>
-        {children}
-      </button>
-    );
   }
-}
+
+  // href가 없으면 기본 button 요소로 렌더링
+  return (
+    <button className={buttonClassName} disabled={disabled} type={type} onClick={onClick} {...props}>
+      {children}
+    </button>
+  );
+};
 
 export default Button;

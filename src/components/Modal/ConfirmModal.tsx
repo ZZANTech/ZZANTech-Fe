@@ -6,10 +6,10 @@ function ConfirmModal({ content, subContent, buttonContent, onConfirm, onCancel 
   return (
     <DefaultModalTemplate content={content} subContent={subContent}>
       <div className="flex gap-5">
-        <Button className="w-[190px] h-[74px] rounded-xl" bgColor="white" onClick={onCancel}>
+        <Button variant="white" size="medium" onClick={onCancel}>
           취소
         </Button>
-        <Button className="w-[190px] h-[74px] rounded-xl" onClick={onConfirm}>
+        <Button variant="trueBlack" size="medium" onClick={onConfirm}>
           {buttonContent || "확인"}
         </Button>
       </div>

@@ -13,7 +13,7 @@ const config: Config = {
         "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))"
       },
       colors: {
-        basic: "#1B1B1B",
+        black: "#000000",
         main: "#E1FF01",
         point: "#FF6000",
         ivory: "#F6F5F1",
@@ -23,24 +23,26 @@ const config: Config = {
           purple: "#523BF2",
           sky: "#52BEFF",
           pink: "#FF7BBD",
-          "wine-red": "#CE4A38"
+          "wine-red": "#CE4238"
         },
         info: {
-          yellow: "#FFA000",
+          yellow: "#FFAA00",
           green: "#04B014",
           red: "#DC0000"
         },
-
+        deemed: {
+          800: "#505050"
+        },
         gray: {
-          50: "#F7F7F7",
-          100: "#F6F5F1",
-          200: "#F1F0EB",
-          300: "#E3E3E5",
-          400: "#CCCCC6",
-          500: "#B3B3AE",
-          600: "#8B8B8B",
-          700: "#6C6C6C",
-          800: "#444444",
+          50: "#F5F5F5",
+          100: "#EBEBEB",
+          200: "#E3E3E3",
+          300: "#C9C9C9",
+          400: "#A6A6A6",
+          500: "#7F7F7F",
+          600: "#666666",
+          700: "#505050",
+          800: "#333333",
           900: "#1B1B1B"
         }
       },
