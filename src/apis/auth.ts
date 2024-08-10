@@ -29,6 +29,17 @@ export async function signUp(data: TUserInsert) {
   return response.json();
 }
 
+// 회원가입: 중복확인
+export const checkDuplication = async (email: string) => {
+  const res = await fetch("/api/auth/signup/duplication", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email })
+  });
+};
+
 //마이페이지 : 중복확인 및 update API
 export const updateNickname = async (
   nickname: string,

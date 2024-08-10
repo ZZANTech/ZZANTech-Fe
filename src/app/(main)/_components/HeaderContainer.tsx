@@ -11,9 +11,9 @@ function HeaderContainer() {
   const pathname = usePathname();
   const { user, logOut, isLoading } = useUserContext();
 
-  useEffect(() => {
-    console.log("Current pathname:", pathname);
-  }, [pathname]);
+  // useEffect(() => {
+  //   console.log("Current pathname:", pathname);
+  // }, [pathname]);
 
   const handleLogout = () => {
     logOut();

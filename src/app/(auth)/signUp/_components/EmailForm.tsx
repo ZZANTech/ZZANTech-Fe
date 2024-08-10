@@ -1,5 +1,6 @@
 "use client";
 
+import { checkDuplication } from "@/apis/auth";
 import Button from "@/components/Button";
 import { checkEmailValidity } from "@/utils/authValidity";
 import { createClient } from "@/utils/supabase/client";
@@ -30,16 +31,21 @@ function EmailForm({
 
     //유효성 검사: 중복확인
     if (!emailError) {
-      let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
-      if (users!.length > 0) {
-        //users의 타입정의 필요
-        setEmailError("이미 사용 중인 이메일입니다.");
-        setEmailDup(false);
-        return;
-      } else {
-        setIsCorrected(true);
-        setEmailDup(true);
+      try {
+        checkDuplication(email);
+      } catch (error) {
+        console.log("error", error);
       }
+      // let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
+      // if (users!.length > 0) {
+      //   //users의 타입정의 필요
+      //   setEmailError("이미 사용 중인 이메일입니다.");
+      //   setEmailDup(false);
+      //   return;
+      // } else {
+      //   setIsCorrected(true);
+      //   setEmailDup(true);
+      // }
     }
   };
 
