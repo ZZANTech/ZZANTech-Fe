@@ -13,34 +13,25 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: numb
 
   try {
     if (voteId) {
-      const { count: totalVoteCount = 0, error: totalError } = await supabase
-        .from("vote_likes")
-        .select("*", { count: "exact" })
-        .eq("vote_post_id", voteId);
+      const [totalVoteResponse, upvoteResponse, downvoteResponse] = await Promise.all([
+        supabase.from("vote_likes").select("vote_likeId", { count: "exact" }).eq("vote_post_id", voteId),
 
-      if (totalError) {
-        throw new Error("전체 투표 수를 가져오지 못했습니다");
-      }
+        supabase
+          .from("vote_likes")
+          .select("vote_likeId", { count: "exact" })
+          .eq("vote_post_id", voteId)
+          .eq("is_upvote", true),
 
-      const { count: upvoteCount = 0, error: upvoteError } = await supabase
-        .from("vote_likes")
-        .select("*", { count: "exact" })
-        .eq("vote_post_id", voteId)
-        .eq("is_upvote", true);
+        supabase
+          .from("vote_likes")
+          .select("vote_likeId", { count: "exact" })
+          .eq("vote_post_id", voteId)
+          .eq("is_upvote", false)
+      ]);
 
-      if (upvoteError) {
-        throw new Error("GOOD 투표 수를 가져오지 못했습니다");
-      }
-
-      const { count: downvoteCount = 0, error: downvoteError } = await supabase
-        .from("vote_likes")
-        .select("*", { count: "exact" })
-        .eq("vote_post_id", voteId)
-        .eq("is_upvote", false);
-
-      if (downvoteError) {
-        throw new Error("BAD 투표 수를 가져오지 못했습니다");
-      }
+      const totalVoteCount = totalVoteResponse.count || 0;
+      const upvoteCount = upvoteResponse.count || 0;
+      const downvoteCount = downvoteResponse.count || 0;
 
       let userLikeStatus = null;
 
