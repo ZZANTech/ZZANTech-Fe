@@ -14,9 +14,7 @@ import Button from "@/components/Button";
 function LoginContainer() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
-  const [emailMessage, setEmailMessage] = useState<string>("");
   const [emailError, setEmailError] = useState<string>("");
-  const [passwordMessage, setPasswordMessage] = useState<string>("");
   const [passwordError, setPasswordError] = useState<string>("");
   const [isFormValid, setIsFormValid] = useState<boolean>(false);
   const modal = useModal();
@@ -51,7 +49,7 @@ function LoginContainer() {
   const handleSocialLogin = async (provider: "google" | "kakao") => {
     const supabase = createClient();
     try {
-      const { data, error } = await supabase.auth.signInWithOAuth({
+      await supabase.auth.signInWithOAuth({
         provider,
         options: {
           redirectTo: `${BASE_URL}/api/auth/callback`
@@ -75,30 +73,32 @@ function LoginContainer() {
   return (
     <div className="flex flex-col items-center w-[320px] mx-auto p-3">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
-      <div className="AuthInputDiv">
+      <div className="flex flex-col">
         <input
           ref={emailRef}
           type="email"
           maxLength={40}
-          className={`AuthInput ${emailError ? "border-info-red" : emailMessage ? "border-info-green" : ""}`}
+          className={`auth-input ${emailError ? "border-info-red" : ""}`}
           placeholder="이메일을 입력해주세요"
           onChange={validateInputs}
         />
       </div>
 
-      <div className="AuthInputDiv">
+      <div className="flex flex-col">
         <input
           ref={passwordRef}
           type="password"
           maxLength={40}
-          className={`AuthInput ${passwordError ? "border-info-red" : passwordMessage ? "border-info-green" : ""}`}
+          className={`auth-input ${passwordError ? "border-info-red" : ""}`}
           placeholder="비밀번호를 입력해주세요"
           onChange={validateInputs}
         />
       </div>
 
       <div className="w-[348px] h-4 px-3 mb-3">
-        {(emailError || passwordError) && <p className="AuthStateInfo">이메일 또는 비밀번호가 잘못 되었습니다.</p>}
+        {(emailError || passwordError) && (
+          <p className="text-info-red text-xs">이메일 또는 비밀번호가 잘못 되었습니다.</p>
+        )}
       </div>
 
       <Button variant={"black"} size={"large"} rounded={"medium"} onClick={handleLogin} disabled={!isFormValid}>

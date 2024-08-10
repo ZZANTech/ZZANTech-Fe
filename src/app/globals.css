@@ -37,33 +37,11 @@ body *:not([class*="letter-"]) {
   .MainLinkButtonActive {
     @apply border-b-2 border-gray-800;
   }
-  .AuthInputShort {
-    @apply w-[260px] h-12 px-4 mb-1 border rounded-lg pointer-events-auto;
+  .auth-input-short {
+    @apply w-[232px] h-11 p-4 mb-3 border rounded-md;
   }
-  .AuthInput {
-    @apply w-[348px] h-12 px-4 mb-3 border rounded-lg;
-  }
-
-  .AuthInputDiv {
-    @apply flex flex-col;
-  }
-  .AuthInputForm {
-    @apply flex flex-row gap-2.5;
-  }
-
-  .AuthStateInfo {
-    @apply text-info-red text-xs;
-  }
-  .AuthStateInfoGreen {
-    @apply text-info-green text-xs;
-  }
-
-  .AuthDupButton {
-    @apply w-[80px] text-white text-sm rounded-lg;
-  }
-
-  .AuthLoginButton {
-    @apply w-[348px] h-12 text-center items-center justify-center flex flex-row rounded-lg font-semibold gap-2.5 cursor-pointer;
+  .auth-input {
+    @apply w-80 h-11 p-4 mb-3 border rounded-md;
   }
   .text-shadow {
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);

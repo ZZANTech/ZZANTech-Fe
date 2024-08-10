@@ -41,10 +41,10 @@ function NicknameModal() {
         value={nickname}
         placeholder="최소 2~7자 한글, 영어, 슷자"
         onChange={(e) => setNickname(e.target.value)}
-        className="AuthInput"
+        className="auth-input"
       />
 
-      {nicknameError && <p className="AuthStateInfo">{nicknameError}</p>}
+      {nicknameError && <p className="text-info-red text-xs">{nicknameError}</p>}
 
       <button
         onClick={handleChangeNickname}

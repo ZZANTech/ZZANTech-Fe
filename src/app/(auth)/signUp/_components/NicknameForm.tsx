@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import { checkNicknameValidity } from "@/utils/authValidity";
 import { createClient } from "@/utils/supabase/client";
 import { MouseEventHandler, useState } from "react";
@@ -17,9 +18,7 @@ function NicknameForm({
   const [nicknameError, setNicknameError] = useState<string>("");
   const supabase = createClient();
 
-  const handleCheckDuplicate: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    e.preventDefault();
-
+  const handleCheckDuplicate: React.MouseEventHandler<HTMLButtonElement> = async () => {
     //초기화
     setIsCorrected(null);
     setNicknameError("");
@@ -45,26 +44,22 @@ function NicknameForm({
   };
 
   return (
-    <div className="AuthInputDiv">
+    <div className="flex flex-col">
       <label>닉네임</label>
-      <form className="AuthInputForm">
+      <form className="flex flex-row gap-2.5">
         <input
           type="text"
           value={nickname}
           maxLength={7}
           placeholder="최소 2~7자 한글, 영어, 슷자"
-          className={`AuthInputShort ${nicknameError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
+          className={`auth-input-short ${nicknameError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
           onChange={(e) => setNickname(e.target.value)}
         />
-        <button
-          className={`AuthDupButton ${nickname ? "bg-black" : " bg-[#C0C0C0]"}`}
-          onClick={handleCheckDuplicate}
-          disabled={!nickname}
-        >
+        <Button size={"small"} disabled={!nickname} onClick={() => handleCheckDuplicate}>
           중복체크
-        </button>
+        </Button>
       </form>
-      {nicknameError && <p className="AuthStateInfo">{nicknameError}</p>}
+      {nicknameError && <p className="text-info-red text-xs">{nicknameError}</p>}
     </div>
   );
 }

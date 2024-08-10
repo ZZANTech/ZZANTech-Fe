@@ -1,8 +1,9 @@
 "use client";
 
+import Button from "@/components/Button";
 import { checkEmailValidity } from "@/utils/authValidity";
 import { createClient } from "@/utils/supabase/client";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 
 function EmailForm({
   email,
@@ -17,9 +18,7 @@ function EmailForm({
   const [emailError, setEmailError] = useState<string>("");
   const supabase = createClient();
 
-  const handleCheckDuplicate: MouseEventHandler<HTMLButtonElement> = async (e) => {
-    e.preventDefault();
-
+  const handleCheckDuplicate: React.MouseEventHandler<HTMLButtonElement> = async () => {
     //초기화
     setIsCorrected(null);
     setEmailError("");
@@ -45,26 +44,22 @@ function EmailForm({
   };
 
   return (
-    <div className="AuthInputDiv">
+    <div className="flex flex-col">
       <label>이메일</label>
-      <form className="AuthInputForm">
+      <form className="flex flex-row gap-2.5">
         <input
           type="email"
           value={email}
           maxLength={30}
           placeholder="zzan@zzan.com"
-          className={`AuthInputShort ${emailError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
+          className={`auth-input-short ${emailError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
           onChange={(e) => setEmail(e.target.value)}
         />
-        <button
-          className={`AuthDupButton ${email ? "bg-black" : " bg-[#C0C0C0]"}`}
-          onClick={handleCheckDuplicate}
-          disabled={!email}
-        >
+        <Button size={"small"} disabled={!email} onClick={() => handleCheckDuplicate}>
           중복체크
-        </button>
+        </Button>
       </form>
-      {emailError && <p className="AuthStateInfo">{emailError}</p>}
+      {emailError && <p className="text-info-red text-xs">{emailError}</p>}
     </div>
   );
 }
