@@ -3,7 +3,9 @@
 import { logout } from "@/apis/auth";
 import { fetchQuizStatus } from "@/apis/quiz";
 import { BASE_URL } from "@/constants";
+import useUserQuery from "@/stores/queries/auth/useUserQuery";
 import { TUser } from "@/types/user.type";
+import { useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type UserContextType = {
@@ -26,7 +28,9 @@ const UserContext = createContext<UserContextType>({
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<TUser | null>(null);
+  const queryClient = useQueryClient();
+  const { data: user = null, isPending, refetch } = useUserQuery();
+  // const [user, setUser] = useState<TUser | null>(null);
   const [hasTakenQuiz, setHasTakenQuiz] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -36,11 +40,11 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const data = await response.json();
     const users = data.users;
     if (users) {
-      setUser(users);
+      // setUser(users);
       const quizStatus = await fetchQuizStatus();
       setHasTakenQuiz(quizStatus.hasTakenQuiz);
     } else {
-      setUser(null);
+      // setUser(null);
       setHasTakenQuiz(false);
     }
     setIsLoading(false);
@@ -54,7 +58,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify({ email, password })
       });
       if (response.ok) {
-        await fetchUser();
+        // await fetchUser();
+        refetch();
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || "로그인 실패");
@@ -68,7 +73,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const logOut = async () => {
     setIsLoading(true);
     await logout();
-    setUser(null);
+    // setUser(null);
+    // queryClient.invalidateQueries({
+    //   queryKey: ["user"]
+    // });
     setHasTakenQuiz(false);
     setIsLoading(false);
   };
