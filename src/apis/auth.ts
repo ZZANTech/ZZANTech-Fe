@@ -4,17 +4,17 @@ import { BASE_URL } from "@/constants";
 import { TUserInsert } from "@/types/user.type";
 
 export const logout = async () => {
-  const response = await fetch("/api/auth/login", { method: "DELETE" });
-  if (!response.ok) {
-    const errorData = await response.json();
+  const res = await fetch("/api/auth/login", { method: "DELETE" });
+  if (!res.ok) {
+    const errorData = await res.json();
     throw new Error(errorData.error || "로그아웃 실패");
   }
-  return response.json();
+  return res.json();
 };
 
 // 회원가입
 export async function signUp(data: TUserInsert) {
-  const response = await fetch(`${BASE_URL}/api/auth/signup`, {
+  const res = await fetch(`${BASE_URL}/api/auth/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -22,11 +22,11 @@ export async function signUp(data: TUserInsert) {
     body: JSON.stringify(data)
   });
 
-  if (!response.ok) {
+  if (!res.ok) {
     throw new Error("회원가입에 실패했습니다.");
   }
 
-  return response.json();
+  return res.json();
 }
 
 // 회원가입: 중복확인
