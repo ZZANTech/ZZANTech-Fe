@@ -81,7 +81,7 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
             <Image src="/icons/picture.png" alt="이미지 업로드" width={40} height={40} />
             <input id="image-upload" type="file" accept="image/*" onChange={handleImageSelect} className="hidden" />
           </label>
-          <div className="relative">
+          <div className="relative flex-grow">
             <div className="flex flex-col bg-white rounded-2xl">
               {previewUrl && (
                 <div className="flex-shrink-0 mr-2">
@@ -100,7 +100,7 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={user ? "메시지를 입력하세요." : "로그인 후 메시지를 입력할 수 있습니다."}
-                className="flex-grow rounded-2xl outline-none resize-none scrollbar-hide h-auto min-w-[558px] min-h-[44px] max-h-[200px] pt-2 pl-4  mt-1 pr-12 chatInputPlaceholder"
+                className="flex-grow w-full sm:w-auto resize-none rounded-2xl outline-none scrollbar-hide h-auto min-h-[44px] max-h-[200px] pt-2 pl-4 mt-1 pr-12 chatInputPlaceholder"
                 rows={1}
                 disabled={!user}
               />

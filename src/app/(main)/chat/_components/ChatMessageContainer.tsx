@@ -9,10 +9,10 @@ function ChatMessageContainer({ roomId }: { roomId: number }) {
   useRealtimeChats(roomId);
 
   return (
-    <div className="flex items-center justify-center h-dvh">
-      <div>
-        <Image src="/icons/chat/chatRoomBanner.svg" alt="banner" width={768} height={200} className="mb-3" />
-        <div className="flex flex-col max-h-[600px] bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="flex items-center justify-center w-full min-h-[calc(100dvh-400px)] p-4">
+      <div className="w-full max-w-[630px]">
+        <Image src="/icons/chat/chatRoomBanner.svg" alt="banner" width={630} height={200} className="mb-3" />
+        <div className="flex flex-col h-[50vh] sm:h-[60vh] bg-white shadow-lg rounded-lg overflow-hidden">
           <div className="flex-grow overflow-y-auto p-4">
             <ChatMessageList roomId={roomId} />
           </div>
