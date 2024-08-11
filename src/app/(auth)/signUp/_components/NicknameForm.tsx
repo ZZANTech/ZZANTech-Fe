@@ -1,9 +1,10 @@
 "use client";
 
+import { checkDuplicationNickname } from "@/apis/auth";
 import Button from "@/components/Button";
+import { useModal } from "@/provider/contexts/ModalContext";
 import { checkNicknameValidity } from "@/utils/authValidity";
-import { createClient } from "@/utils/supabase/client";
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 
 function NicknameForm({
   nickname,
@@ -16,29 +17,31 @@ function NicknameForm({
 }) {
   const [isCorrected, setIsCorrected] = useState<boolean | null>(null);
   const [nicknameError, setNicknameError] = useState<string>("");
-  const supabase = createClient();
+  const modal = useModal();
 
-  const handleCheckDuplicate: React.MouseEventHandler<HTMLButtonElement> = async () => {
+  const handleCheckDuplicate: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
+    e.preventDefault();
+
     //초기화
     setIsCorrected(null);
     setNicknameError("");
     setNicknameDup(null);
 
     //유효성 검사: 한글, 영어, 숫자
-    checkNicknameValidity({ nickname, setNicknameError });
+    // checkNicknameValidity({ nickname, setNicknameError });
 
     //유효성 검사: 중복확인
+    if (nicknameError) {
+      console.log("nicknameError", nicknameError);
+      return;
+    }
+
     if (!nicknameError) {
-      let { data: users, error } = await supabase.from("users").select("*").eq("nickname", nickname);
-      if (users!.length > 0) {
-        //users의 타입정의 필요
-        setNicknameError("이미 사용 중인 닉네임입니다.");
-        setIsCorrected(false);
-        setNicknameDup(false);
-        return;
-      } else {
-        setIsCorrected(true);
-        setNicknameDup(true);
+      try {
+        checkDuplicationNickname({ nickname, setNicknameError, setIsCorrected });
+        setNicknameDup(isCorrected);
+      } catch (error) {
+        console.log("error", error);
       }
     }
   };
@@ -53,13 +56,17 @@ function NicknameForm({
           maxLength={7}
           placeholder="최소 2~7자 한글, 영어, 슷자"
           className={`auth-input-short ${nicknameError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
-          onChange={(e) => setNickname(e.target.value)}
+          onChange={(e) => {
+            setNickname(e.target.value);
+            checkNicknameValidity({ nickname, setNicknameError });
+          }}
         />
-        <Button size={"small"} disabled={!nickname} onClick={() => handleCheckDuplicate}>
+        <Button size={"small"} disabled={nicknameError.length > 1 || nickname === ""} onClick={handleCheckDuplicate}>
           중복체크
         </Button>
       </form>
-      {nicknameError && <p className="text-info-red text-xs">{nicknameError}</p>}
+      <p className="text-info-red text-xs">{nicknameError}</p>
+      <p className="text-info-green text-xs">{nicknameError ? "" : isCorrected ? "사용 가능합니다" : ""}</p>
     </div>
   );
 }

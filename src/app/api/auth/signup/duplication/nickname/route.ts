@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const data = await req.json();
-    const email = data.email as string;
+    const nickname = data.nickname as string;
     const supabase = createClient();
 
-    const { data: user, error } = await supabase.from("users").select("*").eq("email", email);
+    const { data: user, error } = await supabase.from("users").select("*").eq("nickname", nickname);
 
     if (user!.length > 0) {
       return NextResponse.json({ error: "이미 사용 중입니다." }, { status: 409 });

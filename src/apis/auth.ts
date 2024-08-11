@@ -30,8 +30,16 @@ export async function signUp(data: TUserInsert) {
   return res.json();
 }
 
-// 회원가입: 중복확인
-export const checkDuplication = async (email: string) => {
+// 회원가입: 중복확인 : 이메일
+export const checkDuplication = async ({
+  email,
+  setEmailError,
+  setIsCorrected
+}: {
+  email: string;
+  setEmailError: Dispatch<SetStateAction<string>>;
+  setIsCorrected: Dispatch<SetStateAction<boolean | null>>;
+}) => {
   const res = await fetch("/api/auth/signup/duplication", {
     method: "POST",
     headers: {
@@ -39,7 +47,43 @@ export const checkDuplication = async (email: string) => {
     },
     body: JSON.stringify({ email })
   });
-  console.log("res", res);
+
+  if (res.status === 409) {
+    setEmailError("이미 사용 중입니다.");
+    setIsCorrected(false);
+  }
+  if (res.status === 200) {
+    setEmailError("");
+    setIsCorrected(true);
+  }
+};
+
+// 회원가입: 중복확인 : 닉네임
+export const checkDuplicationNickname = async ({
+  nickname,
+  setNicknameError,
+  setIsCorrected
+}: {
+  nickname: string;
+  setNicknameError: Dispatch<SetStateAction<string>>;
+  setIsCorrected: Dispatch<SetStateAction<boolean | null>>;
+}) => {
+  const res = await fetch("/api/auth/signup/duplication/nickname", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ nickname })
+  });
+
+  if (res.status === 409) {
+    setNicknameError("이미 사용 중입니다.");
+    setIsCorrected(false);
+  }
+  if (res.status === 200) {
+    setNicknameError("");
+    setIsCorrected(true);
+  }
 };
 
 //마이페이지 : 중복확인 및 update API
@@ -58,7 +102,7 @@ export const updateNickname = async (
   });
 
   if (res.status === 409) {
-    setNicknameError("동일한 닉네임이 있습니다.");
+    setNicknameError("이미 사용 중입니다.");
     setIsNicknameValid(false);
   }
 

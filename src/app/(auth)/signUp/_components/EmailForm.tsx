@@ -2,8 +2,8 @@
 
 import { checkDuplication } from "@/apis/auth";
 import Button from "@/components/Button";
+import { useModal } from "@/provider/contexts/ModalContext";
 import { checkEmailValidity } from "@/utils/authValidity";
-import { createClient } from "@/utils/supabase/client";
 import { useState } from "react";
 
 function EmailForm({
@@ -17,10 +17,9 @@ function EmailForm({
 }) {
   const [isCorrected, setIsCorrected] = useState<boolean | null>(null);
   const [emailError, setEmailError] = useState<string>("");
-  const supabase = createClient();
+  const modal = useModal();
 
   const handleCheckDuplicate: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
-    console.log("찍히냐?");
     e.preventDefault();
 
     //초기화
@@ -29,25 +28,21 @@ function EmailForm({
     setEmailDup(null);
 
     //유효성 검사: 이메일 형식
-    checkEmailValidity({ email, setEmailError });
+    // checkEmailValidity({ email, setEmailError });
 
     //유효성 검사: 중복확인
+    if (emailError) {
+      console.log("emailError", emailError);
+      return;
+    }
+
     if (!emailError) {
       try {
-        checkDuplication(email);
+        checkDuplication({ email, setEmailError, setIsCorrected });
+        setEmailDup(isCorrected);
       } catch (error) {
         console.log("error", error);
       }
-      // let { data: users, error } = await supabase.from("users").select("*").eq("email", email);
-      // if (users!.length > 0) {
-      //   //users의 타입정의 필요
-      //   setEmailError("이미 사용 중인 이메일입니다.");
-      //   setEmailDup(false);
-      //   return;
-      // } else {
-      //   setIsCorrected(true);
-      //   setEmailDup(true);
-      // }
     }
   };
 
@@ -61,13 +56,17 @@ function EmailForm({
           maxLength={30}
           placeholder="zzan@zzan.com"
           className={`auth-input-short ${emailError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            checkEmailValidity({ email, setEmailError });
+          }}
         />
-        <Button size={"small"} disabled={!email} onClick={handleCheckDuplicate}>
+        <Button size={"small"} disabled={emailError.length > 1 || email === ""} onClick={handleCheckDuplicate}>
           중복체크
         </Button>
       </form>
-      {emailError && <p className="text-info-red text-xs">{emailError}</p>}
+      <p className="text-info-red text-xs">{emailError}</p>
+      <p className="text-info-green text-xs">{emailError ? "" : isCorrected ? "사용 가능합니다" : ""}</p>
     </div>
   );
 }
