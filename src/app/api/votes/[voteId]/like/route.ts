@@ -1,4 +1,4 @@
-import { addPoints, POINTS, REASONS } from "@/utils/points";
+import { POINTS, REASONS, addPoints } from "@/utils/points";
 import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -6,22 +6,33 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: numb
   const supabase = createClient();
   const voteId = params.voteId;
 
-  const { data: userData, error: userError } = await supabase.auth.getUser();
+  const accessToken = req.headers.get("authorization")?.replace("Bearer ", "") || "";
+  const refreshToken = req.headers.get("x-refresh-token") || "";
 
-  const user = userData?.user || null;
-  const userId = user ? user.id : null;
+  let userId: string | null = null;
+
+  if (accessToken && refreshToken) {
+    const { data: sessionData, error: sessionError } = await supabase.auth.setSession({
+      access_token: accessToken,
+      refresh_token: refreshToken
+    });
+
+    if (sessionError) {
+      console.error("세션 설정 오류:", sessionError);
+    } else if (sessionData?.user) {
+      userId = sessionData.user.id;
+    }
+  }
 
   try {
     if (voteId) {
       const [totalVoteResponse, upvoteResponse, downvoteResponse] = await Promise.all([
         supabase.from("vote_likes").select("vote_likeId", { count: "exact" }).eq("vote_post_id", voteId),
-
         supabase
           .from("vote_likes")
           .select("vote_likeId", { count: "exact" })
           .eq("vote_post_id", voteId)
           .eq("is_upvote", true),
-
         supabase
           .from("vote_likes")
           .select("vote_likeId", { count: "exact" })
@@ -33,7 +44,7 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: numb
       const upvoteCount = upvoteResponse.count || 0;
       const downvoteCount = downvoteResponse.count || 0;
 
-      let userLikeStatus = null;
+      let userLikeStatus: "up_vote" | "down_vote" | null = null;
 
       if (userId) {
         const { data: userLikeData, error: userLikeError } = await supabase
@@ -43,11 +54,7 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: numb
           .eq("user_id", userId)
           .single();
 
-        if (userLikeError && userLikeError.details !== "The result contains 0 rows") {
-          throw new Error("사용자 투표 데이터를 가져오지 못했습니다");
-        }
-
-        if (userLikeData) {
+        if (!userLikeError && userLikeData) {
           userLikeStatus = userLikeData.is_upvote ? "up_vote" : "down_vote";
         }
       }
@@ -62,11 +69,7 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: numb
       return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });
     }
   } catch (e) {
-    if (e instanceof Error) {
-      return NextResponse.json({ error: e.message }, { status: 500 });
-    } else {
-      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
-    }
+    return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
   }
 };
 
