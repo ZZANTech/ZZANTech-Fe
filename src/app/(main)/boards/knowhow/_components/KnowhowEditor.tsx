@@ -86,31 +86,30 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
   const [editorContent, setEditorContent] = useState<string>(previousContent?.content || "");
   const [errorMessage, setErrorMessage] = useState<{ title: string; content: string }>({ title: "", content: "" });
   const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
+  console.log(editorContent);
 
   const handleImageUpload = async (file: File) => {
     const reader = new FileReader();
-    const img = new Image();
-
-    reader.onload = (e) => {
+    reader.onload = async (e) => {
       const base64Image = e.target?.result;
       if (typeof base64Image === "string") {
-        img.src = base64Image;
-        img.onload = () => {
-          const quillObj = quillRef.current?.getEditor();
-          const range = quillObj?.getSelection();
-          if (quillObj && range) {
+        const quillObj = quillRef.current?.getEditor();
+        const range = quillObj?.getSelection();
+        if (quillObj && range) {
+          const img = new Image();
+          img.src = base64Image;
+          img.onload = () => {
+            const { width, height } = img;
             quillObj.insertEmbed(range.index, "image", base64Image);
             quillObj.setSelection(range.index + 1, 0);
 
-            let editorContent = quillObj.root.innerHTML;
-            editorContent = editorContent.replace(
-              `<img src="${base64Image}"`,
-              `<img src="${base64Image}" width="${img.width}" height="${img.height}"`
-            );
-
-            quillObj.root.innerHTML = editorContent;
-          }
-        };
+            const imgElement = quillObj.root.querySelector(`img[src='${base64Image}']`);
+            if (imgElement) {
+              imgElement.setAttribute("width", `${width}`);
+              imgElement.setAttribute("height", `${height}`);
+            }
+          };
+        }
       }
       setIsUploadingImage(false);
     };
@@ -129,6 +128,21 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         handleImageUpload(file);
       }
     };
+  }, []);
+
+  const handlePaste = useCallback((e: ClipboardEvent) => {
+    const items = e.clipboardData?.items;
+    if (items) {
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].type.startsWith("image/")) {
+          const file = items[i].getAsFile();
+          if (file) {
+            e.preventDefault();
+            handleImageUpload(file);
+          }
+        }
+      }
+    }
   }, []);
 
   const validateKnowhowForm = (newKnowhow: Partial<Tables<"knowhow_posts">>): boolean => {
@@ -154,18 +168,20 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
 
   const handleSubmit = async () => {
     setIsUploadingImage(true);
-    const quillObj = quillRef.current?.getEditor();
-    let content = quillObj?.root.innerHTML;
+    let content = quillRef.current?.getEditor().root.innerHTML;
 
     const base64Images = content?.match(/src="data:image\/[^"]+"/g) || [];
     const urlImages = content?.match(/src="https:\/\/[^"]+"/g) || [];
-    const imageFiles: { file: File; base64: string }[] = [];
+    const imageFiles: { file: File; base64: string; width: number; height: number }[] = [];
     const imageUrls: string[] = [];
 
     base64Images.forEach((imageString, index) => {
       const base64Data = imageString.split('"')[1];
       const file = dataURLtoFile(base64Data, `image-${Date.now()}-${index}.png`);
-      imageFiles.push({ file, base64: base64Data });
+      const imgElement = quillRef.current?.getEditor().root.querySelector(`img[src='${base64Data}']`);
+      const width = imgElement ? parseInt(imgElement.getAttribute("width") || "0") : 0;
+      const height = imgElement ? parseInt(imgElement.getAttribute("height") || "0") : 0;
+      imageFiles.push({ file, base64: base64Data, width, height });
     });
 
     urlImages.forEach((imageString) => {
@@ -185,7 +201,15 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         data.forEach((url: { publicUrl: string }, index: number) => {
           const publicUrl = url.publicUrl;
           const base64Data = imageFiles[index].base64;
+          const width = imageFiles[index].width;
+          const height = imageFiles[index].height;
+
           content = content?.replace(base64Data, publicUrl);
+          content = content?.replace(
+            `<img src="${publicUrl}"`,
+            `<img src="${publicUrl}" width="${width}" height="${height}"`
+          );
+
           imageUrls.push(publicUrl);
         });
       } catch (error) {
@@ -232,42 +256,15 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
     }
   }, [previousContent]);
 
-  const handleEditorChange = (content: string) => {
-    setEditorContent(content);
-
-    const quillObj = quillRef.current?.getEditor();
-    if (quillObj) {
-      const images = quillObj.root.querySelectorAll("img");
-      images.forEach((img) => {
-        if (!img.width || !img.height) {
-          const newImg = new Image();
-          newImg.src = img.src;
-          newImg.onload = () => {
-            img.setAttribute("width", newImg.width.toString());
-            img.setAttribute("height", newImg.height.toString());
-          };
-        }
-      });
-    }
-  };
-
   useEffect(() => {
     const quillObj = quillRef.current?.getEditor();
     if (quillObj) {
-      const observer = new MutationObserver(() => {
-        handleEditorChange(quillObj.root.innerHTML);
-      });
-
-      observer.observe(quillObj.root, {
-        childList: true,
-        subtree: true
-      });
-
+      quillObj.root.addEventListener("paste", handlePaste);
       return () => {
-        observer.disconnect();
+        quillObj.root.removeEventListener("paste", handlePaste);
       };
     }
-  }, []);
+  }, [handlePaste]);
 
   const handleOpenSubmitModal: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -303,7 +300,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         modules={modules}
         formats={formats}
         value={editorContent}
-        onChange={handleEditorChange}
+        onChange={setEditorContent}
       />
 
       <ErrorMessage className="translate-y-11">{errorMessage?.content}</ErrorMessage>

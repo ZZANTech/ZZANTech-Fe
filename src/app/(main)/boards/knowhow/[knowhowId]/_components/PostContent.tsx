@@ -17,26 +17,32 @@ function PostContent({ knowhow }: PostContentProps) {
   const transformContent = (htmlContent: string) => {
     return parse(htmlContent, {
       replace: (domNode) => {
-        if (domNode instanceof Element && domNode.name === "img") {
-          const { src, alt, width, height } = domNode.attribs;
-
-          const imgWidth = width ? parseInt(width) : 600;
-          const imgHeight = height ? parseInt(height) : 400;
-
-          if (src) {
-            return <Image src={src} alt={alt || "image"} width={imgWidth} height={imgHeight} />;
+        if (domNode instanceof Element) {
+          if (domNode.name === "p") {
+            return (
+              <p>
+                {domToReact(domNode.children as unknown as Element[], {
+                  replace: (childNode) => {
+                    if (childNode instanceof Element && childNode.name === "img") {
+                      const { src, alt, width, height } = childNode.attribs;
+                      const imgWidth = width ? parseInt(width) : 600;
+                      const imgHeight = height ? parseInt(height) : 400;
+                      if (src) {
+                        return <Image src={src} alt={alt || "image"} width={imgWidth} height={imgHeight} />;
+                      }
+                    }
+                    return childNode;
+                  }
+                })}
+              </p>
+            );
           }
+          return domNode;
         }
-
-        if (domNode instanceof Element && domNode.name === "p") {
-          return <p>{domToReact(domNode.children as unknown as Element[])}</p>;
-        }
-
         return domNode;
       }
     });
   };
-
   const transformedContent = transformContent(knowhow.content);
 
   return (
