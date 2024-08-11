@@ -32,12 +32,16 @@ export const checkPasswordValidity = ({
     setPasswordError("비밀번호는 9자 이상 20자 이하이어야 합니다.");
   }
 
-  const hasLetter = /[a-zA-Z]/.test(password);
-  const hasDigit = /\d/.test(password);
-  const hasSpecialChar = /[~!@#$%^&*]/.test(password);
-  if (!(hasLetter && hasDigit && hasSpecialChar)) {
+  // const hasLetter = /[a-zA-Z]/.test(password);
+  // const hasDigit = /\d/.test(password);
+  // const hasSpecialChar = /[~!@#$%^&*]/.test(password);
+  // if (!(hasLetter && hasDigit && hasSpecialChar)) {
+  //   setPasswordError("영어, 숫자, 특수문자(~!@#$%^&* 중 하나)를 각각 3글자 이상 포함해야 합니다.");
+  // }
+  if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*]).+$/.test(password)) {
     setPasswordError("영어, 숫자, 특수문자(~!@#$%^&* 중 하나)를 각각 3글자 이상 포함해야 합니다.");
   }
+
   setPasswordError("");
 };
 
