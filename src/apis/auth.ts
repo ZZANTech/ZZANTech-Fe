@@ -51,6 +51,7 @@ export const checkDuplication = async ({
   if (res.status === 200) {
     setEmailError("");
   }
+  return res.json();
 };
 
 // 회원가입: 중복확인 : 닉네임
@@ -75,6 +76,7 @@ export const checkDuplicationNickname = async ({
   if (res.status === 200) {
     setNicknameError("");
   }
+  return res.json();
 };
 
 export const fetchUser = async (): Promise<TUser | null> => {
@@ -118,7 +120,7 @@ export const updateNickname = async (
     setNicknameError("");
     setIsNicknameValid(true);
   }
-  return res;
+  return res.json();
 };
 
 // 마이페이지 : 비밀번호 변경 apis
