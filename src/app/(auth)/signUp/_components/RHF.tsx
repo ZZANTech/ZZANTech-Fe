@@ -10,7 +10,7 @@ type TInputs = {
   recheckedPassword?: string;
 };
 
-function Test() {
+function RHF() {
   const {
     register,
     handleSubmit,
@@ -40,16 +40,19 @@ function Test() {
           className="auth-input"
           maxLength={30}
           {...register("email", {
-            required: "이메일 형식",
-            pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-            maxLength: 40,
-            validate: (email) => checkEmailduplication(email) || "이미 사용 중인 이메일입니다."
+            required: "필수 사항*",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: "이메일 형식이 아닙니다."
+            },
+            maxLength: 30,
+            validate: (email) => checkEmailduplication(email) || "이미 사용 중입니다."
           })}
         />
         {errors.email && <span className="text-info-red text-xs">{errors.email.message}</span>}
       </div>
 
-      <div className="flex flex-col">
+      {/* <div className="flex flex-col">
         <label>닉네임</label>
         <input
           type="nickname"
@@ -75,7 +78,10 @@ function Test() {
           maxLength={20}
           {...register("password", {
             required: "최소 9~20자, 영어+숫자+특수문자 조합",
-            pattern: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*]).+$/,
+            pattern: {
+              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*]).+$/,
+              message: "영어+숫자+특수문자 조합."
+            },
             minLength: 6
           })}
         />
@@ -97,11 +103,11 @@ function Test() {
           })}
         />
         {errors.recheckedPassword && <span className="text-info-red text-xs">{errors.recheckedPassword.message}</span>}
-      </div>
+      </div> */}
 
       <button type="submit">회원가입 하기</button>
     </form>
   );
 }
 
-export default Test;
+export default RHF;
