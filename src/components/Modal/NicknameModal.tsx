@@ -3,14 +3,16 @@
 import { updateNickname } from "@/apis/auth";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import useUserQuery from "@/stores/queries/auth/useUserQuery";
 import { checkNicknameValidity } from "@/utils/authValidity";
+import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 
 function NicknameModal() {
   const { user } = useUserContext();
   const email = user?.email;
   const oldNickname = user?.nickname;
-
+  const queryClient = useQueryClient();
   const [nickname, setNickname] = useState<string>(oldNickname || "");
   const [nicknameError, setNicknameError] = useState<string>("");
   const [isNicknameValid, setIsNicknameValid] = useState<boolean | null>(null);
@@ -24,6 +26,7 @@ function NicknameModal() {
     if (!nicknameError) {
       const res = await updateNickname(nickname, email || "", setNicknameError, setIsNicknameValid);
       if (res.ok) {
+        queryClient.invalidateQueries();
         open({
           type: "alert",
           content: "닉네임 변경이 완료되었습니다"

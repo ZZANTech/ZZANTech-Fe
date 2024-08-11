@@ -1,4 +1,4 @@
-import { TChangePassword } from "@/types/user.type";
+import { TChangePassword, TUser } from "@/types/user.type";
 import { Dispatch, SetStateAction } from "react";
 import { BASE_URL } from "@/constants";
 import { TUserInsert } from "@/types/user.type";
@@ -75,6 +75,12 @@ export const checkDuplicationNickname = async ({
   if (res.status === 200) {
     setNicknameError("");
   }
+};
+
+export const fetchUser = async (): Promise<TUser | null> => {
+  const response = await fetch(`${BASE_URL}/api/auth/me`, { cache: "no-store" });
+  const data = await response.json();
+  return data.users || null;
 };
 
 //마이페이지 : 중복확인 및 update API

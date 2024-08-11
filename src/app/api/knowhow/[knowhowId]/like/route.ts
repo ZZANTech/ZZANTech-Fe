@@ -11,48 +11,36 @@ export const GET = async (req: NextRequest, { params }: { params: { knowhowId: s
       error: userError
     } = await supabase.auth.getUser();
 
-    if (userError || !user) {
-      const { count: likeCount, error: countError } = await supabase
-        .from("knowhow_likes")
-        .select("*", { count: "exact" })
-        .eq("knowhow_post_id", knowhowId);
-
-      if (countError) {
-        throw new Error("좋아요 수를 가져오지 못했습니다");
-      }
-
-      return NextResponse.json({ likeCount: likeCount ?? 0, isLiked: false });
-    }
-
-    const userId = user.id;
-
-    const { count: likeCount, error: countError } = await supabase
+    const likeCountPromise = supabase
       .from("knowhow_likes")
       .select("*", { count: "exact" })
       .eq("knowhow_post_id", knowhowId);
 
-    if (countError) {
-      throw new Error("좋아요 수를 가져오지 못했습니다");
+    const userLikePromise = user
+      ? supabase.from("knowhow_likes").select("*").eq("knowhow_post_id", knowhowId).eq("user_id", user.id).single()
+      : Promise.resolve({ data: null, error: null });
+
+    const [{ count: likeCount, error: likeCountError }, { data: userLike, error: userLikeError }] = await Promise.all([
+      likeCountPromise,
+      userLikePromise
+    ]);
+
+    if (likeCountError) {
+      throw new Error("좋아요 수를 가져오지 못했습니다.");
     }
 
-    const { data: userLike, error: userLikeError } = await supabase
-      .from("knowhow_likes")
-      .select("*")
-      .eq("knowhow_post_id", knowhowId)
-      .eq("user_id", userId)
-      .single();
-
-    if (userLikeError && userLikeError.code !== "PGRST116") {
-      throw new Error("사용자의 좋아요 상태를 확인하지 못했습니다");
+    if (user && userLikeError && userLikeError.code !== "PGRST116") {
+      throw new Error("사용자의 좋아요 상태를 확인하지 못했습니다.");
     }
 
-    const isLiked = !!userLike;
-    return NextResponse.json({ likeCount: likeCount ?? 0, isLiked: isLiked || false });
+    const isLiked = user ? !!userLike : false;
+
+    return NextResponse.json({ likeCount: likeCount ?? 0, isLiked });
   } catch (e) {
     if (e instanceof Error) {
       return NextResponse.json({ error: e.message }, { status: 500 });
     } else {
-      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다" }, { status: 500 });
+      return NextResponse.json({ error: "알 수 없는 에러가 발생했습니다." }, { status: 500 });
     }
   }
 };
