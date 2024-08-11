@@ -55,7 +55,7 @@ function GradeInfo({ onClose }: GradeInfoProps) {
       <section className="flex flex-col items-center mb-16">
         <h3 className="text-xl font-semibold mb-4">포인트 모으는 방법</h3>
         <p className="text-center text-sm mb-6">
-          하루에 모을 수 있는 포인트는 <span className="text-point">최대 50P </span>입니다.
+          하루에 모을 수 있는 포인트는 <span className="text-point">최대 1000P </span>입니다.
         </p>
         <ul>
           {pointMethods.map((method, index) => (
