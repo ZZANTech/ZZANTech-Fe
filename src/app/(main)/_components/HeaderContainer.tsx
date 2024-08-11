@@ -9,7 +9,7 @@ import NavCategory from "@/app/(main)/_components/Nav/NavCategory";
 
 function HeaderContainer() {
   const router = useRouter();
-  const { user, logOut, isLoading } = useUserContext();
+  const { user, logOut, isPending } = useUserContext();
 
   const handleLogout = () => {
     logOut();
@@ -26,7 +26,7 @@ function HeaderContainer() {
         <NavCategory />
       </div>
 
-      {isLoading ? (
+      {isPending ? (
         <div className="flex items-center space-x-4">
           <div className="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
           <div className="w-16 h-8 bg-gray-300 animate-pulse rounded"></div>
