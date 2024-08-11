@@ -24,7 +24,7 @@ function PasswordForm({
     setPasswordError("");
     setPasswordValid(null);
 
-    // 유효성검사: 글자 수, 특수문자 조합 등
+    // 유효성검사: 글자 수, 영어+숫자+특수문자 조합
     checkPasswordValidity({ password, setPasswordError });
 
     if (!passwordError) {
