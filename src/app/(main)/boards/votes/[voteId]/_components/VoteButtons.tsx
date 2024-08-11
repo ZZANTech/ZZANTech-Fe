@@ -1,10 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import useVoteLikesQuery from "@/stores/queries/vote/like/useVoteLikesQuery";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import { useRouter } from "next/navigation";
-import { useModal } from "@/provider/contexts/ModalContext";
 import useVoteLikeMutation from "@/stores/queries/vote/like/useVoteLikeMutation";
 import { TVoteLikeCountsResponse } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
@@ -13,41 +10,29 @@ import useAlertModal from "@/hooks/useAlertModal";
 
 type VoteButtonsProps = {
   voteId: number;
+  voteLikes: TVoteLikeCountsResponse;
 };
 
-function VoteButtons({ voteId }: VoteButtonsProps) {
+function VoteButtons({ voteId, voteLikes }: VoteButtonsProps) {
   const { user } = useUserContext();
   const { displayLoginAlert } = useAlertModal();
   const { addVoteLike, updateVoteLike } = useVoteLikeMutation();
-  const modal = useModal();
-  const router = useRouter();
-
-  const { data: voteData, isPending } = useVoteLikesQuery(voteId);
 
   const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
-  const [optimisticVoteData, setOptimisticVoteData] = useState<TVoteLikeCountsResponse | null>(null);
+  const [optimisticVoteData, setOptimisticVoteData] = useState<TVoteLikeCountsResponse>(voteLikes);
 
   useEffect(() => {
-    if (voteData?.userLikeStatus !== undefined) {
-      if (voteData.userLikeStatus !== null) {
-        setVoteType(voteData.userLikeStatus === "up_vote" ? "GOOD" : "BAD");
-      } else {
-        setVoteType(null);
-      }
+    if (voteLikes.userLikeStatus) {
+      setVoteType(voteLikes.userLikeStatus === "up_vote" ? "GOOD" : "BAD");
     }
-    setOptimisticVoteData(voteData || null);
-  }, [voteData]);
+    setOptimisticVoteData(voteLikes);
+  }, [voteLikes]);
 
   const handleVote = async (type: "GOOD" | "BAD") => {
-    if (isPending) {
-      return;
-    }
+    if (voteType === type) return;
+
     if (!user) {
       displayLoginAlert();
-      return;
-    }
-
-    if (voteType === type) {
       return;
     }
 
@@ -57,35 +42,61 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
       vote_post_id: voteId
     };
 
-    if (voteType === null) {
-      setOptimisticVoteData((prevData) => {
-        if (!prevData) return prevData;
-        const newUpvoteCount = type === "GOOD" ? prevData.upvoteCount + 1 : prevData.upvoteCount;
-        const newDownvoteCount = type === "BAD" ? prevData.downvoteCount + 1 : prevData.downvoteCount;
-        const newTotalVoteCount = prevData.totalVoteCount + 1;
-        return {
-          ...prevData,
-          upvoteCount: newUpvoteCount,
-          downvoteCount: newDownvoteCount,
-          totalVoteCount: newTotalVoteCount,
-          userLikeStatus: type === "GOOD" ? "up_vote" : "down_vote"
-        };
-      });
+    const updateVoteData = (prevData: TVoteLikeCountsResponse): TVoteLikeCountsResponse => {
+      let newUpvoteCount = prevData.upvoteCount;
+      let newDownvoteCount = prevData.downvoteCount;
+      let newTotalVoteCount = prevData.totalVoteCount;
 
-      setVoteType(type);
-
-      try {
-        await addVoteLike(newLikeData);
-      } catch (error) {
-        if (voteData) {
-          setOptimisticVoteData(voteData);
-          setVoteType(
-            voteData?.userLikeStatus === "up_vote" ? "GOOD" : voteData?.userLikeStatus === "down_vote" ? "BAD" : null
-          );
+      if (voteType === null) {
+        newTotalVoteCount += 1;
+      } else {
+        if (voteType === "GOOD") {
+          newUpvoteCount -= 1;
+        } else if (voteType === "BAD") {
+          newDownvoteCount -= 1;
         }
       }
-    } else {
-      await updateVoteLike(newLikeData);
+
+      if (type === "GOOD") {
+        newUpvoteCount += 1;
+      } else {
+        newDownvoteCount += 1;
+      }
+
+      return {
+        ...prevData,
+        upvoteCount: newUpvoteCount,
+        downvoteCount: newDownvoteCount,
+        totalVoteCount: newTotalVoteCount,
+        userLikeStatus: type === "GOOD" ? "up_vote" : "down_vote"
+      };
+    };
+
+    setOptimisticVoteData((prevData) => {
+      if (prevData) {
+        return updateVoteData(prevData);
+      }
+      return {
+        upvoteCount: type === "GOOD" ? 1 : 0,
+        downvoteCount: type === "BAD" ? 1 : 0,
+        totalVoteCount: 1,
+        userLikeStatus: type === "GOOD" ? "up_vote" : "down_vote"
+      };
+    });
+    setVoteType(type);
+
+    try {
+      if (voteType === null) {
+        await addVoteLike(newLikeData);
+      } else {
+        await updateVoteLike(newLikeData);
+      }
+    } catch (error) {
+      console.error("투표 요청 중 오류 발생:", error);
+      setOptimisticVoteData(voteLikes);
+      setVoteType(
+        voteLikes.userLikeStatus === "up_vote" ? "GOOD" : voteLikes.userLikeStatus === "down_vote" ? "BAD" : null
+      );
     }
   };
 
@@ -98,8 +109,8 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
       ? (optimisticVoteData.downvoteCount / optimisticVoteData.totalVoteCount) * 100
       : 0;
 
-  const upvoteCount = optimisticVoteData ? optimisticVoteData.upvoteCount : 0;
-  const downvoteCount = optimisticVoteData ? optimisticVoteData.downvoteCount : 0;
+  const upvoteCount = optimisticVoteData.upvoteCount;
+  const downvoteCount = optimisticVoteData.downvoteCount;
 
   return (
     <div className="self-stretch h-[76px] justify-between items-center inline-flex">
@@ -118,7 +129,7 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
       ) : (
         <>
           <Button
-            variant={voteType === "GOOD" ? "main" : "black"}
+            variant={voteType === "GOOD" ? "main" : "trueBlack"}
             size="xl"
             textSize="xl"
             weight="semibold"
@@ -129,7 +140,7 @@ function VoteButtons({ voteId }: VoteButtonsProps) {
           </Button>
 
           <Button
-            variant={voteType === "BAD" ? "main" : "black"}
+            variant={voteType === "BAD" ? "main" : "trueBlack"}
             size="xl"
             textSize="xl"
             weight="semibold"
