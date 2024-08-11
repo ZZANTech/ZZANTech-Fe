@@ -5,13 +5,13 @@ import Image from "next/image";
 import Link from "next/link";
 
 const QuizUi = () => {
-  const { hasTakenQuiz, isLoading } = useUserContext();
+  const { hasTakenQuiz, isPending } = useUserContext();
 
   return (
     <div className="w-full h-[250px] bg-gray-900 rounded-[20px] px-6 py-7 flex flex-col justify-between items-center">
       <section className="w-full flex justify-between items-center px-1">
         <div className="text-main">
-          {isLoading ? (
+          {isPending ? (
             <div>
               <div className="animate-pulse w-[140px] h-[25px] bg-gray-700 rounded-md mb-2 mr-1"></div>
               <div className="animate-pulse w-[140px] h-[25px] bg-gray-700 rounded-md mb-2 mr-1"></div>
@@ -34,7 +34,7 @@ const QuizUi = () => {
         </section>
       </section>
       <div className="w-[312px] h-[56px] flex items-center justify-center">
-        {isLoading ? (
+        {isPending ? (
           <div></div>
         ) : hasTakenQuiz ? (
           <button className="w-[312px] h-[56px] font-semibold text-[#999999] rounded-md" disabled>
