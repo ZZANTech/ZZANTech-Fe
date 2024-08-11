@@ -15,7 +15,7 @@ function NicknameForm({
   setNickname: (nickname: string) => void;
   setNicknameDup: (nicknameDup: boolean | null) => void;
 }) {
-  const [isCorrected, setIsCorrected] = useState<boolean | null>(null);
+  const [isNicknameCorrected, setIsNicknameCorrected] = useState<boolean | null>(null);
   const [nicknameError, setNicknameError] = useState<string>("");
   const modal = useModal();
 
@@ -23,7 +23,7 @@ function NicknameForm({
     e.preventDefault();
 
     //초기화
-    setIsCorrected(null);
+    setIsNicknameCorrected(null);
     setNicknameError("");
     setNicknameDup(null);
 
@@ -38,8 +38,8 @@ function NicknameForm({
 
     if (!nicknameError) {
       try {
-        checkDuplicationNickname({ nickname, setNicknameError, setIsCorrected });
-        setNicknameDup(isCorrected);
+        checkDuplicationNickname({ nickname, setNicknameError });
+        setNicknameDup(isNicknameCorrected);
       } catch (error) {
         console.log("error", error);
       }
@@ -55,7 +55,7 @@ function NicknameForm({
           value={nickname}
           maxLength={7}
           placeholder="최소 2~7자 한글, 영어, 슷자"
-          className={`auth-input-short ${nicknameError ? "border-info-red" : isCorrected ? "border-info-green" : ""}`}
+          className={`auth-input-short ${nicknameError ? "border-info-red" : isNicknameCorrected ? "border-info-green" : ""}`}
           onChange={(e) => {
             setNickname(e.target.value);
             checkNicknameValidity({ nickname, setNicknameError });
@@ -66,7 +66,7 @@ function NicknameForm({
         </Button>
       </form>
       <p className="text-info-red text-xs">{nicknameError}</p>
-      <p className="text-info-green text-xs">{nicknameError ? "" : isCorrected ? "사용 가능합니다" : ""}</p>
+      <p className="text-info-green text-xs">{nicknameError ? "" : isNicknameCorrected ? "사용 가능합니다" : ""}</p>
     </div>
   );
 }

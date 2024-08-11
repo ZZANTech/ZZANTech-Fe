@@ -33,12 +33,10 @@ export async function signUp(data: TUserInsert) {
 // 회원가입: 중복확인 : 이메일
 export const checkDuplication = async ({
   email,
-  setEmailError,
-  setIsCorrected
+  setEmailError
 }: {
   email: string;
   setEmailError: Dispatch<SetStateAction<string>>;
-  setIsCorrected: Dispatch<SetStateAction<boolean | null>>;
 }) => {
   const res = await fetch("/api/auth/signup/duplication", {
     method: "POST",
@@ -47,26 +45,21 @@ export const checkDuplication = async ({
     },
     body: JSON.stringify({ email })
   });
-
   if (res.status === 409) {
     setEmailError("이미 사용 중입니다.");
-    setIsCorrected(false);
   }
   if (res.status === 200) {
     setEmailError("");
-    setIsCorrected(true);
   }
 };
 
 // 회원가입: 중복확인 : 닉네임
 export const checkDuplicationNickname = async ({
   nickname,
-  setNicknameError,
-  setIsCorrected
+  setNicknameError
 }: {
   nickname: string;
   setNicknameError: Dispatch<SetStateAction<string>>;
-  setIsCorrected: Dispatch<SetStateAction<boolean | null>>;
 }) => {
   const res = await fetch("/api/auth/signup/duplication/nickname", {
     method: "POST",
@@ -78,11 +71,9 @@ export const checkDuplicationNickname = async ({
 
   if (res.status === 409) {
     setNicknameError("이미 사용 중입니다.");
-    setIsCorrected(false);
   }
   if (res.status === 200) {
     setNicknameError("");
-    setIsCorrected(true);
   }
 };
 
