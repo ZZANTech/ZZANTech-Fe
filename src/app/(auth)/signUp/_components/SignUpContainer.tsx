@@ -5,6 +5,7 @@ import EmailForm from "@/app/(auth)/signUp/_components/EmailForm";
 import NicknameForm from "@/app/(auth)/signUp/_components/NicknameForm";
 import PasswordForm from "@/app/(auth)/signUp/_components/PasswordForm";
 import RecheckPasswordForm from "@/app/(auth)/signUp/_components/RecheckPasswordForm";
+import Button from "@/components/Button";
 import useAlertModal from "@/hooks/useAlertModal";
 import { TUserInsert } from "@/types/user.type";
 import { useRouter } from "next/navigation";
@@ -25,12 +26,12 @@ function SignUpContainer() {
   const handleClickSignUp = async () => {
     const data: TUserInsert = { email, nickname, password, confirmPassword };
     if (!(emailDup && nicknameDup && passwordValid && confirmPassword === password)) {
-      modal.displayDefaultAlert("이메일 및 닉네임 중복확인, 비밀번호, 비밀번호 확인을 다시 확인해주세요.");
+      modal.displayDefaultAlert("이메일/닉네임 중복확인 또는 비밀번호, 비밀번호 확인을 다시 확인해주세요.");
       return;
     }
     try {
       await signUp(data);
-      modal.displayDefaultAlert("회원가입이 성공되었습니다.");
+      modal.displayDefaultAlert("회원가입 성공!");
       router.replace("/login");
     } catch (error: any) {
       alert(error.message);
@@ -50,13 +51,14 @@ function SignUpContainer() {
           password={password}
           setConfirmPasswordValid={setConfirmPasswordValid}
         />
-        <button
-          className={`mx-auto w-[348px] h-14 px-4 text-center text-white rounded-lg ${emailDup && nicknameDup && passwordValid && confirmPassword === password ? "bg-black" : "bg-gray-400"}`}
-          onClick={handleClickSignUp}
+        <Button
+          size={"large"}
+          rounded={"medium"}
           disabled={!(emailDup && nicknameDup && passwordValid && confirmPassword === password)}
+          onClick={handleClickSignUp}
         >
           회원가입 완료하기
-        </button>
+        </Button>
       </div>
     </div>
   );
