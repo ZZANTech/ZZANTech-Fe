@@ -56,6 +56,7 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         body: JSON.stringify({ email, password })
       });
       if (response.ok) {
+        await fetchUser();
         refetch();
       } else {
         const errorData = await response.json();

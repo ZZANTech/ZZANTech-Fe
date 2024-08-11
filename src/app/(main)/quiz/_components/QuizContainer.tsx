@@ -29,23 +29,23 @@ function QuizContainer() {
     return <div>Error: {error.message}</div>;
   }
   const handleAnswer = (answer: boolean) => {
-    const user_id = user ? user.userId : null;
+    if (isSubmitting) return;
 
-    if (!user_id) {
+    if (!user) {
       modal.open({
         type: "alert",
-        content: "인증 필요",
+        content: "로그인 필요",
         subContent: "퀴즈를 풀기 위해서는 로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까?",
         onClose: () => {
-          router.push("/login");
           modal.close();
+          router.push("/login");
         }
       });
       return;
     }
     setIsSubmitting(true);
     submitAnswer(
-      { user_id, quiz_id: quizData!.quizId, answer },
+      { user_id: user.userId, quiz_id: quizData!.quizId, answer },
       {
         onSuccess: (data) => {
           setQuizResult(data.isCorrect, quizData!.explanation);
