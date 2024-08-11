@@ -31,8 +31,8 @@ export const checkPasswordValidity = ({
     setPasswordError("비밀번호를 입력해주세요.");
     return;
   }
-  if (password.length < 5 || password.length > 20) {
-    setPasswordError("비밀번호는 6자 이상 20자 이하이어야 합니다.");
+  if (password.length < 7 || password.length > 20) {
+    setPasswordError("비밀번호는 9자 이상 20자 이하이어야 합니다.");
     return;
   }
 
@@ -40,7 +40,7 @@ export const checkPasswordValidity = ({
   const hasDigit = /\d/.test(password);
   const hasSpecialChar = /[~!@#$%^&*]/.test(password);
   if (!(hasLetter && hasDigit && hasSpecialChar)) {
-    setPasswordError("영어, 숫자, 특수문자(~!@#$%^&* 중 하나)를 모두 포함해야 합니다.");
+    setPasswordError("영어, 숫자, 특수문자(~!@#$%^&* 중 하나)를 각각 3글자 이상 포함해야 합니다.");
     return;
   }
   setPasswordError("");
@@ -58,7 +58,7 @@ export const checkNicknameValidity = ({
     setNicknameError("빈칸을 채워주세요.");
     return;
   }
-  if (nickname.length < 2 || nickname.length > 7) {
+  if (nickname.length < 1 || nickname.length > 7) {
     setNicknameError("닉네임은 2자 이상 7자 이하이어야 합니다.");
     return;
   }
