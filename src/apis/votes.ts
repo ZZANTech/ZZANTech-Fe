@@ -120,8 +120,15 @@ export const deleteVoteComment = async (commentId: Tables<"vote_comments">["vote
   return data;
 };
 
-export const getVoteLikesData = async (voteId: TVote["vote_postId"]) => {
-  const res = await fetch(`${BASE_URL}/api/votes/${voteId}/like`);
+export const getVoteLikesData = async (voteId: TVote["vote_postId"], accessToken: string, refreshToken: string) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${voteId}/like`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "X-Refresh-Token": refreshToken
+    }
+  });
+
   if (!res.ok) {
     const errorData = await res.json();
     const errorMessage = errorData.error || "해당 게시글의 투표 정보를 가져오는 데 실패했습니다";
@@ -129,6 +136,7 @@ export const getVoteLikesData = async (voteId: TVote["vote_postId"]) => {
   }
 
   const data = await res.json();
+  console.log(data);
   return data;
 };
 
