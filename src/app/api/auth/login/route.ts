@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -22,6 +23,7 @@ export async function POST(request: NextRequest) {
       const response = NextResponse.json({ success: true });
       response.cookies.set("access_token", session.access_token, { httpOnly: true });
       response.cookies.set("refresh_token", session.refresh_token, { httpOnly: true });
+      revalidatePath("/", "layout");
       return response;
     }
 
@@ -39,7 +41,11 @@ export async function DELETE() {
   try {
     const data = await supabase.auth.signOut();
     console.log("login >> ", data);
-    return NextResponse.json({ massage: "로그아웃 하였습니다." });
+
+    const res = NextResponse.json({ massage: "로그아웃 하였습니다." });
+    res.cookies.delete("access_token");
+    res.cookies.delete("refresh_token");
+    return res;
   } catch (error) {
     return NextResponse.json({ error: "알 수 없는 오류가 발생했습니다" }, { status: 500 });
   }
