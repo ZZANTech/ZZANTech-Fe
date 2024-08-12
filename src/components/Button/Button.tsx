@@ -28,7 +28,9 @@ const ButtonVariants = cva("flex justify-center items-center rounded", {
       small: "w-20 h-11 p-3", // 80x44
       medium: "w-[124px] h-11 px-4 py-3", // 124x44
       large: "w-80 h-14 p-4", // 320x56
-      xl: "w-[212px] h-19 px-[55px] py-[26px]" // 212x76
+      xl: "w-[212px] h-19 px-[55px] py-[26px] rounded-[12px]", // 212x76
+      modalMedium: "w-[188px] h-[72px] py-3 px-5", // 188x72
+      modalLarge: "w-[400px] h-[72px] py-3 px-5" // 400x72
     },
     textSize: {
       small: "text-sm",
@@ -43,8 +45,7 @@ const ButtonVariants = cva("flex justify-center items-center rounded", {
       bold: "font-bold" //700
     },
     rounded: {
-      small: "rounded-4",
-      medium: "rounded-8"
+      medium: "rounded-[8px]"
     },
     fullWidth: {
       true: "w-full"
@@ -58,7 +59,7 @@ const ButtonVariants = cva("flex justify-center items-center rounded", {
     variant: "black",
     size: "medium",
     weight: "normal",
-    rounded: "small",
+    rounded: "medium",
     fullWidth: false,
     disabled: false
   }
