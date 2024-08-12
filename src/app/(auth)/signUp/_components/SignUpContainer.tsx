@@ -7,7 +7,7 @@ import { TInputs } from "@/types/auth.types";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-function SignupContainer() {
+function SignUpContainer() {
   const router = useRouter();
   const modal = useAlertModal();
   const {
@@ -138,4 +138,4 @@ function SignupContainer() {
   );
 }
 
-export default SignupContainer;
+export default SignUpContainer;

@@ -12,7 +12,7 @@ import { BASE_URL } from "@/constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { revalidateRoute } from "@/utils/revalidation";
 
-function LoginContainer() {
+function LogInContainer() {
   const router = useRouter();
   const { user, logIn } = useUserContext();
 
@@ -54,7 +54,7 @@ function LoginContainer() {
   }, [user, router]);
 
   return (
-    <div className="flex flex-col items-center w-80 mx-auto mt-15">
+    <div className="flex flex-col items-center w-80 mx-auto mt-[60px]">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -150,4 +150,4 @@ function LoginContainer() {
   );
 }
 
-export default LoginContainer;
+export default LogInContainer;

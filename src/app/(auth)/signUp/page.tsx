@@ -1,11 +1,8 @@
-import SignupContainer from "@/app/(auth)/signUp/_components/SignUpContainer";
+import SignUpContainer from "@/app/(auth)/signup/_components/SignUpContainer";
+import React from "react";
 
-function SignUp() {
-  return (
-    <div className="w-full flex justify-center items-center">
-      <SignupContainer />
-    </div>
-  );
+function singup() {
+  return <SignUpContainer />;
 }
 
-export default SignUp;
+export default singup;
