@@ -39,9 +39,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             <HeaderContainer />
             {children}
           </div>
-          <div className="w-full">
-            <Footer />
-          </div>
+          <Footer />
         </Providers>
       </body>
     </html>
