@@ -4,3 +4,8 @@ export type TInputs = {
   password: string;
   recheckedPassword: string;
 };
+
+export type TLoginInputs = {
+  email: string;
+  password: string;
+};

@@ -31,13 +31,7 @@ export async function signUp(data: TInputs) {
 }
 
 // 회원가입: 중복확인 : 이메일
-export const checkDuplication = async ({
-  email
-  // setEmailError
-}: {
-  email: string;
-  // setEmailError: Dispatch<SetStateAction<string>>;
-}) => {
+export const checkDuplication = async ({ email }: { email: string }) => {
   const res = await fetch("/api/auth/signup/duplication", {
     method: "POST",
     headers: {
@@ -47,11 +41,9 @@ export const checkDuplication = async ({
   });
   if (res.status === 409) {
     return "이미 사용 중입니다";
-    // setEmailError("이미 사용 중입니다.");
   }
   if (res.status === 200) {
     return;
-    // setEmailError("");
   }
   return res.json();
 };
