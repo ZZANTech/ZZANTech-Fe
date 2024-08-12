@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useModal } from "@/provider/contexts/ModalContext";
+import { revalidateRoute } from "@/utils/revalidation";
 
 function LoginContainer() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -47,7 +48,7 @@ function LoginContainer() {
 
   useEffect(() => {
     if (user) {
-      router.replace("/");
+      revalidateRoute("/", "layout");
     }
   }, [user, router]);
 

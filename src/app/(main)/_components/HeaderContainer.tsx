@@ -3,16 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import NavCategory from "@/app/(main)/_components/Nav/NavCategory";
+import { revalidateRoute } from "@/utils/revalidation";
 
 function HeaderContainer() {
   const router = useRouter();
   const { user, logOut, isPending } = useUserContext();
 
-  const handleLogout = () => {
-    logOut();
+  const handleLogout = async () => {
+    await logOut();
+    revalidateRoute("/", "layout");
     router.replace("/");
   };
 
