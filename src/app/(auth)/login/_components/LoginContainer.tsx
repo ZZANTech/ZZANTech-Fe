@@ -1,7 +1,6 @@
 "use client";
 
 import Button from "@/components/Button";
-import useAlertModal from "@/hooks/useAlertModal";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import React, { useEffect } from "react";
@@ -15,7 +14,6 @@ import { revalidateRoute } from "@/utils/revalidation";
 
 function LoginContainer() {
   const router = useRouter();
-  const modal = useAlertModal();
   const { user, logIn } = useUserContext();
 
   const {
@@ -56,7 +54,7 @@ function LoginContainer() {
   }, [user, router]);
 
   return (
-    <div className="flex flex-col items-center w-[320px] mx-auto p-3">
+    <div className="flex flex-col items-center w-80 mx-auto mt-15">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -97,7 +95,7 @@ function LoginContainer() {
           })}
         />
 
-        <div className="w-[348px] h-4 px-3 mb-3">
+        <div className="w-80 h-4 px-3 mb-3">
           {(errors.email || errors.password) && (
             <p className="text-info-red text-xs">이메일 또는 비밀번호가 잘못 되었습니다.</p>
           )}
