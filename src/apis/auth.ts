@@ -1,7 +1,7 @@
 import { TChangePassword, TUser } from "@/types/user.type";
 import { Dispatch, SetStateAction } from "react";
 import { BASE_URL } from "@/constants";
-import { TUserInsert } from "@/types/user.type";
+import { TInputs } from "@/types/auth.types";
 
 //로그아웃
 export const logout = async () => {
@@ -14,7 +14,7 @@ export const logout = async () => {
 };
 
 // 회원가입
-export async function signUp(data: TUserInsert) {
+export async function signUp(data: TInputs) {
   const res = await fetch(`${BASE_URL}/api/auth/signup`, {
     method: "POST",
     headers: {
@@ -32,11 +32,11 @@ export async function signUp(data: TUserInsert) {
 
 // 회원가입: 중복확인 : 이메일
 export const checkDuplication = async ({
-  email,
-  setEmailError
+  email
+  // setEmailError
 }: {
   email: string;
-  setEmailError: Dispatch<SetStateAction<string>>;
+  // setEmailError: Dispatch<SetStateAction<string>>;
 }) => {
   const res = await fetch("/api/auth/signup/duplication", {
     method: "POST",
@@ -46,21 +46,23 @@ export const checkDuplication = async ({
     body: JSON.stringify({ email })
   });
   if (res.status === 409) {
-    setEmailError("이미 사용 중입니다.");
+    return "이미 사용 중입니다";
+    // setEmailError("이미 사용 중입니다.");
   }
   if (res.status === 200) {
-    setEmailError("");
+    return;
+    // setEmailError("");
   }
   return res.json();
 };
 
 // 회원가입: 중복확인 : 닉네임
 export const checkDuplicationNickname = async ({
-  nickname,
-  setNicknameError
+  nickname
+  // setNicknameError
 }: {
   nickname: string;
-  setNicknameError: Dispatch<SetStateAction<string>>;
+  // setNicknameError: Dispatch<SetStateAction<string>>;
 }) => {
   const res = await fetch("/api/auth/signup/duplication/nickname", {
     method: "POST",
@@ -71,10 +73,12 @@ export const checkDuplicationNickname = async ({
   });
 
   if (res.status === 409) {
-    setNicknameError("이미 사용 중입니다.");
+    return "이미 사용 중입니다";
+    // setNicknameError("이미 사용 중입니다.");
   }
   if (res.status === 200) {
-    setNicknameError("");
+    return;
+    // setNicknameError("");
   }
   return res.json();
 };
