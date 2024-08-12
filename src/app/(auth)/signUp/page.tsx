@@ -1,4 +1,4 @@
-import SignupContainer from "@/app/(auth)/signUp/_components/SignupContainer";
+import SignupContainer from "@/app/(auth)/signUp/_components/SignUpContainer";
 
 function SignUp() {
   return (
