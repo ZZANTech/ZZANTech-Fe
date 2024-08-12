@@ -47,7 +47,7 @@ const config: Config = {
         }
       },
       fontFamily: {
-        pretendard: ["Pretendard", "sans-serif"]
+        pretendard: ["var(--font-pretendard)"]
       },
       fontWeight: {
         light: "300",
