@@ -11,6 +11,7 @@ import Link from "next/link";
 import { createClient } from "@/utils/supabase/client";
 import { BASE_URL } from "@/constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
+import { revalidateRoute } from "@/utils/revalidation";
 
 function LoginContainer() {
   const router = useRouter();
@@ -50,8 +51,7 @@ function LoginContainer() {
 
   useEffect(() => {
     if (user) {
-      modal.displayDefaultAlert("환영합니다!");
-      router.replace("/");
+      revalidateRoute("/", "layout");
     }
   }, [user, router]);
 

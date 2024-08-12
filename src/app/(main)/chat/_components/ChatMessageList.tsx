@@ -51,12 +51,18 @@ function ChatMessageList({ roomId }: ChatMessageListProps) {
       <div className="flex-grow">
         {chats?.map((message: TChatWithUser, index: number) => {
           const prevMessage = chats[index - 1];
+          const nextMessage = chats[index + 1];
           const showNickname =
             !prevMessage ||
             prevMessage.user_id !== message.user_id ||
             new Date(message.created_at).getTime() - new Date(prevMessage.created_at).getTime() > TIME_THRESHOLD;
-
-          return <ChatMessageItem key={message.chatId} message={message} showNickname={showNickname} />;
+          const showTime =
+            !nextMessage ||
+            nextMessage.user_id !== message.user_id ||
+            new Date(nextMessage.created_at).getTime() - new Date(message.created_at).getTime() > TIME_THRESHOLD;
+          return (
+            <ChatMessageItem key={message.chatId} message={message} showNickname={showNickname} showTime={showTime} />
+          );
         })}
       </div>
     </div>

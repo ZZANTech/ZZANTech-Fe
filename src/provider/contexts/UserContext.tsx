@@ -14,7 +14,7 @@ type UserContextType = {
   logOut: () => Promise<void>;
   hasTakenQuiz: boolean;
   setHasTakenQuiz: (value: boolean) => void;
-  isLoading: boolean;
+  isPending: boolean;
 };
 
 const UserContext = createContext<UserContextType>({
@@ -23,33 +23,16 @@ const UserContext = createContext<UserContextType>({
   logOut: async () => {},
   hasTakenQuiz: false,
   setHasTakenQuiz: () => {},
-  isLoading: true
+  isPending: true
 });
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const queryClient = useQueryClient();
   const { data: user = null, isPending, refetch } = useUserQuery();
-  // const [user, setUser] = useState<TUser | null>(null);
   const [hasTakenQuiz, setHasTakenQuiz] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchUser = async () => {
-    setIsLoading(true);
-    const response = await fetch(`${BASE_URL}/api/auth/me`);
-    const data = await response.json();
-    const users = data.users;
-    if (users) {
-      const quizStatus = await fetchQuizStatus();
-      setHasTakenQuiz(quizStatus.hasTakenQuiz);
-    } else {
-      setHasTakenQuiz(false);
-    }
-    setIsLoading(false);
-  };
 
   const logIn = async (email: string, password: string) => {
-    setIsLoading(true);
     try {
       const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
@@ -63,27 +46,34 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       }
     } catch (error: any) {
       console.error(error.message);
-      setIsLoading(false);
       throw error;
     }
   };
+
   const logOut = async () => {
-    setIsLoading(true);
     await logout();
-    queryClient.invalidateQueries({
-      queryKey: ["user"]
-    });
+    queryClient.invalidateQueries({ queryKey: ["user"] });
     setHasTakenQuiz(false);
-    setIsLoading(false);
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    const checkQuizStatus = async () => {
+      if (user) {
+        const quizStatus = await fetchQuizStatus();
+        setHasTakenQuiz(quizStatus.hasTakenQuiz);
+      } else {
+        setHasTakenQuiz(false);
+      }
+    };
+
+    checkQuizStatus();
+  }, [user]);
+
   return (
-    <UserContext.Provider value={{ user, logIn, logOut, hasTakenQuiz, setHasTakenQuiz, isLoading }}>
+    <UserContext.Provider value={{ user, logIn, logOut, hasTakenQuiz, setHasTakenQuiz, isPending }}>
       {children}
     </UserContext.Provider>
   );
 };
+
 export default UserProvider;

@@ -10,14 +10,12 @@ type QuizQuestionProps = {
 };
 
 function QuizQuestion({ question, onAnswer }: QuizQuestionProps) {
-  const { setHasTakenQuiz } = useUserContext();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleAnswer = (answer: boolean) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     onAnswer(answer);
-    setHasTakenQuiz(true);
   };
   return (
     <div className="flex flex-col items-center justify-between p-10  max-w-screen-sm mx-auto">

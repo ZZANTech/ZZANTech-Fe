@@ -31,10 +31,10 @@ body *:not([class*="letter-"]) {
   letter-spacing: var(--tw-letter-spacing-tight-korean, -0.025em);
 }
 @layer utilities {
-  .MainLinkButton {
+  .mainLinkButton {
     @apply px-3 py-4 border-b-2 border-transparent transition-all duration-300 ease-in-out hover:border-b-gray-800;
   }
-  .MainLinkButtonActive {
+  .mainLinkButtonActive {
     @apply border-b-2 border-gray-800;
   }
   .auth-input-short {
@@ -49,7 +49,7 @@ body *:not([class*="letter-"]) {
   .line-shadow {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
-  .ChatInputPlaceholder::placeholder {
+  .chatInputPlaceholder::placeholder {
     color: var(--Gray-600, #767676);
     font-family: Pretendard, sans-serif;
     font-size: 16px;
@@ -57,6 +57,9 @@ body *:not([class*="letter-"]) {
     font-weight: 400;
     line-height: 24px;
     padding-left: 3px;
+  }
+  .filter-orange {
+  filter: brightness(0) saturate(100%) invert(41%) sepia(90%) saturate(7450%) hue-rotate(345deg) brightness(92%) contrast(105%);
   }
 }
 
