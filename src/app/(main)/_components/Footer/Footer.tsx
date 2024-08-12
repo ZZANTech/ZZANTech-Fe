@@ -4,7 +4,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <div className="flex justify-between border-t border-gray-50 mt-20">
+    <div className="flex justify-between">
       <div className="max-w-[1120px] my-10 w-full mx-auto flex flex-col  md:flex-row justify-between items-start md:items-start">
         <section className="flex flex-col items-start">
           <Image src="/logos/footerLogo.svg" alt="logo" width={80} height={24} className="mb-4" />
