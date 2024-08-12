@@ -4,10 +4,10 @@ import Link from "next/link";
 
 function TopSection() {
   return (
-    <section className="flex flex-col lg:flex-row gap-14 mx-auto max-w-[1120px]">
-      <div className="flex-shrink-0 lg:w-[700px] w-full">
+    <section className="flex flex-col lg:flex-row gap-6 lg:gap-14">
+      <div className="lg:w-[700px]">
         <Link href="/exchange">
-          <Image src="/home/home_banner.png" alt="home banner" width={700} height={250} className="w-full h-auto" />
+          <Image src="/home/home_banner.png" alt="home banner" width={700} height={250} className="w-full" />
         </Link>
       </div>
       <div className="flex-grow flex items-center justify-center">

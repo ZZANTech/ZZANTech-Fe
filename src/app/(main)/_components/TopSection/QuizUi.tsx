@@ -3,7 +3,6 @@
 import Button from "@/components/Button";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
-import Link from "next/link";
 
 const QuizUi = () => {
   const { hasTakenQuiz, isPending } = useUserContext();
