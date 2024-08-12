@@ -1,11 +1,9 @@
-import RHF from "@/app/(auth)/signUp/_components/RHF";
-import SignUpContainer from "@/app/(auth)/signUp/_components/SignUpContainer";
+import SignupContainer from "@/app/(auth)/signUp/_components/SignupContainer";
 
 function SignUp() {
   return (
     <div className="w-full flex justify-center items-center">
-      {/* <SignUpContainer /> */}
-      <RHF />
+      <SignupContainer />
     </div>
   );
 }
