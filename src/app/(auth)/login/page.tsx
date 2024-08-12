@@ -1,11 +1,7 @@
-import LoginContainer from "@/app/(auth)/login/_components/LoginContainer";
+import React from "react";
 
-function Login() {
-  return (
-    <div className="w-full flex justify-center items-center">
-      <LoginContainer />
-    </div>
-  );
+function LogIn() {
+  return <div>LogIn</div>;
 }
 
-export default Login;
+export default LogIn;

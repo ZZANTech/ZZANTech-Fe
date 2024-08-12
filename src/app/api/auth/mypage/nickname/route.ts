@@ -2,7 +2,6 @@ import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
 
 export const POST = async (req: NextRequest) => {
-  console.log("아무거나");
   const supabase = createClient();
 
   const body = await req.json();
