@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
       const response = NextResponse.json({ success: true });
       response.cookies.set("access_token", session.access_token, { httpOnly: true });
       response.cookies.set("refresh_token", session.refresh_token, { httpOnly: true });
-      revalidatePath("/", "layout");
+      // revalidatePath("/", "layout");
       return response;
     }
 

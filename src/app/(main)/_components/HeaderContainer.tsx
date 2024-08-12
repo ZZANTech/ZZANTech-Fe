@@ -13,7 +13,6 @@ function HeaderContainer() {
 
   const handleLogout = async () => {
     await logOut();
-    revalidateRoute("/", "layout");
     router.replace("/");
   };
 
