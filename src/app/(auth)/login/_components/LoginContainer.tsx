@@ -1,49 +1,37 @@
 "use client";
 
-import { checkEmailValidity, checkPasswordValidity } from "@/utils/authValidity";
-import { useUserContext } from "@/provider/contexts/UserContext";
+import Button from "@/components/Button";
+import useAlertModal from "@/hooks/useAlertModal";
+import { useRouter } from "next/navigation";
+import { SubmitHandler, useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { TLoginInputs } from "@/types/auth.types";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import { useModal } from "@/provider/contexts/ModalContext";
 import { createClient } from "@/utils/supabase/client";
 import { BASE_URL } from "@/constants";
-import Button from "@/components/Button";
+import { useUserContext } from "@/provider/contexts/UserContext";
 
 function LoginContainer() {
-  const emailRef = useRef<HTMLInputElement>(null);
-  const passwordRef = useRef<HTMLInputElement>(null);
-  const [emailError, setEmailError] = useState<string>("");
-  const [passwordError, setPasswordError] = useState<string>("");
-  const [isFormValid, setIsFormValid] = useState<boolean>(false);
-  const modal = useModal();
   const router = useRouter();
+  const modal = useAlertModal();
   const { user, logIn } = useUserContext();
 
-  const handleLogin = async () => {
-    const email = emailRef.current?.value || "";
-    const password = passwordRef.current?.value || "";
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm<TLoginInputs>();
 
-    checkEmailValidity({ email, setEmailError });
-    checkPasswordValidity({ password, setPasswordError });
-    setIsFormValid(email !== "" && password !== "");
-
-    //로그인 서버 통신 로직
+  const onSubmit: SubmitHandler<TLoginInputs> = async (data) => {
+    const email = data.email as string;
+    const password = data.password as string;
     try {
       await logIn(email, password);
     } catch (error: any) {
-      modal.open({
-        type: "alert",
-        content: error.message
-      });
+      alert(error.message);
     }
-  };
-
-  const validateInputs = () => {
-    const email = emailRef.current?.value || "";
-    const password = passwordRef.current?.value || "";
-    setIsFormValid(email !== "" && password !== "");
   };
 
   const handleSocialLogin = async (provider: "google" | "kakao") => {
@@ -62,10 +50,7 @@ function LoginContainer() {
 
   useEffect(() => {
     if (user) {
-      modal.open({
-        type: "alert",
-        content: "환영합니다.!"
-      });
+      modal.displayDefaultAlert("환영합니다!");
       router.replace("/");
     }
   }, [user, router]);
@@ -73,37 +58,61 @@ function LoginContainer() {
   return (
     <div className="flex flex-col items-center w-[320px] mx-auto p-3">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
-      <div className="flex flex-col">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
-          ref={emailRef}
           type="email"
-          maxLength={40}
-          className={`auth-input ${emailError ? "border-info-red" : ""}`}
-          placeholder="이메일을 입력해주세요"
-          onChange={validateInputs}
+          placeholder="zzan@zzan.com"
+          className={`auth-input ${errors.email ? "border-info-red" : ""}`}
+          maxLength={30}
+          {...register("email", {
+            required: "필수 사항 입니다.",
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+              message: "이메일 형식이 아닙니다."
+            },
+            maxLength: 30
+          })}
         />
-      </div>
 
-      <div className="flex flex-col">
         <input
-          ref={passwordRef}
           type="password"
-          maxLength={40}
-          className={`auth-input ${passwordError ? "border-info-red" : ""}`}
-          placeholder="비밀번호를 입력해주세요"
-          onChange={validateInputs}
+          placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
+          className={`auth-input ${errors.password ? "border-info-red" : ""}`}
+          maxLength={20}
+          {...register("password", {
+            required: "필수 사항 입니다.",
+            pattern: {
+              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
+              message:
+                "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
+            },
+            minLength: {
+              value: 6,
+              message: "비밀번호는 최소 6자 이상이어야 합니다."
+            },
+            maxLength: {
+              value: 20,
+              message: "비밀번호는 최대 20자 이하이어야 합니다."
+            }
+          })}
         />
-      </div>
 
-      <div className="w-[348px] h-4 px-3 mb-3">
-        {(emailError || passwordError) && (
-          <p className="text-info-red text-xs">이메일 또는 비밀번호가 잘못 되었습니다.</p>
-        )}
-      </div>
+        <div className="w-[348px] h-4 px-3 mb-3">
+          {(errors.email || errors.password) && (
+            <p className="text-info-red text-xs">이메일 또는 비밀번호가 잘못 되었습니다.</p>
+          )}
+        </div>
 
-      <Button variant={"black"} size={"large"} rounded={"medium"} onClick={handleLogin} disabled={!isFormValid}>
-        이메일로 계속하기
-      </Button>
+        <Button
+          variant={"black"}
+          size={"large"}
+          rounded={"medium"}
+          type="submit"
+          disabled={!(watch("email") && watch("password"))}
+        >
+          이메일로 계속하기
+        </Button>
+      </form>
 
       <div className="container flex items-center gap-[87px] my-8">
         <div className="line flex-grow h-px bg-gray-400 line-shadow"></div>
