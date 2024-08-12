@@ -1,0 +1,16 @@
+<div className="w-[166px] h-36 relative">
+  <div className="w-[45.57px] h-[50.30px] left-[120.43px] top-[88.88px] absolute">
+  </div>
+  <div className="w-[39.45px] h-[50.29px] left-[57.96px] top-[93.71px] absolute">
+  </div>
+  <div className="w-[165.36px] h-[117.26px] left-0 top-0 absolute">
+    <div className="w-10 h-[14.30px] left-[5.30px] top-[9.89px] absolute">
+    </div>
+    <div className="w-[52.31px] h-[48.54px] left-0 top-[20.67px] absolute">
+      <div className="w-[51.06px] h-[47.31px] left-[0.64px] top-[0.63px] absolute">
+      </div>
+    </div>
+  </div>
+  <div className="w-[43.70px] h-[33.87px] left-[30.52px] top-[54.23px] absolute">
+  </div>
+</div>
