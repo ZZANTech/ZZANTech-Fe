@@ -142,7 +142,7 @@ function LoginContainer() {
 
       <div className="flex flex-row gap-2.5 w-[340px] font-sm items-center justify-center mt-3">
         <p className="text-[#676767] font-semibold">아직 짠테크 회원이 아니신가요?</p>
-        <Link href="/signUp" className="text-point font-semibold">
+        <Link href="/signup" className="text-point font-semibold">
           회원가입
         </Link>
       </div>
