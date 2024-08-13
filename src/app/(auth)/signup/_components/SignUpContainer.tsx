@@ -108,9 +108,9 @@ function SignUpContainer() {
         <input
           type="password"
           placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
-          className={`auth-input ${errors.recheckedPassword ? "border-info-red" : ""}`}
+          className={`auth-input ${errors.confirmPassword ? "border-info-red" : ""}`}
           maxLength={20}
-          {...register("recheckedPassword", {
+          {...register("confirmPassword", {
             required: "필수 사항 입니다.",
             pattern: {
               value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
@@ -128,7 +128,7 @@ function SignUpContainer() {
             validate: (value) => value === watch("password") || "비밀번호와 일치하지 않습니다."
           })}
         />
-        {errors.recheckedPassword && <span className="errors-message">{errors.recheckedPassword.message}</span>}
+        {errors.confirmPassword && <span className="errors-message">{errors.confirmPassword.message}</span>}
       </div>
 
       <Button size={"large"} rounded={"medium"} type="submit">
