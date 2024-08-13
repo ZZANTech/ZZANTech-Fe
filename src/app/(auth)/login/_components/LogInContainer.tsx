@@ -12,7 +12,7 @@ import { BASE_URL } from "@/constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { revalidateRoute } from "@/utils/revalidation";
 
-function LoginContainer() {
+function LogInContainer() {
   const router = useRouter();
   const { user, logIn } = useUserContext();
 
@@ -150,4 +150,4 @@ function LoginContainer() {
   );
 }
 
-export default LoginContainer;
+export default LogInContainer;
