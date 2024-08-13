@@ -1,6 +1,5 @@
 "use client";
 
-import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
 import React, { useState } from "react";
 

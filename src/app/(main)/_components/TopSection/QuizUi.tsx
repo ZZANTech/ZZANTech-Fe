@@ -1,8 +1,8 @@
 "use client";
 
+import Button from "@/components/Button";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
-import Link from "next/link";
 
 const QuizUi = () => {
   const { hasTakenQuiz, isPending } = useUserContext();
@@ -18,32 +18,51 @@ const QuizUi = () => {
             </div>
           ) : (
             <div>
-              <p className="text-xl">{hasTakenQuiz ? "이미 오늘의 퀴즈를" : "오늘의 퀴즈 풀고"}</p>
-              <p className="text-xl">{hasTakenQuiz ? "풀었어요!" : "포인트 받자!"}</p>
+              {hasTakenQuiz ? (
+                <div>
+                  <p className="text-xl">
+                    <span className="text-main">이미 오늘의 </span>
+                    <span className="text-white">퀴즈를</span>
+                  </p>
+                  <p className="text-xl">
+                    <span className="text-main">풀었어요!</span>
+                  </p>
+                </div>
+              ) : (
+                <div>
+                  <p className="text-xl">
+                    <span className="text-main">오늘의 퀴즈 </span>
+                    <span className="text-white">풀고</span>
+                  </p>
+                  <p className="text-xl">
+                    <span className="text-main">포인트</span> <span className="text-white">받자!</span>
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
-        <section className="relative w-[160px] h-[100px]">
+        <div className="relative w-[148px] h-[128px]">
           <Image
-            src="/icons/coins.png"
+            src="/icons/quiz/tiggle.svg"
             alt="coin image"
-            layout="fill"
-            objectFit="contain"
-            className="absolute inset-0"
+            width={148}
+            height={128}
+            className="absolute top-[10px] right-1"
           />
-        </section>
+        </div>
       </section>
       <div className="w-[312px] h-[56px] flex items-center justify-center">
         {isPending ? (
           <div></div>
         ) : hasTakenQuiz ? (
-          <button className="w-[312px] h-[56px] font-semibold text-[#999999] rounded-md" disabled>
+          <Button size="large" variant="white" weight="semibold" disabled className="text-gray-500">
             내일 또 참여해 주세요!
-          </button>
+          </Button>
         ) : (
-          <Link href="/quiz" passHref>
-            <button className="w-[312px] h-[56px] bg-white font-semibold rounded-md">퀴즈풀기</button>
-          </Link>
+          <Button size="large" variant="white" weight="semibold" href="/quiz">
+            퀴즈풀기
+          </Button>
         )}
       </div>
     </div>
