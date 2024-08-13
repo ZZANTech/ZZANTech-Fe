@@ -136,7 +136,6 @@ export const getVoteLikesData = async (voteId: TVote["vote_postId"], accessToken
   }
 
   const data = await res.json();
-  console.log(data);
   return data;
 };
 

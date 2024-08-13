@@ -7,14 +7,18 @@ import { TVoteLikeCountsResponse } from "@/types/vote.type";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
 import useAlertModal from "@/hooks/useAlertModal";
+import useVoteLikesQuery from "@/stores/queries/vote/like/useVoteLikesQuery";
 
 type VoteButtonsProps = {
   voteId: number;
-  voteLikes: TVoteLikeCountsResponse;
+  initialVoteLikes: TVoteLikeCountsResponse;
+  accessToken: string;
+  refreshToken: string;
 };
 
-function VoteButtons({ voteId, voteLikes }: VoteButtonsProps) {
+function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: VoteButtonsProps) {
   const { user } = useUserContext();
+  const { data: voteLikes, refetch } = useVoteLikesQuery(voteId, initialVoteLikes, accessToken, refreshToken);
   const { displayLoginAlert } = useAlertModal();
   const { addVoteLike, updateVoteLike } = useVoteLikeMutation();
 
@@ -111,6 +115,12 @@ function VoteButtons({ voteId, voteLikes }: VoteButtonsProps) {
 
   const upvoteCount = optimisticVoteData.upvoteCount;
   const downvoteCount = optimisticVoteData.downvoteCount;
+
+  useEffect(() => {
+    return () => {
+      (async () => await refetch())();
+    };
+  }, []);
 
   return (
     <div className="self-stretch h-[76px] justify-between items-center inline-flex">
