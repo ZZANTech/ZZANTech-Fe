@@ -19,7 +19,7 @@ function HeaderContainer() {
 
   const defaultBadgeUrl = "/badges/lv1.png";
   return (
-    <header className="mx-auto my-5 flex flex-row items-center justify-between">
+    <header className="mx-auto my-5 flex flex-row items-center justify-between relative ">
       <div className="flex">
         <Link href={"/"} className="mr-10">
           <Image src={"/logos/mainLogo.png"} width={132} height={24} alt="mainLogo" />

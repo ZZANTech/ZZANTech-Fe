@@ -13,7 +13,7 @@ function NavCategoryMobile() {
   return (
     <>
       {/* 모바일 네비게이션 */}
-      <nav className="text-xs fixed bottom-0 w-full bg-white p-4 flex justify-around border-t border-gray-200 md:hidden z-50">
+      <nav className="text-xs fixed bottom-0 w-full bg-white p-4 flex justify-around border-t border-gray-200 md:hidden z-10">
         <Link href="/" className={clsx("flex flex-col items-center", { "text-orange-500": pathname === "/" })}>
           <Image
             src="/icons/home/home.svg"
