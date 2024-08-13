@@ -5,10 +5,10 @@ import PointRankingContainer from "@/app/(main)/_components/RightSection/PointRa
 function RightSection() {
   return (
     <div>
-      <section className="mb-11 lg:block hidden">
+      <section className="lg:mt-10 lg:block hidden">
         <PointRankingContainer />
       </section>
-      <section className="mb-12">
+      <section className="lg:my-10">
         <PointBanner />
       </section>
       <section>

@@ -9,7 +9,7 @@ function LeftSection() {
       <section>
         <TopVotes />
       </section>
-      <section className="mt-[55px] lg:hidden">
+      <section className="mt-8 lg:hidden">
         <PointRankingContainer />
       </section>
       <section>

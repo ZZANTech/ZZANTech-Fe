@@ -22,19 +22,15 @@ function TopBanner() {
           disableOnInteraction: false
         }}
         modules={[Pagination, Autoplay]}
-        className="mySwiper py-20 h-full bg-orange-500 rounded-xl lg:py-0"
+        className="mySwiper py-20 h-full rounded-xl lg:py-0"
       >
         <SwiperSlide>
           <Link href="/exchange">
             <Image src="/home/home_banner.png" alt="home banner" width={700} height={250} className="w-full" />
           </Link>
         </SwiperSlide>
-        <SwiperSlide>
-          <Link href="/exchange">
-            <Image src="/home/home_banner.png" alt="home banner" width={700} height={250} className="w-full" />
-          </Link>
-        </SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
+        <SwiperSlide className="bg-orange-500"></SwiperSlide>
+        <SwiperSlide className="bg-blue-300"></SwiperSlide>
       </Swiper>
     </div>
   );
