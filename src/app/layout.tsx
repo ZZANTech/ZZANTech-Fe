@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ReactNode } from "react";
 import Providers from "@/provider/Providers";
-import HeaderContainer from "@/app/(main)/_components/HeaderContainer";
+import HeaderContainer from "@/app/(main)/_components/Header/HeaderContainer";
 import Footer from "@/app/(main)/_components/Footer/Footer";
 import FooterWrapper from "@/app/(main)/_components/Footer/FooterWrapper";
 import NavCategoryMobile from "@/app/(main)/_components/Nav/NavCategoryMobile";
