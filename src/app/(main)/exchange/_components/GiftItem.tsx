@@ -23,6 +23,7 @@ function GiftItem({ gift }: GiftItemProps) {
   const formattedPoint = formatNumberWithCommas(gift.point);
   const router = useRouter();
   const handleExchange = async () => {
+    console.log(user?.current_point);
     console.log("adsads");
     if (isPending) return;
     if (Number(gift?.point) > Number(user?.current_point)) {
