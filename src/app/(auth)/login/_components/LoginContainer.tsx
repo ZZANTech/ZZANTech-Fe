@@ -79,11 +79,11 @@ function LoginContainer() {
           maxLength={20}
           {...register("password", {
             required: "필수 사항 입니다.",
-            pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
-              message:
-                "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
-            },
+            // pattern: {
+            //   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
+            //   message:
+            //     "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
+            // },
             minLength: {
               value: 6,
               message: "비밀번호는 최소 6자 이상이어야 합니다."
@@ -142,7 +142,7 @@ function LoginContainer() {
 
       <div className="flex flex-row gap-2.5 w-[340px] font-sm items-center justify-center mt-3">
         <p className="text-[#676767] font-semibold">아직 짠테크 회원이 아니신가요?</p>
-        <Link href="/signUp" className="text-point font-semibold">
+        <Link href="/signup" className="text-point font-semibold">
           회원가입
         </Link>
       </div>
