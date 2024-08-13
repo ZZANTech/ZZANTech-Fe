@@ -6,6 +6,7 @@ import useAlertModal from "@/hooks/useAlertModal";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { TNicknameModalInputs } from "@/types/auth.types";
 import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 function NicknameModal() {
@@ -13,6 +14,7 @@ function NicknameModal() {
   const oldNickname = user?.nickname;
   const queryClient = useQueryClient();
   const modal = useAlertModal();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -28,7 +30,7 @@ function NicknameModal() {
       if (res.ok) {
         queryClient.invalidateQueries();
         modal.displayDefaultAlert("닉네임 변경 완료!");
-        // router.replace("/login");
+        // router.replace("/mypage");
       }
     } catch (error: any) {
       alert(error.message);
