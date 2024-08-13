@@ -1,12 +1,12 @@
-import useAlertModal from "@/hooks/useAlertModal";
+"use client";
+
+import Button from "@/components/Button";
+import useChangePasswordMutation from "@/stores/queries/auth/useChangePasswordMutation";
 import { TEditPasswordInputs } from "@/types/auth.types";
-import { useRouter } from "next/router";
-import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 function EditPassword() {
-  const router = useRouter();
-  const modal = useAlertModal();
+  const { updatePassword } = useChangePasswordMutation();
   const {
     register,
     handleSubmit,
@@ -16,11 +16,11 @@ function EditPassword() {
 
   const onSubmit: SubmitHandler<TEditPasswordInputs> = async (data) => {
     try {
-      await signUp(data);
-      modal.displayDefaultAlert("회원가입 성공!");
-      router.replace("/login");
+      const oldPassword = data.oldPassword;
+      const newPassword = data.password;
+      await updatePassword({ oldPassword, newPassword });
     } catch (error: any) {
-      alert(error.message);
+      return;
     }
   };
 
@@ -37,11 +37,11 @@ function EditPassword() {
             maxLength={20}
             {...register("oldPassword", {
               required: "필수 사항 입니다.",
-              pattern: {
-                value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
-                message:
-                  "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
-              },
+              // pattern: {
+              //   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
+              //   message:
+              //     "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
+              // },
               minLength: {
                 value: 6,
                 message: "비밀번호는 최소 6자 이상이어야 합니다."
@@ -109,6 +109,15 @@ function EditPassword() {
           />
           {errors.confirmPassword && <span className="errors-message">{errors.confirmPassword.message}</span>}
         </div>
+
+        <Button
+          type="submit"
+          size={"large"}
+          weight={"semibold"}
+          disabled={watch("oldPassword") === "" && watch("password") === "" && watch("confirmPassword") === ""}
+        >
+          비밀번호 변경하기
+        </Button>
       </form>
     </div>
   );
