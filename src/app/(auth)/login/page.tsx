@@ -1,8 +1,8 @@
-import LoginContainer from "@/app/(auth)/login/_components/LogInContainer";
+import LogInContainer from "@/app/(auth)/login/_components/LogInContainer";
 import React from "react";
 
 function LogIn() {
-  return <LoginContainer />;
+  return <LogInContainer />;
 }
 
 export default LogIn;

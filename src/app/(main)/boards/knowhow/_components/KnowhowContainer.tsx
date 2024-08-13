@@ -12,8 +12,7 @@ import {
 } from "@/app/(main)/boards/knowhow/_constants";
 import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useModal } from "@/provider/contexts/ModalContext";
-import useAlertModal from "@/hooks/useAlertModal";
+
 import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import SkeletonKnowhowList from "@/app/(main)/boards/knowhow/_components/SkeletonKnowhowList";
 
