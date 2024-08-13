@@ -53,7 +53,8 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
                 loading="eager"
                 src={image_urls[0]}
                 alt={title}
-                fill
+                width={128}
+                height={128}
               />
             </div>
           )}

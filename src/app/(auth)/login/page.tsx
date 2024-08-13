@@ -1,4 +1,4 @@
-import LoginContainer from "@/app/(auth)/login/_components/LogInContainer";
+import LoginContainer from "@/app/(auth)/login/_components/LoginContainer";
 import React from "react";
 
 function LogIn() {

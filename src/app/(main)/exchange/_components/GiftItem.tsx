@@ -57,6 +57,8 @@ function GiftItem({ gift }: GiftItemProps) {
       <div className="w-[236px] h-[200px] mb-3 flex justify-center items-center relative">
         <Image
           className={isTeslaImage ? "object-contain" : "object-cover"}
+          priority
+          loading="eager"
           src={gift.img_url}
           alt={gift.gift_name}
           fill
