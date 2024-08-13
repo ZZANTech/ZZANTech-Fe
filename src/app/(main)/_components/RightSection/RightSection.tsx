@@ -5,7 +5,7 @@ import PointRankingContainer from "@/app/(main)/_components/RightSection/PointRa
 function RightSection() {
   return (
     <div>
-      <section className="flex flex-col mb-11">
+      <section className="mb-11 lg:block hidden">
         <PointRankingContainer />
       </section>
       <section className="mb-12">
