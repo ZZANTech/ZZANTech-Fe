@@ -47,7 +47,14 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
           </div>
           {image_urls?.length > 0 && (
             <div className="absolute top-1/2 transform -translate-y-1/2 right-0 w-[128px] h-[128px]">
-              <Image className="object-cover  rounded-lg" src={image_urls[0]} alt={title} fill />
+              <Image
+                className="object-cover  rounded-lg"
+                priority
+                loading="eager"
+                src={image_urls[0]}
+                alt={title}
+                fill
+              />
             </div>
           )}
         </div>

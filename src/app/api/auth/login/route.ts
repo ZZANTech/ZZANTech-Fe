@@ -24,6 +24,7 @@ export async function POST(request: NextRequest) {
       response.cookies.set("access_token", session.access_token, { httpOnly: true });
       response.cookies.set("refresh_token", session.refresh_token, { httpOnly: true });
       revalidatePath("/", "layout");
+
       return response;
     }
 

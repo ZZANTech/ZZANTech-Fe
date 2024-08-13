@@ -5,6 +5,7 @@ import { fetchQuizStatus } from "@/apis/quiz";
 import { BASE_URL } from "@/constants";
 import useUserQuery from "@/stores/queries/auth/useUserQuery";
 import { TUser } from "@/types/user.type";
+import { revalidateRoute } from "@/utils/revalidation";
 import { useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -52,6 +53,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
   const logOut = async () => {
     await logout();
+    revalidateRoute("/", "layout");
+
     queryClient.invalidateQueries({ queryKey: ["user"] });
     setHasTakenQuiz(false);
   };

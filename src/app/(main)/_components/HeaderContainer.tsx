@@ -14,7 +14,6 @@ function HeaderContainer() {
   const handleLogout = async () => {
     await logOut();
     revalidateRoute("/", "layout");
-    router.replace("/");
   };
 
   const defaultBadgeUrl = "/badges/lv1.png";
