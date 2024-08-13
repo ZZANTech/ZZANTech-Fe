@@ -40,12 +40,12 @@ function NicknameModal() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col p-11">
-        <h2 className="text-2xl font-bold mb-6">닉네임 변경</h2>
+        <h2 className="text-2xl font-semibold mb-6">닉네임 변경</h2>
         <div className="flex flex-col mb-10">
           <input
             type="text"
             placeholder="최소 2~7자 한글, 영어, 슷자"
-            className={`auth-input ${errors.nickname ? "border-info-red" : ""}`}
+            className={`w-[400px] h-12 px-4 py-[14px] border rounded-lg ${errors.nickname ? "border-info-red" : ""}`}
             maxLength={7}
             {...register("nickname", {
               required: "필수 사항 입니다.",
@@ -63,13 +63,14 @@ function NicknameModal() {
           {errors.nickname && <span className="errors-message">{errors.nickname.message}</span>}
         </div>
 
-        <div className="flex w-80 gap-5 items-center justify-center">
-          <Button variant={"white"} size={"modalMedium"}>
-            취소하기
-          </Button>
-          <Button type="submit" size={"modalMedium"} disabled={watch("nickname") === ""}>
-            변경하기
-          </Button>
+        <div className="flex gap-5 items-center justify-center">
+          <button className="nickname-modal-button">취소</button>
+          <button
+            className={`nickname-modal-button ${watch("nickname") === "" ? "bg-gray-50 text-gray-400" : "bg-black text-white"} `}
+            disabled={watch("nickname") === ""}
+          >
+            확인
+          </button>
         </div>
       </form>
     </>
