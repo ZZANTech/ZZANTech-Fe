@@ -50,7 +50,7 @@ function SignUpContainer() {
             }
           })}
         />
-        {errors.email && <span className="text-info-red text-xs">{errors.email.message}</span>}
+        {errors.email && <span className="errors-message">{errors.email.message}</span>}
       </div>
 
       <div className="flex flex-col mb-6">
@@ -73,7 +73,7 @@ function SignUpContainer() {
             }
           })}
         />
-        {errors.nickname && <span className="text-info-red text-xs">{errors.nickname.message}</span>}
+        {errors.nickname && <span className="errors-message">{errors.nickname.message}</span>}
       </div>
 
       <div className="flex flex-col mb-6">
@@ -100,7 +100,7 @@ function SignUpContainer() {
             }
           })}
         />
-        {errors.password && <span className="text-info-red text-xs">{errors.password.message}</span>}
+        {errors.password && <span className="errors-message">{errors.password.message}</span>}
       </div>
 
       <div className="flex flex-col mb-6">
@@ -128,7 +128,7 @@ function SignUpContainer() {
             validate: (value) => value === watch("password") || "비밀번호와 일치하지 않습니다."
           })}
         />
-        {errors.recheckedPassword && <span className="text-info-red text-xs">{errors.recheckedPassword.message}</span>}
+        {errors.recheckedPassword && <span className="errors-message">{errors.recheckedPassword.message}</span>}
       </div>
 
       <Button size={"large"} rounded={"medium"} type="submit">

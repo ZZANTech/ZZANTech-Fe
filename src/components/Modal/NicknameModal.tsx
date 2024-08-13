@@ -58,7 +58,7 @@ function NicknameModal() {
               }
             })}
           />
-          {errors.nickname && <span className="text-info-red text-xs">{errors.nickname.message}</span>}
+          {errors.nickname && <span className="errors-message">{errors.nickname.message}</span>}
         </div>
 
         <div className="flex w-80 gap-5 items-center justify-center">
