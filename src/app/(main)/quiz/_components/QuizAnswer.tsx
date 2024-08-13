@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -27,15 +28,14 @@ function QuizAnswer({ isCorrect, explanation, onClose }: QuizAnswerProps) {
     onClose();
   };
   return (
-    <div className="p-8 flex flex-col justify-between relative w-full h-full min-h-[500px] min-w-[500px]">
+    <div className="p-8 flex flex-col justify-between relative w-full h-full min-h-[400px] min-w-[400px]">
       {showAnimation ? (
         <div className="absolute inset-0 flex items-center justify-center">
           <Image
-            src={isCorrect ? "/icons/quiz/animations_confetti.gif" : "/icons/quiz/animations_state_x.png"}
+            src={isCorrect ? "/icons/quiz/animations_confetti.gif" : "/icons/quiz/animations_state_x.gif"}
             alt={isCorrect ? "correct answer animation" : "incorrect answer animation"}
-            width={isCorrect ? 500 : 300}
-            height={isCorrect ? 500 : 300}
-            className={`${!isCorrect && "animate-bounce"} object-cover`}
+            width={600}
+            height={600}
             unoptimized
           />
         </div>
@@ -64,9 +64,9 @@ function QuizAnswer({ isCorrect, explanation, onClose }: QuizAnswerProps) {
               </div>
             </div>
             <div className="flex justify-center mt-4">
-              <button onClick={handleOnClose} className="w-96 px-5 py-3 bg-gray-900 text-white rounded-xl">
+              <Button variant="black" size="large" onClick={handleOnClose}>
                 확인
-              </button>
+              </Button>
             </div>
           </section>
         </div>
