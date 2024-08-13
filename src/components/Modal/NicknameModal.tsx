@@ -1,61 +1,76 @@
 "use client";
 
-import { updateNickname } from "@/apis/auth";
-import { useModal } from "@/provider/contexts/ModalContext";
+import { checkDuplicationNickname, updateNickname } from "@/apis/auth";
+import Button from "@/components/Button";
+import useAlertModal from "@/hooks/useAlertModal";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import useUserQuery from "@/stores/queries/auth/useUserQuery";
-import { checkNicknameValidity } from "@/utils/authValidity";
+import { TNicknameModalInputs } from "@/types/auth.types";
 import { useQueryClient } from "@tanstack/react-query";
-import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 function NicknameModal() {
   const { user } = useUserContext();
-  const email = user?.email;
   const oldNickname = user?.nickname;
   const queryClient = useQueryClient();
-  const [nickname, setNickname] = useState<string>(oldNickname || "");
-  const [nicknameError, setNicknameError] = useState<string>("");
-  const [isNicknameValid, setIsNicknameValid] = useState<boolean | null>(null);
-  const { open } = useModal();
-  const handleChangeNickname = async () => {
-    // 유효성 검사: 빈칸, 글자 수, 특수문자
-    setNicknameError("");
-    checkNicknameValidity({ nickname, setNicknameError });
+  const modal = useAlertModal();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors }
+  } = useForm<TNicknameModalInputs>();
 
-    // 중복확인 및 update API
-    if (!nicknameError) {
-      const res = await updateNickname(nickname, email || "", setNicknameError, setIsNicknameValid);
+  const onSubmit: SubmitHandler<TNicknameModalInputs> = async (data) => {
+    try {
+      const nickname = data.nickname;
+      const email = user?.email;
+      const res = await updateNickname(nickname, email || "");
       if (res.ok) {
         queryClient.invalidateQueries();
-        open({
-          type: "alert",
-          content: "닉네임 변경이 완료되었습니다"
-        });
+        modal.displayDefaultAlert("닉네임 변경 완료!");
+        // router.replace("/login");
       }
+    } catch (error: any) {
+      alert(error.message);
     }
   };
 
   return (
-    <div className="relative bg-white p-10 rounded min-w-[340px] flex flex-col gap-8 items-center">
-      <h2 className="px-6 py-2 text-2xl font-bold">닉네임 변경</h2>
-      <input
-        type="text"
-        maxLength={7}
-        value={nickname}
-        placeholder="최소 2~7자 한글, 영어, 슷자"
-        onChange={(e) => setNickname(e.target.value)}
-        className="auth-input"
-      />
+    <>
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col p-11">
+        <h2 className="text-2xl font-bold mb-6">닉네임 변경</h2>
+        <div className="flex flex-col mb-10">
+          <input
+            type="text"
+            placeholder="최소 2~7자 한글, 영어, 슷자"
+            className={`auth-input ${errors.nickname ? "border-info-red" : ""}`}
+            maxLength={7}
+            {...register("nickname", {
+              required: "필수 사항 입니다.",
+              pattern: {
+                value: /^(?=.*[a-zA-Z가-힣])[a-zA-Z0-9가-힣]{2,7}$/,
+                message: "특수문자를 포함하거나 한글 자음/모음 단독 사용은 어렵습니다."
+              },
+              minLength: 3,
+              maxLength: 7,
+              validate: {
+                checkUrl: async (nickname) => await checkDuplicationNickname(nickname)
+              }
+            })}
+          />
+          {errors.nickname && <span className="text-info-red text-xs">{errors.nickname.message}</span>}
+        </div>
 
-      {nicknameError && <p className="text-info-red text-xs">{nicknameError}</p>}
-
-      <button
-        onClick={handleChangeNickname}
-        className="w-[385px] h-[52px] rounded-lg font-bold text-xl bg-black text-white"
-      >
-        변경하기
-      </button>
-    </div>
+        <div className="flex w-80 gap-5 items-center justify-center">
+          <Button variant={"white"} size={"modalMedium"}>
+            취소하기
+          </Button>
+          <Button type="submit" size={"modalMedium"} disabled={watch("nickname") === ""}>
+            변경하기
+          </Button>
+        </div>
+      </form>
+    </>
   );
 }
 

@@ -46,7 +46,7 @@ function SignUpContainer() {
             },
             maxLength: 30,
             validate: {
-              checkUrl: async (email) => await checkDuplication({ email })
+              checkUrl: async (email) => await checkDuplication(email)
             }
           })}
         />
@@ -69,7 +69,7 @@ function SignUpContainer() {
             minLength: 3,
             maxLength: 7,
             validate: {
-              checkUrl: async (nickname) => await checkDuplicationNickname({ nickname })
+              checkUrl: async (nickname) => await checkDuplicationNickname(nickname)
             }
           })}
         />

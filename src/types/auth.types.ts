@@ -9,3 +9,7 @@ export type TLoginInputs = {
   email: string;
   password: string;
 };
+
+export type TNicknameModalInputs = {
+  nickname: string;
+};
