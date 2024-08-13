@@ -10,7 +10,7 @@ import Image from "next/image";
 
 function TopBanner() {
   return (
-    <div className="lg:w-[700px] z-0">
+    <div className=" lg:w-[700px] z-0">
       <Swiper
         pagination={{
           clickable: true,
@@ -22,7 +22,7 @@ function TopBanner() {
           disableOnInteraction: false
         }}
         modules={[Pagination, Autoplay]}
-        className="mySwiper"
+        className="mySwiper py-20 h-full bg-orange-500 rounded-xl lg:py-0"
       >
         <SwiperSlide>
           <Link href="/exchange">
