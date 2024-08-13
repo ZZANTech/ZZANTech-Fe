@@ -34,7 +34,7 @@ export const POST = async (req: NextRequest, { params }: { params: { giftId: str
       const REASON_FOR_SUBSTRACT = `${gift.gift_name} 교환`;
 
       if (currentPoint < POINT_TO_SUBSTRACT) {
-        return NextResponse.json({ error: "포인트가 부족합니다" }, { status: 400 });
+        return NextResponse.json({ error: "포인트가 부족합니다" }, { status: 402 });
       }
 
       const { status, statusText, error } = await supabase.from("gift_claims").insert(newClaim).single();
