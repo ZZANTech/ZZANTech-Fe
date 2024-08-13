@@ -10,7 +10,7 @@ import Image from "next/image";
 
 function TopBanner() {
   return (
-    <div className="lg:w-[700px]">
+    <div className="lg:w-[700px] z-0">
       <Swiper
         pagination={{
           clickable: true,
