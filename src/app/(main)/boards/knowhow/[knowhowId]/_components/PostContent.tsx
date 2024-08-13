@@ -14,6 +14,8 @@ function PostContent({ knowhow }: PostContentProps) {
 
   const { formattedDate, formattedTime } = formatTime(knowhow.created_at);
 
+  let isFirstImage = true;
+
   const transformContent = (htmlContent: string) => {
     return parse(htmlContent, {
       replace: (domNode) => {
@@ -28,7 +30,18 @@ function PostContent({ knowhow }: PostContentProps) {
                       const imgWidth = width ? parseInt(width) : 600;
                       const imgHeight = height ? parseInt(height) : 400;
                       if (src) {
-                        return <Image src={src} alt={alt || "image"} width={imgWidth} height={imgHeight} />;
+                        const imageElement = (
+                          <Image
+                            src={src}
+                            alt={alt || "image"}
+                            priority={isFirstImage}
+                            loading={isFirstImage ? "eager" : "lazy"}
+                            width={imgWidth}
+                            height={imgHeight}
+                          />
+                        );
+                        isFirstImage = false;
+                        return imageElement;
                       }
                     }
                     return childNode;
@@ -43,6 +56,7 @@ function PostContent({ knowhow }: PostContentProps) {
       }
     });
   };
+
   const transformedContent = transformContent(knowhow.content);
 
   return (
