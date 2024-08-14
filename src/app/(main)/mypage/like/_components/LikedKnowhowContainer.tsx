@@ -6,40 +6,26 @@ import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useLikedKnowhowsQuery from "@/stores/queries/knowhow/post/useLikedKnowhowsQuery";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense } from "react";
+import usePagination from "@/hooks/usePagination";
 
 function LikedKnowhowContainer() {
   const { user } = useUserContext();
   const userId = user?.userId;
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const searchParams = useSearchParams();
-
+  const { currentPage, handlePageChange } = usePagination();
   const { data: knowhows, isPending } = useLikedKnowhowsQuery(currentPage, ITEMS_PER_PAGE, userId || "");
-
-  const handlePageChange = (page: number) => setCurrentPage(page);
-
-  useEffect(() => {
-    const pageFromParams = parseInt(searchParams.get("page") || "1", 10);
-    if (currentPage !== pageFromParams) {
-      setCurrentPage(pageFromParams);
-    }
-  }, [searchParams, currentPage]);
-
   const totalItems = knowhows ? knowhows[0]?.total_count || 0 : 0;
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
   return (
     <section>
       <h1 className="my-[63px] ml-[11px] text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
-
       {isPending ? (
         <SkeletonKnowhowList />
       ) : knowhows && knowhows.length > 0 ? (
         <>
           <Suspense>
             <KnowhowList knowhows={knowhows} />
-            {totalPages > 1 && (
+            {totalItems > ITEMS_PER_PAGE && (
               <Pagination totalItems={totalItems} itemsPerPage={ITEMS_PER_PAGE} onPageChange={handlePageChange} />
             )}
           </Suspense>
