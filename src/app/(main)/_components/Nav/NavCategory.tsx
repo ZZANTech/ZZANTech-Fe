@@ -13,7 +13,7 @@ function NavCategory() {
   return (
     <>
       {/* 데스크탑 네비게이션 */}
-      <nav className="hidden md:flex flex-row items-center justify-center font-bold space-x-6">
+      <nav className="hidden lg:flex flex-row items-center justify-center font-bold space-x-6">
         <Link
           href="/boards/votes"
           className={clsx("mainLinkButton", { mainLinkButtonActive: pathname.startsWith("/boards/votes") })}
