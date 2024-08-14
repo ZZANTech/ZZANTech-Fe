@@ -33,10 +33,18 @@ function TopBanner() {
               fill
               className="object-cover hidden lg:block"
               loading="eager"
+              quality={50}
             />
           </Link>
           <Link href="/exchange">
-            <Image src="/home/banner_mobile.svg" alt="banner" fill className="object-cover lg:hidden" loading="eager" />
+            <Image
+              src="/home/banner_mobile.svg"
+              alt="banner"
+              fill
+              className="object-cover lg:hidden"
+              loading="eager"
+              quality={50}
+            />
           </Link>
         </SwiperSlide>
         <SwiperSlide className="bg-orange-500 flex items-center justify-center h-full">
