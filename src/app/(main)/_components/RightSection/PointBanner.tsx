@@ -1,6 +1,5 @@
 import Button from "@/components/Button";
 import Image from "next/image";
-import Link from "next/link";
 
 function PointBanner() {
   return (
@@ -18,8 +17,8 @@ function PointBanner() {
         <Image
           src="/home/pointEye.png"
           alt="giftIcon"
-          width={50}
-          height={50}
+          width={150}
+          height={150}
           className="w-[110px] h-[80px] lg:w-[215px] lg:h-[145px]"
         />
       </div>

@@ -32,7 +32,14 @@ body *:not([class*="letter-"]) {
   align-items: center;
   gap: 1px;
 }
-
+.custom-box-shadow {
+  @apply border border-gray-300;
+  box-shadow: 39px 17px 12px rgba(128, 128, 128, 0.00),
+              25px 11px 11px rgba(128, 128, 128, 0.01),
+              14px 6px 9px rgba(128, 128, 128, 0.05),
+              6px 3px 7px rgba(128, 128, 128, 0.09),
+              2px 1px 4px rgba(128, 128, 128, 0.10);
+}
 
 @layer utilities {
   .mainLinkButton {
