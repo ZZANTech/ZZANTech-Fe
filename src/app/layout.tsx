@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
-      <link rel="icon" href="/favicoan.png" sizes="any" />
+      <link rel="icon" href="/favicon.png" sizes="any" />
       <body
         className={`${pretendard.className}
        flex flex-col min-h-screen`}
