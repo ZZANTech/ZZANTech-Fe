@@ -11,10 +11,12 @@ dayjs.locale("ko");
 
 type VoteContentProps = {
   vote: TVote;
-  voteLikes: TVoteLikeCountsResponse;
+  initialVoteLikes: TVoteLikeCountsResponse;
+  accessToken: string;
+  refreshToken: string;
 };
 
-function VoteContent({ vote, voteLikes }: VoteContentProps) {
+function VoteContent({ vote, initialVoteLikes, accessToken, refreshToken }: VoteContentProps) {
   const { title, product_name, product_price, nickname, created_at, image_url, vote_postId, content } = vote;
   const formattedCreatedAt = dayjs(created_at).fromNow();
 
@@ -41,7 +43,12 @@ function VoteContent({ vote, voteLikes }: VoteContentProps) {
                   <div>{product_price.toLocaleString()} 원</div>
                 </div>
               </div>
-              <VoteButtons voteId={vote_postId} voteLikes={voteLikes} />
+              <VoteButtons
+                voteId={vote_postId}
+                accessToken={accessToken}
+                refreshToken={refreshToken}
+                initialVoteLikes={initialVoteLikes}
+              />
             </div>
             <div className="self-stretch grow shrink basis-0 justify-start items-center gap-2.5 inline-flex">
               <div className="grow shrink basis-0 text-[#090909] text-base font-normal leading-normal whitespace-pre-wrap">

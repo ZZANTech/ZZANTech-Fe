@@ -1,7 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { NextResponse } from "next/server";
 
-// 정렬순서?
 export const GET = async () => {
   const supabase = createClient();
 
