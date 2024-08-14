@@ -7,7 +7,7 @@
 body *:not([class*="letter-"]) {
   letter-spacing: var(--tw-letter-spacing-tight-korean, -0.025em);
 }
-.swiper-pagination-bullet {
+.mySwiper .swiper-pagination-bullet {
   width: 7px;
   height: 7px;
   background-color: black;
@@ -16,7 +16,7 @@ body *:not([class*="letter-"]) {
   opacity: 0.5;
 }
 
-.swiper-pagination-bullet-active {
+.mySwiper .swiper-pagination-bullet-active {
   width: 25px;
   height: 7px;
   background-color: white;
@@ -25,13 +25,14 @@ body *:not([class*="letter-"]) {
   opacity: 1;
 }
 
-.swiper-pagination {
+.mySwiper .swiper-pagination {
   bottom: 15px !important;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 1px;
 }
+
 
 @layer utilities {
   .mainLinkButton {
