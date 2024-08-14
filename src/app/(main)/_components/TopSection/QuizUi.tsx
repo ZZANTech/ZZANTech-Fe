@@ -56,8 +56,13 @@ const QuizUi = () => {
         {isPending ? (
           <div></div>
         ) : hasTakenQuiz ? (
-          <Button size="large" variant="white" weight="semibold" disabled className="text-gray-500">
-            내일 또 참여해 주세요!
+          <Button
+            size="quizResponsive"
+            weight="semibold"
+            disabled
+            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto top-[-25px] right-[-3px] rounded-[100px] lg:rounded-lg"
+          >
+            퀴즈 완료
           </Button>
         ) : (
           <Button
@@ -66,7 +71,7 @@ const QuizUi = () => {
             href="/quiz"
             className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto top-[-25px] right-[-3px] rounded-[100px] lg:rounded-lg"
           >
-            퀴즈풀기
+            퀴즈 풀기
           </Button>
         )}
       </div>
