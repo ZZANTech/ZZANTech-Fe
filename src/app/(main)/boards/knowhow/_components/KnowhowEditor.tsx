@@ -24,7 +24,8 @@ const QuillNoSSRWrapper = dynamic<ForwardedQuillComponent>(
     );
     return Quill;
   },
-  { ssr: false }
+
+  { loading: () => <div className="h-[550px]"></div>, ssr: false }
 );
 
 type KnowhowEditorProps = {
