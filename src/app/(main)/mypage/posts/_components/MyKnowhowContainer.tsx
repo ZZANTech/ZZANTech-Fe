@@ -1,6 +1,5 @@
 "use client";
 
-import { Suspense } from "react";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
@@ -27,9 +26,7 @@ function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
         <>
           <KnowhowList knowhows={knowhows} />
           {totalItems > ITEMS_PER_PAGE && (
-            <Suspense>
-              <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems} onPageChange={handlePageChange} />
-            </Suspense>
+            <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems} onPageChange={handlePageChange} />
           )}
         </>
       ) : (

@@ -6,7 +6,6 @@ import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import useMyVotesQuery from "@/stores/queries/vote/post/useMyVotesQuery";
 import { Tables } from "@/types/supabase";
-import { Suspense } from "react";
 import usePagination from "@/hooks/usePagination";
 
 type MyVotesContainerProps = {
@@ -28,9 +27,7 @@ function MyVotesContainer({ user }: MyVotesContainerProps) {
         <>
           <VotesList votes={votes} />
           {totalItems > ITEMS_PER_PAGE && (
-            <Suspense>
-              <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems} onPageChange={handlePageChange} />
-            </Suspense>
+            <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems} onPageChange={handlePageChange} />
           )}
         </>
       ) : (

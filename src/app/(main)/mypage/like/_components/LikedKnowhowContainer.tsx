@@ -6,7 +6,6 @@ import { ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useLikedKnowhowsQuery from "@/stores/queries/knowhow/post/useLikedKnowhowsQuery";
-import { Suspense } from "react";
 import usePagination from "@/hooks/usePagination";
 
 function LikedKnowhowContainer() {
@@ -23,12 +22,10 @@ function LikedKnowhowContainer() {
         <SkeletonKnowhowList />
       ) : knowhows && knowhows.length > 0 ? (
         <>
-          <Suspense>
-            <KnowhowList knowhows={knowhows} />
-            {totalItems > ITEMS_PER_PAGE && (
-              <Pagination totalItems={totalItems} itemsPerPage={ITEMS_PER_PAGE} onPageChange={handlePageChange} />
-            )}
-          </Suspense>
+          <KnowhowList knowhows={knowhows} />
+          {totalItems > ITEMS_PER_PAGE && (
+            <Pagination totalItems={totalItems} itemsPerPage={ITEMS_PER_PAGE} onPageChange={handlePageChange} />
+          )}
         </>
       ) : (
         <NoPostsMessage type="likedPosts" />

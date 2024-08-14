@@ -1,6 +1,6 @@
 "use client";
 import useKnowhowsQuery from "@/stores/queries/knowhow/post/useKnowhowsQuery";
-import { Suspense, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
@@ -47,9 +47,7 @@ function KnowhowContainer() {
       />
       {isPending ? <SkeletonKnowhowList /> : <KnowhowList knowhows={knowhows?.posts} />}
       <div className="flex flex-col self-center relative">
-        <Suspense>
-          <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
-        </Suspense>
+        <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
         <SearchOptions
           onSearch={handleSearch}
           onSearchOptionChange={handleSearchOptionChange}
