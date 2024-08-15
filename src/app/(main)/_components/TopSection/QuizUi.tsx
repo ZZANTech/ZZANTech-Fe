@@ -20,12 +20,16 @@ const QuizUi = () => {
             <div>
               {hasTakenQuiz ? (
                 <div className="flex flex-col ">
-                  <p className="text-base lg:text-xl">
+                  <p className="text-base lg:text-xl lg:pt-9">
                     <span className="text-main">이미 오늘의 </span>
                     <span className="text-white">퀴즈를</span>
+                    <br className="hidden lg:block" />
+                    <span className="text-main"> 풀었어요!</span>
                   </p>
                   <p className="text-base lg:text-xl">
-                    <span className="text-main">풀었어요!</span>
+                    <span className="text-white">내일 또</span>
+                    <br className="hidden lg:block" />
+                    <span className="text-main"> 참여해 주세요</span>
                   </p>
                 </div>
               ) : (
@@ -60,7 +64,7 @@ const QuizUi = () => {
             size="quizResponsive"
             weight="semibold"
             disabled
-            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto top-[-25px] right-[-3px] rounded-[100px] lg:rounded-lg"
+            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto top-[-25px] right-[-3px] rounded-[100px] lg:rounded-lg lg:cursor-not-allowed lg:text-gray-400 lg:bg-gray-200"
           >
             퀴즈 완료
           </Button>

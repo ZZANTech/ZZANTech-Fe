@@ -14,7 +14,7 @@ function HeaderContainer() {
             width={132}
             height={24}
             alt="mainLogo"
-            className="w-[84px] h-auto lg:w-[132px] lg:h-auto"
+            className="w-[84px] h-auto md:w-[132px] lg:h-auto"
           />
         </Link>
         <NavCategory />
