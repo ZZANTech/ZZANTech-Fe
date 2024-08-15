@@ -46,11 +46,11 @@ function SignUpContainer() {
             },
             maxLength: 30,
             validate: {
-              checkUrl: async (email) => await checkDuplication({ email })
+              checkUrl: async (email) => await checkDuplication(email)
             }
           })}
         />
-        {errors.email && <span className="text-info-red text-xs">{errors.email.message}</span>}
+        {errors.email && <span className="errors-message">{errors.email.message}</span>}
       </div>
 
       <div className="flex flex-col mb-6">
@@ -69,11 +69,11 @@ function SignUpContainer() {
             minLength: 3,
             maxLength: 7,
             validate: {
-              checkUrl: async (nickname) => await checkDuplicationNickname({ nickname })
+              checkUrl: async (nickname) => await checkDuplicationNickname(nickname)
             }
           })}
         />
-        {errors.nickname && <span className="text-info-red text-xs">{errors.nickname.message}</span>}
+        {errors.nickname && <span className="errors-message">{errors.nickname.message}</span>}
       </div>
 
       <div className="flex flex-col mb-6">
@@ -100,7 +100,7 @@ function SignUpContainer() {
             }
           })}
         />
-        {errors.password && <span className="text-info-red text-xs">{errors.password.message}</span>}
+        {errors.password && <span className="errors-message">{errors.password.message}</span>}
       </div>
 
       <div className="flex flex-col mb-6">
@@ -108,9 +108,9 @@ function SignUpContainer() {
         <input
           type="password"
           placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
-          className={`auth-input ${errors.recheckedPassword ? "border-info-red" : ""}`}
+          className={`auth-input ${errors.confirmPassword ? "border-info-red" : ""}`}
           maxLength={20}
-          {...register("recheckedPassword", {
+          {...register("confirmPassword", {
             required: "필수 사항 입니다.",
             pattern: {
               value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
@@ -128,7 +128,7 @@ function SignUpContainer() {
             validate: (value) => value === watch("password") || "비밀번호와 일치하지 않습니다."
           })}
         />
-        {errors.recheckedPassword && <span className="text-info-red text-xs">{errors.recheckedPassword.message}</span>}
+        {errors.confirmPassword && <span className="errors-message">{errors.confirmPassword.message}</span>}
       </div>
 
       <Button size={"large"} rounded={"medium"} type="submit">

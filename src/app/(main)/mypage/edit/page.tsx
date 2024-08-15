@@ -1,7 +1,7 @@
-import UserEditPassword from "@/app/(main)/mypage/edit/_components/UserEditPassword";
+import EditPassword from "@/app/(main)/mypage/edit/_components/EditPassword";
 
 function MypageUserInfoEdit() {
-  return <UserEditPassword />;
+  return <EditPassword />;
 }
 
 export default MypageUserInfoEdit;
