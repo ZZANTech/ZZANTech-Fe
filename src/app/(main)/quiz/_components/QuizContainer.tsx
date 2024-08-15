@@ -75,8 +75,17 @@ function QuizContainer() {
   };
 
   return (
-    <div>
-      {isSubmitting && <Image src="/home/loading.svg" alt="loading" width={100} height={100} />}
+    <div className="relative lg:px-4 lg:py-6 flex flex-col justify-start w-full h-full">
+      {/* 작은 화면에서만 보이는 뒤로가기 버튼과 "오늘의 퀴즈" */}
+      {!isSubmitting && (
+        <div className="lg:hidden flex items-center justify-between mt-8">
+          <button onClick={handleClose}>
+            <Image src="/icons/quiz/back.svg" alt="뒤로가기" width={24} height={24} className="ml-5" />
+          </button>
+          <h3 className="text-lg font-bold flex-grow text-center pr-12">오늘의 퀴즈</h3>
+        </div>
+      )}
+      {isSubmitting && <Image src="/home/loading.svg" alt="loading" width={100} height={100} className="m-auto" />}
       {!isSubmitting &&
         (showAnswer ? (
           <QuizAnswer isCorrect={isCorrect} explanation={explanation} onClose={handleClose} />

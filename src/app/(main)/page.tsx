@@ -5,9 +5,7 @@ import TopSection from "@/app/(main)/_components/TopSection/TopSection";
 export default function Home() {
   return (
     <main>
-      <section className="flex flex-col lg:flex-row">
-        <TopSection />
-      </section>
+      <TopSection />
       <div className="flex flex-col lg:flex-row gap-14">
         <div className="w-full lg:w-[700px]">
           <LeftSection />

@@ -3,7 +3,7 @@ import TopBanner from "@/app/(main)/_components/TopSection/TopBanner";
 
 function TopSection() {
   return (
-    <section className="flex flex-col lg:flex-row gap-6 lg:gap-14">
+    <section className="flex flex-col lg:flex-row gap-6 lg:gap-14 w-full">
       <TopBanner />
       <div className="flex-grow flex items-center justify-center lg:justify-end">
         <QuizUi />
