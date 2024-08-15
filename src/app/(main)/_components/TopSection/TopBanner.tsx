@@ -17,10 +17,10 @@ function TopBanner() {
           bulletClass: "swiper-pagination-bullet",
           bulletActiveClass: "swiper-pagination-bullet-active"
         }}
-        // autoplay={{
-        //   delay: 2000,
-        //   disableOnInteraction: false
-        // }}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false
+        }}
         modules={[Pagination, Autoplay]}
         className="mySwiper h-full rounded-xl lg:py-0"
       >

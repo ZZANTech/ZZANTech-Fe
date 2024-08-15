@@ -8,15 +8,11 @@ function Footer() {
       <div className="max-w-[1120px] my-10 w-full mx-auto flex flex-col  md:flex-row justify-between items-start md:items-start">
         <section className="flex flex-col items-start">
           <Image src="/logos/footerLogo.svg" alt="logo" width={80} height={25} className="mb-4" />
-          <div className="mb-10 flex space-x-3 text-sm text-gray-700">
+          <div className="mb-10 flex-col flex space-y-2 lg:space-y-0 lg:flex-row space-x-0 lg:space-x-3  text-sm text-gray-700">
             <Link href="/about">회사소개</Link>
-            <span>|</span>
             <Link href="/terms">이용약관</Link>
-            <span>|</span>
             <Link href="/privacy">개인정보처리방침</Link>
-            <span>|</span>
             <Link href="/youth-protection">청소년보호정책</Link>
-            <span>|</span>
             <Link href="/ads">제휴광고</Link>
           </div>
           <p className="text-sm text-grey-900">Copyright ⓒ B-SEVEN ALL RIGHTS RESERVED.</p>
