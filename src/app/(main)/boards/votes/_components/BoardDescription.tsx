@@ -8,7 +8,7 @@ type BoardDescriptionProps = {
 function BoardDescription({ children }: BoardDescriptionProps) {
   return (
     <>
-      <section className="w-full h-[180px] p-5 bg-white flex flex-col justify-start items-start gap-2.5 relative mt-[60px]">
+      <section className="w-full h-[180px] p-5 bg-white flex flex-col justify-start items-start gap-2.5 relative mt-[60px] mb-6">
         <div className="self-stretch h-[140px] flex flex-col justify-start items-start gap-5">
           <div className="self-stretch flex flex-col justify-start items-start gap-2">
             <h1 className="self-stretch h-[29px] text-gray-900 text-2xl font-semibold leading-[34px]">
