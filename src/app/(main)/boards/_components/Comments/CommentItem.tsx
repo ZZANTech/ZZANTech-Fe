@@ -89,7 +89,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
   };
 
   return (
-    <li className="w-full flex flex-col gap-3">
+    <li className="w-full flex flex-col gap-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-[7px]">

@@ -61,8 +61,8 @@ function CommentForm({ postId, board }: CommentFormProps) {
     <form onSubmit={handleCommentSubmit} className="w-full flex flex-col gap-[12px]">
       <textarea
         ref={commentInputRef}
-        maxLength={500}
-        className="h-[90px] px-[19px] pt-3.5 pb-[52px] bg-white rounded-lg border border-[#8b8b8b] justify-start items-center inline-flex scrollbar-hide"
+        maxLength={300}
+        className="h-[92px] px-5 pt-4 pb-[52px] bg-white rounded-lg border border-[#8b8b8b] justify-start items-center inline-flex scrollbar-hide resize-none"
         disabled={isPending}
       />
       <div className="flex justify-end mb-[36px]">
