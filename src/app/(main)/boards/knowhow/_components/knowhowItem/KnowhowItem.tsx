@@ -30,10 +30,10 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
   const textOnlyContent = removeHTMLTags(content);
 
   return (
-    <li className="w-full h-[240px] border-b border-b-basic py-8">
+    <li className="w-full h-[240px] border-b border-b-basic py-8 ">
       <Link className="flex h-full " href={`/boards/knowhow/${knowhow.knowhow_postId}`}>
-        <div className="w-full flex gap-9 relative px-0">
-          <div className="flex w-full max-w-[805px] flex-col overflow-hidden">
+        <div className="w-full flex justify-between gap-4 relative px-0">
+          <div className="flex w-full max-w-[805px] flex-col  overflow-hidden">
             <div className="flex gap-3 items-center mb-4">
               <div className="flex gap-2">
                 <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
@@ -45,8 +45,8 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
             </div>
             <h2 className="text-xl font-semibold text-[#000] mb-5 truncate">{title}</h2>
 
-            <div className="max-w-[805px] ">
-              <p className=" text-base text-[#5A5A5A] line-clamp-2 ">{textOnlyContent}</p>
+            <div className="max-w-[805px] w-full ">
+              <p className="text-base text-[#5A5A5A] line-clamp-2 break-words">{textOnlyContent}</p>
             </div>
 
             <div className="flex gap-4 absolute bottom-0">
@@ -55,16 +55,18 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
             </div>
           </div>
           {image_urls?.length > 0 && (
-            <div className="absolute top-1/2 transform -translate-y-1/2 right-0 w-[128px] h-[128px]">
-              <Image
-                className="object-cover rounded-lg"
-                priority
-                loading="eager"
-                src={image_urls[0]}
-                alt={title}
-                width={128}
-                height={128}
-              />
+            <div className="h-full flex items-center">
+              <div className=" w-[128px] h-[128px]">
+                <Image
+                  className="object-cover rounded-lg"
+                  priority
+                  loading="eager"
+                  src={image_urls[0]}
+                  alt={title}
+                  width={128}
+                  height={128}
+                />
+              </div>
             </div>
           )}
         </div>
