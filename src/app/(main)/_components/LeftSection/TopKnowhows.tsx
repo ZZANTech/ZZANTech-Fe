@@ -33,7 +33,7 @@ function TopKnowhows() {
                         src={backgrounds[index % backgrounds.length]}
                         alt={`Background ${index + 1}`}
                         fill
-                        className="lg:object-cover object-fill lg:rounded-full"
+                        className="lg:object-cover lg:rounded-full object-fill rounded-t-lg"
                       />
                     </div>
                   </div>
