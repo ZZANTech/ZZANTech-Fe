@@ -15,7 +15,6 @@ function PostContent({ knowhow }: PostContentProps) {
   const { formattedDate, formattedTime } = formatTime(knowhow.created_at);
 
   let isFirstImage = true;
-
   const transformContent = (htmlContent: string) => {
     return parse(htmlContent, {
       replace: (domNode) => {

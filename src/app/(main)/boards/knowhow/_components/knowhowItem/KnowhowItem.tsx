@@ -1,24 +1,33 @@
 import { TKnowhow } from "@/types/knowhow.type";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import timezone from "dayjs/plugin/timezone";
+import utc from "dayjs/plugin/utc";
 import "dayjs/locale/ko";
 import Link from "next/link";
 import Image from "next/image";
-import useKnowhowLikesCountQuery from "@/stores/queries/knowhow/like/useKnowhowLikesCountQuery";
 import CommentCount from "@/app/(main)/boards/knowhow/_components/knowhowItem/CommentCount";
 import LikeCount from "@/app/(main)/boards/knowhow/_components/knowhowItem/LikeCount";
+
+dayjs.extend(relativeTime);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.locale("ko");
 
 type KnowhowItemProps = {
   knowhow: TKnowhow;
 };
 
-dayjs.extend(relativeTime);
-dayjs.locale("ko");
+function removeHTMLTags(content: string) {
+  const parser = new DOMParser();
+  const parsedDocument = parser.parseFromString(content, "text/html");
+  return parsedDocument.body.textContent || "";
+}
 
 function KnowhowItem({ knowhow }: KnowhowItemProps) {
   const { title, content, nickname, created_at, comments_count, likes_count, image_urls, knowhow_postId } = knowhow;
-  const formattedCreatedAt = dayjs(created_at).fromNow();
-  const textOnlyContent = content.replace(/<[^>]+>/g, "");
+  const formattedCreatedAt = dayjs(created_at).tz("Asia/Seoul").fromNow();
+  const textOnlyContent = removeHTMLTags(content);
 
   return (
     <li className="w-full h-[240px] border-b border-b-basic py-8">
@@ -48,7 +57,7 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
           {image_urls?.length > 0 && (
             <div className="absolute top-1/2 transform -translate-y-1/2 right-0 w-[128px] h-[128px]">
               <Image
-                className="object-cover  rounded-lg"
+                className="object-cover rounded-lg"
                 priority
                 loading="eager"
                 src={image_urls[0]}
