@@ -30,7 +30,9 @@ const ButtonVariants = cva("flex justify-center items-center rounded", {
       large: "w-80 h-14 p-4", // 320x56
       xl: "w-[212px] h-19 px-[55px] py-[26px] rounded-[12px]", // 212x76
       modalMedium: "w-[188px] h-[72px] py-3 px-5", // 188x72
-      modalLarge: "w-[400px] h-[72px] py-3 px-5" // 400x72
+      modalLarge: "w-[400px] h-[72px] py-3 px-5", // 400x72
+      quizResponsive:
+        "text-white lg:text-black bg-point lg:bg-white w-[116px] h-[32px] py-1 px-2 lg:w-80 lg:h-14 lg:p-4 lg:rounded-[8px] lg:text-lg"
     },
     textSize: {
       small: "text-sm",
