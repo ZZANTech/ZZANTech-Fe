@@ -97,7 +97,7 @@ function LogInContainer() {
 
         <div className="w-80 h-4 px-3 mb-3">
           {(errors.email || errors.password) && (
-            <p className="text-info-red text-xs">이메일 또는 비밀번호가 잘못 되었습니다.</p>
+            <p className="errors-message">이메일 또는 비밀번호가 잘못 되었습니다.</p>
           )}
         </div>
 

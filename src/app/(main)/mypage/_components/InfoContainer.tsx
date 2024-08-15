@@ -37,13 +37,9 @@ function InfoContainer() {
           <p>{user?.email}</p>
         </div>
       </div>
-
-      <Link
-        href={`${BASE_URL}/mypage/edit`}
-        className="flex items-center w-[120px] h-10 px-4 py-3.5 text-sm font-semibold bg-black text-white rounded-md"
-      >
+      <Button href={`${BASE_URL}/mypage/edit`} textSize={"small"} weight={"semibold"}>
         비밀번호 변경
-      </Link>
+      </Button>
     </div>
   );
 }
