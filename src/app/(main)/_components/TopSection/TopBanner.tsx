@@ -47,11 +47,47 @@ function TopBanner() {
             />
           </Link>
         </SwiperSlide>
-        <SwiperSlide className="bg-orange-500 flex items-center justify-center h-full">
-          <div className="text-white text-xl h-full flex items-center justify-center">Slide 2</div>
+        <SwiperSlide className="flex items-center justify-center h-full relative">
+          <Link href="/exchange">
+            <Image
+              src="/home/home_banner2.png"
+              alt="banner"
+              width={700}
+              height={250}
+              loading="eager"
+              className="object-cover hidden lg:block"
+            />
+          </Link>
+          <Link href="/exchange" className="w-full h-full lg:hidden">
+            <Image
+              src="/home/banner_mobile2.png"
+              alt="banner"
+              fill
+              loading="eager"
+              className="object-fill object-center w-full h-full"
+            />
+          </Link>
         </SwiperSlide>
-        <SwiperSlide className="bg-blue-300 flex items-center justify-center h-full">
-          <div className="text-white text-xl h-full flex items-center justify-center">Slide 3</div>
+        <SwiperSlide className="flex items-center justify-center h-full relative">
+          <Link href="/exchange">
+            <Image
+              src="/home/home_banner3.png"
+              alt="banner"
+              width={700}
+              height={250}
+              loading="eager"
+              className="object-cover hidden lg:block"
+            />
+          </Link>
+          <Link href="/exchange" className="w-full h-full lg:hidden">
+            <Image
+              src="/home/banner_mobile3.png"
+              alt="banner"
+              fill
+              loading="eager"
+              className="object-fill object-center w-full h-full"
+            />
+          </Link>
         </SwiperSlide>
       </Swiper>
     </div>
