@@ -61,14 +61,14 @@ function CommentForm({ postId, board }: CommentFormProps) {
     <form onSubmit={handleCommentSubmit} className="w-full flex flex-col gap-[12px]">
       <textarea
         ref={commentInputRef}
-        maxLength={500}
-        className="h-[90px] px-[19px] pt-3.5 pb-[52px] bg-white rounded-lg border border-[#8b8b8b] justify-start items-center inline-flex scrollbar-hide"
+        maxLength={300}
+        className="h-[92px] px-5 pt-4 pb-[52px] bg-white rounded-lg border border-[#8b8b8b] justify-start items-center inline-flex scrollbar-hide resize-none"
         disabled={isPending}
       />
       <div className="flex justify-end mb-[36px]">
         <button
           type="submit"
-          className="w-[124px] h-[44px] bg-[#1b1b1b] text-white text-[13px] font-semibold leading-[30px] rounded-lg flex justify-center items-center gap-2.5"
+          className="w-[124px] h-[44px] bg-gray-900 text-white text-[13px] font-semibold leading-[30px] rounded-lg flex justify-center items-center gap-2.5"
           disabled={isPending}
         >
           {isPending ? (

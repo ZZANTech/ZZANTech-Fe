@@ -12,17 +12,17 @@ function VoteItem({ vote, sortOrder }: voteItemProps & { sortOrder?: string }) {
     <li>
       <Link
         href={`/boards/votes/${vote_postId}?sortOrder=${sortOrder}`}
-        className="w-[253px] h-[310px] flex-col justify-start items-center inline-flex transform transition-transform duration-300 ease-out hover:-translate-y-2"
+        className="w-[253px] h-[310px] flex-col justify-start items-center inline-flex transform transition-transform duration-300 ease-out hover:-translate-y-2 rounded-xl overflow-hidden"
         style={{ boxShadow: "10px 10px 15px -3px rgba(0, 0, 0, 0.1)" }}
       >
         <div className="relative w-[252px] h-[155px]">
           <Image className="grow shrink basis-0" src={image_url} alt="게시글 이미지" layout="fill" objectFit="cover" />
         </div>
         <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start p-3 bg-gray-100 gap-2 flex">
-          <div className="self-stretch h-[59px] text-black text-xl font-semibold leading-7 truncate">{title}</div>
-          <div className="self-stretch text-[#000000] text-sm font-normal leading-tight">{nickname}</div>
+          <div className="self-stretch h-[59px] text-black text-xl font-semibold leading-7 line-clamp-2">{title}</div>
+          <div className="self-stretch text-gray-700 text-sm font-normal leading-tight">{nickname}</div>
         </div>
-        <div className="self-stretch grow shrink basis-0 px-2 bg-gray-900 justify-start items-center gap-3 flex">
+        <div className="h-11 self-stretch grow shrink basis-0 px-2 bg-gray-900 justify-start items-center gap-3 flex">
           <div className="justify-start items-center flex">
             <div className="w-6 h-6 p-[3px] justify-center items-center flex">👀</div>
             <div className="justify-start items-center gap-0.5 flex">
