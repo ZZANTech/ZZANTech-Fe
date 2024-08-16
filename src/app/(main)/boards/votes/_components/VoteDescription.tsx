@@ -1,11 +1,14 @@
-import Image from "next/image";
 import { ReactNode } from "react";
+import Image from "next/image";
+import DescriptionTagList from "@/app/(main)/boards/knowhow/_components/DescriptionTagList";
 
-type BoardDescriptionProps = {
+type VoteDescriptionProps = {
   children: ReactNode;
 };
 
-function BoardDescription({ children }: BoardDescriptionProps) {
+function VoteDescription({ children }: VoteDescriptionProps) {
+  const VOTE_TAG_LIST = ["소비평가", "건강한", "소비습관"];
+
   return (
     <>
       <section className="w-full h-[180px] p-5 bg-white flex flex-col justify-start items-start gap-2.5 relative mt-[60px] mb-6">
@@ -21,17 +24,7 @@ function BoardDescription({ children }: BoardDescriptionProps) {
           <div className="absolute top-5 right-[129px]">
             <Image src="/icons/vote/vote_list_image.png" alt="vote list image" width={256} height={100} />
           </div>
-          <div className="justify-start items-center gap-2 inline-flex">
-            <div className="px-2.5 py-1 border border-gray-900 justify-center items-center gap-2.5 flex">
-              <div className="text-gray-900 text-base font-normal leading-normal">#소비평가</div>
-            </div>
-            <div className="px-2.5 py-1 border border-gray-900 justify-center items-center gap-2.5 flex">
-              <div className="text-gray-900 text-base font-normal leading-normal">#건강한</div>
-            </div>
-            <div className="px-2.5 py-1 border border-gray-900 justify-center items-center gap-2.5 flex">
-              <div className="text-gray-900 text-base font-normal leading-normal">#소비습관</div>
-            </div>
-          </div>
+          <DescriptionTagList tags={VOTE_TAG_LIST} />
         </div>
       </section>
       {children}
@@ -39,4 +32,4 @@ function BoardDescription({ children }: BoardDescriptionProps) {
   );
 }
 
-export default BoardDescription;
+export default VoteDescription;
