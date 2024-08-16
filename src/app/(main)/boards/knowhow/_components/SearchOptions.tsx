@@ -26,22 +26,22 @@ function SearchOptions({ selectedSearchOption, onSearch, onSearchOptionChange }:
     <form
       onSubmit={handleSearch}
       className="
-    flex w-24 h-9 justify-center gap-4 self-center mb-24
-    md:h-10 md:mb-11
+    flex  h-8 justify-center gap-4 self-center mb-24 mt-10
+    md:h-10 md:mb-11 md:mt-[60px]
     
     "
     >
       <select
         className="
-        w-[118px] p-2 border border-gray-900 rounded items-center text-center
-        md:px-3 md:py-2
+        w-24  h-8  p-2  border text-sm border-gray-900 rounded flex self-center 
+        md:px-3 md:w-[118px]  md:py-2 md:h-10
 
         "
         value={selectedSearchOption}
         onChange={(e) => onSearchOptionChange(e.target.value)}
       >
         {SEARCH_OPTIONS.map((option) => (
-          <option className="h-4" key={option.value} value={option.value}>
+          <option className="h-full " key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
