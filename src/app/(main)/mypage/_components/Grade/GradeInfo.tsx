@@ -22,9 +22,9 @@ function GradeInfo({ onClose }: GradeInfoProps) {
   ];
 
   return (
-    <div className="p-10">
+    <div className="lg:p-10">
+      <h3 className="hidden lg:block text-center text-xl font-semibold mb-3">등급제란?</h3>
       <section className="flex flex-col items-center">
-        <h3 className="text-xl font-semibold mb-3">등급제란?</h3>
         <p className="text-sm text-center mb-6">
           짠테커에서는 다섯 등급에 따라 뱃지가 부여됩니다.
           <br /> 등급을 올리기 위해서는 일정 포인트가 필요합니다.
@@ -33,26 +33,26 @@ function GradeInfo({ onClose }: GradeInfoProps) {
         </p>
       </section>
       <section className="mb-11">
-        <div className="flex mb-2">
-          <div className="font-semibold pl-6">레벨</div>
-          <div className="font-semibold pl-11">뱃지</div>
+        <div className="flex pb-2 mb-2 border-b-2 border-gray-900">
+          <div className="font-semibold pl-5">레벨</div>
+          <div className="font-semibold pl-11 lg:pl-11">뱃지</div>
           <div className="font-semibold pl-12">등급명</div>
-          <div className="font-semibold pl-20">달성 포인트</div>
+          <div className="font-semibold pl-20 lg:pl-20">달성 포인트</div>
         </div>
         {levels.map((level, index) => (
-          <div key={index} className="flex mb-2 pl-3 items-center">
+          <div key={index} className="flex mb-2 pl-3 py-2 items-center border-b border-gray-300">
             <div className="w-12 h-7 bg-main text-sm font-semibold leading-tight rounded-lg flex justify-center items-center">
               {level.level}
             </div>
-            <div className="pl-7">
+            <div className="pl-6">
               <Image src={level.badge} alt={level.name} width={36} height={36} />
             </div>
             <div className="pl-6 flex-1 text-[##262626]">{level.name}</div>
-            <div className="w-14 text-left pl-2 text-[##262626]">{level.points}</div>
+            <div className="w-14 text-left text-[##262626]">{level.points}</div>
           </div>
         ))}
       </section>
-      <section className="flex flex-col items-center mb-16">
+      <section className="flex flex-col items-center mb-8 lg:mb-16">
         <h3 className="text-xl font-semibold mb-4">포인트 모으는 방법</h3>
         <p className="text-center text-sm mb-6">
           하루에 모을 수 있는 포인트는 <span className="text-point">최대 1000P </span>입니다.
@@ -66,6 +66,7 @@ function GradeInfo({ onClose }: GradeInfoProps) {
           ))}
         </ul>
       </section>
+
       <div className="flex justify-center">
         <Button onClick={onClose} variant="black" fullWidth={true} size="large">
           확인

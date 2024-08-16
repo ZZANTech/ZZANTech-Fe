@@ -17,14 +17,12 @@ function CommentsContainer({ postId, board }: CommentsContainerProps) {
   const comments = board === "knowhow" ? KnowhowComments : VoteComments;
 
   return (
-    <section className={`w-[700px] flex flex-col gap-8 mb-12 ${board === "knowhow" ? "w-[928px]" : "w-[700px]"}`}>
-      <div className="w-full flex flex-col">
-        <div className="w-full h-[59px] px-1.5 py-4 flex flex-col">
-          <div className="w-full text-black text-lg font-normal leading-[27px]">댓글 {comments?.length || 0}</div>
-        </div>
-        <CommentForm postId={postId} board={board} />
-        {comments && <CommentsList comments={comments} board={board} />}
+    <section className={`flex flex-col ${board === "knowhow" ? "w-[928px]" : "w-[700px]"}`}>
+      <div className="w-full flex flex-col ml-1 mb-3">
+        <div className="w-full text-black text-lg font-normal leading-[27px]">댓글 {comments?.length || 0}</div>
       </div>
+      <CommentForm postId={postId} board={board} />
+      {comments && <CommentsList comments={comments} board={board} />}
     </section>
   );
 }
