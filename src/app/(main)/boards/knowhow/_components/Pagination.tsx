@@ -22,7 +22,7 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const pageButtons = [];
 
-  const baseButtonStyle = "w-8 h-8 flex items-center justify-center rounded-full border";
+  const baseButtonStyle = " w-8 h-8 flex items-center justify-center rounded-full border";
   const activeButtonStyle = "bg-black text-white";
   const inactiveButtonStyle = "bg-white text-black";
 
@@ -101,7 +101,7 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
     }
   }, [currentPage, onPageChange]);
 
-  return <div className="flex items-center justify-center gap-1 w-full my-10">{pageButtons}</div>;
+  return <div className="flex items-center h-8 justify-center gap-1 w-full my-10">{pageButtons}</div>;
 }
 
 export default Pagination;

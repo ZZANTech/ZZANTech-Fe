@@ -1,6 +1,5 @@
 import MyCurrentPoints from "@/app/(main)/mypage/_components/Points/MyCurrentPoints";
 import MyPointsHistoryTable from "@/app/(main)/mypage/_components/Points/MyPointsHistoryTable";
-import { Suspense } from "react";
 
 function MyPointDetailPage() {
   return (

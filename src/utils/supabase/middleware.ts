@@ -80,6 +80,9 @@ export async function updateSession(request: NextRequest) {
   // const {
   //   data: { user }
   // } = await supabase.auth.getUser();
+  if (user && (request.nextUrl.pathname.startsWith("/login") || request.nextUrl.pathname.startsWith("/signUp"))) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
   if (!request.nextUrl.pathname.startsWith("/quiz/completed")) {
     if (request.nextUrl.pathname.startsWith("/quiz")) {

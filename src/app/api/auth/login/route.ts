@@ -1,7 +1,7 @@
 import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
-// 로그인
 export async function POST(request: NextRequest) {
   try {
     const data = await request.json();
@@ -13,30 +13,22 @@ export async function POST(request: NextRequest) {
       email,
       password
     });
-    const isBlocked: true | null = response.data.user?.user_metadata.is_blocked;
-    if (isBlocked) {
-      await supabase.auth.signOut();
-      return NextResponse.json({ error: "로그인이 제한된 사용자입니다" }, { status: 403 });
-    }
+
     if (response.error) {
-      console.error("Supabase 인증 오류:", response.error);
       return NextResponse.json({ error: "이메일 또는 비밀번호가 잘못되었습니다." }, { status: 401 });
     }
 
-    if (response.data.session) {
-      const accessToken = response.data.session?.access_token;
-      const refreshToken = response.data.session?.refresh_token;
-      const { error: sessionError } = await supabase.auth.setSession({
-        access_token: accessToken,
-        refresh_token: refreshToken
-      });
-      if (sessionError) {
-        console.error("세션 설정 중 오류 발생:", sessionError);
-        return NextResponse.json({ error: "세션 설정 중 오류가 발생했습니다." }, { status: 500 });
-      }
+    const session = response.data.session;
+    if (session) {
+      const response = NextResponse.json({ success: true });
+      response.cookies.set("access_token", session.access_token, { httpOnly: true });
+      response.cookies.set("refresh_token", session.refresh_token, { httpOnly: true });
+      revalidatePath("/", "layout");
+
+      return response;
     }
 
-    return NextResponse.json(response);
+    return NextResponse.json({ error: "로그인 실패" }, { status: 500 });
   } catch (error: any) {
     console.error("요청 처리 중 오류 발생:", error);
     return NextResponse.json({ error: "내부 서버 오류가 발생했습니다." }, { status: 500 });
@@ -50,7 +42,11 @@ export async function DELETE() {
   try {
     const data = await supabase.auth.signOut();
     console.log("login >> ", data);
-    return NextResponse.json({ massage: "로그아웃 하였습니다." });
+
+    const res = NextResponse.json({ massage: "로그아웃 하였습니다." });
+    res.cookies.delete("access_token");
+    res.cookies.delete("refresh_token");
+    return res;
   } catch (error) {
     return NextResponse.json({ error: "알 수 없는 오류가 발생했습니다" }, { status: 500 });
   }

@@ -10,6 +10,7 @@ import useAlertModal from "@/hooks/useAlertModal";
 import Image from "next/image";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import Button from "@/components/Button";
 
 type VoteWriteFormProps = {
   previousContent?: TVote;
@@ -261,7 +262,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                   </div>
                 ) : null}
                 <div className="flex items-center gap-3">
-                  <div className="text-black text-sm font-normal leading-tight min-w-[100px]">
+                  <div className="text-black text-sm font-normal leading-tight min-w-[90px]">
                     {image ? <span>{image.name}</span> : <span>선택된 파일 없음</span>}
                   </div>
                   <label className="w-[85px] h-7 px-2 py-[3px] rounded border border-[#111111] justify-center items-center gap-2.5 flex cursor-pointer">
@@ -285,20 +286,19 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
               </div>
             </div>
           </div>
-          <div className="h-12 w-full justify-center items-center gap-[18px] flex mt-12">
-            <button
-              type="button"
-              onClick={handleCancel}
-              className="w-40 h-12 px-4 py-3 bg-white rounded-md border border-basic justify-center items-center gap-2.5 flex"
-            >
-              <div className="text-center text-[#111111] text-base font-semibold leading-tight">취소하기</div>
-            </button>
-            <button
+          <div className="w-full justify-center items-center gap-[18px] flex my-5">
+            <Button onClick={handleCancel} variant="white" size="medium" weight="semibold">
+              취소하기
+            </Button>
+            <Button
+              type="submit"
               disabled={isPostPending || isUploading}
-              className="w-40 h-12 px-4 py-3 bg-basic rounded-lg justify-center items-center gap-2.5 flex"
+              variant="black"
+              size="medium"
+              weight="semibold"
             >
-              <div className="text-center text-white text-base font-semibold leading-tight">등록하기</div>
-            </button>
+              등록하기
+            </Button>
           </div>
         </form>
         {(isPostPending || isUploading || isPatchPending) && <LoadingSpinner isSubmitting />}

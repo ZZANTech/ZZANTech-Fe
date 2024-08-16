@@ -3,7 +3,10 @@
 import { logout } from "@/apis/auth";
 import { fetchQuizStatus } from "@/apis/quiz";
 import { BASE_URL } from "@/constants";
+import useUserQuery from "@/stores/queries/auth/useUserQuery";
 import { TUser } from "@/types/user.type";
+import { revalidateRoute } from "@/utils/revalidation";
+import { useQueryClient } from "@tanstack/react-query";
 import { createContext, useContext, useEffect, useState } from "react";
 
 type UserContextType = {
@@ -12,7 +15,7 @@ type UserContextType = {
   logOut: () => Promise<void>;
   hasTakenQuiz: boolean;
   setHasTakenQuiz: (value: boolean) => void;
-  isLoading: boolean;
+  isPending: boolean;
 };
 
 const UserContext = createContext<UserContextType>({
@@ -21,65 +24,59 @@ const UserContext = createContext<UserContextType>({
   logOut: async () => {},
   hasTakenQuiz: false,
   setHasTakenQuiz: () => {},
-  isLoading: true
+  isPending: true
 });
 export const useUserContext = () => useContext(UserContext);
 
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<TUser | null>(null);
+  const queryClient = useQueryClient();
+  const { data: user = null, isPending, refetch } = useUserQuery();
   const [hasTakenQuiz, setHasTakenQuiz] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const fetchUser = async () => {
-    setIsLoading(true);
-    const response = await fetch(`${BASE_URL}/api/auth/me`);
-    const data = await response.json();
-    const users = data.users;
-    if (users) {
-      setUser(users);
-      const quizStatus = await fetchQuizStatus();
-      setHasTakenQuiz(quizStatus.hasTakenQuiz);
-    } else {
-      setUser(null);
-      setHasTakenQuiz(false);
-    }
-    setIsLoading(false);
-  };
 
   const logIn = async (email: string, password: string) => {
-    setIsLoading(true);
     try {
       const response = await fetch(`${BASE_URL}/api/auth/login`, {
         method: "POST",
         body: JSON.stringify({ email, password })
       });
       if (response.ok) {
-        await fetchUser();
+        refetch();
       } else {
         const errorData = await response.json();
         throw new Error(errorData.error || "로그인 실패");
       }
     } catch (error: any) {
       console.error(error.message);
-      setIsLoading(false);
       throw error;
     }
   };
+
   const logOut = async () => {
-    setIsLoading(true);
     await logout();
-    setUser(null);
+    revalidateRoute("/", "layout");
+
+    queryClient.invalidateQueries({ queryKey: ["user"] });
     setHasTakenQuiz(false);
-    setIsLoading(false);
   };
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    const checkQuizStatus = async () => {
+      if (user) {
+        const quizStatus = await fetchQuizStatus();
+        setHasTakenQuiz(quizStatus.hasTakenQuiz);
+      } else {
+        setHasTakenQuiz(false);
+      }
+    };
+
+    checkQuizStatus();
+  }, [user]);
+
   return (
-    <UserContext.Provider value={{ user, logIn, logOut, hasTakenQuiz, setHasTakenQuiz, isLoading }}>
+    <UserContext.Provider value={{ user, logIn, logOut, hasTakenQuiz, setHasTakenQuiz, isPending }}>
       {children}
     </UserContext.Provider>
   );
 };
+
 export default UserProvider;

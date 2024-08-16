@@ -3,67 +3,61 @@
 @tailwind utilities;
 @import "react-quill/dist/quill.snow.css";
 
-@font-face {
-  font-family: "Pretendard";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Pretendard";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Semibold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "Pretendard";
-  src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Light.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-}
-body {
-  font-family: "Pretendard", sans-serif;
-  font-weight: 400;
-}
 body *:not([class*="letter-"]) {
   letter-spacing: var(--tw-letter-spacing-tight-korean, -0.025em);
 }
+.mySwiper .swiper-pagination-bullet {
+  width: 7px;
+  height: 7px;
+  background-color: black;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  opacity: 0.5;
+}
+
+.mySwiper .swiper-pagination-bullet-active {
+  width: 25px;
+  height: 7px;
+  background-color: white;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  opacity: 1;
+}
+
+.mySwiper .swiper-pagination {
+  bottom: 15px !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1px;
+}
+.custom-box-shadow {
+  @apply border border-gray-300;
+  box-shadow: 39px 17px 12px rgba(128, 128, 128, 0.00),
+              25px 11px 11px rgba(128, 128, 128, 0.01),
+              14px 6px 9px rgba(128, 128, 128, 0.05),
+              6px 3px 7px rgba(128, 128, 128, 0.09),
+              2px 1px 4px rgba(128, 128, 128, 0.10);
+}
+
 @layer utilities {
-  .MainLinkButton {
+  .mainLinkButton {
     @apply px-3 py-4 border-b-2 border-transparent transition-all duration-300 ease-in-out hover:border-b-gray-800;
   }
-  .MainLinkButtonActive {
+  .mainLinkButtonActive {
     @apply border-b-2 border-gray-800;
   }
-  .AuthInputShort {
-    @apply w-[260px] h-12 px-4 mb-1 border rounded-lg pointer-events-auto;
+  /* .auth-input-short {
+    @apply w-[232px] h-11 p-4 mb-3 border rounded-md;
+  } */
+  .auth-input {
+    @apply w-80 h-11 p-4 mt-2 mb-1 border rounded-md;
   }
-  .AuthInput {
-    @apply w-[348px] h-12 px-4 mb-3 border rounded-lg;
+  .errors-message {
+    @apply text-info-red text-sm mt-1;
   }
-
-  .AuthInputDiv {
-    @apply flex flex-col;
-  }
-  .AuthInputForm {
-    @apply flex flex-row gap-2.5;
-  }
-
-  .AuthStateInfo {
-    @apply text-info-red text-xs;
-  }
-  .AuthStateInfoGreen {
-    @apply text-info-green text-xs;
-  }
-
-  .AuthDupButton {
-    @apply w-[80px] text-white text-sm rounded-lg;
-  }
-
-  .AuthLoginButton {
-    @apply w-[348px] h-12 text-center items-center justify-center flex flex-row rounded-lg font-semibold gap-2.5 cursor-pointer;
+  .nickname-modal-button {
+    @apply border border-black w-[190px] h-[60px] px-5 py-3 rounded-lg text-xl font-semibold;
   }
   .text-shadow {
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
@@ -71,7 +65,7 @@ body *:not([class*="letter-"]) {
   .line-shadow {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
-  .ChatInputPlaceholder::placeholder {
+  .chatInputPlaceholder::placeholder {
     color: var(--Gray-600, #767676);
     font-family: Pretendard, sans-serif;
     font-size: 16px;
@@ -79,6 +73,10 @@ body *:not([class*="letter-"]) {
     font-weight: 400;
     line-height: 24px;
     padding-left: 3px;
+  }
+  .filter-orange {
+    filter: brightness(0) saturate(100%) invert(41%) sepia(90%) saturate(7450%) hue-rotate(345deg) brightness(92%)
+      contrast(105%);
   }
 }
 

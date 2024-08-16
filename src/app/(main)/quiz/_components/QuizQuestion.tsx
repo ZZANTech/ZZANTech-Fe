@@ -1,6 +1,5 @@
 "use client";
 
-import { useUserContext } from "@/provider/contexts/UserContext";
 import Image from "next/image";
 import React, { useState } from "react";
 
@@ -10,18 +9,16 @@ type QuizQuestionProps = {
 };
 
 function QuizQuestion({ question, onAnswer }: QuizQuestionProps) {
-  const { setHasTakenQuiz } = useUserContext();
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const handleAnswer = (answer: boolean) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     onAnswer(answer);
-    setHasTakenQuiz(true);
   };
   return (
     <div className="flex flex-col items-center justify-between p-10  max-w-screen-sm mx-auto">
-      <Image src="/icons/quiz/quizTitle.png" width={400} height={150} alt="Quiz Title" />
+      <Image src="/icons/quiz/quizTitle.png" width={400} height={150} alt="Quiz Title" className="mb-10" />
       <p className="mb-4 p-3 text-xl">{question}</p>
       <div className="flex justify-center gap-10 w-full">
         <button
