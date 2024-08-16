@@ -5,7 +5,7 @@ type CommentActionsProps = {
 
 function CommentActions({ onOpenModal: handleOpenModal, onEditModeChange: handleEditModeChange }: CommentActionsProps) {
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-1">
       <span className="cursor-pointer text-[#acacac] text-sm font-normal leading-3" onClick={handleEditModeChange}>
         수정
       </span>

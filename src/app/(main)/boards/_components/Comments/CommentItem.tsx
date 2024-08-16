@@ -92,7 +92,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
     <li className="w-full flex flex-col gap-2">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-[7px]">
+          <div className="flex items-center gap-2">
             <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
               <Image className="rounded-full object-cover" src={comment.badge_url || ""} alt="profile" fill />
             </div>

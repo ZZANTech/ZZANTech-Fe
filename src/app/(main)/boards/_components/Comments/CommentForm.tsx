@@ -68,7 +68,7 @@ function CommentForm({ postId, board }: CommentFormProps) {
       <div className="flex justify-end mb-[36px]">
         <button
           type="submit"
-          className="w-[124px] h-[44px] bg-[#1b1b1b] text-white text-[13px] font-semibold leading-[30px] rounded-lg flex justify-center items-center gap-2.5"
+          className="w-[124px] h-[44px] bg-gray-900 text-white text-[13px] font-semibold leading-[30px] rounded-lg flex justify-center items-center gap-2.5"
           disabled={isPending}
         >
           {isPending ? (

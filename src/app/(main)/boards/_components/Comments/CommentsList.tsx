@@ -13,9 +13,7 @@ type CommentsListProps = {
 
 function CommentsList({ comments, board }: CommentsListProps) {
   return (
-    <ul
-      className={`w-full flex flex-col gap-[40px]   ${board === "knowhow" && comments[0] && "bg-[#f6f5f1] p-6 rounded-2xl"}`}
-    >
+    <ul className={`w-full flex flex-col gap-10 ${board === "knowhow" && comments[0] && "bg-ivory p-6 rounded-2xl"}`}>
       {comments.map((comment) =>
         isKnowhowComment(comment) ? (
           <CommentItem key={comment.knowhow_commentId} comment={comment} board={board} />
