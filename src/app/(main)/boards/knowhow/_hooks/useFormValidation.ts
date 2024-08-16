@@ -9,6 +9,8 @@ const useFormValidation = (setError: React.Dispatch<React.SetStateAction<{ title
 
     if (!newKnowhow.title?.trim()) {
       newErrorMessage.title = "제목은 필수 입력 항목입니다.";
+    } else if (newKnowhow.title.length < 2 || newKnowhow.title.length > 50) {
+      newErrorMessage.title = "제목을 2자 이상 50자 이하로 입력해 주세요.";
     }
     if (!textContent.trim()) {
       newErrorMessage.content = "내용을 입력해주세요.";

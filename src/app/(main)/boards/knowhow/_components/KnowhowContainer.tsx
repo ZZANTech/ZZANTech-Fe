@@ -46,8 +46,8 @@ function KnowhowContainer() {
         sortOrder={sortOrder || ""}
       />
       {isPending ? <SkeletonKnowhowList /> : <KnowhowList knowhows={knowhows?.posts} />}
-      <div className="flex flex-col self-center relative">
-        <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems || 0} onPageChange={handlePageChange} />
+      <div className="flex flex-col self-center relative ">
+        <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={5000} onPageChange={handlePageChange} />
         <SearchOptions
           onSearch={handleSearch}
           onSearchOptionChange={handleSearchOptionChange}
