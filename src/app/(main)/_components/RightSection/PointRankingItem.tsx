@@ -1,4 +1,6 @@
 import { Tables } from "@/types/supabase";
+import clsx from "clsx";
+
 import Image from "next/image";
 
 type PointRankingItemProps = {
@@ -22,15 +24,24 @@ const getRankText = (index: number) => {
       return `${index + 1}위`;
   }
 };
-const getRankClass = (index: number) => {
-  return index === 0 ? "bg-point text-white" : "bg-gray-900 text-white";
-};
 
 function PointRankingItem({ ranking, index }: PointRankingItemProps) {
   return (
-    <li className="flex items-center justify-between min-w-full border rounded-xl mb-2 px-7 py-[6px] bg-[#F3F3F3] border-[#191A23] shadow-[0px_2px_0px_0px_#191A23]">
+    <li
+      className={clsx(
+        "h-10 lg:h-[60px] flex items-center justify-between min-w-full rounded-xl mb-2 px-7 py-[6px] bg-ivory",
+        index >= 3 && "hidden lg:flex",
+        "lg:bg-[#F3F3F3] lg:border-[#191A23] lg:border lg:shadow-[0px_2px_0px_0px_#191A23]",
+        "border-0 lg:border"
+      )}
+    >
       <div className="flex items-center">
-        <div className={`flex items-center justify-center mr-4 w-10 h-6 ${getRankClass(index)} rounded-[100px]`}>
+        <div
+          className={clsx(
+            "flex items-center justify-center mr-6 w-10 h-6 rounded-[100px]",
+            index === 0 ? "bg-point text-white" : "bg-gray-900 text-white"
+          )}
+        >
           <span>{getRankText(index)}</span>
         </div>
         <div className="flex items-center">
@@ -38,8 +49,8 @@ function PointRankingItem({ ranking, index }: PointRankingItemProps) {
           <span className="text-sm text-[#262626]">{ranking.nickname}</span>
         </div>
       </div>
-      <div className="ml-auto px-7 py-3">
-        <span className="text-sm text-[#262626]">{ranking.total_point} Point</span>
+      <div className="ml-auto lg:py-3">
+        <span className="text-sm text-[#262626]">{ranking.total_point.toLocaleString()} P</span>
       </div>
     </li>
   );

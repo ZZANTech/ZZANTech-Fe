@@ -9,8 +9,11 @@ function TopVotes() {
   const { data, isPending } = useTopVotesQuery();
 
   return (
-    <>
-      <h3 className="text-xl font-semibold mt-14 mb-4">이번주 소비왕 🏆</h3>
+    <div className="py-[10px]">
+      <h3 className="text-xl font-semibold mt-4 lg:mt-14 mb-4 flex">
+        <Image src="/home/crown.svg" alt="crown" width={24} height={24} className="mr-2" />
+        이번주 소비왕
+      </h3>
       <ul className="flex w-full justify-between space-x-3">
         {isPending
           ? Array.from({ length: 3 }).map((_, index) => (
@@ -41,7 +44,7 @@ function TopVotes() {
               </li>
             ))}
       </ul>
-    </>
+    </div>
   );
 }
 

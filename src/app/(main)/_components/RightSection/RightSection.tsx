@@ -1,18 +1,18 @@
-import Magazine from "@/app/(main)/_components/RightSection/Magazine";
+import Introduction from "@/app/(main)/_components/RightSection/Introduction";
 import PointBanner from "@/app/(main)/_components/RightSection/PointBanner";
 import PointRankingContainer from "@/app/(main)/_components/RightSection/PointRankingContainer";
 
 function RightSection() {
   return (
     <div>
-      <section className="flex flex-col mb-11">
+      <section className="lg:mt-10 lg:block hidden">
         <PointRankingContainer />
       </section>
-      <section className="mb-12">
+      <section className="lg:my-10 lg:block hidden">
         <PointBanner />
       </section>
       <section>
-        <Magazine />
+        <Introduction />
       </section>
     </div>
   );

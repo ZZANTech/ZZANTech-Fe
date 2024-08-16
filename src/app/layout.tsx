@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ReactNode } from "react";
 import Providers from "@/provider/Providers";
-import HeaderContainer from "@/app/(main)/_components/HeaderContainer";
+import HeaderContainer from "@/app/(main)/_components/Header/HeaderContainer";
 import NavCategoryMobile from "@/app/(main)/_components/Nav/NavCategoryMobile";
 import dynamic from "next/dynamic";
 
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="kr" className={`${pretendard.variable}`}>
-      <link rel="icon" href="/favicoan.png" sizes="any" />
+      <link rel="icon" href="/favicon.png" sizes="any" />
       <body
         className={`${pretendard.className}
        flex flex-col min-h-screen`}

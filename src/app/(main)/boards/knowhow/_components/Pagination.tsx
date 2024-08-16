@@ -24,7 +24,7 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
   const totalPages = Math.ceil(totalItems / dynamicItemsPerPage);
   const pageButtons = [];
 
-  const baseButtonStyle = "w-8 h-8 flex items-center justify-center rounded-full border";
+  const baseButtonStyle = " w-8 h-8 flex items-center justify-center rounded-full border";
   const activeButtonStyle = "bg-black text-white";
   const inactiveButtonStyle = "bg-white text-black";
 

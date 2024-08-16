@@ -13,9 +13,9 @@ function QuizModal({ children }: { children: React.ReactNode }) {
   return (
     <div
       onClick={handleBackdropClick}
-      className="fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black bg-opacity-20 backdrop-blur-sm"
+      className="fixed inset-0 lg:pt-0 flex justify-start lg:justify-center items-start lg:items-center bg-white lg:bg-black lg:bg-opacity-20 lg:backdrop-blur-sm z-30"
     >
-      <div className="w-full max-w-[600px] h-[448px] mx-4 md:mx-0 border bg-white rounded-3xl flex flex-col justify-center items-center">
+      <div className="w-full h-full lg:max-h-[492px] max-w-none lg:max-w-[600px] mx-0 lg:mx-4 border-none lg:border bg-white rounded-none lg:rounded-3xl">
         {children}
       </div>
     </div>
