@@ -4,7 +4,7 @@ import { TKnowhow } from "@/types/knowhow.type";
 type knowhowListProps = {
   knowhows: TKnowhow[] | undefined;
 };
-
+//
 function KnowhowList({ knowhows }: knowhowListProps) {
   return (
     <ul
