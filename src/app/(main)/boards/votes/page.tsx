@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 function VotesPage() {
   return (
-    <div className="w-[1120px] h-full flex-col justify-start items-start  inline-flex ">
+    <>
       <VoteDescription>
         <VotesContainer />
       </VoteDescription>
-    </div>
+    </>
   );
 }
 
