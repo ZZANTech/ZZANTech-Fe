@@ -3,8 +3,6 @@ import VoteContent from "@/app/(main)/boards/votes/[voteId]/_components/VoteCont
 import CommentsContainer from "@/app/(main)/boards/_components/Comments/CommentsContainer";
 import NavButton from "@/app/(main)/boards/votes/[voteId]/_components/NavButton";
 import { Metadata } from "next";
-
-import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 
 type VoteDetailPageProps = {
@@ -31,7 +29,7 @@ export default async function VoteDetailPage({ params: { voteId } }: VoteDetailP
 
   const [vote, voteLikes] = await Promise.all([getVote(voteId), getVoteLikesData(voteId, accessToken, refreshToken)]);
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full gap-7">
+    <div className="flex flex-col justify-center items-center w-full h-full gap-[23px] mt-[77px]">
       <div className="flex items-center">
         <NavButton vote={vote} direction="prev" />
         <VoteContent vote={vote} initialVoteLikes={voteLikes} accessToken={accessToken} refreshToken={refreshToken} />
