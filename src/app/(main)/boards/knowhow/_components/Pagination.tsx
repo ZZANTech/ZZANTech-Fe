@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import right from "/public/icons/filter/arrow_right.svg";
 import left from "/public/icons/filter/arrow_left.svg";
 import doubleRight from "/public/icons/filter/double_arrow_right.svg";
@@ -17,12 +17,14 @@ type PaginationProps = {
 function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [dynamicItemsPerPage, setDynamicItemsPerPage] = useState(itemsPerPage);
+
   const currentPage = parseInt(searchParams.get("page") || "1", 10);
 
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const totalPages = Math.ceil(totalItems / dynamicItemsPerPage);
   const pageButtons = [];
 
-  const baseButtonStyle = "w-8 h-8 flex items-center justify-center rounded-full border";
+  const baseButtonStyle = " w-8 h-8 flex items-center justify-center rounded-full border";
   const activeButtonStyle = "bg-black text-white";
   const inactiveButtonStyle = "bg-white text-black";
 
@@ -44,8 +46,8 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
     router.replace(`?${params.toString()}`);
   };
 
-  const startPage = Math.floor((currentPage - 1) / 10) * 10 + 1;
-  const endPage = Math.min(startPage + 9, totalPages);
+  const startPage = Math.floor((currentPage - 1) / dynamicItemsPerPage) * dynamicItemsPerPage + 1;
+  const endPage = Math.min(startPage + dynamicItemsPerPage - 1, totalPages);
 
   if (startPage > 1) {
     pageButtons.push(
@@ -59,7 +61,7 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
     pageButtons.push(
       <button
         key="prev"
-        onClick={() => handlePageChange(Math.max(1, startPage - 10))}
+        onClick={() => handlePageChange(Math.max(1, startPage - dynamicItemsPerPage))}
         className={getButtonClasses(false)}
       >
         <Image src={left} alt="left" />
@@ -79,7 +81,7 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
     pageButtons.push(
       <button
         key="next"
-        onClick={() => handlePageChange(Math.min(totalPages, startPage + 10))}
+        onClick={() => handlePageChange(Math.min(totalPages, startPage + dynamicItemsPerPage))}
         className={getButtonClasses(false)}
       >
         <Image src={right} alt="right" />
@@ -96,12 +98,30 @@ function Pagination({ itemsPerPage, totalItems, onPageChange }: PaginationProps)
   }
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setDynamicItemsPerPage(10);
+      } else {
+        setDynamicItemsPerPage(5);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
     if (currentPage !== 1) {
       onPageChange(currentPage);
     }
   }, [currentPage, onPageChange]);
 
-  return <div className="flex items-center h-8 justify-center gap-1 w-full my-10">{pageButtons}</div>;
+  return <div className="flex items-center h-8 justify-center gap-1 w-full">{pageButtons}</div>;
 }
 
 export default Pagination;

@@ -37,29 +37,31 @@ export const POST = async (req: NextRequest, { params }: { params: { giftId: str
         return NextResponse.json({ error: "포인트가 부족합니다" }, { status: 402 });
       }
 
-      const { status, statusText, error } = await supabase.from("gift_claims").insert(newClaim).single();
+      const [claimResult, pointResult, updateUserResult] = await Promise.all([
+        supabase.from("gift_claims").insert(newClaim).single(),
+        supabase.from("points").insert({
+          user_id: newClaim.user_id,
+          point: -POINT_TO_SUBSTRACT,
+          reason: REASON_FOR_SUBSTRACT,
+          created_at: new Date().toISOString()
+        }),
+        supabase
+          .from("users")
+          .update({ current_point: currentPoint - POINT_TO_SUBSTRACT })
+          .eq("userId", newClaim.user_id)
+      ]);
 
-      if (error) {
+      const { status, statusText, error: claimError } = claimResult;
+      const { error: pointError } = pointResult;
+      const { error: updateUserError } = updateUserResult;
+
+      if (claimError) {
         throw new Error("기프티콘 교환에 실패했습니다.");
       }
-
-      const newPoint = currentPoint - POINT_TO_SUBSTRACT;
-
-      const { error: pointError } = await supabase.from("points").insert({
-        user_id: newClaim.user_id,
-        point: -POINT_TO_SUBSTRACT,
-        reason: REASON_FOR_SUBSTRACT,
-        created_at: new Date().toISOString()
-      });
 
       if (pointError) {
         throw new Error("포인트 기록 추가 실패");
       }
-
-      const { error: updateUserError } = await supabase
-        .from("users")
-        .update({ current_point: newPoint })
-        .eq("userId", newClaim.user_id);
 
       if (updateUserError) {
         throw new Error("유저의 포인트 업데이트 실패");

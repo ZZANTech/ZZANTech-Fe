@@ -24,7 +24,8 @@ const QuillNoSSRWrapper = dynamic<ForwardedQuillComponent>(
     );
     return Quill;
   },
-  { ssr: false }
+
+  { loading: () => <div className="h-[550px]"></div>, ssr: false }
 );
 
 type KnowhowEditorProps = {
@@ -64,6 +65,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
         placeholder="제목을 입력해주세요"
         onChange={(e) => setEditorTitle(e.target.value)}
         value={editorTitle}
+        maxLength={50}
         type="text"
       />
       <ErrorMessage className="quillnn mb-[34px]">{errorMessage?.title}</ErrorMessage>

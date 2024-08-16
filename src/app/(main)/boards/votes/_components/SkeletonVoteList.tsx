@@ -2,7 +2,7 @@ import SkeletonVoteItem from "@/app/(main)/boards/votes/_components/SkeletonVote
 
 function SkeletonVoteList() {
   return (
-    <ul className="self-stretch justify-start items-center gap-9 flex flex-wrap">
+    <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[36px] gap-y-[44px]">
       <SkeletonVoteItem />
       <SkeletonVoteItem />
       <SkeletonVoteItem />

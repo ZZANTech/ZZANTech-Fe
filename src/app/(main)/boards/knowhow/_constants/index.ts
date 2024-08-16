@@ -5,6 +5,10 @@ export type TOption = {
 
 export const ITEMS_PER_PAGE = 5;
 
+export const MAX_CONTENT_LENGTH = 10000;
+
+export const KNOWHOW_TAG_LIST = ["돈버는정보", "스마트", "컨슈머"];
+
 export const SORT_LATEST = "latest";
 export const SORT_POPULAR = "popular";
 export const SORT_OPTIONS = [
@@ -21,7 +25,6 @@ export const SEARCH_OPTIONS = [
 
 export const KNOWHOW = "knowhow";
 export const VOTES = "votes";
-
 export const MY_POSTS_FILTER_OPTION = [
   { value: VOTES, label: "짠-소비구경" },
   { value: KNOWHOW, label: "짠-노하우" }
@@ -29,10 +32,7 @@ export const MY_POSTS_FILTER_OPTION = [
 
 export const GIFTS = "gifts";
 export const CLAIM = "claim";
-
 export const EXCHANGE_FILTER_OPTION = [
   { value: GIFTS, label: "상품목록" },
   { value: CLAIM, label: "교환내역" }
 ];
-
-export const MAX_CONTENT_LENGTH = 10000;

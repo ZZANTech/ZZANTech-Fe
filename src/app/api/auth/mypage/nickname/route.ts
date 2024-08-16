@@ -7,13 +7,6 @@ export const POST = async (req: NextRequest) => {
   const body = await req.json();
   const { nickname, email } = body;
 
-  // 중복확인
-  const { data: user } = await supabase.from("users").select("*").eq("nickname", nickname).single();
-
-  if (user) {
-    return NextResponse.json({ error: "동일한 닉네임이 있습니다." }, { status: 409 });
-  }
-
   // 닉네임 update
   const { data, error } = await supabase.from("users").update({ nickname: nickname }).eq("email", email).select();
 

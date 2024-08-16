@@ -9,7 +9,7 @@ type VotesListProps = {
 function VotesList({ votes, lastVoteElementRef, sortOrder }: VotesListProps & { sortOrder?: string }) {
   return (
     <div className="w-full rounded-[128px] flex-col justify-start items-start gap-9 flex flex-wrap">
-      <ul className="self-stretch justify-start items-center gap-9 flex flex-wrap">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-[36px] gap-y-[44px]">
         {votes?.map((vote, index) => {
           const isLastElement = votes.length === index + 1;
           return (

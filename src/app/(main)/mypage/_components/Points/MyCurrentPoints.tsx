@@ -7,8 +7,8 @@ function MyCurrentPoints() {
   const { user } = useUserContext();
 
   return (
-    <div className="w-full flex justify-between items-center mt-[120px] mb-12">
-      <div className="w-[400px] flex-col gap-6">
+    <div className="w-full px-5 h-[140px] flex justify-between items-center mt-[100px] mb-12">
+      <div className="flex-col gap-6">
         <div className="text-black text-xl font-semibold">현재 사용 가능한 포인트</div>
         <div className="flex items-center gap-3">
           <Image src={"/icons/mypage/coin.png"} width={52} height={52} alt="동전 이미지" />
@@ -17,14 +17,8 @@ function MyCurrentPoints() {
           </div>
         </div>
       </div>
-      <div className="w-[222.08px] h-[179px] relative">
-        <Image
-          src={"/icons/mypage/shopping.png"}
-          width={222}
-          height={179}
-          alt="물건을 고르는 이미지"
-          className="absolute top-0 right-0"
-        />
+      <div>
+        <Image src={"/icons/mypage/cheering.png"} width={222} height={104} alt="응원하는 티끌이" />
       </div>
     </div>
   );
