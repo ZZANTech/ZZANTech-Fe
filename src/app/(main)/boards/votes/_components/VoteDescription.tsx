@@ -29,12 +29,10 @@ function VoteDescription({ children }: VoteDescriptionProps) {
             </div>
             <DescriptionTagList tags={VOTE_TAG_LIST} />
           </div>
-
-          <div className="flex-shrink-0 self-start" style={{ marginTop: "14px", marginRight: "109px" }}>
+          <div className="flex-shrink-0 self-start mt-[14px] mr-[109px]">
             <Image src="/icons/vote/vote_list_image.png" alt="소비 구경 이미지" width={256} height={100} />
           </div>
         </div>
-
         {/* 모바일용 */}
         <div className="md:hidden bg-white flex justify-start items-start py-3">
           <div className="flex flex-col gap-1">
@@ -50,7 +48,6 @@ function VoteDescription({ children }: VoteDescriptionProps) {
           </div> */}
         </div>
       </section>
-
       {children}
     </>
   );
