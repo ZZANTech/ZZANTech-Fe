@@ -18,7 +18,14 @@ function QuizQuestion({ question, onAnswer }: QuizQuestionProps) {
   };
   return (
     <div className="flex flex-col items-center justify-between p-10  max-w-screen-sm mx-auto">
-      <Image src="/icons/quiz/quizTitle.png" width={400} height={150} alt="Quiz Title" className="mb-10" />
+      <Image
+        src="/icons/quiz/quizTitle.png"
+        width={400}
+        height={150}
+        loading="eager"
+        alt="Quiz Title"
+        className="mb-10"
+      />
       <p className="mb-4 p-3 text-xl">{question}</p>
       <div className="flex justify-center gap-10 w-full">
         <button

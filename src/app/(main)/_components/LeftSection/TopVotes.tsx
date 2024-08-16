@@ -26,7 +26,7 @@ function TopVotes() {
                 <Link href={`/boards/votes/${vote.vote_postId}`}>
                   <div className="flex flex-col h-full">
                     <div className="relative w-full pb-[75%] overflow-hidden rounded-xl">
-                      <Image src={vote.image_url} alt={vote.title} layout="fill" className="object-cover" />
+                      <Image src={vote.image_url} alt={vote.title} fill sizes="100vw" className="object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                       <div className="absolute bottom-0 left-0 text-white w-full pl-4 pb-3">
                         <h6 className="font-semibold">{vote.title}</h6>
