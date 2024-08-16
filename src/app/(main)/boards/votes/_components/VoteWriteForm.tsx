@@ -249,6 +249,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
                 <input
                   type="file"
                   id="image"
+                  accept="image/*"
                   onChange={(e) => {
                     setImage(e.target.files?.[0] || null);
                     setImageUrl(null);
