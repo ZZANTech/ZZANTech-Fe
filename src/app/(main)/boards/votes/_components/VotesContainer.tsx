@@ -12,6 +12,7 @@ import SkeletonVoteList from "@/app/(main)/boards/votes/_components/SkeletonVote
 function VotesContainer() {
   const router = useRouter();
   const [sortOrder, setSortOrder] = useState("latest");
+  const [isHovered, setIsHovered] = useState(false);
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useVotesQuery(sortOrder);
   const observer = useRef<IntersectionObserver | null>(null);
@@ -45,15 +46,15 @@ function VotesContainer() {
   );
 
   return (
-    <section className="w-full flex flex-col gap-6">
-      <div className="h-11 justify-between items-end inline-flex">
+    <section className="w-full flex flex-col gap-3 md:gap-6">
+      <div className="justify-between items-end inline-flex">
         <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
         <Button
           onClick={handleWriteClick}
           variant="main"
           size="medium"
           weight="semibold"
-          className="gap-2.5 flex justify-center items-center"
+          className="gap-2.5 flex justify-center items-center hidden md:flex"
         >
           <Image src="/icons/mypage/pencil_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
           글쓰기
@@ -68,6 +69,20 @@ function VotesContainer() {
           sortOrder={sortOrder}
         />
       )}
+
+      <button
+        onClick={handleWriteClick}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="fixed bottom-20 right-8 md:hidden"
+      >
+        <Image
+          src={isHovered ? "/icons/vote/vote_write_button_hover.png" : "/icons/vote/vote_write_button.png"}
+          width={52}
+          height={52}
+          alt="글쓰기 아이콘"
+        />
+      </button>
     </section>
   );
 }
