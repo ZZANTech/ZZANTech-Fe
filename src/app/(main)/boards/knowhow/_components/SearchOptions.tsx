@@ -41,7 +41,7 @@ function SearchOptions({ selectedSearchOption, onSearch, onSearchOptionChange }:
         onChange={(e) => onSearchOptionChange(e.target.value)}
       >
         {SEARCH_OPTIONS.map((option) => (
-          <option className="h-full " key={option.value} value={option.value}>
+          <option key={option.value} value={option.value}>
             {option.label}
           </option>
         ))}
