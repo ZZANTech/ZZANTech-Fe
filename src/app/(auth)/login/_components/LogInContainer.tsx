@@ -107,6 +107,7 @@ function LogInContainer() {
         variant={"kakaoyellow"}
         size={"large"}
         rounded={"medium"}
+        weight={"semibold"}
         className="mb-3"
         onClick={() => handleSocialLogin("kakao")}
       >
@@ -118,6 +119,7 @@ function LogInContainer() {
         variant={"white"}
         size={"large"}
         rounded={"medium"}
+        weight={"semibold"}
         className="mb-10"
         onClick={() => handleSocialLogin("google")}
       >
