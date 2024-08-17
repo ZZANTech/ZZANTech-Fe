@@ -11,17 +11,19 @@ import { createClient } from "@/utils/supabase/client";
 import { BASE_URL } from "@/constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { revalidateRoute } from "@/utils/revalidation";
+import { useModal } from "@/provider/contexts/ModalContext";
 
 function LogInContainer() {
   const router = useRouter();
   const { user, logIn } = useUserContext();
+  const { close, open } = useModal();
 
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors }
-  } = useForm<TLoginInputs>();
+    formState: { errors, isValid, isDirty }
+  } = useForm<TLoginInputs>({ mode: "onChange" });
 
   const onSubmit: SubmitHandler<TLoginInputs> = async (data) => {
     const email = data.email as string;
@@ -29,7 +31,7 @@ function LogInContainer() {
     try {
       await logIn(email, password);
     } catch (error: any) {
-      alert(error.message);
+      open({ type: "alert", content: error.message });
     }
   };
 
@@ -42,8 +44,8 @@ function LogInContainer() {
           redirectTo: `${BASE_URL}/api/auth/callback`
         }
       });
-    } catch (error) {
-      console.log("error", error);
+    } catch (error: any) {
+      open({ type: "alert", content: error.message });
     }
   };
 
@@ -101,13 +103,7 @@ function LogInContainer() {
           )}
         </div>
 
-        <Button
-          variant={"black"}
-          size={"large"}
-          rounded={"medium"}
-          type="submit"
-          disabled={!(watch("email") && watch("password"))}
-        >
+        <Button variant={"black"} size={"large"} rounded={"medium"} type="submit" disabled={!isDirty || !isValid}>
           이메일로 계속하기
         </Button>
       </form>
