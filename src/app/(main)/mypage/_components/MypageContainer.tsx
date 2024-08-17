@@ -24,6 +24,7 @@ function MypageContainer() {
   const handleLogout = async () => {
     await logOut();
     revalidateRoute("/", "layout");
+    router.replace("/");
   };
 
   useEffect(() => {
