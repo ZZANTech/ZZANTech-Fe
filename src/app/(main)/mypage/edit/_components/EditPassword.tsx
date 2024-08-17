@@ -13,8 +13,10 @@ function EditPassword() {
     register,
     handleSubmit,
     watch,
-    formState: { errors }
-  } = useForm<TEditPasswordInputs>();
+    formState: { errors, isValid, isDirty }
+  } = useForm<TEditPasswordInputs>({
+    mode: "onChange"
+  });
 
   const router = useRouter();
 
@@ -101,7 +103,7 @@ function EditPassword() {
             {errors.password && <span className="errors-message">{errors.password.message}</span>}
           </div>
 
-          <div className="flex flex-col mb-6">
+          <div className="flex flex-col">
             <label>새 비밀번호 확인</label>
             <input
               type="password"
@@ -129,12 +131,7 @@ function EditPassword() {
             {errors.confirmPassword && <span className="errors-message">{errors.confirmPassword.message}</span>}
           </div>
 
-          <Button
-            type="submit"
-            size={"large"}
-            weight={"semibold"}
-            disabled={watch("oldPassword") === "" && watch("password") === "" && watch("confirmPassword") === ""}
-          >
+          <Button type="submit" size={"large"} weight={"semibold"} disabled={!isDirty || !isValid} className="mt-20">
             비밀번호 변경하기
           </Button>
         </form>
