@@ -20,7 +20,7 @@ function NavCategoryMobile() {
         >
           <Image
             src="/icons/home/home.svg"
-            alt="짠-소비구경"
+            alt="홈"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname === "/" })}
