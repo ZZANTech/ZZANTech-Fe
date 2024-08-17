@@ -3,7 +3,7 @@ import MyPointsHistoryTable from "@/app/(main)/mypage/_components/Points/MyPoint
 
 function MyPointDetailPage() {
   return (
-    <section className="w-[800px] flex flex-col items-center justify-center mx-auto">
+    <section className="max-w-[760px] flex flex-col items-center justify-center mx-auto">
       <MyCurrentPoints />
       <MyPointsHistoryTable />
     </section>
