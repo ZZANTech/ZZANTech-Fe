@@ -20,7 +20,7 @@ function NavCategoryMobile() {
         >
           <Image
             src="/icons/home/home.svg"
-            alt="홈"
+            alt="home"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname === "/" })}
@@ -36,7 +36,7 @@ function NavCategoryMobile() {
         >
           <Image
             src="/icons/home/view.svg"
-            alt="짠-소비구경"
+            alt="zzan-view"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname.startsWith("/boards/votes") })}
@@ -52,7 +52,7 @@ function NavCategoryMobile() {
         >
           <Image
             src="/icons/home/knowhow.svg"
-            alt="짠-노하우"
+            alt="zzan-knowhow"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname.startsWith("/boards/knowhow") })}
@@ -65,7 +65,7 @@ function NavCategoryMobile() {
         >
           <Image
             src="/icons/home/live.svg"
-            alt="살까말까"
+            alt="livechat"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname.startsWith("/chat") })}
@@ -78,7 +78,7 @@ function NavCategoryMobile() {
         >
           <Image
             src="/icons/home/point.svg"
-            alt="포인트몰"
+            alt="pointmall"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname.startsWith("/exchange") })}
