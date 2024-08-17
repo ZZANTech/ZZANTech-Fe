@@ -64,7 +64,7 @@ const QuizUi = () => {
             size="quizResponsive"
             weight="semibold"
             disabled
-            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto bottom-4 right-5 rounded-[100px] lg:rounded-lg lg:cursor-not-allowed lg:text-gray-400 lg:bg-gray-200"
+            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto bottom-4 right-5 lg:bottom-0 rounded-[100px] lg:rounded-lg lg:cursor-not-allowed lg:text-gray-400 lg:bg-gray-200"
           >
             퀴즈 완료
           </Button>
@@ -73,7 +73,7 @@ const QuizUi = () => {
             size="quizResponsive"
             weight="semibold"
             href="/quiz"
-            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto bottom-4 right-5 rounded-[100px] lg:rounded-lg"
+            className="py-1 px-2 absolute lg:relative lg:top-auto lg:bottom-0 lg:right-auto bottom-4 right-5 rounded-[100px] lg:rounded-lg"
           >
             퀴즈 풀기
           </Button>

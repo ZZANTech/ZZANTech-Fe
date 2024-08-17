@@ -84,30 +84,26 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (!request.nextUrl.pathname.startsWith("/quiz/completed")) {
-    if (request.nextUrl.pathname.startsWith("/quiz")) {
-      if (user) {
-        const user_id = user.id;
-        const todayStart = dayjs().utc().startOf("day").toISOString();
+  if (request.nextUrl.pathname.startsWith("/quiz") && !request.nextUrl.pathname.startsWith("/quiz/completed")) {
+    if (user) {
+      const todayStart = dayjs().utc().startOf("day").toISOString();
+      const { data, error } = await supabase
+        .from("answers")
+        .select("answerId")
+        .eq("user_id", user.id)
+        .gte("created_at", todayStart)
+        .single();
 
-        const { data, error } = await supabase
-          .from("answers")
-          .select("answerId")
-          .eq("user_id", user_id)
-          .gte("created_at", todayStart)
-          .single();
+      if (error && error.code !== "PGRST116") {
+        const url = request.nextUrl.clone();
+        url.pathname = "/error";
+        return NextResponse.redirect(url);
+      }
 
-        if (error && error.code !== "PGRST116") {
-          const url = request.nextUrl.clone();
-          url.pathname = "/error";
-          return NextResponse.redirect(url);
-        }
-
-        if (data) {
-          const url = request.nextUrl.clone();
-          url.pathname = "/quiz/completed";
-          return NextResponse.redirect(url);
-        }
+      if (data) {
+        const url = request.nextUrl.clone();
+        url.pathname = "/quiz/completed";
+        return NextResponse.redirect(url);
       }
     }
   }
