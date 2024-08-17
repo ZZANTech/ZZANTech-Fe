@@ -82,15 +82,14 @@ function SignUpContainer() {
         <label>비밀번호</label>
         <input
           type="password"
-          placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
+          placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
           className={`auth-input ${errors.password ? "border-info-red" : ""}`}
           maxLength={20}
           {...register("password", {
             required: "필수 사항 입니다.",
             pattern: {
               value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
-              message:
-                "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
+              message: "영어, 숫자, 특수문자를 조합해야 합니다."
             },
             minLength: {
               value: 6,
@@ -109,16 +108,11 @@ function SignUpContainer() {
         <label>비밀번호 확인</label>
         <input
           type="password"
-          placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
+          placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
           className={`auth-input ${errors.confirmPassword ? "border-info-red" : ""}`}
           maxLength={20}
           {...register("confirmPassword", {
             required: "필수 사항 입니다.",
-            pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
-              message:
-                "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
-            },
             minLength: {
               value: 6,
               message: "비밀번호는 최소 6자 이상이어야 합니다."

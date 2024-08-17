@@ -23,7 +23,7 @@ function LogInContainer() {
     handleSubmit,
     watch,
     formState: { errors, isValid, isDirty }
-  } = useForm<TLoginInputs>({ mode: "onChange" });
+  } = useForm<TLoginInputs>();
 
   const onSubmit: SubmitHandler<TLoginInputs> = async (data) => {
     const email = data.email as string;
@@ -76,16 +76,11 @@ function LogInContainer() {
 
         <input
           type="password"
-          placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
+          placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
           className={`auth-input ${errors.password ? "border-info-red" : ""}`}
           maxLength={20}
           {...register("password", {
             required: "필수 사항 입니다.",
-            // pattern: {
-            //   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
-            //   message:
-            //     "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
-            // },
             minLength: {
               value: 6,
               message: "비밀번호는 최소 6자 이상이어야 합니다."
@@ -98,9 +93,9 @@ function LogInContainer() {
         />
 
         <div className="w-80 h-4 px-3 mb-3">
-          {(errors.email || errors.password) && (
+          {/* {(errors.email || errors.password) && (
             <p className="errors-message">이메일 또는 비밀번호가 잘못 되었습니다.</p>
-          )}
+          )} */}
         </div>
 
         <Button variant={"black"} size={"large"} rounded={"medium"} type="submit" disabled={!isDirty || !isValid}>
