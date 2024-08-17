@@ -1,4 +1,4 @@
-import BoardDescription from "@/app/(main)/boards/votes/_components/BoardDescription";
+import VoteDescription from "@/app/(main)/boards/votes/_components/VoteDescription";
 import VotesContainer from "@/app/(main)/boards/votes/_components/VotesContainer";
 import { Metadata } from "next";
 
@@ -9,11 +9,11 @@ export const metadata: Metadata = {
 
 function VotesPage() {
   return (
-    <div className="w-[1120px] h-full flex-col justify-start items-start  inline-flex ">
-      <BoardDescription>
+    <>
+      <VoteDescription>
         <VotesContainer />
-      </BoardDescription>
-    </div>
+      </VoteDescription>
+    </>
   );
 }
 

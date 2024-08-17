@@ -33,13 +33,19 @@ function MyPointsHistoryTable() {
 
   return (
     <>
-      <div className="w-full px-5 mb-9">
+      <div className="w-full mb-4 md:mb-9 overflow-x-auto">
         <table className="w-full border-collapse">
           <thead className="border-t border-gray-900 border-basic">
             <tr className="flex w-full justify-between items-center">
               <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">날짜</th>
-              <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">적립 포인트</th>
-              <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">사용 포인트</th>
+              <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">
+                <span className="md:hidden">적립</span>
+                <span className="hidden md:inline">적립 포인트</span>
+              </th>
+              <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">
+                <span className="md:hidden">사용</span>
+                <span className="hidden md:inline">사용 포인트</span>
+              </th>
               <th className="w-2/5 text-center text-gray-800 text-base font-semibold py-4">내용</th>
             </tr>
           </thead>
@@ -53,14 +59,16 @@ function MyPointsHistoryTable() {
                     index === 0 ? "border-t" : ""
                   }`}
                 >
-                  <td className="w-1/5 text-center text-gray-800 text-base py-4">{formattedDate}</td>
-                  <td className="w-1/5 text-center text-info-green text-base py-4">
+                  <td className="w-1/5 text-center text-gray-800 text-sm md:text-base py-4">{formattedDate}</td>
+                  <td className="w-1/5 text-center text-info-green text-sm md:text-base py-4">
                     {point.point > 0 ? `+${point.point.toLocaleString()}P` : ""}
                   </td>
-                  <td className="w-1/5 text-center text-info-red text-base py-4">
+                  <td className="w-1/5 text-center text-info-red text-sm md:text-base py-4">
                     {point.point < 0 ? `${point.point.toLocaleString()}P` : ""}
                   </td>
-                  <td className="w-2/5 text-center text-gray-800 text-base py-4">{point.reason}</td>
+                  <td className="w-2/5 text-center text-gray-800 text-sm md:text-base py-4 break-words">
+                    {point.reason}
+                  </td>
                 </tr>
               );
             })}
