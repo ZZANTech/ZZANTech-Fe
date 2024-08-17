@@ -77,7 +77,7 @@ function LogInContainer() {
         <input
           type="password"
           placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
-          className={`auth-input ${errors.password ? "border-info-red" : ""}`}
+          className={`auth-input mb-3 ${errors.password ? "border-info-red" : ""}`}
           maxLength={20}
           {...register("password", {
             required: "필수 사항 입니다.",
@@ -91,12 +91,6 @@ function LogInContainer() {
             }
           })}
         />
-
-        <div className="w-80 h-4 px-3 mb-3">
-          {/* {(errors.email || errors.password) && (
-            <p className="errors-message">이메일 또는 비밀번호가 잘못 되었습니다.</p>
-          )} */}
-        </div>
 
         <Button variant={"black"} size={"large"} rounded={"medium"} type="submit" disabled={!isDirty || !isValid}>
           이메일로 계속하기
