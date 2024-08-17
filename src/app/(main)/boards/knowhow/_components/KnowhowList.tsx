@@ -13,7 +13,7 @@ function KnowhowList({ knowhows, isDetailPage = false }: knowhowListProps) {
     <ul
       className={clsx(
         "flex flex-col border-t border-t-gray-900 mt-1.5 mb-10 md:mb-8", //
-        isDetailPage && "border-t-0"
+        isDetailPage && "border-t-0 mb-[65px]"
       )}
     >
       {knowhows?.map((knowhow) => <KnowhowItem isDetailPage key={knowhow.knowhow_postId} knowhow={knowhow} />)}

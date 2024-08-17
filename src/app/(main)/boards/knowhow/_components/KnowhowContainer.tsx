@@ -59,6 +59,7 @@ function KnowhowContainer({ isDetailPage = false }: KnowhowContainerProps) {
       <div className="flex flex-col self-center relative ">
         <Pagination itemsPerPage={itemsPerPage} totalItems={5000} onPageChange={handlePageChange} />
         <SearchOptions
+          isDetailPage={isDetailPage}
           onSearch={handleSearch}
           onSearchOptionChange={handleSearchOptionChange}
           selectedSearchOption={selectedSearchOption}

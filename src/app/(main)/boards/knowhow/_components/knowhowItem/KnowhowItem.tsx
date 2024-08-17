@@ -28,7 +28,7 @@ function removeHTMLTags(content: string) {
   return parsedDocument.body.textContent || "";
 }
 
-function KnowhowItem({ knowhow, isDetailPage }: KnowhowItemProps) {
+function KnowhowItem({ knowhow }: KnowhowItemProps) {
   const { isWideScreen } = useIsWideScreen();
   const { title, content, nickname, created_at, comments_count, likes_count, image_urls, knowhow_postId } = knowhow;
   const formattedCreatedAt = dayjs(created_at).tz("Asia/Seoul").fromNow();
