@@ -8,13 +8,13 @@ function SortButtons({ sortOrder, handleSortOrderChange }: SortButtonsProps) {
     <nav className="justify-start items-center gap-[11px] flex">
       <button
         onClick={() => handleSortOrderChange("latest")}
-        className={`text-base font-semibold leading-normal ${sortOrder === "latest" ? "text-point" : "text-[#767676]"}`}
+        className={`text-base font-semibold ${sortOrder === "latest" ? "text-point" : "text-[#767676]"}`}
       >
         최신 순
       </button>
       <button
         onClick={() => handleSortOrderChange("votes")}
-        className={`text-base font-semibold leading-normal ${sortOrder === "votes" ? "text-point" : "text-[#767676]"}`}
+        className={`text-base font-semibold ${sortOrder === "votes" ? "text-point" : "text-[#767676]"}`}
       >
         투표수 순
       </button>

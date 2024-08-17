@@ -18,6 +18,21 @@ export const POST = async (req: Request) => {
   const user_id = user.id;
 
   try {
+    const { data: existingAnswer, error: checkError } = await supabase
+      .from("answers")
+      .select("answerId")
+      .eq("user_id", user_id)
+      .eq("quiz_id", quiz_id)
+      .single();
+
+    if (checkError && checkError.code !== "PGRST116") {
+      return NextResponse.json({ error: "퀴즈 중복 제출이 감지되었습니다." }, { status: 400 });
+    }
+
+    if (existingAnswer) {
+      return NextResponse.json({ error: "이미 이 퀴즈에 대한 답변이 존재합니다." }, { status: 400 });
+    }
+
     const { data: quizData, error: quizError } = await supabase
       .from("quizzes")
       .select("is_correct, explanation")
@@ -25,7 +40,6 @@ export const POST = async (req: Request) => {
       .single();
 
     if (quizError || !quizData) {
-      console.error("퀴즈를 가져오는 도중 오류 발생:", quizError?.message);
       return NextResponse.json({ error: "퀴즈를 찾을 수 없습니다." }, { status: 404 });
     }
 
@@ -39,7 +53,6 @@ export const POST = async (req: Request) => {
     });
 
     if (answerError) {
-      console.error("답변 저장 도중 오류 발생:", answerError.message);
       return NextResponse.json({ error: "답변을 저장하는 도중 문제가 발생했습니다." }, { status: 500 });
     }
 
@@ -50,7 +63,6 @@ export const POST = async (req: Request) => {
 
     return NextResponse.json({ isCorrect, explanation: quizData.explanation });
   } catch (err) {
-    console.error("예상치 못한 오류 발생:", err);
     return NextResponse.json({ error: "서버에 문제가 발생했습니다." }, { status: 500 });
   }
 };

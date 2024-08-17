@@ -13,7 +13,7 @@ function TopKnowhows() {
   return (
     <div>
       <h3 className="text-xl font-semibold mb-4 flex items-center">
-        <Image src="/home/crown2.png" alt="crown" width={25} height={23} className="mr-2" />
+        <Image src="/home/crown2.png" alt="crown" width={25} height={25} className="mr-2" />
         Best 짠노하우
       </h3>
       <ul className="space-y-4">

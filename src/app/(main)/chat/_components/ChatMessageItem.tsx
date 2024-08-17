@@ -28,7 +28,7 @@ function ChatMessageItem({ message, showNickname, showTime }: ChatMessageItemPro
       )}
       <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} items-center`}>
         {message.image_url ? (
-          <div className="flex items-center">
+          <div className="flex items-end">
             {isCurrentUser && showTime && (
               <div className="text-xs text-gray-500 mr-2 whitespace-nowrap">{formatTime(message.created_at)}</div>
             )}
@@ -38,7 +38,6 @@ function ChatMessageItem({ message, showNickname, showTime }: ChatMessageItemPro
               width={200}
               height={200}
               className="rounded"
-              layout="intrinsic"
               objectFit="contain"
             />
             {!isCurrentUser && showTime && (

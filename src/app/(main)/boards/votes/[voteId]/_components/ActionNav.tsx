@@ -58,7 +58,7 @@ function ActionNav({ vote }: ActionNavProps) {
       )}
       <button
         onClick={() => handleNavigate("/boards/votes")}
-        className="text-center text-gray-800 text-base font-semibold leading-normal"
+        className="text-center text-gray-800 text-base font-semibold leading-normal hidden md:block"
       >
         목록으로
       </button>

@@ -19,7 +19,7 @@ function NavUserStatusMoblie() {
           <Image src="/icons/home/my.svg" alt="마이페이지" width={25} height={25} />
         </Link>
       ) : (
-        <Button variant="white" className="mr-2 w-[60px] h-7 p-0">
+        <Button variant="white" href="/login" className="mr-2 w-[60px] h-7 p-0">
           로그인
         </Button>
       )}
