@@ -11,7 +11,7 @@ function Introduction() {
       text: "알뜰 살뜰 전략가\n티끌이",
       imageUrl: "/home/tigglechar.png"
     },
-    { bgColor: "bg-black", fontColor: "text-ivory", text: "제테크 매니아\n모아", imageUrl: "/home/moachar.png" },
+    { bgColor: "bg-black", fontColor: "text-ivory", text: "짠테크 매니아\n모아", imageUrl: "/home/moachar.png" },
     { bgColor: "bg-black", fontColor: "text-ivory", text: "충동구매 소비왕\n태산이", imageUrl: "/home/taesanchar.png" }
   ];
 
@@ -19,7 +19,8 @@ function Introduction() {
     <div className="mx-auto">
       <div className="flex items-center mb-4">
         <h3 className="text-xl font-semibold flex justify-start">
-          <Image src="/home/zzanFamilyIcon.png" alt="clover" width={27} height={24} className="mr-2" /> 짠테크 매거진
+          <Image src="/home/zzanFamilyIcon.png" alt="clover" width={27} height={24} className="mr-2" /> 짠 패밀리를
+          소개할게요
         </h3>
       </div>
       <div className="grid grid-cols-2 gap-3 ">
@@ -36,7 +37,10 @@ function Introduction() {
               {item.text.split("\n").map((line, lineIndex) => (
                 <p
                   key={lineIndex}
-                  className={clsx(item.fontColor, index === 0 ? "text-2xl" : lineIndex === 0 ? "text-sm" : "text-xl")}
+                  className={clsx(
+                    item.fontColor,
+                    index === 0 ? "text-2xl" : lineIndex === 0 ? "text-sm mb-1" : "text-xl"
+                  )}
                 >
                   {line}
                 </p>

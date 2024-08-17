@@ -90,7 +90,7 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                     alt="이미지 미리보기"
                     width={50}
                     height={50}
-                    className="rounded max-w-50 max-h-50 pl-3 pt-3"
+                    className="rounded-3xl max-w-50 max-h-50 pl-3 pt-3"
                   />
                 </div>
               )}
@@ -100,14 +100,19 @@ function ChatMessageInput({ roomId }: { roomId: number }) {
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyDown={handleKeyDown}
                 placeholder={user ? "메시지를 입력하세요." : "로그인 후 메시지를 입력할 수 있습니다."}
-                className="flex-grow w-full sm:w-auto resize-none rounded-2xl outline-none scrollbar-hide h-auto min-h-[44px] max-h-[200px] pt-2 pl-4 mt-1 pr-12 chatInputPlaceholder"
+                className="flex-grow w-full sm:w-auto resize-none rounded-3xl outline-none scrollbar-hide h-auto min-h-[44px] max-h-[200px] pt-2 pl-4 mt-1 pr-12 chatInputPlaceholder"
                 rows={1}
                 disabled={!user}
               />
               <button
                 type="submit"
                 disabled={isSubmitting || !user}
-                className="absolute right-5 top-1/2 transform -translate-y-1/2 w-9 h-9 bg-no-repeat bg-center bg-contain bg-[url('/icons/submit.svg')] hover:bg-[url('/icons/submit_hover.svg')]"
+                className="absolute right-5 top-1/2 transform -translate-y-1/2 w-6 h-6 bg-no-repeat bg-center bg-contain
+    lg:w-9 lg:h-9
+    bg-[url('/icons/submit.svg')] 
+    hover:bg-[url('/icons/submit_hover.svg')]
+    lg:bg-[url('/icons/submit.svg')]
+    lg:hover:bg-[url('/icons/submit_hover.svg')]"
               >
                 <span className="sr-only">전송</span>
               </button>
