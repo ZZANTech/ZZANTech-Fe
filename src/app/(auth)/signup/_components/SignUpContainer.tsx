@@ -14,8 +14,10 @@ function SignUpContainer() {
     register,
     handleSubmit,
     watch,
-    formState: { errors }
-  } = useForm<TInputs>();
+    formState: { errors, isValid, isDirty }
+  } = useForm<TInputs>({
+    mode: "onChange"
+  });
 
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
     try {
@@ -63,7 +65,7 @@ function SignUpContainer() {
           {...register("nickname", {
             required: "필수 사항 입니다.",
             pattern: {
-              value: /^(?=.*[a-zA-Z가-힣])[a-zA-Z0-9가-힣]{2,7}$/,
+              value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,7}$/,
               message: "특수문자를 포함하거나 한글 자음/모음 단독 사용은 어렵습니다."
             },
             minLength: 3,
@@ -131,7 +133,7 @@ function SignUpContainer() {
         {errors.confirmPassword && <span className="errors-message">{errors.confirmPassword.message}</span>}
       </div>
 
-      <Button size={"large"} rounded={"medium"} type="submit">
+      <Button size={"large"} rounded={"medium"} type="submit" disabled={!isDirty || !isValid}>
         회원가입 완료하기
       </Button>
     </form>
