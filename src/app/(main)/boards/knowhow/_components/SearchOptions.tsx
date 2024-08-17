@@ -5,14 +5,16 @@ import searchWeb from "/public/icons/filter/search_web.svg";
 import searchMobile from "/public/icons/filter/search_mobile.svg";
 import { FormEventHandler, useRef } from "react";
 import useIsWideScreen from "@/hooks/useIsWideScreen";
+import clsx from "clsx";
 
 type SearchOptionsProps = {
+  isDetailPage?: boolean;
   selectedSearchOption: TOption["value"];
   onSearchOptionChange: (value: TOption["value"]) => void;
   onSearch: (keyword: string) => void;
 };
 
-function SearchOptions({ selectedSearchOption, onSearch, onSearchOptionChange }: SearchOptionsProps) {
+function SearchOptions({ isDetailPage, selectedSearchOption, onSearch, onSearchOptionChange }: SearchOptionsProps) {
   const { isWideScreen } = useIsWideScreen();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -22,20 +24,20 @@ function SearchOptions({ selectedSearchOption, onSearch, onSearchOptionChange }:
       onSearch(searchInputRef.current.value);
     }
   };
+
   return (
     <form
       onSubmit={handleSearch}
-      className="
-    flex  h-8 justify-center gap-4 self-center mb-24 mt-10
-    md:h-10 md:mb-11 md:mt-[60px]
-    
-    "
+      className={clsx(
+        "flex h-8 justify-center gap-4 self-center mb-24 mt-10",
+        "md:h-10 md:mb-11 md:mt-[60px]",
+        isDetailPage && "mb-0"
+      )}
     >
       <select
         className="
         w-24  h-8  p-2  border text-sm border-gray-900 rounded flex self-center 
         md:px-3 md:w-[118px]  md:py-2 md:h-10
-
         "
         value={selectedSearchOption}
         onChange={(e) => onSearchOptionChange(e.target.value)}
