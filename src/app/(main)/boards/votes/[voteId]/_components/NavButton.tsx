@@ -1,8 +1,9 @@
 "use client";
 
 import { TVoteWithNavigation } from "@/types/vote.type";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 type NavButtonProps = {
@@ -11,17 +12,10 @@ type NavButtonProps = {
 };
 
 function NavButton({ vote, direction }: NavButtonProps) {
-  const router = useRouter();
   const searchParams = useSearchParams();
   const sortOrder = searchParams.get("sortOrder") || "latest";
   const targetVoteId = direction === "next" ? vote.nextVoteId : vote.prevVoteId;
   const [isHovered, setIsHovered] = useState(false);
-
-  const handleClick = () => {
-    if (targetVoteId) {
-      router.push(`/boards/votes/${targetVoteId}?sortOrder=${sortOrder}`);
-    }
-  };
 
   const getImageSrc = () => {
     const directionStr = direction === "next" ? "right" : "left";
@@ -34,14 +28,29 @@ function NavButton({ vote, direction }: NavButtonProps) {
 
   return (
     <div className={`hidden md:block ${buttonClass}`}>
-      <button
-        onClick={handleClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-        disabled={!targetVoteId}
-      >
-        <Image src={getImageSrc()} alt={`${direction} navigation`} width={74} height={74} className="object-contain" />
-      </button>
+      {targetVoteId ? (
+        <Link href={`/boards/votes/${targetVoteId}?sortOrder=${sortOrder}`} prefetch>
+          <Image
+            src={getImageSrc()}
+            alt={`${direction} navigation`}
+            width={74}
+            height={74}
+            className="object-contain"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          />
+        </Link>
+      ) : (
+        <button disabled>
+          <Image
+            src={getImageSrc()}
+            alt={`${direction} navigation`}
+            width={74}
+            height={74}
+            className="object-contain"
+          />
+        </button>
+      )}
     </div>
   );
 }
