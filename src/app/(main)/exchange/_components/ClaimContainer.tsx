@@ -2,12 +2,15 @@
 
 import ClaimList from "@/app/(main)/exchange/_components/ClaimList";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
+import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
 import useAlertModal from "@/hooks/useAlertModal";
+import useIsWideScreen from "@/hooks/useIsWideScreen";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useClaimsQuery from "@/stores/queries/exchange/useClaimsQuery";
 
 function ClaimContainer() {
+  const { isWideScreen } = useIsWideScreen();
   const { user } = useUserContext();
   const { displayLoginAlert } = useAlertModal();
   const userId = user?.userId ?? "";
@@ -22,9 +25,13 @@ function ClaimContainer() {
       </div>
       <div className="mt-[22px] w-full h-[1px] bg-basic"></div>
       {isPending ? (
-        <div className="mt-40">
-          <SmallLoadingSpinner />
-        </div>
+        isWideScreen ? (
+          <div className="mt-40">
+            <SmallLoadingSpinner />
+          </div>
+        ) : (
+          <LoadingSpinner />
+        )
       ) : claims && claims.length > 0 ? (
         <ClaimList claims={claims} />
       ) : (

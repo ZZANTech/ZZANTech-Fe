@@ -1,12 +1,7 @@
-import KnowhowEditor from "@/app/(main)/boards/knowhow/_components/KnowhowEditor";
-import MobileHeader from "@/components/MobileHeader";
+import KnowhowEditorContainer from "@/app/(main)/boards/knowhow/_components/KnowhowEditorContainer";
 
 function KnowhowWritePage() {
-  return (
-    <>
-      <KnowhowEditor />
-    </>
-  );
+  return <KnowhowEditorContainer />;
 }
 
 export default KnowhowWritePage;

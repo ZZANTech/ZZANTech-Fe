@@ -38,7 +38,7 @@ function MobileHeader({ title, onClick }: MobileHeaderProps) {
   return (
     <header
       className={`${
-        isSticky ? "fixed top-0 left-0 right-0 z-50 bg-white  mx-[20px]" : "relative"
+        isSticky ? "fixed top-0 left-0 right-0 z-30 bg-white  mx-[20px]" : "relative"
       } h-14 flex items-center justify-center`}
     >
       <div className="absolute left-0 flex items-center">
