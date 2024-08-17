@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import arrow from "/public/icons/mobile_header_arrow.svg";
-import useIsWideScreen from "@/hooks/useIsWideScreen";
 import { useRouter } from "next/navigation";
 import clsx from "clsx";
 
@@ -12,7 +11,6 @@ type MobileHeaderProps = {
 };
 
 function MobileHeader({ title, onClick }: MobileHeaderProps) {
-  const { isWideScreen } = useIsWideScreen();
   const router = useRouter();
   const [isSticky, setIsSticky] = useState(false);
 
@@ -34,11 +32,9 @@ function MobileHeader({ title, onClick }: MobileHeaderProps) {
     };
   }, []);
 
-  if (isWideScreen) return null;
-
   return (
     <header
-      className={clsx("h-14 flex items-center justify-center", {
+      className={clsx("h-14 flex items-center justify-center md:hidden", {
         "fixed top-0 left-0 right-0 z-30 bg-white mx-5": isSticky,
         relative: !isSticky
       })}

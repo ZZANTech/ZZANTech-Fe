@@ -4,6 +4,15 @@ import PostActions from "@/app/(main)/boards/knowhow/[knowhowId]/_components/Pos
 import PostContent from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostContent";
 import MobileHeader from "@/components/MobileHeader";
 import { Metadata } from "next";
+import dynamic from "next/dynamic";
+
+const ConditionalKnowhowContainer = dynamic(
+  () => import("@/app/(main)/boards/knowhow/_components/ConditionalKnowhowContainer"),
+  {
+    loading: () => <div className="h-[1665px]"></div>,
+    ssr: false
+  }
+);
 
 type KnowhowDetailPageProps = {
   params: { knowhowId: number };
@@ -27,6 +36,7 @@ async function KnowhowDetailPage({ params: { knowhowId } }: KnowhowDetailPagePro
       <PostContent knowhow={knowhow} />
       <PostActions knowhow={knowhow} />
       <CommentsContainer postId={knowhowId} board="knowhow" />
+      <ConditionalKnowhowContainer />
     </main>
   );
 }

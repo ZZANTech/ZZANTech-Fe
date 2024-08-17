@@ -15,17 +15,9 @@ type KnowhowFilterTypes = {
   sortOrder: TOption["value"];
 };
 
-function KnowhowFilter({
-  selectedSearchOption,
-  onSortOrderChange,
-  onSearchOptionChange,
-  onSearch,
-  sortOrder
-}: KnowhowFilterTypes) {
+function KnowhowFilter({ onSortOrderChange, sortOrder }: KnowhowFilterTypes) {
   const { isWideScreen } = useIsWideScreen();
-  const handleSortOrderChange = () => {
-    onSortOrderChange;
-  };
+
   return (
     <nav
       className="

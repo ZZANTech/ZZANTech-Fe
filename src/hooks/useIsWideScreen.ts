@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 function useIsWideScreen() {
-  const [isWideScreen, setIsWideScreen] = useState(false);
+  const [isWideScreen, setIsWideScreen] = useState<boolean | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
