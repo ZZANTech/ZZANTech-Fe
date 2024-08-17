@@ -59,22 +59,36 @@ function PostContent({ knowhow }: PostContentProps) {
   const transformedContent = transformContent(knowhow.content);
 
   return (
-    <section className="py-9 w-full min-h-[700px] mb-[38px] border-b border-[#000]">
-      <h1 className="text-[32px] mb-3 text-[#000] font-semibold">{knowhow.title}</h1>
+    <section className="py-9 w-full min-h-[400px] md:min-h-[700px] mb-[38px] border-b border-[#000]">
+      <h1
+        className="
+      mb-2 text-2xl break-words leading-[34px] font-semibold text-gray-900
+      md:text-[32px] md:mb-3
+      "
+      >
+        {knowhow.title}
+      </h1>
 
       <div className="flex gap-5 items-center mb-10">
-        <div className="flex gap-1">
+        <div className="flex gap-2">
           {knowhow.badge_url && <Image src={knowhow.badge_url} alt="badge" width={24} height={24} />}
-          <span className="font-semibold text-[#2D2D2D]">{knowhow.nickname}</span>
+          <span className="font-semibold text-gray-700">{knowhow.nickname}</span>
         </div>
-        <time className="flex items-center text-[#5A5A5A]">
+        <time className="flex text-sm leading-3 items-center text-[#5A5A5A]">
           <Image src={clockIcon} alt="clock" width={16} height={16} />
           <span className="ml-1">{formattedDate}</span>
-          <span className="ml-[7px]">{formattedTime}</span>
+          <span className="ml-2">{formattedTime}</span>
         </time>
       </div>
 
-      <article className="knowhow-content text-[#5A5A5A] break-words mt-12">{transformedContent}</article>
+      <article
+        className="
+      knowhow-content text-gray-900 md:text-[#5A5A5A] break-words mt-9 
+      md:mt-12
+      "
+      >
+        {transformedContent}
+      </article>
     </section>
   );
 }

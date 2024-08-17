@@ -125,8 +125,8 @@ function LogInContainer() {
         className="mb-3"
         onClick={() => handleSocialLogin("kakao")}
       >
-        <Image src={"/logos/kakao_black.png"} width={25} height={25} alt="kakao_black" />
-        카카오로 계속하기
+        <Image src={"/logos/Kakao_black.png"} width={25} height={25} alt="kakao_black" />
+        <p className="pl-1">카카오로 계속하기</p>
       </Button>
 
       <Button
@@ -137,7 +137,7 @@ function LogInContainer() {
         onClick={() => handleSocialLogin("google")}
       >
         <Image src={"/logos/Google_color.png"} width={25} height={25} alt="Google_color" />
-        Google로 계속하기
+        <p className="pl-1">Google로 계속하기</p>
       </Button>
 
       <div className="flex flex-row gap-2.5 w-[340px] font-sm items-center justify-center mt-3">
