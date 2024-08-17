@@ -16,7 +16,7 @@ function GradeInfoContainer() {
       {/* 작은 화면에서만 보이는 뒤로가기 버튼과 "등급제란?" */}
       <div className="lg:hidden flex items-center justify-between my-8">
         <button onClick={handleClose}>
-          <Image src="/icons/quiz/back.svg" alt="뒤로가기" width={24} height={24} className="ml-5" />
+          <Image src="/icons/quiz/back.svg" alt="뒤로가기" width={24} height={24} />
         </button>
         <h3 className="text-lg font-bold flex-grow text-center pr-12">등급제란?</h3>
       </div>
