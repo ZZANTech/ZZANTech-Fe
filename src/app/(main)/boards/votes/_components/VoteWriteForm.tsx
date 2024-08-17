@@ -149,12 +149,12 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   };
 
   return (
-    <form onSubmit={handleOpenConfirmModal} className="w-[588px] flex flex-col gap-5 mt-[120px] mx-auto">
-      <div className="flex items-start gap-3">
-        <label htmlFor="title" className="w-[100px] text-base font-normal text-[#1b1b1b]">
+    <form onSubmit={handleOpenConfirmModal} className="max-w-[588px] flex flex-col gap-5 mt-4 md:mt-[120px] mx-auto">
+      <div className="flex flex-col md:flex-row items-start gap-1 md:gap-3">
+        <label htmlFor="title" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           제목 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="w-[496px] flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
           <input
             type="text"
             id="title"
@@ -167,11 +167,12 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
           {errors.title && <span className="text-red-500 text-[13px] leading-[18px]">{errors.title}</span>}
         </div>
       </div>
-      <div className="flex items-start gap-3">
-        <label htmlFor="productName" className="w-[100px] text-base font-normal text-[#1b1b1b]">
+
+      <div className="flex flex-col md:flex-row items-start gap-1 md:gap-3">
+        <label htmlFor="productName" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           소비 내역 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
           <input
             type="text"
             id="productName"
@@ -184,11 +185,12 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
           {errors.productName && <span className="text-red-500 text-[13px] leading-[18px]">{errors.productName}</span>}
         </div>
       </div>
-      <div className="flex items-start gap-3">
-        <label htmlFor="productPrice" className="w-[100px] text-base font-normal text-[#1b1b1b]">
+
+      <div className="flex flex-col md:flex-row items-start gap-1 md:gap-3">
+        <label htmlFor="productPrice" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           구매 가격 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
           <input
             type="text"
             id="productPrice"
@@ -206,11 +208,12 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
           )}
         </div>
       </div>
-      <div className="flex items-start gap-3">
-        <label htmlFor="content" className="w-[100px] text-base font-normal text-[#1b1b1b]">
+
+      <div className="flex flex-col md:flex-row items-start gap-1 md:gap-3">
+        <label htmlFor="content" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           내용 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
           <textarea
             id="content"
             value={content}
@@ -222,11 +225,12 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
           {errors.content && <span className="text-red-500 text-[13px] leading-[18px]">{errors.content}</span>}
         </div>
       </div>
-      <div className="flex items-start gap-3">
-        <label htmlFor="image" className="w-[100px] text-base font-normal text-[#1b1b1b]">
+
+      <div className="flex flex-col md:flex-row items-start gap-1 md:gap-33">
+        <label htmlFor="image" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           사진 첨부 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
           {image || imageUrl ? (
             <div className="relative w-[120px] h-[80px] mb-2">
               <Image
@@ -262,7 +266,8 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
           {errors.image && <span className="text-red-500 text-[13px] leading-[18px]">{errors.image}</span>}
         </div>
       </div>
-      <div className="flex justify-center gap-[29px] mt-[80px]">
+
+      <div className="flex justify-center gap-[29px] mt-10 md:mt-20">
         <Button onClick={handleCancel} variant="white" size="medium" weight="semibold" className="rounded">
           취소하기
         </Button>
@@ -277,6 +282,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
           등록하기
         </Button>
       </div>
+
       {(isPostPending || isUploading || isPatchPending) && <LoadingSpinner isSubmitting />}
     </form>
   );

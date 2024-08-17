@@ -41,8 +41,8 @@ function QuizAnswer({ isCorrect, explanation, onClose }: QuizAnswerProps) {
           />
         </div>
       ) : (
-        <div>
-          <section className="mb-9 text-center mt-12 lg:mt-14 lg:mb-5">
+        <div className="flex flex-col items-center">
+          <div className="mb-9 text-center mt-12 lg:mt-14 lg:mb-5">
             <Image
               src={isCorrect ? "/icons/quiz/state-o.png" : "/icons/quiz/state-x.png"}
               alt={isCorrect ? "정답입니다!" : "틀렸습니다."}
@@ -50,8 +50,8 @@ function QuizAnswer({ isCorrect, explanation, onClose }: QuizAnswerProps) {
               height={76}
               className="mx-auto lg:animate-bounce w-[260px] h-[56px] lg:w-[354px] lg:h-[76px]"
             />
-          </section>
-          <section className="lg:mb-4 text-center">
+          </div>
+          <div className="lg:mb-4 text-center">
             <div className="text-2xl font-bold">
               포인트 <span className="text-point">{isCorrect ? 5 : 1}점</span>을 획득하셨습니다!
             </div>
@@ -59,7 +59,7 @@ function QuizAnswer({ isCorrect, explanation, onClose }: QuizAnswerProps) {
               {isCorrect ? "O" : "X"}
             </div>
             <div className="flex flex-col items-center justify-center px-[30px] lg:px-20 w-full max-w-3xl mx-auto mb-20 lg:mb-7">
-              <div className="flex items-start w-full">
+              <div className="flex justify-center lg:items-start w-full">
                 <p className="text-gray-700 text-xl font-semibold mr-2">해설:</p>
                 <p className="text-gray-700 flex-1 text-left">{explanation}</p>
               </div>
@@ -69,7 +69,7 @@ function QuizAnswer({ isCorrect, explanation, onClose }: QuizAnswerProps) {
                 확인
               </Button>
             </div>
-          </section>
+          </div>
         </div>
       )}
     </div>
