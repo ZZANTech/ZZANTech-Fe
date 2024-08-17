@@ -34,6 +34,9 @@ function NicknameModal() {
     }
   };
 
+  const handleCloseModal = () => {
+    close();
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col p-11">
       <h2 className="text-2xl font-semibold mb-6">닉네임 변경</h2>
@@ -60,7 +63,9 @@ function NicknameModal() {
       </div>
 
       <div className="flex gap-5 items-center justify-center">
-        <button className="nickname-modal-button">취소</button>
+        <button onClick={handleCloseModal} className="nickname-modal-button">
+          취소
+        </button>
         <button
           className={`nickname-modal-button ${watch("nickname") === "" ? "bg-gray-50 text-gray-400" : "bg-black text-white"} `}
           disabled={watch("nickname") === ""}
