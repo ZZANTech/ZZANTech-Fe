@@ -3,25 +3,24 @@
 import { useUserContext } from "@/provider/contexts/UserContext";
 import usePointsQuery from "@/stores/queries/usePointsQuery";
 import { formatTime } from "@/app/(main)/boards/_utils";
-import { Suspense, useState } from "react";
+import { useEffect } from "react";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
-import { useSearchParams } from "next/navigation";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
+import usePagination from "@/hooks/usePagination";
 
 function MyPointsHistoryTable() {
   const { user } = useUserContext();
   const userId = user?.userId ?? "";
 
-  const searchParams = useSearchParams();
-
-  const [currentPage, setCurrentPage] = useState<number>(() => parseInt(searchParams.get("page") || "1", 10));
+  const { currentPage, handlePageChange } = usePagination();
   const itemsPerPage = 10;
-  const { data: response, isLoading } = usePointsQuery(currentPage, itemsPerPage, userId);
+  const { data: response, isLoading, refetch } = usePointsQuery(currentPage, itemsPerPage, userId);
   const points = response?.data || [];
   const totalItems = response?.totalCount || 0;
 
-  const handlePageChange = (page: number) => setCurrentPage(page);
+  useEffect(() => {
+    refetch();
+  }, [currentPage, userId]);
 
   if (isLoading) {
     return <SmallLoadingSpinner />;
@@ -75,9 +74,7 @@ function MyPointsHistoryTable() {
           </tbody>
         </table>
       </div>
-      <Suspense>
-        <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} onPageChange={handlePageChange} />
-      </Suspense>
+      <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} onPageChange={handlePageChange} />
     </>
   );
 }
