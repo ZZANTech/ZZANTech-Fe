@@ -18,7 +18,7 @@ function InfoContainer() {
   };
 
   return (
-    <div className="mb-6 p-6 bg-[#f6f5f1] rounded-2xl flex justify-between">
+    <div className="mb-6 py-6 px-3 lg:px-6 bg-[#f6f5f1] rounded-2xl flex justify-between">
       <div className="flex flex-col w-[241px]">
         <div className="mb-2 flex  items-center">
           <Image src={user?.badge_url || ""} width={36} height={36} alt="badge_url" />

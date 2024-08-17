@@ -27,7 +27,7 @@ function MypageContainer() {
       </div>
       <div className="">
         <InfoContainer />
-        <div className="p-6  rounded-2xl border border-gray-300 flex flex-col gap-6">
+        <div className="py-6 px-3 lg:px-6 rounded-2xl border border-gray-300 flex flex-col gap-7">
           <PointContainer />
           <hr />
           <LevelContainer />
