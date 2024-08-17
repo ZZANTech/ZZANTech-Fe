@@ -11,13 +11,19 @@ import { useEffect } from "react";
 import useUserQuery from "@/stores/queries/auth/useUserQuery";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import Button from "@/components/Button";
+import { revalidateRoute } from "@/utils/revalidation";
 
 function MypageContainer() {
-  const { user } = useUserContext();
+  const { user, logOut } = useUserContext();
   const { refetch } = useUserQuery();
   const router = useRouter();
   const handleClose = () => {
     router.back();
+  };
+  const handleLogout = async () => {
+    await logOut();
+    revalidateRoute("/", "layout");
   };
 
   useEffect(() => {
@@ -40,7 +46,7 @@ function MypageContainer() {
           <p className="h-[19px]">포인트와 등급을 확인해보세요!</p>
         </div>
 
-        <div className="">
+        <div>
           <InfoContainer />
           <div className="py-6 px-3 lg:px-6 rounded-2xl border border-gray-300 flex flex-col gap-7">
             <PointContainer />
@@ -50,6 +56,11 @@ function MypageContainer() {
           <div className="mt-12 flex flex-col gap-6">
             <MyPostsContainer />
             <OtherPostsContainer />
+          </div>
+          <div className="lg:hidden mt-10">
+            <Button variant={"white"} onClick={handleLogout} className="w-full h-13">
+              로그아웃
+            </Button>
           </div>
         </div>
       </div>
