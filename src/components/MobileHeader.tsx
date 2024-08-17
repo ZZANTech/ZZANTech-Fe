@@ -4,6 +4,7 @@ import Image from "next/image";
 import arrow from "/public/icons/mobile_header_arrow.svg";
 import useIsWideScreen from "@/hooks/useIsWideScreen";
 import { useRouter } from "next/navigation";
+import clsx from "clsx";
 
 type MobileHeaderProps = {
   title: string;
@@ -37,9 +38,10 @@ function MobileHeader({ title, onClick }: MobileHeaderProps) {
 
   return (
     <header
-      className={`${
-        isSticky ? "fixed top-0 left-0 right-0 z-30 bg-white  mx-[20px]" : "relative"
-      } h-14 flex items-center justify-center`}
+      className={clsx("h-14 flex items-center justify-center", {
+        "fixed top-0 left-0 right-0 z-30 bg-white mx-5": isSticky,
+        relative: !isSticky
+      })}
     >
       <div className="absolute left-0 flex items-center">
         <span onClick={onClick || handleGoBack} className="flex items-center cursor-pointer">
