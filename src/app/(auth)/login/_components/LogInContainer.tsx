@@ -22,8 +22,9 @@ function LogInContainer() {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isValid, isDirty }
-  } = useForm<TLoginInputs>();
+    getValues,
+    formState: { errors }
+  } = useForm<TLoginInputs>({ mode: "onChange" });
 
   const onSubmit: SubmitHandler<TLoginInputs> = async (data) => {
     const email = data.email as string;
@@ -59,40 +60,43 @@ function LogInContainer() {
     <div className="flex flex-col items-center w-80 mx-auto mt-[60px]">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="email"
-          placeholder="zzan@zzan.com"
-          className={`auth-input ${errors.email ? "border-info-red" : ""}`}
-          maxLength={30}
-          {...register("email", {
-            required: "필수 사항 입니다.",
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: "이메일 형식이 아닙니다."
-            },
-            maxLength: 30
-          })}
-        />
+        <div className="mb-8">
+          <input
+            type="email"
+            placeholder="zzan@zzan.com"
+            className={`auth-input ${errors.email ? "border-info-red" : ""}`}
+            maxLength={30}
+            {...register("email", {
+              required: "필수 사항 입니다.",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: "이메일 형식이 아닙니다."
+              },
+              maxLength: 30
+            })}
+          />
 
-        <input
-          type="password"
-          placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
-          className={`auth-input mb-3 ${errors.password ? "border-info-red" : ""}`}
-          maxLength={20}
-          {...register("password", {
-            required: "필수 사항 입니다.",
-            minLength: {
-              value: 6,
-              message: "비밀번호는 최소 6자 이상이어야 합니다."
-            },
-            maxLength: {
-              value: 20,
-              message: "비밀번호는 최대 20자 이하이어야 합니다."
-            }
-          })}
-        />
+          <input
+            type="password"
+            placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
+            className={`auth-input ${errors.password ? "border-info-red" : ""}`}
+            minLength={6}
+            maxLength={20}
+            {...register("password", {
+              required: "필수 사항 입니다.",
+              minLength: {
+                value: 6,
+                message: "비밀번호는 최소 6자 이상이어야 합니다."
+              },
+              maxLength: {
+                value: 20,
+                message: "비밀번호는 최대 20자 이하이어야 합니다."
+              }
+            })}
+          />
+        </div>
 
-        <Button variant={"black"} size={"large"} rounded={"medium"} type="submit" disabled={!isDirty || !isValid}>
+        <Button variant={"black"} size={"large"} rounded={"medium"} type="submit">
           이메일로 계속하기
         </Button>
       </form>
