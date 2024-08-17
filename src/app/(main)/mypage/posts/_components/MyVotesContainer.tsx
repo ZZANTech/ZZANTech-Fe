@@ -27,7 +27,9 @@ function MyVotesContainer({ user }: MyVotesContainerProps) {
         <>
           <VotesList votes={votes} />
           {totalItems > ITEMS_PER_PAGE && (
-            <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems} onPageChange={handlePageChange} />
+            <div className="mt-10 md:mt-[101px]">
+              <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems} onPageChange={handlePageChange} />
+            </div>
           )}
         </>
       ) : (

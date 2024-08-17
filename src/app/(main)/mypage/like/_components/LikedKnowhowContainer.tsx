@@ -7,6 +7,7 @@ import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useLikedKnowhowsQuery from "@/stores/queries/knowhow/post/useLikedKnowhowsQuery";
 import usePagination from "@/hooks/usePagination";
+import MobileHeader from "@/components/MobileHeader";
 
 function LikedKnowhowContainer() {
   const { user } = useUserContext();
@@ -17,12 +18,15 @@ function LikedKnowhowContainer() {
 
   return (
     <section>
-      <h1 className="my-[63px] ml-[11px] text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
+      <MobileHeader title="좋아요 누른 글" />
+      <h1 className="hidden md:block my-[63px] ml-2.5 text-[28px] font-semibold leading-9">좋아요 누른 글</h1>
       {isPending ? (
         <SkeletonKnowhowList />
       ) : knowhows && knowhows.length > 0 ? (
         <>
-          <KnowhowList knowhows={knowhows} />
+          <div className="mt-[31px] md:mt-0">
+            <KnowhowList knowhows={knowhows} />
+          </div>
           {totalItems > WEB_ITEMS_PER_PAGE && (
             <Pagination totalItems={totalItems} itemsPerPage={WEB_ITEMS_PER_PAGE} onPageChange={handlePageChange} />
           )}

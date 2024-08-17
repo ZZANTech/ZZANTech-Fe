@@ -2,20 +2,23 @@
 
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
-import { WEB_ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
+import { MOBILE_ITEMS_PER_PAGE, WEB_ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import useMyKnowhowsQuery from "@/stores/queries/knowhow/post/useMyKnowhowsQuery";
 import { Tables } from "@/types/supabase";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import SkeletonKnowhowList from "@/app/(main)/boards/knowhow/_components/SkeletonKnowhowList";
 import usePagination from "@/hooks/usePagination";
+import useIsWideScreen from "@/hooks/useIsWideScreen";
 
 type MyKnowhowContainerProps = {
   user: Tables<"users">;
 };
 
 function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
+  const { isWideScreen } = useIsWideScreen();
   const { currentPage, handlePageChange } = usePagination();
-  const { data: knowhows, isPending } = useMyKnowhowsQuery(currentPage, WEB_ITEMS_PER_PAGE, user?.userId);
+  const itemsPerPage = isWideScreen ? WEB_ITEMS_PER_PAGE : MOBILE_ITEMS_PER_PAGE;
+  const { data: knowhows, isPending } = useMyKnowhowsQuery(currentPage, itemsPerPage, user?.userId);
   const totalItems = knowhows?.[0]?.total_count ?? 0;
 
   return (
@@ -26,7 +29,7 @@ function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
         <>
           <KnowhowList knowhows={knowhows} />
           {totalItems > WEB_ITEMS_PER_PAGE && (
-            <Pagination itemsPerPage={WEB_ITEMS_PER_PAGE} totalItems={totalItems} onPageChange={handlePageChange} />
+            <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} onPageChange={handlePageChange} />
           )}
         </>
       ) : (

@@ -1,5 +1,6 @@
 import { getGifts } from "@/apis/exchange";
 import ExchangeContainer from "@/app/(main)/exchange/_components/ExchangeContainer";
+import ExchangeDescription from "@/app/(main)/exchange/_components/ExchangeDescription";
 import { HydrationBoundary, QueryClient, dehydrate, queryOptions } from "@tanstack/react-query";
 import { Metadata } from "next";
 
@@ -21,6 +22,7 @@ async function ExchangePage() {
 
   return (
     <div className="w-full h-full mt-24">
+      <ExchangeDescription />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ExchangeContainer />
       </HydrationBoundary>

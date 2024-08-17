@@ -26,7 +26,7 @@ function MyPostsContainer() {
   }, [initialFilterOption]);
 
   return (
-    <section className="mt-[50px]">
+    <section className="mt-[7px] md:mt-[50px]">
       <FilterOption
         filterOption={filterOption}
         options={MY_POSTS_FILTER_OPTION}

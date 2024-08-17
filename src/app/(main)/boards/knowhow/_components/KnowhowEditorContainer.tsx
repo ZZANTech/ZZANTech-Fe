@@ -35,11 +35,6 @@ type KnowhowEditorContainerProps = {
 };
 
 function KnowhowEditorContainer({ previousContent }: KnowhowEditorContainerProps) {
-  const pathname = usePathname();
-  const previousPathname = useRef(pathname);
-  const [isBlocking, setIsBlocking] = useState(false);
-  const router = useRouter();
-  const isFirstRender = useRef(true);
   const { editorTitle, setEditorTitle, editorContent, setEditorContent, errorMessage, setErrorMessage, quillRef } =
     useEditorState({ previousContent });
   const { imageHandler, handlePaste } = useImageHandler(quillRef);
@@ -51,7 +46,6 @@ function KnowhowEditorContainer({ previousContent }: KnowhowEditorContainerProps
     previousContent,
     validateKnowhowForm
   );
-  console.log(isFirstRender);
   const modules = getModules(imageHandler);
 
   useEffect(() => {
