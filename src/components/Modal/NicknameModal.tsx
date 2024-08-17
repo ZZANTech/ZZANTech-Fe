@@ -44,7 +44,7 @@ function NicknameModal() {
         <input
           type="text"
           placeholder="최소 2~7자 한글, 영어, 슷자"
-          className={`w-[400px] h-12 px-4 py-[14px] border rounded-lg ${errors.nickname ? "border-info-red" : ""}`}
+          className={`w-full lg:w-[400px] h-12 px-4 py-[14px] border rounded-lg ${errors.nickname ? "border-info-red" : ""}`}
           maxLength={7}
           {...register("nickname", {
             required: "필수 사항 입니다.",
