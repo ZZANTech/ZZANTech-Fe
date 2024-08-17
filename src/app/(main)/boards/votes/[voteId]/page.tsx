@@ -28,13 +28,14 @@ export default async function VoteDetailPage({ params: { voteId } }: VoteDetailP
   }
 
   const [vote, voteLikes] = await Promise.all([getVote(voteId), getVoteLikesData(voteId, accessToken, refreshToken)]);
+
   return (
-    <div className="flex flex-col justify-center items-center w-full h-full gap-[23px] mt-[77px]">
-      <div className="flex items-center">
+    <div className="flex flex-col justify-center items-center gap-[23px] mt-3 md:mt-[77px] w-full">
+      <section className="flex items-center w-full max-w-[904px]">
         <NavButton vote={vote} direction="prev" />
         <VoteContent vote={vote} initialVoteLikes={voteLikes} accessToken={accessToken} refreshToken={refreshToken} />
         <NavButton vote={vote} direction="next" />
-      </div>
+      </section>
       <CommentsContainer postId={voteId} board="vote" />
     </div>
   );
