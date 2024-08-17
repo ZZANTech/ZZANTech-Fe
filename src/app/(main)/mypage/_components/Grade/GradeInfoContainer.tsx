@@ -18,7 +18,7 @@ function GradeInfoContainer() {
         <button onClick={handleClose}>
           <Image src="/icons/quiz/back.svg" alt="뒤로가기" width={24} height={24} />
         </button>
-        <h3 className="text-lg font-bold flex-grow text-center pr-12">등급제란?</h3>
+        <h3 className="text-lg font-bold flex-grow text-center">등급제란?</h3>
       </div>
 
       {/*등급제 내용*/}

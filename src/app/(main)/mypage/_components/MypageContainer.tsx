@@ -39,7 +39,7 @@ function MypageContainer() {
         <button onClick={handleClose}>
           <Image src="/icons/quiz/back.svg" alt="뒤로가기" width={24} height={24} />
         </button>
-        <h3 className="text-lg font-bold flex-grow text-center pr-12">마이페이지</h3>
+        <h3 className="text-lg font-bold flex-grow text-center">마이페이지</h3>
       </div>
       <div className="max-w-[540px] flex flex-col lg:mt-[90px] mx-auto mt-3 lg:mt-0">
         <div className="hidden lg:block lg:mb-10">
