@@ -17,7 +17,7 @@ function CommentsContainer({ postId, board }: CommentsContainerProps) {
   const comments = board === "knowhow" ? KnowhowComments : VoteComments;
 
   return (
-    <section className={`flex flex-col ${board === "knowhow" ? "w-[928px]" : "w-[700px]"}`}>
+    <section className={`flex flex-col ${board === "knowhow" ? "w-full" : "w-[700px]"}`}>
       <div className="w-full flex flex-col ml-1 mb-3">
         <div className="w-full text-black text-lg font-normal leading-[27px]">댓글 {comments?.length || 0}</div>
       </div>
