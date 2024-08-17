@@ -3,7 +3,13 @@ import useKnowhowsQuery from "@/stores/queries/knowhow/post/useKnowhowsQuery";
 import { useState, useEffect } from "react";
 import KnowhowFilter from "@/app/(main)/boards/knowhow/_components/KnowhowFilter";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
-import { ITEMS_PER_PAGE, SEARCH_OPTIONS, SORT_OPTIONS, TOption } from "@/app/(main)/boards/knowhow/_constants";
+import {
+  WEB_ITEMS_PER_PAGE,
+  SEARCH_OPTIONS,
+  SORT_OPTIONS,
+  TOption,
+  MOBILE_ITEMS_PER_PAGE
+} from "@/app/(main)/boards/knowhow/_constants";
 import SearchOptions from "@/app/(main)/boards/knowhow/_components/SearchOptions";
 import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import SkeletonKnowhowList from "@/app/(main)/boards/knowhow/_components/SkeletonKnowhowList";
@@ -19,8 +25,7 @@ function KnowhowContainer({ isDetailPage = false }: KnowhowContainerProps) {
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
   const [searchKeyword, setSearchKeyword] = useState<string>("");
   const { isWideScreen } = useIsWideScreen();
-  const itemsPerPage = isWideScreen ? ITEMS_PER_PAGE : 10;
-  console.log(isDetailPage);
+  const itemsPerPage = isWideScreen ? WEB_ITEMS_PER_PAGE : MOBILE_ITEMS_PER_PAGE;
   const { data: knowhows, isPending } = useKnowhowsQuery(
     currentPage,
     itemsPerPage,
@@ -57,7 +62,7 @@ function KnowhowContainer({ isDetailPage = false }: KnowhowContainerProps) {
 
       {isPending ? <SkeletonKnowhowList /> : <KnowhowList isDetailPage={isDetailPage} knowhows={knowhows?.posts} />}
       <div className="flex flex-col self-center relative ">
-        <Pagination itemsPerPage={itemsPerPage} totalItems={5000} onPageChange={handlePageChange} />
+        <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems || 0} onPageChange={handlePageChange} />
         <SearchOptions
           isDetailPage={isDetailPage}
           onSearch={handleSearch}
