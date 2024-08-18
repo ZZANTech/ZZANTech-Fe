@@ -24,6 +24,7 @@ function ExchangeContainer() {
     <div className="flex flex-col items-center w-full">
       <div className="flex w-full justify-center">
         <FilterOption
+          isExchangePage
           filterOption={filterOption}
           options={EXCHANGE_FILTER_OPTION}
           onFilterOptionChange={handleFilterOptionChange}

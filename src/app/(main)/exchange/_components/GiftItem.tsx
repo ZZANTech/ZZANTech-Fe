@@ -52,8 +52,8 @@ function GiftItem({ gift }: GiftItemProps) {
   const isTeslaImage = gift.img_url.includes("tesla");
 
   return (
-    <li className="flex flex-col items-center p-4 w-[268px] h-[403px] border border-[#e3e3e5] rounded-2xl box-border">
-      <div className="w-[236px] h-[200px] mb-3 flex justify-center items-center relative">
+    <li className="flex flex-col items-center p-4 w-[160px] h-[284px] md:w-[268px] md:h-[403px] border border-[#e3e3e5] rounded-2xl box-border">
+      <div className="w-full h-[108px] md:h-[200px] mb-2 md:mb-3 flex justify-center items-center relative">
         <Image
           className={isTeslaImage ? "object-contain" : "object-cover"}
           priority
@@ -64,20 +64,20 @@ function GiftItem({ gift }: GiftItemProps) {
         />
       </div>
 
-      <div className="mb-2 text-[#777] text-[13px]">[{gift.brand_name}]</div>
-      <div className="mb-5 text-[#333] font-bold text-sm">{gift.gift_name}</div>
-      <div className="flex items-center gap-[5px] mb-7">
-        <div className="w-8 h-8 relative">
+      <span className="mb-1 md:mb-2 text-[#777] text-[13px] leading-[13px]">[{gift.brand_name}]</span>
+      <span className="text-center h-8 mb-2 md:mb-5 h- text-[#333] font-bold text-sm">{gift.gift_name}</span>
+      <div className="flex items-center gap-[5px] mb-2 md:mb-7">
+        <div className="w-7 h-7 md:w-8 md:h-8 relative">
           <Image className="object-contain" src={point} alt="point" fill />
         </div>
         <span className="text-[#FF6000] font-semibold">{formattedPoint}P</span>
       </div>
       <button
         disabled={isPending}
-        className="flex justify-center font-semibold rounded-lg items-center text-white w-[236px] bg-[#FF6000] h-10 p-4 box-border"
+        className="flex justify-center font-semibold rounded-lg items-center text-white w-full bg-[#FF6000] h-10 p-4 box-border"
         onClick={handleOpenConfirmModal}
       >
-        교환버튼
+        교환하기
       </button>
       {isPending && <LoadingSpinner isSubmitting />}
     </li>
