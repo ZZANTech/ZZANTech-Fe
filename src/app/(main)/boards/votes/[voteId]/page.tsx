@@ -5,17 +5,31 @@ import NavButton from "@/app/(main)/boards/votes/[voteId]/_components/NavButton"
 import MobileHeader from "@/components/MobileHeader";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
+import { defaultOpenGraph } from "@/constants";
 
 type VoteDetailPageProps = {
   params: { voteId: number };
   searchParams: { [key: string]: string | string[] | undefined };
 };
-
 export async function generateMetadata({ params: { voteId } }: { params: { voteId: number } }): Promise<Metadata> {
   const vote = await getVote(voteId);
   return {
     title: vote.title,
-    description: `ZZAN - ${vote.content}`
+    description: `ZZAN - ${vote.content}`,
+    openGraph: {
+      ...defaultOpenGraph,
+      title: vote.title,
+      url: `https://zzan-tech.com/boards/votes/${vote.vote_postId}`,
+      description: vote.content,
+      images: [
+        {
+          url: vote.image_url,
+          width: 1200,
+          height: 630,
+          alt: `${vote.title} 이미지`
+        }
+      ]
+    }
   };
 }
 

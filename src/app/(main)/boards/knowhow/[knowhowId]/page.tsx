@@ -3,6 +3,7 @@ import CommentsContainer from "@/app/(main)/boards/_components/Comments/Comments
 import PostActions from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostActions";
 import PostContent from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostContent";
 import MobileHeader from "@/components/MobileHeader";
+import { defaultOpenGraph } from "@/constants";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
@@ -17,7 +18,6 @@ const ConditionalKnowhowContainer = dynamic(
 type KnowhowDetailPageProps = {
   params: { knowhowId: number };
 };
-
 export async function generateMetadata({ params: { knowhowId } }: KnowhowDetailPageProps): Promise<Metadata> {
   const knowhow = await getKnowhow(knowhowId);
   const textOnlyContent = knowhow.content.replace(/<[^>]+>/g, "");
