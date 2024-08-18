@@ -21,33 +21,37 @@ type KnowhowContainerProps = {
 };
 
 function KnowhowContainer({ isDetailPage = false }: KnowhowContainerProps) {
+  const { isWideScreen } = useIsWideScreen();
   const { currentPage, sortOrder, handlePageChange, handleSortOrderChange } = usePagination(SORT_OPTIONS[0].value);
   const [selectedSearchOption, setSelectedSearchOption] = useState<TOption["value"]>(SEARCH_OPTIONS[0].value);
-  const [searchKeyword, setSearchKeyword] = useState<string>("");
-  const { isWideScreen } = useIsWideScreen();
+  const [submittedSearchParams, setSubmittedSearchParams] = useState({
+    option: SEARCH_OPTIONS[0].value,
+    keyword: ""
+  });
+
   const itemsPerPage = isWideScreen ? WEB_ITEMS_PER_PAGE : MOBILE_ITEMS_PER_PAGE;
   const { data: knowhows, isPending } = useKnowhowsQuery(
     currentPage,
     itemsPerPage,
     sortOrder || "",
-    selectedSearchOption,
-    searchKeyword
+    submittedSearchParams.option,
+    submittedSearchParams.keyword
   );
+
   const totalItems = knowhows?.posts[0]?.total_count;
 
-  const handleSearchOptionChange = (value: TOption["value"]) => {
-    setSelectedSearchOption(value);
-  };
+  const handleSearchOptionChange = (value: TOption["value"]) => setSelectedSearchOption(value);
 
   const handleSearch = (keyword: string) => {
-    setSearchKeyword(keyword);
+    setSubmittedSearchParams({
+      option: selectedSearchOption,
+      keyword: keyword
+    });
     handlePageChange(1);
   };
 
-  useEffect(() => {
-    handlePageChange(currentPage);
-  }, [currentPage, sortOrder, selectedSearchOption, searchKeyword]);
-
+  useEffect(() => handlePageChange(currentPage), [currentPage, sortOrder, submittedSearchParams]);
+  console.log(totalItems);
   return (
     <section>
       {!isDetailPage && (
@@ -61,7 +65,7 @@ function KnowhowContainer({ isDetailPage = false }: KnowhowContainerProps) {
       )}
 
       {isPending ? <SkeletonKnowhowList /> : <KnowhowList isDetailPage={isDetailPage} knowhows={knowhows?.posts} />}
-      <div className="flex flex-col self-center relative ">
+      <div className="flex flex-col self-center relative">
         <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems || 0} onPageChange={handlePageChange} />
         <SearchOptions
           isDetailPage={isDetailPage}
