@@ -15,7 +15,14 @@ function VoteItem({ vote, sortOrder }: voteItemProps & { sortOrder?: string }) {
         className="w-full h-[374px] md:h-[310px] flex-col justify-start items-center inline-flex transform transition-transform duration-300 ease-out hover:-translate-y-2 rounded-xl overflow-hidden shadow-lg"
       >
         <div className="relative w-full h-[220px] md:h-[155px]">
-          <Image className="grow shrink basis-0" src={image_url} alt="게시글 이미지" layout="fill" objectFit="cover" />
+          <Image
+            className="grow shrink basis-0 object-cover"
+            src={image_url}
+            alt="게시글 이미지"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            loading="lazy"
+          />
         </div>
         <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start p-3 bg-gray-100 gap-2 flex">
           <div className="self-stretch h-[59px] text-black text-xl font-semibold leading-7 line-clamp-2">{title}</div>

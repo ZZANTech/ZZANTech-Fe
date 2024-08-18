@@ -234,10 +234,10 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
           {image || imageUrl ? (
             <div className="relative w-[120px] h-[80px] mb-2">
               <Image
+                className="object-cover"
                 src={image ? URL.createObjectURL(image) : imageUrl!}
                 alt="첨부된 사진 미리보기 이미지"
-                layout="fill"
-                objectFit="cover"
+                fill
               />
             </div>
           ) : null}

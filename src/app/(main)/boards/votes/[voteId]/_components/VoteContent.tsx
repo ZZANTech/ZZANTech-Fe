@@ -36,8 +36,14 @@ function VoteContent({ vote, initialVoteLikes, accessToken, refreshToken }: Vote
                 <div className="text-sm font-normal leading-tight text-right text-gray-800">{formattedCreatedAt}</div>
               </div>
             </div>
-            <div className="relative w-full  h-[191px] md:h-[300px] mb-3 md:mb-6 overflow-hidden rounded-xl group">
-              <Image src={image_url} alt="게시글 이미지" className="object-cover w-full h-full" layout="fill" />
+            <div className="relative w-full h-[191px] md:h-[300px] mb-3 md:mb-6 overflow-hidden rounded-xl group">
+              <Image
+                className="object-cover"
+                src={image_url}
+                alt="게시글 이미지"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              />
               <div className="absolute inset-0 transition-opacity duration-300 bg-[linear-gradient(to_top,rgba(0,0,0,0.7),transparent_30%)] rounded-xl group-hover:opacity-0"></div>
               <div className="absolute bottom-[11px] md:bottom-[18px] right-[15px] md:right-[29px] text-base font-normal text-right text-white transition-opacity duration-300 group-hover:opacity-0">
                 <div>{product_name}</div>

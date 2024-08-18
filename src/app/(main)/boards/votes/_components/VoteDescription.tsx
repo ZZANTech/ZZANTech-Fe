@@ -30,7 +30,7 @@ function VoteDescription({ children }: VoteDescriptionProps) {
             <DescriptionTagList tags={VOTE_TAG_LIST} />
           </div>
           <div className="flex-shrink-0 self-start mt-[14px] mr-[109px]">
-            <Image src="/icons/vote/vote_list_image.png" alt="소비 구경 이미지" width={256} height={100} />
+            <Image src="/icons/vote/vote_list_image.png" alt="소비 구경 이미지" width={256} height={100} priority />
           </div>
         </div>
         {/* 모바일용 */}
