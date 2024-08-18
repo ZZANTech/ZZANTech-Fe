@@ -13,6 +13,7 @@ const nextConfig = {
 
 export default withPWA({
   dest: "public",
-  register: true,
+  register: process.env.NODE_ENV === "production",
   skipWaiting: true,
+  disable: process.env.NODE_ENV !== "production"
 })(nextConfig);
