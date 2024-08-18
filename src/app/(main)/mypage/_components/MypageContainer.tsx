@@ -6,7 +6,6 @@ import MyPostsContainer from "@/app/(main)/mypage/_components/MyPostsContainer";
 import OtherPostsContainer from "@/app/(main)/mypage/_components/OtherPostsContainer";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import { useQueryClient } from "@tanstack/react-query";
 import { useEffect } from "react";
 import useUserQuery from "@/stores/queries/auth/useUserQuery";
 import { useRouter } from "next/navigation";

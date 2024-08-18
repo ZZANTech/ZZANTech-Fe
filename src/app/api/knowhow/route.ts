@@ -37,7 +37,6 @@ export const GET = async (req: Request) => {
       throw new Error("전체 게시글 수를 불러오지 못했습니다.");
     }
 
-    console.log(posts);
     return NextResponse.json({ posts, totalItems });
   } catch (e) {
     if (e instanceof Error) {

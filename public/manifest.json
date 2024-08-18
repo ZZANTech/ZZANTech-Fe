@@ -1,0 +1,21 @@
+{
+  "name": "짠테크",
+  "short_name": "짠",
+  "theme_color": "#E1FF01",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "any",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    { "src": "/icons/pwa/32.png", "type": "image/png", "sizes": "32x32" },
+    { "src": "/icons/pwa/60.png", "type": "image/png", "sizes": "60x60" },
+    { "src": "/icons/pwa/72.png", "type": "image/png", "sizes": "72x72" },
+    { "src": "/icons/pwa/96.png", "type": "image/png", "sizes": "96x96" },
+    { "src": "/icons/pwa/144.png", "type": "image/png", "sizes": "144x144" },
+    { "src": "/icons/pwa/180.png", "type": "image/png", "sizes": "180x180" },
+    { "src": "/icons/pwa/192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icons/pwa/256.png", "type": "image/png", "sizes": "256x256" },
+    { "src": "/icons/pwa/512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
