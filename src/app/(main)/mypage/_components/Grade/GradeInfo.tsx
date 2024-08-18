@@ -1,3 +1,4 @@
+import GradeTitleMobile from "@/app/(main)/mypage/_components/Grade/GradeTitleMobile";
 import Button from "@/components/Button/Button";
 import Image from "next/image";
 import React from "react";
@@ -22,51 +23,58 @@ function GradeInfo({ onClose }: GradeInfoProps) {
   ];
 
   return (
-    <div className="p-10">
+    <div className="px-5 lg:p-10">
       <div className="flex flex-col items-center">
-        <h3 className="text-xl font-semibold mb-3">등급제란?</h3>
-        <p className="text-sm text-center mb-6">
+        <GradeTitleMobile />
+        <h3 className="text-xl font-semibold mb-3 hidden lg:block">등급제란?</h3>
+        <p className="text-sm text-center lg:mb-6">
           짠테커에서는 다섯 등급에 따라 뱃지가 부여됩니다.
           <br /> 등급을 올리기 위해서는 일정 포인트가 필요합니다.
           <br />
           누적 포인트가 <span className="text-point">3000P</span>가 되면 기프티콘을 구매할 수 있습니다
         </p>
       </div>
-      <div className="mb-11">
-        <div className="flex mb-2">
-          <div className="font-semibold pl-6">레벨</div>
-          <div className="font-semibold pl-11">뱃지</div>
-          <div className="font-semibold pl-12">등급명</div>
-          <div className="font-semibold pl-20">달성 포인트</div>
-        </div>
-        {levels.map((level, index) => (
-          <div key={index} className="flex mb-2 pl-3 items-center">
-            <div className="w-12 h-7 bg-main text-sm font-semibold leading-tight rounded-lg flex justify-center items-center">
-              {level.level}
-            </div>
-            <div className="pl-7">
-              <Image src={level.badge} alt={level.name} width={36} height={36} />
-            </div>
-            <div className="pl-6 flex-1 text-[##262626]">{level.name}</div>
-            <div className="w-14 text-left mr-4 text-[##262626]">{level.points}</div>
-          </div>
-        ))}
-      </div>
-      <div className="flex flex-col items-center mb-16">
+      <table className="min-w-full border-collapse mb-8 lg:mb-11">
+        <thead>
+          <tr className="border-b border-b-gray-900">
+            <th className="text-left pl-3 py-2">레벨</th>
+            <th className="text-left pl-1">뱃지</th>
+            <th className="text-left lg:pl-10 pl-16">등급명</th>
+            <th className="text-left">달성 포인트</th>
+          </tr>
+        </thead>
+        <tbody>
+          {levels.map((level, index) => (
+            <tr key={index} className="border-b">
+              <td className="py-2">
+                <div className="flex items-center justify-center bg-main text-black font-semibold text-sm rounded-lg w-12 h-7">
+                  {level.level}
+                </div>
+              </td>
+              <td className="py-2 text-center">
+                <Image src={level.badge} alt={level.name} width={36} height={36} />
+              </td>
+              <td className="py-2 text-left lg:pl-3 pl-14">{level.name}</td>
+              <td className="py-2 text-left pl-4">{level.points}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div className="flex flex-col items-center">
         <h3 className="text-xl font-semibold mb-4">포인트 모으는 방법</h3>
         <p className="text-center text-sm mb-6">
           하루에 모을 수 있는 포인트는 <span className="text-point">최대 50P </span>입니다.
         </p>
         <ul>
           {pointMethods.map((method, index) => (
-            <li key={index} className="flex items-center mb-2">
+            <li key={index} className="flex items-center lg:mb-2">
               <Image src={method.icon} alt="icon" width={24} height={24} className="mr-2" />
               <p className="text-sm">{method.text}</p>
             </li>
           ))}
         </ul>
       </div>
-      <div className="flex justify-center">
+      <div className="flex justify-center mt-8 lg:mt-12">
         <Button onClick={onClose} variant="black" fullWidth={true} size="large">
           확인
         </Button>
