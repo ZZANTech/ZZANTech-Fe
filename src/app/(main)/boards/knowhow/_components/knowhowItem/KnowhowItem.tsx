@@ -33,7 +33,6 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
   const { title, content, nickname, created_at, comments_count, likes_count, image_urls, knowhow_postId } = knowhow;
   const formattedCreatedAt = dayjs(created_at).tz("Asia/Seoul").fromNow();
   const textOnlyContent = removeHTMLTags(content);
-  console.log(title);
 
   return (
     <li

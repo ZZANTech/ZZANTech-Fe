@@ -50,11 +50,27 @@ function KnowhowDescription() {
             <DescriptionTagList tags={KNOWHOW_TAG_LIST} />
           </div>
 
-          <div className="hidden md:block relative mr-[clamp(15px,3vw,159px)] mt-3.5 h-[96px] w-[264px] lg:mr-[159px]">
-            <Image className=" object-cover" src={webImage} alt="description_image" width={264} height={96} />
+          <div className="hidden md:block relative mr-[clamp(15px,3vw,159px)] mt-3.5 h-[96px] w-[264px]lg:mr-[159px]">
+            <Image
+              className=" object-cover"
+              priority
+              loading="eager"
+              src={webImage}
+              alt="description_image"
+              width={264}
+              height={96}
+            />
           </div>
           <div className="self-end block md:hidden h-[66px] w-[130px]">
-            <Image className=" object-cover" src={mobileImage} alt="description_image" width={130} height={66} />
+            <Image
+              className=" object-cover"
+              priority
+              loading="eager"
+              src={mobileImage}
+              alt="description_image"
+              width={130}
+              height={66}
+            />
           </div>
         </div>
       </section>

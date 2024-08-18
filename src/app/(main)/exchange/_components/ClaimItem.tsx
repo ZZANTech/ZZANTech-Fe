@@ -1,6 +1,7 @@
 import { formatTime } from "@/app/(main)/boards/_utils";
+import Button from "@/components/Button";
+import useIsWideScreen from "@/hooks/useIsWideScreen";
 import { TClaim } from "@/types/exchange.type";
-import { Tables } from "@/types/supabase";
 import React from "react";
 
 type ClaimItemProps = {
@@ -8,16 +9,19 @@ type ClaimItemProps = {
 };
 
 function ClaimItem({ claim }: ClaimItemProps) {
+  const { isWideScreen } = useIsWideScreen();
   const { formattedDate } = formatTime(claim.created_at);
   return (
-    <li className="flex justify-between gap-2 w-full  text-[#000]">
-      <div>{formattedDate}</div>
-      <div>{claim.gift_name}</div>
-      <div
-        className={`flex rounded-[50px] w-[100px] px-[10px] py-2 h-9 text-sm justify-center items-center text-basic ${claim.is_sent ? "bg-info-green" : "bg-info-yellow"}`}
+    <li className="flex items-center justify-between gap-2 w-full text-sm   text-[#000]">
+      <div className="md:text-base w-[65px] md:w-auto">{formattedDate}</div>
+      <div className="md:text-base text-center w-[125px] md:w-auto">{claim.gift_name}</div>
+      <Button
+        className="p-0 cursor-default text-gray-900"
+        size={isWideScreen ? "medium" : "small"}
+        variant={claim.is_sent ? "green" : "yellow"}
       >
         {claim.is_sent ? "교환 완료" : "승인 대기"}
-      </div>
+      </Button>
     </li>
   );
 }
