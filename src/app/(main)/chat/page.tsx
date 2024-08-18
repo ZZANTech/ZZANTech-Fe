@@ -28,9 +28,10 @@ function ChatPage() {
           <Image
             src="logos/tigglemoaAirplane.svg"
             alt="airplane"
-            width={292}
-            height={220}
+            fill
+            sizes="(max-width: 768px) 140px, 292px"
             className="w-[140px] h-[105px] lg:w-[292px] lg:h-[220px]"
+            priority
           />
         </section>
       </div>
