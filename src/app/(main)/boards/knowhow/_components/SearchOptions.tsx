@@ -6,6 +6,7 @@ import searchMobile from "/public/icons/filter/search_mobile.svg";
 import { FormEventHandler, useRef } from "react";
 import useIsWideScreen from "@/hooks/useIsWideScreen";
 import clsx from "clsx";
+import arrowDown from "/public/icons/filter/arrow_down.svg";
 
 type SearchOptionsProps = {
   isDetailPage?: boolean;
@@ -34,20 +35,30 @@ function SearchOptions({ isDetailPage, selectedSearchOption, onSearch, onSearchO
         isDetailPage && "mb-0"
       )}
     >
-      <select
-        className="
-        w-24  h-8  p-2  border text-sm border-gray-900 rounded flex self-center 
-        md:px-3 md:w-[118px]  md:py-2 md:h-10
-        "
-        value={selectedSearchOption}
-        onChange={(e) => onSearchOptionChange(e.target.value)}
-      >
-        {SEARCH_OPTIONS.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
+      <div className="relative inline-block w-24 md:w-[118px]">
+        <select
+          className="
+      w-full h-8 px-2 border items-center text-sm border-gray-900 rounded appearance-none
+      md:px-3 md:h-10 leading-normal
+    "
+          value={selectedSearchOption}
+          onChange={(e) => onSearchOptionChange(e.target.value)} // 수정된 부분
+        >
+          {SEARCH_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <Image
+          src={arrowDown}
+          alt="검색옵션 선택"
+          width={16}
+          height={16}
+          className="absolute right-2 top-1/2 transform -translate-y-1/2 pointer-events-none"
+        />
+      </div>
+
       <div
         className="
       flex w-[212px] justify-between items-center p-2 border-b  border-line-black
@@ -55,7 +66,7 @@ function SearchOptions({ isDetailPage, selectedSearchOption, onSearch, onSearchO
       >
         <input
           className="
-          placeholder:text-gray-400 w-[156px] font-semibold outline-none
+          placeholder:text-gray-400 w-[156px] outline-none
           md:w-[216px]
           "
           ref={searchInputRef}
