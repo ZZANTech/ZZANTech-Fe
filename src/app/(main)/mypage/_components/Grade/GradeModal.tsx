@@ -15,7 +15,7 @@ function GradeModal({ children }: { children: React.ReactNode }) {
       onClick={handleBackdropClick}
       className="fixed left-0 top-0 right-0 bottom-0 flex justify-center items-center bg-black bg-opacity-20 backdrop-blur-sm"
     >
-      <div className="w-dvw h-dvh max-w-[500px] max-h-[800px] mx-4 md:mx-0 border bg-white rounded-3xl flex flex-col justify-center overflow-auto items-center">
+      <div className="w-dvw h-auto max-w-[500px] max-h-[90vh] mx-4 md:mx-0 border bg-white rounded-3xl flex flex-col overflow-y-auto p-4">
         {children}
       </div>
     </div>

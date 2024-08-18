@@ -23,7 +23,7 @@ function GradeInfo({ onClose }: GradeInfoProps) {
 
   return (
     <div className="p-10">
-      <section className="flex flex-col items-center">
+      <div className="flex flex-col items-center">
         <h3 className="text-xl font-semibold mb-3">등급제란?</h3>
         <p className="text-sm text-center mb-6">
           짠테커에서는 다섯 등급에 따라 뱃지가 부여됩니다.
@@ -31,8 +31,8 @@ function GradeInfo({ onClose }: GradeInfoProps) {
           <br />
           누적 포인트가 <span className="text-point">3000P</span>가 되면 기프티콘을 구매할 수 있습니다
         </p>
-      </section>
-      <section className="mb-11">
+      </div>
+      <div className="mb-11">
         <div className="flex mb-2">
           <div className="font-semibold pl-6">레벨</div>
           <div className="font-semibold pl-11">뱃지</div>
@@ -48,11 +48,11 @@ function GradeInfo({ onClose }: GradeInfoProps) {
               <Image src={level.badge} alt={level.name} width={36} height={36} />
             </div>
             <div className="pl-6 flex-1 text-[##262626]">{level.name}</div>
-            <div className="w-14 text-left pl-2 text-[##262626]">{level.points}</div>
+            <div className="w-14 text-left mr-4 text-[##262626]">{level.points}</div>
           </div>
         ))}
-      </section>
-      <section className="flex flex-col items-center mb-16">
+      </div>
+      <div className="flex flex-col items-center mb-16">
         <h3 className="text-xl font-semibold mb-4">포인트 모으는 방법</h3>
         <p className="text-center text-sm mb-6">
           하루에 모을 수 있는 포인트는 <span className="text-point">최대 50P </span>입니다.
@@ -65,7 +65,7 @@ function GradeInfo({ onClose }: GradeInfoProps) {
             </li>
           ))}
         </ul>
-      </section>
+      </div>
       <div className="flex justify-center">
         <Button onClick={onClose} variant="black" fullWidth={true} size="large">
           확인
