@@ -17,7 +17,9 @@ const FooterWrapper = dynamic(() => import("@/app/(main)/_components/Footer/Foot
 function ConditionalFooter() {
   const pathname = usePathname();
 
-  const hideFooter = pathname === "/chat/1";
+  const hideFooterPaths = new Set(["/chat/1", "/mypage/grade"]);
+
+  const hideFooter = hideFooterPaths.has(pathname);
 
   if (hideFooter) return null;
 
