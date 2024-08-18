@@ -22,7 +22,7 @@ async function ExchangePage() {
   await queryClient.prefetchQuery(giftsOptions);
 
   return (
-    <div className="w-full h-full md:mt-24">
+    <div className="w-full h-full md:mt-[60px]">
       <MobileHeader title="포인트샵" />
       <ExchangeDescription />
       <HydrationBoundary state={dehydrate(queryClient)}>

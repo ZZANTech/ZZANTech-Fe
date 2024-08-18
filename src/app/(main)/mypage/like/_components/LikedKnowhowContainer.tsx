@@ -2,18 +2,21 @@
 import KnowhowList from "@/app/(main)/boards/knowhow/_components/KnowhowList";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import SkeletonKnowhowList from "@/app/(main)/boards/knowhow/_components/SkeletonKnowhowList";
-import { WEB_ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
+import { MOBILE_ITEMS_PER_PAGE, WEB_ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useLikedKnowhowsQuery from "@/stores/queries/knowhow/post/useLikedKnowhowsQuery";
 import usePagination from "@/hooks/usePagination";
 import MobileHeader from "@/components/MobileHeader";
+import useIsWideScreen from "@/hooks/useIsWideScreen";
 
 function LikedKnowhowContainer() {
   const { user } = useUserContext();
   const userId = user?.userId;
   const { currentPage, handlePageChange } = usePagination();
   const { data: knowhows, isPending } = useLikedKnowhowsQuery(currentPage, WEB_ITEMS_PER_PAGE, userId || "");
+  const { isWideScreen } = useIsWideScreen();
+  const itemsPerPage = isWideScreen ? WEB_ITEMS_PER_PAGE : MOBILE_ITEMS_PER_PAGE;
   const totalItems = knowhows ? knowhows[0]?.total_count || 0 : 0;
 
   return (
@@ -28,7 +31,7 @@ function LikedKnowhowContainer() {
             <KnowhowList knowhows={knowhows} />
           </div>
           {totalItems > WEB_ITEMS_PER_PAGE && (
-            <Pagination totalItems={totalItems} itemsPerPage={WEB_ITEMS_PER_PAGE} onPageChange={handlePageChange} />
+            <Pagination totalItems={totalItems} itemsPerPage={itemsPerPage} onPageChange={handlePageChange} />
           )}
         </>
       ) : (

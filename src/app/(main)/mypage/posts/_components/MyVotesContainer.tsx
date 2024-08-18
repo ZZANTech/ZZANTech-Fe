@@ -7,17 +7,21 @@ import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage
 import useMyVotesQuery from "@/stores/queries/vote/post/useMyVotesQuery";
 import { Tables } from "@/types/supabase";
 import usePagination from "@/hooks/usePagination";
+import useIsWideScreen from "@/hooks/useIsWideScreen";
 
 type MyVotesContainerProps = {
   user: Tables<"users">;
 };
 
-const ITEMS_PER_PAGE = 8;
+const WEB_ITEMS_PER_PAGE = 8;
+const MOBILE_ITEMS_PER_PAGE = 4;
 
 function MyVotesContainer({ user }: MyVotesContainerProps) {
   const { currentPage, handlePageChange } = usePagination();
-  const { data: votes, isPending } = useMyVotesQuery(currentPage, ITEMS_PER_PAGE, user?.userId);
+  const { data: votes, isPending } = useMyVotesQuery(currentPage, WEB_ITEMS_PER_PAGE, user?.userId);
   const totalItems = votes?.[0]?.total_count ?? 0;
+  const { isWideScreen } = useIsWideScreen();
+  const itemsPerPage = isWideScreen ? WEB_ITEMS_PER_PAGE : MOBILE_ITEMS_PER_PAGE;
 
   return (
     <article>
@@ -26,9 +30,9 @@ function MyVotesContainer({ user }: MyVotesContainerProps) {
       ) : votes && votes.length > 0 ? (
         <>
           <VotesList votes={votes} />
-          {totalItems > ITEMS_PER_PAGE && (
+          {totalItems > WEB_ITEMS_PER_PAGE && (
             <div className="mt-10 md:mt-[101px]">
-              <Pagination itemsPerPage={ITEMS_PER_PAGE} totalItems={totalItems} onPageChange={handlePageChange} />
+              <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} onPageChange={handlePageChange} />
             </div>
           )}
         </>

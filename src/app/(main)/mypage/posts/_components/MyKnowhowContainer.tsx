@@ -28,7 +28,7 @@ function MyKnowhowContainer({ user }: MyKnowhowContainerProps) {
       ) : knowhows && knowhows.length > 0 ? (
         <>
           <KnowhowList knowhows={knowhows} />
-          {totalItems > WEB_ITEMS_PER_PAGE && (
+          {totalItems > itemsPerPage && (
             <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} onPageChange={handlePageChange} />
           )}
         </>

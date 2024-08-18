@@ -35,7 +35,7 @@ function FilterOption({ isExchangePage = false, options, onFilterOptionChange, f
       className={clsx(
         "flex w-full md:w-auto",
         isExchangePage
-          ? "mb-6 md:mb-[52px]" //
+          ? "mb-[56px] md:mb-[52px]" //
           : "mb-[35px] md:mb-12"
       )}
     >
