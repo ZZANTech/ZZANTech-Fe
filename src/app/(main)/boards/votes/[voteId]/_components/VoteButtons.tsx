@@ -123,16 +123,30 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
   }, []);
 
   return (
-    <div className="self-stretch h-[76px] justify-between items-center inline-flex">
+    <div className="self-stretch flex justify-between items-center gap-4">
       {voteType === null ? (
         <>
-          <Button variant="trueBlack" size="xl" textSize="xl" weight="semibold" onClick={() => handleVote("GOOD")}>
-            <Image src="/icons/vote/upvote.png" alt="Upvote icon" width={32} height={32} className="mr-2" />
+          <Button
+            variant="trueBlack"
+            size="xl"
+            textSize="xl"
+            weight="semibold"
+            onClick={() => handleVote("GOOD")}
+            className="flex-1 h-[60px] md:h-[76px] rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px]"
+          >
+            <Image src="/icons/vote/upvote.png" alt="GOOD 이미지" width={32} height={32} className="mr-2" />
             GOOD
           </Button>
 
-          <Button variant="trueBlack" size="xl" textSize="xl" weight="semibold" onClick={() => handleVote("BAD")}>
-            <Image src="/icons/vote/downvote.png" alt="Downvote icon" width={32} height={32} className="mr-2" />
+          <Button
+            variant="trueBlack"
+            size="xl"
+            textSize="xl"
+            weight="semibold"
+            onClick={() => handleVote("BAD")}
+            className="flex-1 h-[60px] md:h-[76px] rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px]"
+          >
+            <Image src="/icons/vote/downvote.png" alt="BAD 이미지" width={32} height={32} className="mr-2" />
             BAD
           </Button>
         </>
@@ -143,7 +157,9 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
             size="xl"
             textSize="xl"
             weight="semibold"
-            className={voteType === "GOOD" ? "text-gray-900" : "text-gray-300"}
+            className={`flex-1 h-[60px] md:h-[76px] px-0 py-0 rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px] ${
+              voteType === "GOOD" ? "text-gray-900" : "text-gray-300"
+            }`}
             onClick={() => handleVote("GOOD")}
           >
             {`${upvotePercentage.toFixed(0)}% (${upvoteCount}명)`}
@@ -154,7 +170,9 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
             size="xl"
             textSize="xl"
             weight="semibold"
-            className={voteType === "BAD" ? "text-gray-900" : "text-gray-300"}
+            className={`flex-1 h-[60px] md:h-[76px] px-0 py-0 rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px] ${
+              voteType === "BAD" ? "text-gray-900" : "text-gray-300"
+            }`}
             onClick={() => handleVote("BAD")}
           >
             {`${downvotePercentage.toFixed(0)}% (${downvoteCount}명)`}

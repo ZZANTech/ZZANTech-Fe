@@ -3,7 +3,8 @@ export type TOption = {
   label: string;
 };
 
-export const ITEMS_PER_PAGE = 5;
+export const WEB_ITEMS_PER_PAGE = 5;
+export const MOBILE_ITEMS_PER_PAGE = 10;
 
 export const MAX_CONTENT_LENGTH = 10000;
 

@@ -1,5 +1,7 @@
 import { getGifts } from "@/apis/exchange";
 import ExchangeContainer from "@/app/(main)/exchange/_components/ExchangeContainer";
+import ExchangeDescription from "@/app/(main)/exchange/_components/ExchangeDescription";
+import MobileHeader from "@/components/MobileHeader";
 import { HydrationBoundary, QueryClient, dehydrate, queryOptions } from "@tanstack/react-query";
 import { Metadata } from "next";
 
@@ -20,7 +22,9 @@ async function ExchangePage() {
   await queryClient.prefetchQuery(giftsOptions);
 
   return (
-    <div className="w-full h-full mt-24">
+    <div className="w-full h-full md:mt-[60px]">
+      <MobileHeader title="포인트샵" />
+      <ExchangeDescription />
       <HydrationBoundary state={dehydrate(queryClient)}>
         <ExchangeContainer />
       </HydrationBoundary>

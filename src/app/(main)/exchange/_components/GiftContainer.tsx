@@ -5,8 +5,7 @@ import useGiftsQuery from "@/stores/queries/exchange/useGiftsQuery";
 
 function GiftContainer() {
   const { data: gifts, isPending } = useGiftsQuery();
-  return <article>{gifts && <GiftList gifts={gifts} />}s</article>;
+  return <article>{gifts && <GiftList gifts={gifts} />}</article>;
 }
 
 export default GiftContainer;
- 

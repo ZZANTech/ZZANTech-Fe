@@ -14,67 +14,76 @@ function NavCategoryMobile() {
     <>
       {/* 모바일 네비게이션 */}
       <nav className="text-xs fixed bottom-0 w-full bg-white p-4 flex justify-around border-t border-gray-200 lg:hidden z-10">
-        <Link href="/" className={clsx("flex flex-col items-center", { "text-orange-500": pathname === "/" })}>
+        <Link
+          href="/"
+          className={clsx("flex flex-col items-center", pathname === "/" ? "text-orange-500" : "text-gray-500")}
+        >
           <Image
             src="/icons/home/home.svg"
-            alt="짠-소비구경"
+            alt="home"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname === "/" })}
           />
-          <span>홈</span>
+          <span className="mt-1">홈</span>
         </Link>
         <Link
           href="/boards/votes"
-          className={clsx("flex flex-col items-center", { "text-orange-500": pathname.startsWith("/boards/votes") })}
+          className={clsx(
+            "flex flex-col items-center",
+            pathname === "/boards/votes" ? "text-orange-500" : "text-gray-500"
+          )}
         >
           <Image
             src="/icons/home/view.svg"
-            alt="짠-소비구경"
+            alt="zzan-view"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname.startsWith("/boards/votes") })}
           />
-          <span>짠소비구경</span>
+          <span className="mt-1">짠소비구경</span>
         </Link>
         <Link
           href="/boards/knowhow"
-          className={clsx("flex flex-col items-center", { "text-orange-500": pathname.startsWith("/boards/knowhow") })}
+          className={clsx(
+            "flex flex-col items-center",
+            pathname === "/boards/knowhow" ? "text-orange-500" : "text-gray-500"
+          )}
         >
           <Image
             src="/icons/home/knowhow.svg"
-            alt="짠-노하우"
+            alt="zzan-knowhow"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname.startsWith("/boards/knowhow") })}
           />
-          <span>짠노하우</span>
+          <span className="mt-1">짠노하우</span>
         </Link>
         <Link
           href="/chat"
-          className={clsx("flex flex-col items-center", { "text-orange-500": pathname.startsWith("/chat") })}
+          className={clsx("flex flex-col items-center", pathname === "/chat" ? "text-orange-500" : "text-gray-500")}
         >
           <Image
             src="/icons/home/live.svg"
-            alt="살까말까"
+            alt="livechat"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname.startsWith("/chat") })}
           />
-          <span>살까말까</span>
+          <span className="mt-1">살까말까</span>
         </Link>
         <Link
           href="/exchange"
-          className={clsx("flex flex-col items-center", { "text-orange-500": pathname.startsWith("/exchange") })}
+          className={clsx("flex flex-col items-center", pathname === "/exchange" ? "text-orange-500" : "text-gray-500")}
         >
           <Image
-            src="/icons/home/my.svg"
-            alt="마이페이지"
+            src="/icons/home/point.svg"
+            alt="pointmall"
             width={24}
             height={24}
             className={clsx({ "filter-orange": pathname.startsWith("/exchange") })}
           />
-          <span>마이페이지</span>
+          <span className="mt-1">포인트몰</span>
         </Link>
       </nav>
     </>

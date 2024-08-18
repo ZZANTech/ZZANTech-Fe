@@ -8,7 +8,7 @@ const QuizUi = () => {
   const { hasTakenQuiz, isPending } = useUserContext();
 
   return (
-    <div className="w-full h-[120px] lg:h-[250px] bg-gray-900 rounded-[20px] px-6 py-7 flex flex-col justify-between items-center">
+    <div className="relative w-full h-[120px] lg:h-[250px] bg-gray-900 rounded-[20px] px-6 py-7 flex flex-col justify-between items-center">
       <section className="w-full flex justify-between items-center px-1">
         <div className="text-main mt-[-40px]">
           {isPending ? (
@@ -56,7 +56,7 @@ const QuizUi = () => {
           />
         </div>
       </section>
-      <div className="relative w-[312px] h-[56px] flex items-center justify-center">
+      <div className="w-[312px] h-[56px] flex items-center justify-center">
         {isPending ? (
           <div></div>
         ) : hasTakenQuiz ? (
@@ -64,7 +64,7 @@ const QuizUi = () => {
             size="quizResponsive"
             weight="semibold"
             disabled
-            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto top-[-25px] right-[-3px] rounded-[100px] lg:rounded-lg lg:cursor-not-allowed lg:text-gray-400 lg:bg-gray-200"
+            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto bottom-4 right-5 lg:bottom-0 rounded-[100px] lg:rounded-lg lg:cursor-not-allowed lg:text-gray-400 lg:bg-gray-200"
           >
             퀴즈 완료
           </Button>
@@ -73,7 +73,7 @@ const QuizUi = () => {
             size="quizResponsive"
             weight="semibold"
             href="/quiz"
-            className="py-1 px-2 absolute lg:relative lg:top-auto lg:right-auto top-[-25px] right-[-3px] rounded-[100px] lg:rounded-lg"
+            className="py-1 px-2 absolute lg:relative lg:top-auto lg:bottom-0 lg:right-auto bottom-4 right-5 rounded-[100px] lg:rounded-lg"
           >
             퀴즈 풀기
           </Button>

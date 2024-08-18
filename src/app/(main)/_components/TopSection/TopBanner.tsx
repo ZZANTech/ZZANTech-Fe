@@ -31,7 +31,7 @@ function TopBanner() {
               alt="banner"
               width={700}
               height={250}
-              loading="eager"
+              priority
               quality={50}
               className="object-cover hidden lg:block"
             />
@@ -41,7 +41,8 @@ function TopBanner() {
               src="/home/banner_mobile.png"
               alt="banner"
               fill
-              loading="eager"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
               quality={50}
               className="object-fill object-center w-full h-full"
             />
@@ -54,7 +55,7 @@ function TopBanner() {
               alt="banner"
               width={700}
               height={250}
-              loading="eager"
+              priority
               className="object-cover hidden lg:block"
             />
           </Link>
@@ -63,7 +64,8 @@ function TopBanner() {
               src="/home/banner_mobile2.png"
               alt="banner"
               fill
-              loading="eager"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
               className="object-fill object-center w-full h-full"
             />
           </Link>
@@ -75,7 +77,7 @@ function TopBanner() {
               alt="banner"
               width={700}
               height={250}
-              loading="eager"
+              priority
               className="object-cover hidden lg:block"
             />
           </Link>
@@ -84,7 +86,8 @@ function TopBanner() {
               src="/home/banner_mobile3.png"
               alt="banner"
               fill
-              loading="eager"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              priority
               className="object-fill object-center w-full h-full"
             />
           </Link>

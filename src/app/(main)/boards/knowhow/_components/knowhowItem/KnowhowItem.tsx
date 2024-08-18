@@ -19,6 +19,7 @@ dayjs.locale("ko");
 
 type KnowhowItemProps = {
   knowhow: TKnowhow;
+  isDetailPage?: boolean;
 };
 
 function removeHTMLTags(content: string) {
@@ -32,11 +33,12 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
   const { title, content, nickname, created_at, comments_count, likes_count, image_urls, knowhow_postId } = knowhow;
   const formattedCreatedAt = dayjs(created_at).tz("Asia/Seoul").fromNow();
   const textOnlyContent = removeHTMLTags(content);
-  console.log(title);
+
   return (
     <li
-      className="w-full h-[140px] py-5 pb-4
-     md:h-[240px] border-t border-gray-900  md:py-8
+      className="
+     w-full h-[140px] py-5 pb-4 border-b border-gray-900
+     md:h-[240px] md:py-8
      "
     >
       <Link className="flex h-full " href={`/boards/knowhow/${knowhow.knowhow_postId}`}>

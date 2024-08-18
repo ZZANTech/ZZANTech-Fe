@@ -3,6 +3,51 @@
 @tailwind utilities;
 @import "react-quill/dist/quill.snow.css";
 
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/subset-Pretendard-Regular.woff2") format("woff2"),
+  url("/fonts/subset-Pretendard-Regular.woff") format("woff"),
+  url("/fonts/subset-Pretendard-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/subset-Pretendard-light.woff2") format("woff2"),
+  url("/fonts/subset-Pretendard-light.woff") format("woff"),
+  url("/fonts/subset-Pretendard-light.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/subset-Pretendard-SemiBold.woff2") format("woff2"),
+  url("/fonts/subset-Pretendard-SemiBold.woff") format("woff"),
+  url("/fonts/subset-Pretendard-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/subset-Pretendard-Bold.woff2") format("woff2"),
+  url("/fonts/subset-Pretendard-Bold.woff") format("woff"),
+  url("/fonts/subset-Pretendard-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/subset-Pretendard-ExtraBold.woff2") format("woff2"),
+  url("/fonts/subset-Pretendard-ExtraBold.woff") format("woff"),
+  url("/fonts/subset-Pretendard-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-display: swap;
+}
+
+body {
+  font-family: "Pretendard", sans-serif;
+}
+
 body *:not([class*="letter-"]) {
   letter-spacing: var(--tw-letter-spacing-tight-korean, -0.025em);
 }
@@ -47,17 +92,11 @@ body *:not([class*="letter-"]) {
   .mainLinkButtonActive {
     @apply border-b-2 border-gray-800;
   }
-  /* .auth-input-short {
+  .auth-input-short {
     @apply w-[232px] h-11 p-4 mb-3 border rounded-md;
-  } */
+  }
   .auth-input {
     @apply w-80 h-11 p-4 mt-2 mb-1 border rounded-md;
-  }
-  .errors-message {
-    @apply text-info-red text-sm mt-1;
-  }
-  .nickname-modal-button {
-    @apply border border-black w-[190px] h-[60px] px-5 py-3 rounded-lg text-xl font-semibold;
   }
   .text-shadow {
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
@@ -75,8 +114,7 @@ body *:not([class*="letter-"]) {
     padding-left: 3px;
   }
   .filter-orange {
-    filter: brightness(0) saturate(100%) invert(41%) sepia(90%) saturate(7450%) hue-rotate(345deg) brightness(92%)
-      contrast(105%);
+  filter: brightness(0) saturate(100%) invert(41%) sepia(90%) saturate(7450%) hue-rotate(345deg) brightness(92%) contrast(105%);
   }
 }
 

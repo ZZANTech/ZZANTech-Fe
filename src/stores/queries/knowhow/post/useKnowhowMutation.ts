@@ -1,4 +1,4 @@
-import { SORT_LATEST, SEARCH_TITLECONTENT, ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
+import { SORT_LATEST, SEARCH_TITLECONTENT, WEB_ITEMS_PER_PAGE } from "@/app/(main)/boards/knowhow/_constants";
 import { deleteKnowhow, postKnowhow, patchKnowhow } from "@/apis/knowhow";
 import { TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
@@ -11,7 +11,7 @@ export const DEFAULT_KNOWHOWS_QUERY_KEY = [
   "knowhows",
   {
     page: 1,
-    limit: ITEMS_PER_PAGE,
+    limit: WEB_ITEMS_PER_PAGE,
     sortOrder: SORT_LATEST,
     selectedSearchOption: SEARCH_TITLECONTENT,
     searchKeyword: ""

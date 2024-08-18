@@ -10,8 +10,10 @@ export const getGifts = async () => {
   return gifts;
 };
 
-export const getClaims = async (userId: Tables<"users">["userId"]) => {
-  const res = await fetch(`${BASE_URL}/api/exchange/${userId}`, { cache: "no-store" });
+export const getClaims = async (currentPage: number, itemsPerPage: number, userId: Tables<"users">["userId"]) => {
+  const res = await fetch(`${BASE_URL}/api/exchange/${userId}?page=${currentPage}&limit=${itemsPerPage}`, {
+    cache: "no-store"
+  });
   if (!res.ok) {
     throw new Error();
   }

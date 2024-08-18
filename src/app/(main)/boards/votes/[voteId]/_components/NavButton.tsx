@@ -33,7 +33,7 @@ function NavButton({ vote, direction }: NavButtonProps) {
   const buttonClass = direction === "next" ? "ml-7" : "mr-7";
 
   return (
-    <div className={buttonClass}>
+    <div className={`hidden md:block ${buttonClass}`}>
       <button
         onClick={handleClick}
         onMouseEnter={() => setIsHovered(true)}
