@@ -45,6 +45,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
     "husky": "^9.1.0",
+    "next-pwa": "^5.6.0",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "supabase": "^1.183.5",
