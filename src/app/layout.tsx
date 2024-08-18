@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { ReactNode } from "react";
 import Providers from "@/provider/Providers";
@@ -9,10 +9,27 @@ export const metadata: Metadata = {
   title: "ZZAN",
   description: "짠테크를 통해 스마트한 소비와 절약을 실현하세요!",
   icons: {
-    icon: "/favicon.png"
-  }
+    icon: "/favicon.png",
+    apple: "/icons/pwa/180.png"
+  },
+  manifest: "/manifest.json",
+  keywords: ["zzan", "짠테크", "절약", "스마트 소비", "PWA"],
+  authors: [
+    {
+      name: "ZZAN Team",
+      url: "https://www.zzan-tech.com"
+    }
+  ]
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: "main"
+};
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">
