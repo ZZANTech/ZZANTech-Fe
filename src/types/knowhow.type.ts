@@ -38,3 +38,14 @@ export type TUpdateKnowhowLikeParams = {
   likeData: Partial<Tables<"knowhow_likes">>;
   likeCountData: TKnowhowLikesCountResponse;
 };
+
+export type TPreviousKnowhowsResponse = {
+  posts: TKnowhow[];
+  nextOffset: number;
+  hasMore: boolean;
+};
+
+export type TPreviousKnowhowsData = {
+  pageParams: number[];
+  pages: TPreviousKnowhowsResponse[];
+};

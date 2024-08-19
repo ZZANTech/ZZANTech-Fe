@@ -39,6 +39,18 @@ export const getLikedKnowhows = async (userId: Tables<"users">["userId"], page: 
   return knowhows;
 };
 
+export const getPreviousKnowhows = async (
+  knowhowId: Tables<"knowhow_posts">["knowhow_postId"],
+  limit: number,
+  offset: number
+) => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}/previous?limit=${limit}&offset=${offset}`);
+  const data = await res.json();
+  const prevKnowhows = data;
+
+  return prevKnowhows;
+};
+
 export const getKnowhow = async (knowhowId: TKnowhow["knowhow_postId"]) => {
   const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}`, {
     cache: "no-store"
