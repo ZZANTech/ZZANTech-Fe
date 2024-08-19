@@ -96,18 +96,18 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
             <div className="h-full flex items-center">
               <div
                 className="
+                relative
               w-[100px] h-[100px]
               md:w-[128px] md:h-[128px]
               "
               >
                 <Image
-                  className="object-cover rounded-lg"
+                  className="object-contain rounded-lg"
                   priority
                   loading="eager"
                   src={image_urls[0]}
                   alt={title}
-                  width={isWideScreen ? 128 : 100}
-                  height={isWideScreen ? 128 : 100}
+                  fill
                 />
               </div>
             </div>

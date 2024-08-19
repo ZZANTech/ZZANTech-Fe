@@ -178,6 +178,7 @@ export type Database = {
         Row: {
           content: string;
           created_at: string;
+          is_banned: boolean;
           knowhow_commentId: number;
           knowhow_post_id: number;
           updated_at: string | null;
@@ -186,6 +187,7 @@ export type Database = {
         Insert: {
           content: string;
           created_at?: string;
+          is_banned?: boolean;
           knowhow_commentId?: number;
           knowhow_post_id: number;
           updated_at?: string | null;
@@ -194,6 +196,7 @@ export type Database = {
         Update: {
           content?: string;
           created_at?: string;
+          is_banned?: boolean;
           knowhow_commentId?: number;
           knowhow_post_id?: number;
           updated_at?: string | null;
@@ -257,6 +260,7 @@ export type Database = {
           content: string;
           created_at: string;
           image_urls: Json | null;
+          is_banned: boolean;
           knowhow_postId: number;
           title: string;
           updated_at: string | null;
@@ -266,6 +270,7 @@ export type Database = {
           content: string;
           created_at?: string;
           image_urls?: Json | null;
+          is_banned?: boolean;
           knowhow_postId?: number;
           title: string;
           updated_at?: string | null;
@@ -275,6 +280,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           image_urls?: Json | null;
+          is_banned?: boolean;
           knowhow_postId?: number;
           title?: string;
           updated_at?: string | null;
@@ -357,6 +363,7 @@ export type Database = {
           email: string;
           nickname: string;
           provider: string;
+          role: string;
           total_point: number;
           updated_at: string | null;
           userId: string;
@@ -368,6 +375,7 @@ export type Database = {
           email: string;
           nickname: string;
           provider: string;
+          role?: string;
           total_point?: number;
           updated_at?: string | null;
           userId?: string;
@@ -379,6 +387,7 @@ export type Database = {
           email?: string;
           nickname?: string;
           provider?: string;
+          role?: string;
           total_point?: number;
           updated_at?: string | null;
           userId?: string;
@@ -397,6 +406,7 @@ export type Database = {
         Row: {
           content: string;
           created_at: string;
+          is_banned: boolean;
           updated_at: string | null;
           user_id: string;
           vote_commentId: number;
@@ -405,6 +415,7 @@ export type Database = {
         Insert: {
           content: string;
           created_at?: string;
+          is_banned?: boolean;
           updated_at?: string | null;
           user_id: string;
           vote_commentId?: number;
@@ -413,6 +424,7 @@ export type Database = {
         Update: {
           content?: string;
           created_at?: string;
+          is_banned?: boolean;
           updated_at?: string | null;
           user_id?: string;
           vote_commentId?: number;
@@ -479,6 +491,7 @@ export type Database = {
           content: string;
           created_at: string;
           image_url: string;
+          is_banned: boolean;
           product_name: string;
           product_price: number;
           title: string;
@@ -490,6 +503,7 @@ export type Database = {
           content: string;
           created_at?: string;
           image_url: string;
+          is_banned?: boolean;
           product_name: string;
           product_price?: number;
           title: string;
@@ -501,6 +515,7 @@ export type Database = {
           content?: string;
           created_at?: string;
           image_url?: string;
+          is_banned?: boolean;
           product_name?: string;
           product_price?: number;
           title?: string;
@@ -540,6 +555,70 @@ export type Database = {
           nickname: string;
           likes_count: number;
           comments_count: number;
+        }[];
+      };
+      get_combined_comments:
+        | {
+            Args: {
+              lim: number;
+              off: number;
+            };
+            Returns: {
+              comment_id: number;
+              content: string;
+              created_at: string;
+              updated_at: string;
+              post_id: number;
+              user_id: string;
+              is_banned: boolean;
+              type: string;
+              nickname: string;
+            }[];
+          }
+        | {
+            Args: {
+              lim: number;
+              off: number;
+              search_option: string;
+              search_keyword: string;
+            };
+            Returns: {
+              comment_id: number;
+              content: string;
+              created_at: string;
+              updated_at: string;
+              post_id: number;
+              user_id: string;
+              is_banned: boolean;
+              type: string;
+              nickname: string;
+              total_count: number;
+            }[];
+          };
+      get_combined_comments_count: {
+        Args: {
+          search_option: string;
+          search_keyword: string;
+        };
+        Returns: number;
+      };
+      get_filtered_gift_claims: {
+        Args: {
+          lim: number;
+          off: number;
+          search_option: string;
+          search_keyword: string;
+        };
+        Returns: {
+          gift_claimId: number;
+          created_at: string;
+          is_sent: boolean;
+          sent_at: string;
+          gift_name: string;
+          nickname: string;
+          email: string;
+          user_id: string;
+          total_count: number;
         }[];
       };
       get_knowhow_posts: {
@@ -672,6 +751,26 @@ export type Database = {
           total_count: number;
         }[];
       };
+      get_previous_knowhows: {
+        Args: {
+          knowhow_id: number;
+          limit_param: number;
+          offset_param: number;
+        };
+        Returns: {
+          knowhow_postid: number;
+          title: string;
+          content: string;
+          post_created_at: string;
+          updated_at: string;
+          user_id: string;
+          image_urls: Json;
+          is_banned: boolean;
+          nickname: string;
+          comments_count: number;
+          likes_count: number;
+        }[];
+      };
       get_recent_posts: {
         Args: {
           days: number;
@@ -688,6 +787,21 @@ export type Database = {
           nickname: string;
           likes_count: number;
           comments_count: number;
+        }[];
+      };
+      get_sorted_gift_claims: {
+        Args: {
+          offset_param: number;
+          limit_param: number;
+        };
+        Returns: {
+          gift_claim_id: number;
+          is_sent: boolean;
+          created_at: string;
+          sent_at: string;
+          gift_name: string;
+          nickname: string;
+          email: string;
         }[];
       };
       get_top_knowhows: {
@@ -792,6 +906,22 @@ export type Database = {
           points_to_add: number;
         };
         Returns: undefined;
+      };
+      search_gift_claims: {
+        Args: {
+          search_option: string;
+          search_keyword: string;
+          page: number;
+          limit_value: number;
+        };
+        Returns: {
+          id: string;
+          created_at: string;
+          is_sent: boolean;
+          gift_name: string;
+          nickname: string;
+          email: string;
+        }[];
       };
     };
     Enums: {
