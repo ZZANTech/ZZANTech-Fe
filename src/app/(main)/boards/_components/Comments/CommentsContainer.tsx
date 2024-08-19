@@ -53,15 +53,16 @@ function CommentsContainer({ postId, board }: CommentsContainerProps) {
         <div className="w-full text-black text-lg font-normal leading-[27px]">댓글 {totalCommentsCount}</div>
       </div>
       <CommentForm postId={postId} board={board} />
-      {totalCommentsCount > 0 && <CommentsList comments={comments} board={board} />}
-      {totalCommentsCount > pageSize && hasNextPage && (
-        <button
-          onClick={loadMoreComments}
-          className="w-full h-11 mt-12 self-center items-center rounded-lg border border-[#1b1b1b] text-sm font-normal py-2 px-4"
-          disabled={isFetchingNextPage}
-        >
-          {isFetchingNextPage ? "로딩 중..." : "더 보기"}
-        </button>
+      {totalCommentsCount > 0 && (
+        <CommentsList
+          comments={comments}
+          board={board}
+          loadMoreComments={loadMoreComments}
+          hasNextPage={hasNextPage}
+          isFetchingNextPage={isFetchingNextPage}
+          totalCommentsCount={totalCommentsCount}
+          pageSize={pageSize}
+        />
       )}
     </section>
   );
