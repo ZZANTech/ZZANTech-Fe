@@ -28,3 +28,9 @@ export type TVoteComment = Tables<"vote_comments"> & {
   nickname?: Tables<"users">["nickname"];
   badge_url?: Tables<"users">["badge_url"];
 };
+
+export type TVoteCommentsResponse = {
+  comments: TVoteComment[];
+  totalCommentsCount: number;
+  nextPage?: number | null;
+};

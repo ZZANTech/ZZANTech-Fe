@@ -11,9 +11,10 @@ import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 type CommentFormProps = {
   postId: number;
   board: "knowhow" | "vote";
+  onCommentSubmit: () => void;
 };
 
-function CommentForm({ postId, board }: CommentFormProps) {
+function CommentForm({ postId, board, onCommentSubmit }: CommentFormProps) {
   const { user } = useUserContext();
   const { displayDefaultAlert, displayLoginAlert } = useAlertModal();
 
@@ -49,6 +50,8 @@ function CommentForm({ postId, board }: CommentFormProps) {
           await addVoteComment(newComment);
         }
         commentInputRef.current.value = "";
+
+        onCommentSubmit();
       } catch (error) {
         displayDefaultAlert("댓글 등록에 실패했습니다.");
       }
