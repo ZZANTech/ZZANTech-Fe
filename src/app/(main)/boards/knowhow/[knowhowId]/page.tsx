@@ -36,7 +36,7 @@ async function KnowhowDetailPage({ params: { knowhowId } }: KnowhowDetailPagePro
       <PostContent knowhow={knowhow} />
       <PostActions knowhow={knowhow} />
       <CommentsContainer postId={knowhowId} board="knowhow" />
-      <ConditionalKnowhowContainer />
+      <ConditionalKnowhowContainer knowhowId={knowhowId} />
     </main>
   );
 }

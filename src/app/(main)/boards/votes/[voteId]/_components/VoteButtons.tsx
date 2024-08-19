@@ -24,7 +24,6 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
 
   const [voteType, setVoteType] = useState<"GOOD" | "BAD" | null>(null);
   const [optimisticVoteData, setOptimisticVoteData] = useState<TVoteLikeCountsResponse>(voteLikes);
-
   useEffect(() => {
     if (voteLikes.userLikeStatus) {
       setVoteType(voteLikes.userLikeStatus === "up_vote" ? "GOOD" : "BAD");
