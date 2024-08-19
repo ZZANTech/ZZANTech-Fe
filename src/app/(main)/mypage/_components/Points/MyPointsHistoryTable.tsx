@@ -3,31 +3,30 @@
 import { useUserContext } from "@/provider/contexts/UserContext";
 import usePointsQuery from "@/stores/queries/usePointsQuery";
 import { formatTime } from "@/app/(main)/boards/_utils";
-import { Suspense, useState } from "react";
+import { useEffect } from "react";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
-import { useSearchParams } from "next/navigation";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
+import usePagination from "@/hooks/usePagination";
 
 function MyPointsHistoryTable() {
   const { user } = useUserContext();
   const userId = user?.userId ?? "";
 
-  const searchParams = useSearchParams();
-
-  const [currentPage, setCurrentPage] = useState<number>(() => parseInt(searchParams.get("page") || "1", 10));
+  const { currentPage, handlePageChange } = usePagination();
   const itemsPerPage = 10;
-  const { data: response, isLoading } = usePointsQuery(currentPage, itemsPerPage, userId);
+  const { data: response, isLoading, refetch } = usePointsQuery(currentPage, itemsPerPage, userId);
   const points = response?.data || [];
   const totalItems = response?.totalCount || 0;
 
-  const handlePageChange = (page: number) => setCurrentPage(page);
+  useEffect(() => {
+    refetch();
+  }, [currentPage, userId]);
 
   if (isLoading) {
     return <SmallLoadingSpinner />;
   }
 
-  if (!points || points.length === 0) {
+  if (!points.length) {
     return <div>포인트 내역이 존재하지 않습니다.</div>;
   }
 
@@ -37,16 +36,19 @@ function MyPointsHistoryTable() {
         <table className="w-full border-collapse">
           <thead className="border-t border-gray-900 border-basic">
             <tr className="flex w-full justify-between items-center">
-              <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">날짜</th>
-              <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">
-                <span className="md:hidden">적립</span>
-                <span className="hidden md:inline">적립 포인트</span>
-              </th>
-              <th className="w-1/5 text-center text-gray-800 text-base font-semibold py-4">
-                <span className="md:hidden">사용</span>
-                <span className="hidden md:inline">사용 포인트</span>
-              </th>
-              <th className="w-2/5 text-center text-gray-800 text-base font-semibold py-4">내용</th>
+              {["날짜", "적립 포인트", "사용 포인트", "내용"].map((header, index) => (
+                <th
+                  key={header}
+                  className={`${
+                    index === 3 ? "w-2/5" : "w-1/5"
+                  } text-center text-gray-800 text-base font-semibold py-4`}
+                >
+                  <span className={index < 2 ? "hidden md:inline" : ""}>
+                    {index === 1 ? "적립" : index === 2 ? "사용" : header}
+                  </span>
+                  {index < 2 && <span className="md:hidden">{header}</span>}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="flex-col w-full">
@@ -75,9 +77,7 @@ function MyPointsHistoryTable() {
           </tbody>
         </table>
       </div>
-      <Suspense>
-        <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} onPageChange={handlePageChange} />
-      </Suspense>
+      <Pagination itemsPerPage={itemsPerPage} totalItems={totalItems} onPageChange={handlePageChange} />
     </>
   );
 }
