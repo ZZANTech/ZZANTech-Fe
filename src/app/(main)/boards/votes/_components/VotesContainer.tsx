@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import { useRouter } from "next/navigation";
 import useVotesQuery from "@/stores/queries/vote/post/useVotesQuery";
 import Button from "@/components/Button/Button";
 import SortButtons from "@/app/(main)/boards/votes/_components/SortButtons";
 import VotesList from "@/app/(main)/boards/votes/_components/VotesList";
-import { useRouter } from "next/navigation";
-import Image from "next/image";
 import SkeletonVoteList from "@/app/(main)/boards/votes/_components/SkeletonVoteList";
+import Image from "next/image";
 
 function VotesContainer() {
   const router = useRouter();
@@ -26,7 +26,7 @@ function VotesContainer() {
   };
 
   const lastVoteElementRef = useCallback(
-    (node: HTMLDivElement) => {
+    (node: HTMLLIElement) => {
       if (isLoading) {
         return;
       }
@@ -47,19 +47,20 @@ function VotesContainer() {
 
   return (
     <section className="w-full flex flex-col gap-3 md:gap-6">
-      <div className="justify-between items-end inline-flex">
+      <div className="flex justify-between items-end">
         <SortButtons sortOrder={sortOrder} handleSortOrderChange={handleSortOrderChange} />
         <Button
           onClick={handleWriteClick}
           variant="main"
           size="medium"
           weight="semibold"
-          className="gap-2.5 flex justify-center items-center hidden md:flex"
+          className="gap-2.5 hidden md:flex justify-center items-center"
         >
-          <Image src="/icons/mypage/pencil_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
+          <Image src="/icons/mypage/pencil_white.png" width={20} height={20} alt="글쓰기 아이콘" className="w-5 h-5" />
           글쓰기
         </Button>
       </div>
+
       {isLoading ? (
         <SkeletonVoteList />
       ) : (

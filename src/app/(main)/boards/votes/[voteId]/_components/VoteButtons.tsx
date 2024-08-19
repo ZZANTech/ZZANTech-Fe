@@ -46,25 +46,9 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
     };
 
     const updateVoteData = (prevData: TVoteLikeCountsResponse): TVoteLikeCountsResponse => {
-      let newUpvoteCount = prevData.upvoteCount;
-      let newDownvoteCount = prevData.downvoteCount;
-      let newTotalVoteCount = prevData.totalVoteCount;
-
-      if (voteType === null) {
-        newTotalVoteCount += 1;
-      } else {
-        if (voteType === "GOOD") {
-          newUpvoteCount -= 1;
-        } else if (voteType === "BAD") {
-          newDownvoteCount -= 1;
-        }
-      }
-
-      if (type === "GOOD") {
-        newUpvoteCount += 1;
-      } else {
-        newDownvoteCount += 1;
-      }
+      const newUpvoteCount = prevData.upvoteCount + (type === "GOOD" ? 1 : voteType === "GOOD" ? -1 : 0);
+      const newDownvoteCount = prevData.downvoteCount + (type === "BAD" ? 1 : voteType === "BAD" ? -1 : 0);
+      const newTotalVoteCount = prevData.totalVoteCount + (voteType === null ? 1 : 0);
 
       return {
         ...prevData,
@@ -75,17 +59,7 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
       };
     };
 
-    setOptimisticVoteData((prevData) => {
-      if (prevData) {
-        return updateVoteData(prevData);
-      }
-      return {
-        upvoteCount: type === "GOOD" ? 1 : 0,
-        downvoteCount: type === "BAD" ? 1 : 0,
-        totalVoteCount: 1,
-        userLikeStatus: type === "GOOD" ? "up_vote" : "down_vote"
-      };
-    });
+    setOptimisticVoteData((prevData) => (prevData ? updateVoteData(prevData) : initialVoteLikes));
     setVoteType(type);
 
     try {
@@ -104,16 +78,35 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
   };
 
   const upvotePercentage =
-    optimisticVoteData && optimisticVoteData.totalVoteCount > 0
+    optimisticVoteData.totalVoteCount > 0
       ? (optimisticVoteData.upvoteCount / optimisticVoteData.totalVoteCount) * 100
       : 0;
   const downvotePercentage =
-    optimisticVoteData && optimisticVoteData.totalVoteCount > 0
+    optimisticVoteData.totalVoteCount > 0
       ? (optimisticVoteData.downvoteCount / optimisticVoteData.totalVoteCount) * 100
       : 0;
 
-  const upvoteCount = optimisticVoteData.upvoteCount;
-  const downvoteCount = optimisticVoteData.downvoteCount;
+  const renderButton = (type: "GOOD" | "BAD", percentage: number, count: number, icon: string, label: string) => (
+    <Button
+      variant={voteType === type ? "main" : "trueBlack"}
+      size="xl"
+      textSize="xl"
+      weight="semibold"
+      className={`flex-1 h-[60px] md:h-[76px] px-0 py-0 rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px] ${
+        voteType === type ? "text-gray-900" : "text-gray-300"
+      }`}
+      onClick={() => handleVote(type)}
+    >
+      {voteType === null ? (
+        <>
+          <Image src={icon} alt={`${label} 이미지`} width={32} height={32} className="mr-2" />
+          {label}
+        </>
+      ) : (
+        `${percentage.toFixed(0)}% (${count}명)`
+      )}
+    </Button>
+  );
 
   useEffect(() => {
     return () => {
@@ -123,61 +116,8 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
 
   return (
     <div className="self-stretch flex justify-between items-center gap-4">
-      {voteType === null ? (
-        <>
-          <Button
-            variant="trueBlack"
-            size="xl"
-            textSize="xl"
-            weight="semibold"
-            onClick={() => handleVote("GOOD")}
-            className="flex-1 h-[60px] md:h-[76px] rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px]"
-          >
-            <Image src="/icons/vote/upvote.png" alt="GOOD 이미지" width={32} height={32} className="mr-2" />
-            GOOD
-          </Button>
-
-          <Button
-            variant="trueBlack"
-            size="xl"
-            textSize="xl"
-            weight="semibold"
-            onClick={() => handleVote("BAD")}
-            className="flex-1 h-[60px] md:h-[76px] rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px]"
-          >
-            <Image src="/icons/vote/downvote.png" alt="BAD 이미지" width={32} height={32} className="mr-2" />
-            BAD
-          </Button>
-        </>
-      ) : (
-        <>
-          <Button
-            variant={voteType === "GOOD" ? "main" : "trueBlack"}
-            size="xl"
-            textSize="xl"
-            weight="semibold"
-            className={`flex-1 h-[60px] md:h-[76px] px-0 py-0 rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px] ${
-              voteType === "GOOD" ? "text-gray-900" : "text-gray-300"
-            }`}
-            onClick={() => handleVote("GOOD")}
-          >
-            {`${upvotePercentage.toFixed(0)}% (${upvoteCount}명)`}
-          </Button>
-
-          <Button
-            variant={voteType === "BAD" ? "main" : "trueBlack"}
-            size="xl"
-            textSize="xl"
-            weight="semibold"
-            className={`flex-1 h-[60px] md:h-[76px] px-0 py-0 rounded-xl shadow flex items-center justify-center min-w-[120px] md:min-w-[150px] ${
-              voteType === "BAD" ? "text-gray-900" : "text-gray-300"
-            }`}
-            onClick={() => handleVote("BAD")}
-          >
-            {`${downvotePercentage.toFixed(0)}% (${downvoteCount}명)`}
-          </Button>
-        </>
-      )}
+      {renderButton("GOOD", upvotePercentage, optimisticVoteData.upvoteCount, "/icons/vote/upvote.png", "GOOD")}
+      {renderButton("BAD", downvotePercentage, optimisticVoteData.downvoteCount, "/icons/vote/downvote.png", "BAD")}
     </div>
   );
 }
