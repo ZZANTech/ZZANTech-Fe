@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import React, { useEffect } from "react";
 import { TLoginInputs } from "@/types/auth.types";
@@ -12,6 +12,7 @@ import { BASE_URL } from "@/constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { revalidateRoute } from "@/utils/revalidation";
 import { useModal } from "@/provider/contexts/ModalContext";
+import useAlertModal from "@/hooks/useAlertModal";
 
 function LogInContainer() {
   const router = useRouter();
@@ -46,6 +47,7 @@ function LogInContainer() {
         }
       });
     } catch (error: any) {
+      console.log(error);
       open({ type: "alert", content: error.message });
     }
   };

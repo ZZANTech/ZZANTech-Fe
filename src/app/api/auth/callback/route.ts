@@ -19,9 +19,12 @@ export async function GET(request: Request) {
 
     // 'users' 테이블에 insert
     if (data) {
+      if (data.user?.user_metadata.is_blocked) {
+        await supabase.auth.signOut();
+        return NextResponse.redirect(`${origin}/login/blocked`);
+      }
       const { data: users, error: usersError } = await supabase.from("users").select("*").eq("userId", userId).single();
 
-      console.log("users", users);
       if (users === null) {
         await supabase
           .from("users")

@@ -60,7 +60,12 @@ export const checkDuplicationNickname = async (nickname: string) => {
 
 export const fetchUser = async (): Promise<TUser | null> => {
   const response = await fetch(`${BASE_URL}/api/auth/me`, { cache: "no-store" });
+
   const data = await response.json();
+  console.log(data);
+  // if (!response.ok && response.status === 403) {
+  //   alert(data.error);
+  // }
   return data.users || null;
 };
 

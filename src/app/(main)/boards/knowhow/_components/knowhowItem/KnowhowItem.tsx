@@ -57,7 +57,7 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
             >
               <div className="flex gap-2">
                 <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
-                  <Image className="rounded-full object-cover" src={knowhow.badge_url || ""} alt="profile" fill />
+                  <Image className="object-cover" src={knowhow.badge_url || ""} alt="profile" fill />
                 </div>
                 <span
                   className="
