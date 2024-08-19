@@ -23,13 +23,13 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
   const router = useRouter();
   const modal = useModal();
 
-  const [title, setTitle] = useState<string>(previousContent?.title || "");
-  const [productName, setProductName] = useState<string>(previousContent?.product_name || "");
-  const [productPrice, setProductPrice] = useState<string>(previousContent?.product_price?.toString() || "");
-  const [content, setContent] = useState<string>(previousContent?.content || "");
+  const [title, setTitle] = useState(previousContent?.title || "");
+  const [productName, setProductName] = useState(previousContent?.product_name || "");
+  const [productPrice, setProductPrice] = useState(previousContent?.product_price?.toString() || "");
+  const [content, setContent] = useState(previousContent?.content || "");
   const [image, setImage] = useState<File | null>(null);
-  const [imageUrl, setImageUrl] = useState<string | null>(previousContent?.image_url || null);
-  const [isUploading, setIsUploading] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState(previousContent?.image_url || null);
+  const [isUploading, setIsUploading] = useState(false);
 
   const [errors, setErrors] = useState({
     title: "",
@@ -88,7 +88,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
     if (!validateForm()) return;
     setIsUploading(true);
 
-    let uploadedImageUrl: string | null = imageUrl;
+    let uploadedImageUrl = imageUrl;
 
     if (image) {
       try {
@@ -96,17 +96,15 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         uploadedImageUrl = uploadResponse.url;
       } catch (error) {
         displayDefaultAlert("이미지 업로드에 실패했습니다.");
-        console.log(error);
         setIsUploading(false);
         return;
       }
-      setIsUploading(false);
     }
 
     const newVote = {
       title,
       product_name: productName,
-      product_price: Number(productPrice) ?? undefined,
+      product_price: Number(productPrice),
       content,
       image_url: uploadedImageUrl ?? undefined,
       user_id: user?.userId
@@ -120,13 +118,10 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         await addVote(newVote);
       }
     } catch (error) {
-      if (previousContent) {
-        displayDefaultAlert("게시글 수정에 실패했습니다.");
-      } else {
-        displayDefaultAlert("게시글 작성에 실패했습니다.");
-      }
-      console.log(error);
-      return;
+      const errorMessage = previousContent ? "게시글 수정에 실패했습니다." : "게시글 작성에 실패했습니다.";
+      displayDefaultAlert(errorMessage);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -154,7 +149,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         <label htmlFor="title" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           제목 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col gap-2">
           <input
             type="text"
             id="title"
@@ -172,7 +167,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         <label htmlFor="productName" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           소비 내역 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col gap-2">
           <input
             type="text"
             id="productName"
@@ -190,7 +185,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         <label htmlFor="productPrice" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           구매 가격 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col gap-2">
           <input
             type="text"
             id="productPrice"
@@ -213,7 +208,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         <label htmlFor="content" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           내용 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col gap-2">
           <textarea
             id="content"
             value={content}
@@ -226,11 +221,11 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row items-start gap-1 md:gap-33">
+      <div className="flex flex-col md:flex-row items-start gap-1 md:gap-3">
         <label htmlFor="image" className="w-full md:w-[100px] text-base font-normal text-[#1b1b1b]">
           사진 첨부 <span className="text-[#dc0000]">*</span>
         </label>
-        <div className="w-full md:w-[496px] flex flex-col flex-1 gap-2">
+        <div className="w-full md:w-[496px] flex flex-col gap-2">
           {image || imageUrl ? (
             <div className="relative w-[120px] h-[80px] mb-2">
               <Image
@@ -245,22 +240,18 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
             <div className="text-sm min-w-[92px]">
               {image ? <span>{image.name}</span> : <span>선택된 파일 없음</span>}
             </div>
-            <label className="h-7 px-2 py-1 rounded-lg border border-[#111111] justify-center items-center inline-flex hover:cursor-pointer">
-              <div className="self-stretch justify-center items-center gap-0.5 flex">
-                <span className="w-[60px] h-[18px] text-center text-[#1b1b1b] text-[13px] font-normal leading-[18px]">
-                  파일 선택
-                </span>
-                <input
-                  type="file"
-                  id="image"
-                  accept="image/*"
-                  onChange={(e) => {
-                    setImage(e.target.files?.[0] || null);
-                    setImageUrl(null);
-                  }}
-                  className="hidden"
-                />
-              </div>
+            <label className="h-7 px-2 py-1 rounded-lg border border-[#111111] inline-flex justify-center items-center hover:cursor-pointer">
+              <span className="text-[#1b1b1b] text-[13px] leading-[18px]">파일 선택</span>
+              <input
+                type="file"
+                id="image"
+                accept="image/*"
+                onChange={(e) => {
+                  setImage(e.target.files?.[0] || null);
+                  setImageUrl(null);
+                }}
+                className="hidden"
+              />
             </label>
           </div>
           {errors.image && <span className="text-red-500 text-[13px] leading-[18px]">{errors.image}</span>}

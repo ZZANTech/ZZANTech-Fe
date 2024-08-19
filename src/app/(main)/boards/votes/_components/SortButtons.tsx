@@ -4,20 +4,22 @@ type SortButtonsProps = {
 };
 
 function SortButtons({ sortOrder, handleSortOrderChange }: SortButtonsProps) {
+  const buttons = [
+    { label: "최신 순", order: "latest" },
+    { label: "투표수 순", order: "votes" }
+  ];
+
   return (
-    <nav className="justify-start items-center gap-[11px] flex">
-      <button
-        onClick={() => handleSortOrderChange("latest")}
-        className={`text-base font-semibold ${sortOrder === "latest" ? "text-point" : "text-[#767676]"}`}
-      >
-        최신 순
-      </button>
-      <button
-        onClick={() => handleSortOrderChange("votes")}
-        className={`text-base font-semibold ${sortOrder === "votes" ? "text-point" : "text-[#767676]"}`}
-      >
-        투표수 순
-      </button>
+    <nav className="flex justify-start items-center gap-[11px]">
+      {buttons.map(({ label, order }) => (
+        <button
+          key={order}
+          onClick={() => handleSortOrderChange(order)}
+          className={`text-base font-semibold ${sortOrder === order ? "text-point" : "text-[#767676]"}`}
+        >
+          {label}
+        </button>
+      ))}
     </nav>
   );
 }
