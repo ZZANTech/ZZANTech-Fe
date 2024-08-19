@@ -1,7 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 import React, { useEffect } from "react";
 import { TLoginInputs } from "@/types/auth.types";
@@ -32,8 +32,12 @@ function LogInContainer() {
     const password = data.password as string;
     try {
       await logIn(email, password);
-    } catch (error: any) {
-      open({ type: "alert", content: error.message });
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        console.log("error", error);
+      }
     }
   };
 
@@ -46,20 +50,24 @@ function LogInContainer() {
           redirectTo: `${BASE_URL}/api/auth/callback`
         }
       });
-    } catch (error: any) {
-      console.log(error);
-      open({ type: "alert", content: error.message });
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        console.log("error", error);
+      }
     }
   };
 
   useEffect(() => {
     if (user) {
       revalidateRoute("/", "layout");
+      router.replace("/");
     }
   }, [user, router]);
 
   return (
-    <div className="flex flex-col items-center w-80 mx-auto mt-[60px]">
+    <div className="flex flex-col items-center w-80 mx-auto mt-3 lg:mt-[60px]">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-8">

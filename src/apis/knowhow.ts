@@ -106,11 +106,17 @@ export const deleteKnowhow = async (knowhowId: Tables<"knowhow_posts">["knowhow_
   return knowhows;
 };
 
-export const getKnowhowComments = async (knowhowId: TKnowhow["knowhow_postId"]) => {
-  const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}/comments`);
+export const getKnowhowComments = async (knowhowId: TKnowhow["knowhow_postId"], page: number, pageSize: number) => {
+  const res = await fetch(`${BASE_URL}/api/knowhow/${knowhowId}/comments?page=${page}&pageSize=${pageSize}`);
   const data = await res.json();
-  const comments = data.comments;
-  return comments;
+
+  const nextPage = data.comments.length === pageSize ? page + 1 : null;
+
+  return {
+    comments: data.comments,
+    totalCommentsCount: data.totalCommentsCount,
+    nextPage: nextPage
+  };
 };
 
 export const postKnowhowComment = async (newComment: Partial<Tables<"knowhow_comments">>) => {
