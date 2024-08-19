@@ -34,6 +34,9 @@ function NicknameModal() {
     }
   };
 
+  const handleCloseModal = () => {
+    close();
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col p-11">
       <h2 className="text-2xl font-semibold mb-6">닉네임 변경</h2>
@@ -41,12 +44,12 @@ function NicknameModal() {
         <input
           type="text"
           placeholder="최소 2~7자 한글, 영어, 슷자"
-          className={`w-[400px] h-12 px-4 py-[14px] border rounded-lg ${errors.nickname ? "border-info-red" : ""}`}
+          className={`w-full lg:w-[400px] h-12 px-4 py-[14px] border rounded-lg ${errors.nickname ? "border-info-red" : ""}`}
           maxLength={7}
           {...register("nickname", {
             required: "필수 사항 입니다.",
             pattern: {
-              value: /^(?=.*[a-zA-Z가-힣])[a-zA-Z0-9가-힣]{2,7}$/,
+              value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,7}$/,
               message: "특수문자를 포함하거나 한글 자음/모음 단독 사용은 어렵습니다."
             },
             minLength: 3,
@@ -60,7 +63,9 @@ function NicknameModal() {
       </div>
 
       <div className="flex gap-5 items-center justify-center">
-        <button className="nickname-modal-button">취소</button>
+        <button onClick={handleCloseModal} className="nickname-modal-button">
+          취소
+        </button>
         <button
           className={`nickname-modal-button ${watch("nickname") === "" ? "bg-gray-50 text-gray-400" : "bg-black text-white"} `}
           disabled={watch("nickname") === ""}
