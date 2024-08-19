@@ -1,6 +1,7 @@
 "use client";
 
 import Button from "@/components/Button";
+import { useModal } from "@/provider/contexts/ModalContext";
 import useChangePasswordMutation from "@/stores/queries/auth/useChangePasswordMutation";
 import { TEditPasswordInputs } from "@/types/auth.types";
 import Image from "next/image";
@@ -9,6 +10,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 function EditPassword() {
   const { updatePassword } = useChangePasswordMutation();
+  const { close, open } = useModal();
   const {
     register,
     handleSubmit,
@@ -29,8 +31,12 @@ function EditPassword() {
       const oldPassword = data.oldPassword;
       const newPassword = data.password;
       await updatePassword({ oldPassword, newPassword });
-    } catch (error: any) {
-      return;
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        open({ type: "alert", content: "알 수 없는 오류가 발생했습니다." });
+      }
     }
   };
 

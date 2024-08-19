@@ -2,14 +2,14 @@
 
 import { checkDuplication, checkDuplicationNickname, signUp } from "@/apis/auth";
 import Button from "@/components/Button";
-import useAlertModal from "@/hooks/useAlertModal";
+import { useModal } from "@/provider/contexts/ModalContext";
 import { TInputs } from "@/types/auth.types";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 function SignUpContainer() {
   const router = useRouter();
-  const modal = useAlertModal();
+  const { close, open } = useModal();
   const {
     register,
     handleSubmit,
@@ -21,10 +21,14 @@ function SignUpContainer() {
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
     try {
       await signUp(data);
-      modal.displayDefaultAlert("회원가입 성공!");
+      open({ type: "alert", content: "회원가입 성공!" });
       router.replace("/login");
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        open({ type: "alert", content: "알 수 없는 오류가 발생했습니다." });
+      }
     }
   };
 

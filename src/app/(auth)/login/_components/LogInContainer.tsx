@@ -31,8 +31,12 @@ function LogInContainer() {
     const password = data.password as string;
     try {
       await logIn(email, password);
-    } catch (error: any) {
-      open({ type: "alert", content: error.message });
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        open({ type: "alert", content: "알 수 없는 오류가 발생했습니다." });
+      }
     }
   };
 
@@ -45,8 +49,12 @@ function LogInContainer() {
           redirectTo: `${BASE_URL}/api/auth/callback`
         }
       });
-    } catch (error: any) {
-      open({ type: "alert", content: error.message });
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        open({ type: "alert", content: "알 수 없는 오류가 발생했습니다." });
+      }
     }
   };
 
