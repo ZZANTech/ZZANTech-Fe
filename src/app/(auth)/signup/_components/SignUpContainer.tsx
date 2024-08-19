@@ -29,8 +29,8 @@ function SignUpContainer() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-[348px] flex flex-col items-center mx-auto">
-      <div className="hidden lg:block lg:w-full mt-[102px] mb-12 ">
+    <form onSubmit={handleSubmit(onSubmit)} className="w-[348px] flex flex-col items-center mx-auto mt-5 lg:mt-[102px]">
+      <div className="hidden lg:block lg:w-full mb-12 ">
         <h1 className="flex justify-start text-xl font-semibold">회원가입</h1>
       </div>
 

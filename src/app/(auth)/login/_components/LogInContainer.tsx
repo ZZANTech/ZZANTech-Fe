@@ -57,7 +57,7 @@ function LogInContainer() {
   }, [user, router]);
 
   return (
-    <div className="flex flex-col items-center w-80 mx-auto mt-[60px]">
+    <div className="flex flex-col items-center w-80 mx-auto mt-3 lg:mt-[60px]">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-8">
