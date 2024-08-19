@@ -14,15 +14,15 @@ function PointContainer() {
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col lg:flex-row lg:justify-between">
-        <div className="flex gap-16">
-          <div className="flex flex-col gap-3">
+        <div className="flex justify-between">
+          <div className="w-[148px] flex flex-col gap-3">
             <p className="font-bold text-point leading-5">사용 가능 포인트</p>
             <div className="flex gap-2 items-center">
               <Image src={"/icons/mypage/coin.png"} width={36} height={36} alt="diamond" />
               <p className="text-2xl font-bold">{current_point || 0} P</p>
             </div>
           </div>
-          <div className="flex flex-col gap-3">
+          <div className="w-[148px] flex flex-col gap-3">
             <p className="font-bold text-gray-500 leading-5">누적 포인트</p>
             <div className="h-9 flex items-center">
               <p className="text-2xl font-bold text-gray-500">{total_point || 0} P</p>
