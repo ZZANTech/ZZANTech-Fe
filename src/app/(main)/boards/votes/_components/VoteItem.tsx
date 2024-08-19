@@ -24,7 +24,7 @@ function VoteItem({ vote, sortOrder }: voteItemProps & { sortOrder?: string }) {
             loading="lazy"
           />
         </div>
-        <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start p-3 bg-gray-100 gap-2 flex">
+        <div className="self-stretch grow shrink basis-0 flex-col justify-start items-start p-3 bg-[#f6f5f1] gap-2 flex">
           <div className="self-stretch h-[59px] text-black text-xl font-semibold leading-7 line-clamp-2">{title}</div>
           <div className="self-stretch text-gray-700 text-sm font-normal leading-tight">{nickname}</div>
         </div>
