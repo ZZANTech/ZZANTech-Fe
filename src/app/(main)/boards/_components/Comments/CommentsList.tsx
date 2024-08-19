@@ -13,15 +13,17 @@ type CommentsListProps = {
 
 function CommentsList({ comments, board }: CommentsListProps) {
   return (
-    <ul className={`w-full flex flex-col gap-10 ${board === "knowhow" && comments[0] && "bg-ivory p-6 rounded-2xl"}`}>
-      {comments.map((comment) =>
-        isKnowhowComment(comment) ? (
-          <CommentItem key={comment.knowhow_commentId} comment={comment} board={board} />
-        ) : (
-          <CommentItem key={comment.vote_commentId} comment={comment} board={board} />
-        )
-      )}
-    </ul>
+    <>
+      <ul className={`w-full flex flex-col gap-10 ${board === "knowhow" && comments[0] && "bg-ivory p-6 rounded-2xl"}`}>
+        {comments.map((comment) =>
+          isKnowhowComment(comment) ? (
+            <CommentItem key={comment.knowhow_commentId} comment={comment} board={board} />
+          ) : (
+            <CommentItem key={comment.vote_commentId} comment={comment} board={board} />
+          )
+        )}
+      </ul>
+    </>
   );
 }
 

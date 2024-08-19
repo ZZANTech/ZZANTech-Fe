@@ -23,6 +23,12 @@ export type TKnowhowComment = Tables<"knowhow_comments"> & {
   badge_url?: Tables<"users">["badge_url"];
 };
 
+export type TKnowhowCommentsResponse = {
+  comments: TKnowhowComment[];
+  totalCommentsCount: number;
+  nextPage?: number | null;
+};
+
 export type TResponseStatus = {
   status: number;
   statusText: string;

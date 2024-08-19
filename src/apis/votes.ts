@@ -65,11 +65,17 @@ export const deleteVote = async (voteId: Tables<"vote_posts">["vote_postId"]) =>
   return vote;
 };
 
-export const getVoteComments = async (voteId: TVote["vote_postId"]) => {
-  const res = await fetch(`${BASE_URL}/api/votes/${voteId}/comments`);
+export const getVoteComments = async (voteId: TVote["vote_postId"], page: number, pageSize: number) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${voteId}/comments?page=${page}&pageSize=${pageSize}`);
   const data = await res.json();
-  const comments = data.comments;
-  return comments;
+
+  const nextPage = data.comments.length === pageSize ? page + 1 : null;
+
+  return {
+    comments: data.comments,
+    totalCommentsCount: data.totalCommentsCount,
+    nextPage: nextPage
+  };
 };
 
 export const postVoteComment = async (newComment: Partial<Tables<"vote_comments">>) => {
