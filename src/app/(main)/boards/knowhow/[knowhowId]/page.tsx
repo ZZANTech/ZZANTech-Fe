@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 const ConditionalKnowhowContainer = dynamic(
   () => import("@/app/(main)/boards/knowhow/_components/ConditionalKnowhowContainer"),
   {
-    loading: () => <div className="h-[1665px]"></div>,
+    loading: () => <div className="h-[1490px]"></div>,
     ssr: false
   }
 );
