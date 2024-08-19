@@ -17,11 +17,9 @@ export const metadata: Metadata = {
 
 function VotesPage() {
   return (
-    <>
-      <VoteDescription>
-        <VotesContainer />
-      </VoteDescription>
-    </>
+    <VoteDescription>
+      <VotesContainer />
+    </VoteDescription>
   );
 }
 
