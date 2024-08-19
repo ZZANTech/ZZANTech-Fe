@@ -32,7 +32,7 @@ function CommentsContainer({ postId, board }: CommentsContainerProps) {
   const voteQuery = useVoteCommentsQuery(postId, pageSize, board === "vote");
 
   const query = board === "knowhow" ? knowhowQuery : voteQuery;
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = query;
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, refetch } = query;
 
   const comments =
     board === "knowhow"
@@ -47,12 +47,16 @@ function CommentsContainer({ postId, board }: CommentsContainerProps) {
     }
   };
 
+  const handleCommentSubmit = () => {
+    refetch();
+  };
+
   return (
     <section className={`flex flex-col w-full ${board === "knowhow" ? "md:max-w-[928px]" : "md:max-w-[700px]"}`}>
       <div className="flex flex-col w-full ml-1 mb-3">
         <div className="w-full text-black text-lg font-normal leading-[27px]">댓글 {totalCommentsCount}</div>
       </div>
-      <CommentForm postId={postId} board={board} />
+      <CommentForm postId={postId} board={board} onCommentSubmit={handleCommentSubmit} />
       {totalCommentsCount > 0 && (
         <CommentsList
           comments={comments}
