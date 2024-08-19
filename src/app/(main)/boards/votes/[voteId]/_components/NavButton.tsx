@@ -20,14 +20,11 @@ function NavButton({ vote, direction }: NavButtonProps) {
   const getImageSrc = () => {
     const directionStr = direction === "next" ? "right" : "left";
     const state = !targetVoteId ? "nonactive" : isHovered ? "hover" : "Default";
-
     return `/icons/vote/direction=${directionStr}, state=${state}.png`;
   };
 
-  const buttonClass = direction === "next" ? "ml-7" : "mr-7";
-
   return (
-    <div className={`hidden md:block ${buttonClass}`}>
+    <div className={`hidden md:block ${direction === "next" ? "ml-7" : "mr-7"}`}>
       {targetVoteId ? (
         <Link href={`/boards/votes/${targetVoteId}?sortOrder=${sortOrder}`} prefetch>
           <Image
@@ -41,15 +38,7 @@ function NavButton({ vote, direction }: NavButtonProps) {
           />
         </Link>
       ) : (
-        <button disabled>
-          <Image
-            src={getImageSrc()}
-            alt={`${direction} navigation`}
-            width={74}
-            height={74}
-            className="object-contain"
-          />
-        </button>
+        <Image src={getImageSrc()} alt={`${direction} navigation`} width={74} height={74} className="object-contain" />
       )}
     </div>
   );
