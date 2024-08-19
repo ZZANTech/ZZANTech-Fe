@@ -25,7 +25,7 @@ function ChatPage() {
           <p className="w-full mb-7">짠테커들아 우리 다같이 똑똑한 소비자가 되어 보자구 🔎</p>
           <Link href="/chat/1" className="absolute bottom-0 left-5 lg:relative">
             <div className="flex">
-              <Image src="icons/chat/join.svg" alt="join" width={40} height={40} className="mr-4" />
+              <Image src="icons/chat/join.svg" alt="join" width={40} height={40} className="mr-4" priority />
               <button className="text-xl">입장하기</button>
             </div>
           </Link>
@@ -34,8 +34,8 @@ function ChatPage() {
           <Image
             src="logos/tigglemoaAirplane.svg"
             alt="airplane"
-            fill
-            sizes="(max-width: 768px) 140px, 292px"
+            width={100}
+            height={50}
             className="w-[140px] h-[105px] lg:w-[292px] lg:h-[220px]"
             priority
           />
