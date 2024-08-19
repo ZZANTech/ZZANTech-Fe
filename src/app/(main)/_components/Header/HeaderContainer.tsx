@@ -5,7 +5,6 @@ import NavCategory from "@/app/(main)/_components/Nav/NavCategory";
 import NavUserStatus from "@/app/(main)/_components/Nav/NavUserStatus";
 import NavUserStatusMoblie from "@/app/(main)/_components/Nav/NavUserStatusMoblie";
 import useIsWideScreen from "@/hooks/useIsWideScreen";
-import clsx from "clsx";
 import { usePathname } from "next/navigation";
 
 function HeaderContainer() {

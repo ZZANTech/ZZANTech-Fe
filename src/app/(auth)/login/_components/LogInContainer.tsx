@@ -61,6 +61,7 @@ function LogInContainer() {
   useEffect(() => {
     if (user) {
       revalidateRoute("/", "layout");
+      router.replace("/");
     }
   }, [user, router]);
 
