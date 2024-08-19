@@ -27,7 +27,7 @@ function SignUpContainer() {
       if (error instanceof Error) {
         open({ type: "alert", content: error.message });
       } else {
-        open({ type: "alert", content: "알 수 없는 오류가 발생했습니다." });
+        console.log("error", error);
       }
     }
   };
