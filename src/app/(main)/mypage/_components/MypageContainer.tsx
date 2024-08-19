@@ -28,7 +28,7 @@ function MypageContainer() {
 
   if (!user) return <LoadingSpinner />;
   return (
-    <div className="max-w-[540px] flex flex-col lg:mt-[90px] mx-auto mt-3 lg:mt-0">
+    <div className="max-w-[540px] flex flex-col lg:mt-[90px] mx-auto mt-3">
       <div className="hidden lg:block lg:mb-10">
         <h1 className="lg:h-[29px] text-xl font-semibold mb-1">마이페이지</h1>
         <p className="h-[19px]">포인트와 등급을 확인해보세요!</p>
