@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import Providers from "@/provider/Providers";
 import HeaderContainer from "@/app/(main)/_components/Header/HeaderContainer";
 import ConditionalFooter from "@/app/(main)/_components/Footer/ConditionalFooter";
+import { BASE_URL, defaultOpenGraph } from "@/constants";
 
 export const metadata: Metadata = {
   title: "ZZAN",
@@ -19,7 +20,8 @@ export const metadata: Metadata = {
       name: "ZZAN Team",
       url: "https://www.zzan-tech.com"
     }
-  ]
+  ],
+  openGraph: defaultOpenGraph
 };
 
 export const viewport: Viewport = {
@@ -30,6 +32,7 @@ export const viewport: Viewport = {
   viewportFit: "cover",
   themeColor: "main"
 };
+
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ko">

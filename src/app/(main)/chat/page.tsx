@@ -1,11 +1,17 @@
+import { defaultOpenGraph } from "@/constants";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-
 export const metadata: Metadata = {
   title: "ZZAN | 살까말까 LIVE",
   description:
-    "살까 말까 고민되는 상품을 올리면 실시간으로 고민을 해결해주는 라이브 채팅방입니다! 우리 다같이 똑똑한 소비자가 되어 보자구"
+    "살까 말까 고민되는 상품을 올리면 실시간으로 고민을 해결해주는 라이브 채팅방입니다! 우리 다같이 똑똑한 소비자가 되어 보자구",
+  openGraph: {
+    ...defaultOpenGraph,
+    title: "ZZAN - 살까말까 LIVE",
+    url: "https://zzan-tech.com/chat",
+    description: "이 물건 살까 말까? 고민된다면 실시간 라이브 채팅방에서 다른 사람들과 함께 현명한 결정을 내려보세요!"
+  }
 };
 
 function ChatPage() {
