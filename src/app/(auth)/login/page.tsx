@@ -1,4 +1,5 @@
 import LogInContainer from "@/app/(auth)/login/_components/LogInContainer";
+import MobileHeader from "@/components/MobileHeader";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -6,7 +7,12 @@ export const metadata: Metadata = {
 };
 
 function LogIn() {
-  return <LogInContainer />;
+  return (
+    <>
+      <MobileHeader title="로그인" />
+      <LogInContainer />
+    </>
+  );
 }
 
 export default LogIn;
