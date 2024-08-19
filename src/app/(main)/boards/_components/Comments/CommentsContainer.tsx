@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import CommentForm from "@/app/(main)/boards/_components/Comments/CommentForm";
 import CommentsList from "@/app/(main)/boards/_components/Comments/CommentsList";
 import useKnowhowCommentsQuery from "@/stores/queries/knowhow/comment/useKnowhowCommentsQuery";
@@ -13,7 +14,19 @@ type CommentsContainerProps = {
 };
 
 function CommentsContainer({ postId, board }: CommentsContainerProps) {
-  const pageSize = 10;
+  const getInitialPageSize = () => (typeof window !== "undefined" && window.innerWidth >= 768 ? 50 : 10);
+  const [pageSize, setPageSize] = useState(getInitialPageSize);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setPageSize(window.innerWidth >= 768 ? 50 : 10);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const knowhowQuery = useKnowhowCommentsQuery(postId, pageSize, board === "knowhow");
   const voteQuery = useVoteCommentsQuery(postId, pageSize, board === "vote");
