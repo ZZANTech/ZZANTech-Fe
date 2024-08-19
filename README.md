@@ -15,11 +15,11 @@
     <td align="center"><b>이유진</b></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/taeyun01"><img src="https://avatars.githubusercontent.com/u/167043856?v=4" width="100px" /></a></td>
-    <td align="center"><a href="https://github.com/1eeyerin"><img src="https://avatars.githubusercontent.com/u/40863185?v=4" width="100px" /></a></td>
-    <td align="center"><a href="https://github.com/Floweringworld"><img src="https://avatars.githubusercontent.com/u/69830157?v=4" width="100px" /></a></td>
-    <td align="center"><a href="https://github.com/leesb5510"><img src="https://avatars.githubusercontent.com/u/166012944?v=4" width="100px" /></a></td>
-    <td align="center"><a href="https://github.com/jamie240417"><img src="https://avatars.githubusercontent.com/u/167290167?v=4" width="100px" /></a></td>
+    <td align="center"><a href=""><img src="" width="100px" /></a></td>
+    <td align="center"><a href=""><img src="" width="100px" /></a></td>
+    <td align="center"><a href=""><img src="" width="100px" /></a></td>
+    <td align="center"><a href=""><img src="" width="100px" /></a></td>
+    <td align="center"><a href=""><img src="" width="100px" /></a></td>
   </tr>
   <tr>
     <td align="center">로그인,<br/>회원가입 페이지,<br/>소셜 로그인 구현,<br/> 마이페이지</td>
