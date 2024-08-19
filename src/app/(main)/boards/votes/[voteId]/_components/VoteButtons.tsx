@@ -113,7 +113,7 @@ function VoteButtons({ voteId, initialVoteLikes, accessToken, refreshToken }: Vo
     return () => {
       (async () => await refetch())();
     };
-  }, [refetch]);
+  }, []);
 
   return (
     <div className="self-stretch flex justify-between items-center gap-4">
