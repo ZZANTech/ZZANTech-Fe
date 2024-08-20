@@ -14,7 +14,6 @@ function ConditionalKnowhowContainer({ knowhowId }: { knowhowId: TKnowhow["knowh
   const limit = 10;
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = usePreviousKnowhowsQuery(knowhowId, limit);
-  console.log(data?.pages[0]);
   if (isWideScreen === null) return null;
 
   if (isWideScreen) return null;

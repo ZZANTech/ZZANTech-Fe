@@ -10,7 +10,6 @@ type VoteItemProps = {
 
 function VoteItem({ vote, sortOrder }: VoteItemProps) {
   const { vote_postId, image_url, title, nickname, votes_count, comments_count, is_banned } = vote;
-  console.log(vote);
   return (
     <li className="w-full">
       <Link

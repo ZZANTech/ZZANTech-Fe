@@ -31,7 +31,7 @@ function GradeInfo({ onClose }: GradeInfoProps) {
           짠테커에서는 다섯 등급에 따라 뱃지가 부여됩니다.
           <br /> 등급을 올리기 위해서는 일정 포인트가 필요합니다.
           <br />
-          누적 포인트가 <span className="text-point">3000P</span>가 되면 기프티콘을 구매할 수 있습니다
+          누적 포인트가 <span className="text-point">1800P</span>가 되면 기프티콘을 구매할 수 있습니다
         </p>
       </div>
       <table className="min-w-full border-collapse mb-8 lg:mb-11">
