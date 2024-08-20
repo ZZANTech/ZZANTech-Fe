@@ -2,9 +2,11 @@
 ![image](https://github.com/user-attachments/assets/f7a69ac5-85ff-4d95-a417-4cd15ffaf9bd)
 
 ## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> ZZAN-TECH는 어떤 서비스인가요?
-<img src="https://github.com/user-attachments/assets/dc37f4bc-bcb0-4b63-91d6-e312efb651bc" width="20" /><a href="https://www.zzan-tech.com"> 서비스 바로가기</a>
+- 재테크를 재미있고 가볍게 시작할 수 있도록 돕는 커뮤니티 기반 포인트 적립 서비스에요.
 
 ## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> 링크
+
+<img src="https://github.com/user-attachments/assets/dc37f4bc-bcb0-4b63-91d6-e312efb651bc" width="20" /><a href="https://www.zzan-tech.com"> 서비스 바로가기</a>
 
 ## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> 팀원 소개
 
@@ -17,11 +19,11 @@
     <td align="center"><b>이유진</b></td>
   </tr>
   <tr>
-    <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/f4140cb8-92ed-45ce-9208-e0bb1afec691" width="200px" /></a></td>
-    <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/c0187400-3d80-4de9-9a87-a54413a58f73" width="200px" /></a></td>
-    <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/bb977695-6ace-40b8-9b7c-873dece5fbed" width="200px" /></a></td>
-    <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/af819038-bf95-4f98-b354-c9505a942a42" width="200px" /></a></td>
-    <td align="center"><a href=""><img src="https://github.com/user-attachments/assets/77b7996b-734c-4dcb-999f-de23f8ce0484" width="200px" /></a></td>
+    <td align="center"><a href="https://github.com/JOYmet33"><img src="https://github.com/user-attachments/assets/f4140cb8-92ed-45ce-9208-e0bb1afec691" width="200px" /></a></td>
+    <td align="center"><a href="https://github.com/Dayeon-Cheon"><img src="https://github.com/user-attachments/assets/c0187400-3d80-4de9-9a87-a54413a58f73" width="200px" /></a></td>
+    <td align="center"><a href="https://github.com/NHJeans"><img src="https://github.com/user-attachments/assets/bb977695-6ace-40b8-9b7c-873dece5fbed" width="200px" /></a></td>
+    <td align="center"><a href="https://github.com/mangmuse"><img src="https://github.com/user-attachments/assets/af819038-bf95-4f98-b354-c9505a942a42" width="200px" /></a></td>
+    <td align="center"><a href="https://blog.naver.com/jinoroom"><img src="https://github.com/user-attachments/assets/77b7996b-734c-4dcb-999f-de23f8ce0484" width="200px" /></a></td>
   </tr>
   <tr>
     <td align="center">로그인,<br/>회원가입 페이지,<br/>소셜 로그인 구현,<br/> 마이페이지</td>
@@ -32,25 +34,49 @@
   </tr>
 </table>
 
+## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> 서비스 아키텍쳐
+
+<p align="center"> 
+<img src="https://github.com/user-attachments/assets/7f6441dc-43d1-488c-b845-e2de6728beb9" alt="서비스 아키텍쳐" width="80%" />
+</p>
+
 ## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> 기술 스택
 
-- **프론트엔드** 
-  - ![Badge](https://img.shields.io/badge/Next.js-000000?style=flat&logo=nextdotjs&logoColor=white) ![Badge](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white) ![Badge](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=flat&logo=tailwind-css&logoColor=white)
-- **백엔드** 
-  - ![Badge](https://img.shields.io/badge/Supabase-3FCF8E?style=flat&logo=supabase&logoColor=white)
-- **데브옵스**
-  - ![Badge](https://img.shields.io/badge/githubactions-2088FF?style=flat&logo=githubactions&logoColor=white)
-- **도구 및 라이브러리**
-  - ![Badge](https://img.shields.io/badge/Context_API-5ED3F3?style=flat&logo=react&logoColor=white) ![Badge](https://img.shields.io/badge/openai-412991?style=flat&logo=openai&logoColor=white) ![Badge](https://img.shields.io/badge/git-F05032?style=flat&logo=git&logoColor=white) ![Badge](https://img.shields.io/badge/github-181717?style=flat&logo=github&logoColor=white)
-- **패키지 매니저**
-  - ![Badge](https://img.shields.io/badge/yarn-2C8EBB?style=flat&logo=yarn&logoColor=white)
-- **테스팅**
-  - ![Badge](https://img.shields.io/badge/jest-C21325?style=flat&logo=jest&logoColor=white)
-- **코드 품질**
-  - ![Badge](https://img.shields.io/badge/eslint-4B32C3?style=flat&logo=eslint&logoColor=white) ![Badge](https://img.shields.io/badge/prettier-F7B93E?style=flat&logo=prettier&logoColor=white)
-- **배포**
-  - ![Badge](https://img.shields.io/badge/vercel-000000?style=flat&logo=vercel&logoColor=white)
+- **프론트엔드**  <br/>
+  <img src="https://img.shields.io/badge/Next.js-black?style=for-the-badge&logo=next.js&logoColor=white" /> 
+  <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"/>
+  <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
 
+- **백엔드** <br/>
+  <img src="https://img.shields.io/badge/supabase-3FCF8E?style=for-the-badge&logo=supabase&logoColor=black"/>
+
+- **도구 및 라이브러리** <br/>
+  <img src="https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white"/> 
+  <img src="https://img.shields.io/badge/shadcn/ui-black?style=for-the-badge&logo=shadcn/ui&logoColor=white" />
+  <img src="https://img.shields.io/badge/-Tanstack%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white" /> 
+  <img src="https://img.shields.io/badge/zustand-black?style=for-the-badge&logo=zustand&logoColor=white" />
+  <img src="https://img.shields.io/badge/clsx-blue?style=for-the-badge&logo=clsx&logoColor=white" />
+  <img src="https://img.shields.io/badge/cva-orange?style=for-the-badge&logo=cva&logoColor=white" />
+  <img src="https://img.shields.io/badge/quill-purple?style=for-the-badge&logo=quill&logoColor=white" />
+  <img src="https://img.shields.io/badge/husky-1E90FF?style=for-the-badge&logo=husky&logoColor=white"/>
+  <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white"> 
+  <img src="https://img.shields.io/badge/visual studio code-007ACC?style=for-the-badge&logo=visual studio code&logoColor=white">
+  <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"> 
+  <img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"> 
+  <img src="https://img.shields.io/badge/slack-4A154B?style=for-the-badge&logo=slack&logoColor=white"> 
+  <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=notion&logoColor=white">
+  <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
+
+- **패키지 매니저** <br/>
+  <img src="https://img.shields.io/badge/npm-CB3837?style=for-the-badge&logo=npm&logoColor=white">
+
+
+- **코드 품질** <br/>
+  <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white">
+  <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=white">
+  
+- **배포** <br/>
+   <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white"/>
 
 ## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> 기획 배경 (Background)
 - 고물가 시대에 소비에 대한 관심이 높아지면서, MZ세대 사이에서 합리적이고 효율적인 소비를 추구하는 ‘짠테크’가 유행하고 있어요. 이러한 트렌드 속에서, 소비자들이 자신의 소비를 평가받고 경험을 공유할 수 있는 커뮤니티의 필요성을 느끼게 되었어요. 그래서 본 프로젝트는 이러한 배경에서 출발하여, 사용자들이 자신의 소비에 대한 피드백을 받을 수 있는 플랫폼을 제공하기 위해 기획되었어요.
@@ -65,7 +91,7 @@
 - 사용자 간 상호작용
   - 사용자들이 서로의 소비를 평가하고 피드백을 주고받을 수 있는 기능이 필요해졌어요.
 - 노하우 공유의 필요성
-  - 사용자들이 서로의 절약 방법이나 소비 전략을 공유하고 배우는 공간이 필요해졌어요. ‘짠테크’와 관련된 다양한 노하우를 공유할 수 있는 게시판이 필요해요.
+  - 사용자들이 서로의 절약 방법이나 소비 전략을 공유하고 배우는 공간이 필요해졌어요.
 
 ### <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="15" /> 사용자 문제 해결
 
@@ -180,8 +206,10 @@
    <img src="https://github.com/user-attachments/assets/3720c45c-3a73-4b43-86fd-e0e58d4603f5" alt="관리자 대시보드" width="80%" />
 </p>
 <br/>
-   - **대시보드:** 가입자 수, 게시글 수, 댓글 수 등의 주요 통계를 시각적으로 제공하며, 누적 회원가입자와 오늘의퀴즈 정답/오답 결과 차트를 포함해요.
-   <br/>
+
+- **대시보드:** 가입자 수, 게시글 수, 댓글 수 등의 주요 통계를 시각적으로 제공하며, 누적 회원가입자와 오늘의퀴즈 정답/오답 결과 차트를 포함해요.
+
+<br/>
 <p align="center">
    <img src="https://github.com/user-attachments/assets/b722fde3-1094-435c-83e1-d0be60af643a" alt="유저관리" width="80%" />
 </p>
@@ -199,6 +227,8 @@
 <p align="center">
    <img src="https://github.com/user-attachments/assets/1705f386-4966-4458-821b-78f83be2e0e8" alt="퀴즈관리" width="80%" />
 </p>
-
+<p align="center">
+   <img src="https://github.com/user-attachments/assets/ec7030c5-d0d3-4aaa-8b42-b5877a2d0ba1" alt="퀴즈관리" width="80%" />
+</p>
 
 - **퀴즈 및 기프티콘 관리:** 퀴즈 문제와 해설을 관리하고, 기프티콘 교환 상태를 변경하며 상품을 등록, 수정, 삭제할 수 있는 기능을 제공해요.
