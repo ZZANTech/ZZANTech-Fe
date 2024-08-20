@@ -37,7 +37,7 @@ function PointContainer() {
       </div>
 
       <div className="flex flex-col lg:justify-between">
-        <p className="text-sm">포인트 3,000점이 넘으면 기프티콘으로 교환하실 수 있어요</p>
+        <p className="text-sm">포인트 1,800점이 넘으면 기프티콘으로 교환하실 수 있어요</p>
         <div className="flex flex-row-reverse mt-3 lg:mt-0">
           <Link href={"/exchange"} className="text-sm font-semibold underline">
             교환하기

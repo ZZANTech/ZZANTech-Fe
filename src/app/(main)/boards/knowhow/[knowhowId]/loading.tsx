@@ -1,9 +1,9 @@
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 function loading() {
   return (
     <div className="flex items-center h-screen md:h-auto overflow-hidden">
-      <LoadingSpinner />
+      <FlyingTikkle />
     </div>
   );
 }

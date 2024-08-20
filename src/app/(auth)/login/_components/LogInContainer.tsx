@@ -12,6 +12,7 @@ import { BASE_URL } from "@/constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { revalidateRoute } from "@/utils/revalidation";
 import { useModal } from "@/provider/contexts/ModalContext";
+import useAlertModal from "@/hooks/useAlertModal";
 
 function LogInContainer() {
   const router = useRouter();

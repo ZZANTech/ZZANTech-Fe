@@ -4,6 +4,7 @@ import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
 import ClaimList from "@/app/(main)/exchange/_components/ClaimList";
 import { ITEMS_PER_PAGE } from "@/app/(main)/exchange/_constants";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
 import useAlertModal from "@/hooks/useAlertModal";
@@ -31,13 +32,7 @@ function ClaimContainer() {
       </div>
 
       {isPending ? (
-        isWideScreen ? (
-          <div className="mt-40">
-            <SmallLoadingSpinner />
-          </div>
-        ) : (
-          <LoadingSpinner />
-        )
+        <FlyingTikkle />
       ) : claims && claims.data.length > 0 ? (
         <ClaimList claims={claims.data} />
       ) : (

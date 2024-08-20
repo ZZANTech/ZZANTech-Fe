@@ -758,15 +758,16 @@ export type Database = {
           offset_param: number;
         };
         Returns: {
-          knowhow_postid: number;
+          knowhow_postId: number;
           title: string;
           content: string;
-          post_created_at: string;
+          created_at: string;
           updated_at: string;
           user_id: string;
           image_urls: Json;
           is_banned: boolean;
           nickname: string;
+          badge_url: string;
           comments_count: number;
           likes_count: number;
         }[];
@@ -880,6 +881,27 @@ export type Database = {
           comments_count: number;
         }[];
       };
+      get_votes: {
+        Args: {
+          sort_by: string;
+          sort_order: string;
+        };
+        Returns: {
+          vote_postId: number;
+          title: string;
+          content: string;
+          product_name: string;
+          product_price: string;
+          image_url: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          is_banned: boolean;
+          nickname: string;
+          votes_count: number;
+          comments_count: number;
+        }[];
+      };
       get_votes_with_counts_and_nickname: {
         Args: {
           sort_by: string;
@@ -895,6 +917,27 @@ export type Database = {
           created_at: string;
           updated_at: string;
           user_id: string;
+          nickname: string;
+          votes_count: number;
+          comments_count: number;
+        }[];
+      };
+      get_voutes: {
+        Args: {
+          sort_by: string;
+          sort_order: string;
+        };
+        Returns: {
+          vote_postid: number;
+          title: string;
+          content: string;
+          product_name: string;
+          product_price: string;
+          image_url: string;
+          created_at: string;
+          updated_at: string;
+          user_id: string;
+          is_banned: string;
           nickname: string;
           votes_count: number;
           comments_count: number;
@@ -921,6 +964,27 @@ export type Database = {
           gift_name: string;
           nickname: string;
           email: string;
+        }[];
+      };
+      your_function_name: {
+        Args: {
+          sort_by: string;
+          sort_order: string;
+        };
+        Returns: {
+          vote_postid: number;
+          title: string;
+          content: string;
+          product_name: string;
+          product_price: string;
+          image_url: string;
+          created_at: string;
+          updated_at: string;
+          user_id: number;
+          is_banned: string;
+          nickname: string;
+          votes_count: number;
+          comments_count: number;
         }[];
       };
     };

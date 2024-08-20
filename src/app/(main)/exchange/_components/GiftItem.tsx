@@ -66,7 +66,7 @@ function GiftItem({ gift }: GiftItemProps) {
 
       <span className="mb-1 md:mb-2 text-[#777] text-[13px] leading-[13px]">[{gift.brand_name}]</span>
       <span className="text-center h-8 mb-2 md:mb-5 h- text-[#333] font-bold text-sm">{gift.gift_name}</span>
-      <div className="flex items-center gap-[5px] mb-2 md:mb-7">
+      <div className="flex items-center gap-1 md:gap-[5px] mb-2 md:mb-7">
         <div className="w-7 h-7 md:w-8 md:h-8 relative">
           <Image className="object-contain" src={point} alt="point" fill />
         </div>

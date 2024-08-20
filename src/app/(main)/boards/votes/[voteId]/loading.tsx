@@ -1,7 +1,7 @@
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 function loading() {
-  return <LoadingSpinner />;
+  return <FlyingTikkle />;
 }
 
 export default loading;

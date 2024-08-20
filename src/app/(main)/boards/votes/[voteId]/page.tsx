@@ -6,6 +6,9 @@ import MobileHeader from "@/components/MobileHeader";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { defaultOpenGraph } from "@/constants";
+
+import BlockedPost from "@/app/(main)/boards/_components/BlockedPost";
+
 import dynamic from "next/dynamic";
 
 const ConditionalVoteContainer = dynamic(
@@ -57,15 +60,25 @@ export default async function VoteDetailPage({ params: { voteId } }: VoteDetailP
   return (
     <>
       <MobileHeader title="짠 소비 구경" />
-      <div className="flex flex-col justify-center items-center gap-[23px] mt-3 md:mt-[77px] w-full">
-        <section className="flex items-center w-full max-w-[904px]">
-          <NavButton vote={vote} direction="prev" />
-          <VoteContent vote={vote} initialVoteLikes={voteLikes} accessToken={accessToken} refreshToken={refreshToken} />
-          <NavButton vote={vote} direction="next" />
-        </section>
-        <CommentsContainer postId={voteId} board="vote" />
-        <ConditionalVoteContainer voteId={voteId} />
-      </div>
+
+      {vote.is_banned ? (
+        <BlockedPost />
+      ) : (
+        <div className="flex flex-col justify-center items-center gap-[23px] mt-3 md:mt-[77px] w-full">
+          <section className="flex items-center w-full max-w-[904px]">
+            <NavButton vote={vote} direction="prev" />
+            <VoteContent
+              vote={vote}
+              initialVoteLikes={voteLikes}
+              accessToken={accessToken}
+              refreshToken={refreshToken}
+            />
+            <NavButton vote={vote} direction="next" />
+          </section>
+          <CommentsContainer postId={voteId} board="vote" />
+          <ConditionalVoteContainer voteId={voteId} />
+        </div>
+      )}
     </>
   );
 }
