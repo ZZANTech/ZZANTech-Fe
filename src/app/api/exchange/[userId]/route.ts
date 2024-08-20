@@ -9,6 +9,7 @@ export const GET = async (req: NextRequest, { params }: { params: { userId: stri
   const page = parseInt(searchParams.get("page") || "1", 10);
   const limit = parseInt(searchParams.get("limit") || "10", 10);
   const offset = (page - 1) * limit;
+
   try {
     const {
       data: giftClaims,
@@ -17,6 +18,7 @@ export const GET = async (req: NextRequest, { params }: { params: { userId: stri
     } = await supabase
       .from("gift_claims")
       .select("*, gifts(gift_name)", { count: "exact" })
+      .eq("user_id", userId)
       .order("created_at", { ascending: false })
       .range(offset, offset + limit - 1);
 
@@ -24,17 +26,19 @@ export const GET = async (req: NextRequest, { params }: { params: { userId: stri
       throw new Error("기프티콘 신청 내역을 가져오지 못했습니다");
     }
 
-    if (count) {
-      const transformedGiftClaims = giftClaims.map((claim) => {
+    const transformedGiftClaims =
+      giftClaims?.map((claim) => {
         const { gifts, ...rest } = claim;
         return {
           ...rest,
           gift_name: gifts?.gift_name
         };
-      });
+      }) || [];
 
-      return NextResponse.json({ data: transformedGiftClaims, totalCount: count });
-    }
+    return NextResponse.json({
+      data: transformedGiftClaims,
+      totalCount: count || 0
+    });
   } catch (e) {
     if (e instanceof Error) {
       return NextResponse.json({ error: e.message }, { status: 500 });
