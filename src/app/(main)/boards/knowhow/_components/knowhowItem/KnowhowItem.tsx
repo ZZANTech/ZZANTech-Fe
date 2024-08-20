@@ -30,10 +30,10 @@ function removeHTMLTags(content: string) {
 
 function KnowhowItem({ knowhow }: KnowhowItemProps) {
   const { isWideScreen } = useIsWideScreen();
-  const { title, content, nickname, created_at, comments_count, likes_count, image_urls, knowhow_postId } = knowhow;
+  const { title, content, nickname, created_at, comments_count, likes_count, image_urls, knowhow_postId, is_banned } =
+    knowhow;
   const formattedCreatedAt = dayjs(created_at).tz("Asia/Seoul").fromNow();
   const textOnlyContent = removeHTMLTags(content);
-
   return (
     <li
       className="
@@ -57,7 +57,7 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
             >
               <div className="flex gap-2">
                 <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
-                  <Image className="rounded-full object-cover" src={knowhow.badge_url || ""} alt="profile" fill />
+                  <Image className="object-cover" src={knowhow.badge_url || ""} alt="profile" fill />
                 </div>
                 <span
                   className="
@@ -68,46 +68,49 @@ function KnowhowItem({ knowhow }: KnowhowItemProps) {
                   {nickname}
                 </span>
               </div>
-              <time className="text-sm text-gray-300">{formattedCreatedAt}</time>
+              <time className="text-sm text-gray-300"> {formattedCreatedAt} </time>
             </div>
 
             <h2
               className={clsx(
                 "font-semibold text-gray-900 mb-5 ",
                 !isWideScreen && "h-12 line-clamp-2 break-words mb-2.5 ",
-                isWideScreen && "text-xl truncate "
+                isWideScreen && "text-xl truncate ",
+                is_banned && "!text-gray-500"
               )}
             >
-              {title}
+              {is_banned ? "관리자에 의해 규제된 게시글입니다" : title}
             </h2>
 
-            {isWideScreen && (
+            {isWideScreen && !is_banned && (
               <div className="w-full">
                 <p className="text-base text-[#5A5A5A] line-clamp-2 break-words">{textOnlyContent}</p>
               </div>
             )}
 
-            <div className="flex gap-4 absolute bottom-0">
-              <CommentCount commentCount={comments_count} />
-              <LikeCount knowhowId={knowhow_postId} likesCount={likes_count} />
-            </div>
+            {!is_banned && (
+              <div className="flex gap-4 absolute bottom-0">
+                <CommentCount commentCount={comments_count} />
+                <LikeCount knowhowId={knowhow_postId} likesCount={likes_count} />
+              </div>
+            )}
           </div>
           {image_urls?.length > 0 && (
             <div className="h-full flex items-center">
               <div
                 className="
+                relative
               w-[100px] h-[100px]
               md:w-[128px] md:h-[128px]
               "
               >
                 <Image
-                  className="object-cover rounded-lg"
+                  className="object-contain rounded-lg"
                   priority
                   loading="eager"
                   src={image_urls[0]}
                   alt={title}
-                  width={isWideScreen ? 128 : 100}
-                  height={isWideScreen ? 128 : 100}
+                  fill
                 />
               </div>
             </div>

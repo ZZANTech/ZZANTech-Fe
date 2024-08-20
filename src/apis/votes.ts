@@ -3,8 +3,10 @@ import { TVotesResponse, TVoteWithNavigation } from "@/types/vote.type";
 import { TVote } from "@/types/vote.type";
 import { Tables } from "@/types/supabase";
 
-export const getVotes = async (sortOrder: string, page: number) => {
-  const res = await fetch(`${BASE_URL}/api/votes/posts?sortOrder=${sortOrder}&page=${page}`);
+export const getVotes = async (sortOrder: string, page: number, voteId?: string, isMobile: boolean = false) => {
+  const res = await fetch(
+    `${BASE_URL}/api/votes/posts?sortOrder=${sortOrder}&page=${page}&voteId=${voteId}&isMobile=${isMobile}`
+  );
   const votes: TVotesResponse = await res.json();
   return votes;
 };
@@ -12,7 +14,9 @@ export const getVotes = async (sortOrder: string, page: number) => {
 export const getVote = async (voteId: number): Promise<TVoteWithNavigation> => {
   const res = await fetch(`${BASE_URL}/api/votes/${voteId}`, { cache: "no-store" });
   if (!res.ok) {
-    throw new Error("Failed to fetch vote data");
+    const errorData = await res.json();
+    const errorMessage = errorData.error || "게시글 불러오기에 실패했습니다.";
+    throw new Error(errorMessage);
   }
   const vote: TVoteWithNavigation = await res.json();
   return vote;
@@ -65,11 +69,17 @@ export const deleteVote = async (voteId: Tables<"vote_posts">["vote_postId"]) =>
   return vote;
 };
 
-export const getVoteComments = async (voteId: TVote["vote_postId"]) => {
-  const res = await fetch(`${BASE_URL}/api/votes/${voteId}/comments`);
+export const getVoteComments = async (voteId: TVote["vote_postId"], page: number, pageSize: number) => {
+  const res = await fetch(`${BASE_URL}/api/votes/${voteId}/comments?page=${page}&pageSize=${pageSize}`);
   const data = await res.json();
-  const comments = data.comments;
-  return comments;
+
+  const nextPage = data.comments.length === pageSize ? page + 1 : null;
+
+  return {
+    comments: data.comments,
+    totalCommentsCount: data.totalCommentsCount,
+    nextPage: nextPage
+  };
 };
 
 export const postVoteComment = async (newComment: Partial<Tables<"vote_comments">>) => {

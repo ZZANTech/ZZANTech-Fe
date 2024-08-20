@@ -8,12 +8,12 @@ type knowhowListProps = {
 };
 //
 function KnowhowList({ knowhows, isDetailPage = false }: knowhowListProps) {
-  console.log(isDetailPage);
+  console.log(knowhows);
   return (
     <ul
       className={clsx(
         "flex flex-col border-t border-t-gray-900 mt-1.5 mb-10 md:mb-8", //
-        isDetailPage && "border-t-0 mb-[65px]"
+        isDetailPage && "border-t-0 mb-[26.7px]"
       )}
     >
       {knowhows?.map((knowhow) => <KnowhowItem isDetailPage key={knowhow.knowhow_postId} knowhow={knowhow} />)}

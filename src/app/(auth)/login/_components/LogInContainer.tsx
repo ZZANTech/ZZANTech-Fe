@@ -11,25 +11,33 @@ import { createClient } from "@/utils/supabase/client";
 import { BASE_URL } from "@/constants";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { revalidateRoute } from "@/utils/revalidation";
+import { useModal } from "@/provider/contexts/ModalContext";
+import useAlertModal from "@/hooks/useAlertModal";
 
 function LogInContainer() {
   const router = useRouter();
   const { user, logIn } = useUserContext();
+  const { close, open } = useModal();
 
   const {
     register,
     handleSubmit,
     watch,
+    getValues,
     formState: { errors }
-  } = useForm<TLoginInputs>();
+  } = useForm<TLoginInputs>({ mode: "onChange" });
 
   const onSubmit: SubmitHandler<TLoginInputs> = async (data) => {
     const email = data.email as string;
     const password = data.password as string;
     try {
       await logIn(email, password);
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        console.log("error", error);
+      }
     }
   };
 
@@ -43,71 +51,62 @@ function LogInContainer() {
         }
       });
     } catch (error) {
-      console.log("error", error);
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        console.log("error", error);
+      }
     }
   };
 
   useEffect(() => {
     if (user) {
       revalidateRoute("/", "layout");
+      router.replace("/");
     }
   }, [user, router]);
 
   return (
-    <div className="flex flex-col items-center w-80 mx-auto mt-[60px]">
+    <div className="flex flex-col items-center w-80 mx-auto mt-3 lg:mt-[60px]">
       <Image src={"/logos/mainLogo.png"} width={200} height={65} alt="mainLogo" className="mb-10" />
       <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          type="email"
-          placeholder="zzan@zzan.com"
-          className={`auth-input ${errors.email ? "border-info-red" : ""}`}
-          maxLength={30}
-          {...register("email", {
-            required: "필수 사항 입니다.",
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
-              message: "이메일 형식이 아닙니다."
-            },
-            maxLength: 30
-          })}
-        />
+        <div className="mb-8">
+          <input
+            type="email"
+            placeholder="zzan@zzan.com"
+            className={`auth-input ${errors.email ? "border-info-red" : ""}`}
+            maxLength={30}
+            {...register("email", {
+              required: "필수 사항 입니다.",
+              pattern: {
+                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/,
+                message: "이메일 형식이 아닙니다."
+              },
+              maxLength: 30
+            })}
+          />
 
-        <input
-          type="password"
-          placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
-          className={`auth-input ${errors.password ? "border-info-red" : ""}`}
-          maxLength={20}
-          {...register("password", {
-            required: "필수 사항 입니다.",
-            // pattern: {
-            //   value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
-            //   message:
-            //     "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
-            // },
-            minLength: {
-              value: 6,
-              message: "비밀번호는 최소 6자 이상이어야 합니다."
-            },
-            maxLength: {
-              value: 20,
-              message: "비밀번호는 최대 20자 이하이어야 합니다."
-            }
-          })}
-        />
-
-        <div className="w-80 h-4 px-3 mb-3">
-          {(errors.email || errors.password) && (
-            <p className="errors-message">이메일 또는 비밀번호가 잘못 되었습니다.</p>
-          )}
+          <input
+            type="password"
+            placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
+            className={`auth-input ${errors.password ? "border-info-red" : ""}`}
+            minLength={6}
+            maxLength={20}
+            {...register("password", {
+              required: "필수 사항 입니다.",
+              minLength: {
+                value: 6,
+                message: "비밀번호는 최소 6자 이상이어야 합니다."
+              },
+              maxLength: {
+                value: 20,
+                message: "비밀번호는 최대 20자 이하이어야 합니다."
+              }
+            })}
+          />
         </div>
 
-        <Button
-          variant={"black"}
-          size={"large"}
-          rounded={"medium"}
-          type="submit"
-          disabled={!(watch("email") && watch("password"))}
-        >
+        <Button variant={"black"} size={"large"} rounded={"medium"} type="submit">
           이메일로 계속하기
         </Button>
       </form>
@@ -122,6 +121,7 @@ function LogInContainer() {
         variant={"kakaoyellow"}
         size={"large"}
         rounded={"medium"}
+        weight={"semibold"}
         className="mb-3"
         onClick={() => handleSocialLogin("kakao")}
       >
@@ -133,6 +133,7 @@ function LogInContainer() {
         variant={"white"}
         size={"large"}
         rounded={"medium"}
+        weight={"semibold"}
         className="mb-10"
         onClick={() => handleSocialLogin("google")}
       >

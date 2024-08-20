@@ -2,34 +2,41 @@
 
 import { checkDuplication, checkDuplicationNickname, signUp } from "@/apis/auth";
 import Button from "@/components/Button";
-import useAlertModal from "@/hooks/useAlertModal";
+import { useModal } from "@/provider/contexts/ModalContext";
 import { TInputs } from "@/types/auth.types";
 import { useRouter } from "next/navigation";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 function SignUpContainer() {
   const router = useRouter();
-  const modal = useAlertModal();
+  const { close, open } = useModal();
   const {
     register,
     handleSubmit,
     watch,
-    formState: { errors }
-  } = useForm<TInputs>();
-
+    formState: { errors, isValid, isDirty }
+  } = useForm<TInputs>({
+    mode: "onChange"
+  });
   const onSubmit: SubmitHandler<TInputs> = async (data) => {
     try {
       await signUp(data);
-      modal.displayDefaultAlert("회원가입 성공!");
+      open({ type: "alert", content: "회원가입 성공!" });
       router.replace("/login");
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        console.log("error", error);
+      }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="w-[348px] flex flex-col mx-auto mt-[102px]">
-      <h1 className="text-xl font-semibold mb-12">회원가입</h1>
+    <form onSubmit={handleSubmit(onSubmit)} className="w-[348px] flex flex-col items-center mx-auto mt-5 lg:mt-[102px]">
+      <div className="hidden lg:block lg:w-full mb-12 ">
+        <h1 className="flex justify-start text-xl font-semibold">회원가입</h1>
+      </div>
 
       <div className="flex flex-col mb-6">
         <label>이메일</label>
@@ -63,7 +70,7 @@ function SignUpContainer() {
           {...register("nickname", {
             required: "필수 사항 입니다.",
             pattern: {
-              value: /^(?=.*[a-zA-Z가-힣])[a-zA-Z0-9가-힣]{2,7}$/,
+              value: /^(?=.*[a-zA-Z0-9가-힣])[a-zA-Z0-9가-힣]{2,7}$/,
               message: "특수문자를 포함하거나 한글 자음/모음 단독 사용은 어렵습니다."
             },
             minLength: 3,
@@ -80,15 +87,14 @@ function SignUpContainer() {
         <label>비밀번호</label>
         <input
           type="password"
-          placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
+          placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
           className={`auth-input ${errors.password ? "border-info-red" : ""}`}
           maxLength={20}
           {...register("password", {
             required: "필수 사항 입니다.",
             pattern: {
               value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
-              message:
-                "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
+              message: "영어, 숫자, 특수문자를 조합해야 합니다."
             },
             minLength: {
               value: 6,
@@ -107,16 +113,11 @@ function SignUpContainer() {
         <label>비밀번호 확인</label>
         <input
           type="password"
-          placeholder="최소 6~20자, 영어+숫자+특수문자 조합"
+          placeholder="최소 6~20자, 영어, 숫자, 특수문자 조합"
           className={`auth-input ${errors.confirmPassword ? "border-info-red" : ""}`}
           maxLength={20}
           {...register("confirmPassword", {
             required: "필수 사항 입니다.",
-            pattern: {
-              value: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[~!@#$%^&*])[A-Za-z\d~!@#$%^&*]{6,20}$/,
-              message:
-                "영어+숫자+특수문자(~!@#$%^&* 중 하나) 조합이어야 하며, 한글이나 허용된 특수문자 외의 문자는 사용할 수 없습니다."
-            },
             minLength: {
               value: 6,
               message: "비밀번호는 최소 6자 이상이어야 합니다."
@@ -131,7 +132,7 @@ function SignUpContainer() {
         {errors.confirmPassword && <span className="errors-message">{errors.confirmPassword.message}</span>}
       </div>
 
-      <Button size={"large"} rounded={"medium"} type="submit">
+      <Button size={"large"} rounded={"medium"} type="submit" disabled={!isDirty || !isValid}>
         회원가입 완료하기
       </Button>
     </form>

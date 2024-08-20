@@ -13,6 +13,7 @@ import useVoteCommentMutation from "@/stores/queries/vote/comment/useVoteComment
 import Image from "next/image";
 import useConfirmModal from "@/hooks/useConfirmModal";
 import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import clsx from "clsx";
 
 type CommentItemPropsForKnowhow = {
   comment: TKnowhowComment;
@@ -94,7 +95,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
-              <Image className="rounded-full object-cover" src={comment.badge_url || ""} alt="profile" fill />
+              <Image className="object-cover" src={comment.badge_url || ""} alt="profile" fill />
             </div>
             <div className="text-black text-base font-semibold leading-snug">{nickname}</div>
           </div>
@@ -114,8 +115,13 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
       ) : (
         <>
           {!isEditing && (
-            <p className="w-full text-black text-base font-normal leading-normal break-words whitespace-pre-wrap">
-              {content}
+            <p
+              className={clsx(
+                "w-full text-black text-base font-normal leading-normal break-words whitespace-pre-wrap",
+                comment.is_banned && "text-gray-500"
+              )}
+            >
+              {comment.is_banned ? "관리자에 의해 규제된 댓글입니다" : content}
             </p>
           )}
           {isEditing && (

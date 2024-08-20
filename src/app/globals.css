@@ -6,40 +6,40 @@
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/subset-Pretendard-Regular.woff2") format("woff2"),
-  url("/fonts/subset-Pretendard-Regular.woff") format("woff"),
-  url("/fonts/subset-Pretendard-Regular.ttf") format("truetype");
+       url("/fonts/subset-Pretendard-Regular.woff") format("woff"),
+       url("/fonts/subset-Pretendard-Regular.ttf") format("truetype");
   font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/subset-Pretendard-light.woff2") format("woff2"),
-  url("/fonts/subset-Pretendard-light.woff") format("woff"),
-  url("/fonts/subset-Pretendard-light.ttf") format("truetype");
+       url("/fonts/subset-Pretendard-light.woff") format("woff"),
+       url("/fonts/subset-Pretendard-light.ttf") format("truetype");
   font-weight: 300;
   font-display: swap;
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/subset-Pretendard-SemiBold.woff2") format("woff2"),
-  url("/fonts/subset-Pretendard-SemiBold.woff") format("woff"),
-  url("/fonts/subset-Pretendard-SemiBold.ttf") format("truetype");
+       url("/fonts/subset-Pretendard-SemiBold.woff") format("woff"),
+       url("/fonts/subset-Pretendard-SemiBold.ttf") format("truetype");
   font-weight: 600;
   font-display: swap;
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/subset-Pretendard-Bold.woff2") format("woff2"),
-  url("/fonts/subset-Pretendard-Bold.woff") format("woff"),
-  url("/fonts/subset-Pretendard-Bold.ttf") format("truetype");
+       url("/fonts/subset-Pretendard-Bold.woff") format("woff"),
+       url("/fonts/subset-Pretendard-Bold.ttf") format("truetype");
   font-weight: 700;
   font-display: swap;
 }
 @font-face {
   font-family: "Pretendard";
   src: url("/fonts/subset-Pretendard-ExtraBold.woff2") format("woff2"),
-  url("/fonts/subset-Pretendard-ExtraBold.woff") format("woff"),
-  url("/fonts/subset-Pretendard-ExtraBold.ttf") format("truetype");
+       url("/fonts/subset-Pretendard-ExtraBold.woff") format("woff"),
+       url("/fonts/subset-Pretendard-ExtraBold.ttf") format("truetype");
   font-weight: 800;
   font-display: swap;
 }
@@ -78,11 +78,12 @@ body *:not([class*="letter-"]) {
 }
 .custom-box-shadow {
   @apply border border-gray-300;
-  box-shadow: 39px 17px 12px rgba(128, 128, 128, 0.00),
-              25px 11px 11px rgba(128, 128, 128, 0.01),
-              14px 6px 9px rgba(128, 128, 128, 0.05),
-              6px 3px 7px rgba(128, 128, 128, 0.09),
-              2px 1px 4px rgba(128, 128, 128, 0.10);
+  box-shadow:
+    39px 17px 12px rgba(128, 128, 128, 0),
+    25px 11px 11px rgba(128, 128, 128, 0.01),
+    14px 6px 9px rgba(128, 128, 128, 0.05),
+    6px 3px 7px rgba(128, 128, 128, 0.09),
+    2px 1px 4px rgba(128, 128, 128, 0.1);
 }
 
 @layer utilities {
@@ -92,11 +93,14 @@ body *:not([class*="letter-"]) {
   .mainLinkButtonActive {
     @apply border-b-2 border-gray-800;
   }
-  .auth-input-short {
-    @apply w-[232px] h-11 p-4 mb-3 border rounded-md;
-  }
   .auth-input {
-    @apply w-80 h-11 p-4 mt-2 mb-1 border rounded-md;
+    @apply w-80 h-11 p-4 mt-2 mb-1 border border-gray-400 rounded-md;
+  }
+  .errors-message {
+    @apply text-info-red text-sm mt-1;
+  }
+  .nickname-modal-button {
+    @apply border border-black w-[190px] h-[60px] px-5 py-3 rounded-lg text-xl font-semibold;
   }
   .text-shadow {
     text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.15);
@@ -104,6 +108,7 @@ body *:not([class*="letter-"]) {
   .line-shadow {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   }
+
   .chatInputPlaceholder::placeholder {
     color: var(--Gray-600, #767676);
     font-family: Pretendard, sans-serif;

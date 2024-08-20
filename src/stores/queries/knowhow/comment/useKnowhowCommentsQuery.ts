@@ -1,11 +1,14 @@
 import { getKnowhowComments } from "@/apis/knowhow";
-import { TKnowhowComment } from "@/types/knowhow.type";
-import { useQuery } from "@tanstack/react-query";
+import { TKnowhowCommentsResponse } from "@/types/knowhow.type";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
-const useKnowhowCommentsQuery = (knowhowId: number) => {
-  return useQuery<TKnowhowComment[], Error>({
-    queryKey: ["knowhowComments", { knowhowId }],
-    queryFn: () => getKnowhowComments(knowhowId)
+const useKnowhowCommentsQuery = (knowhowId: number, pageSize: number, enabled: boolean) => {
+  return useInfiniteQuery<TKnowhowCommentsResponse, Error>({
+    queryKey: ["voteComments", knowhowId],
+    queryFn: ({ pageParam = 1 }) => getKnowhowComments(knowhowId, pageParam as number, pageSize),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.nextPage ?? undefined,
+    enabled
   });
 };
 

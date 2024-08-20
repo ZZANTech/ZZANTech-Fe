@@ -1,11 +1,17 @@
+import { defaultOpenGraph } from "@/constants";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-
 export const metadata: Metadata = {
   title: "ZZAN | 살까말까 LIVE",
   description:
-    "살까 말까 고민되는 상품을 올리면 실시간으로 고민을 해결해주는 라이브 채팅방입니다! 우리 다같이 똑똑한 소비자가 되어 보자구"
+    "살까 말까 고민되는 상품을 올리면 실시간으로 고민을 해결해주는 라이브 채팅방입니다! 우리 다같이 똑똑한 소비자가 되어 보자구",
+  openGraph: {
+    ...defaultOpenGraph,
+    title: "ZZAN - 살까말까 LIVE",
+    url: "https://zzan-tech.com/chat",
+    description: "이 물건 살까 말까? 고민된다면 실시간 라이브 채팅방에서 다른 사람들과 함께 현명한 결정을 내려보세요!"
+  }
 };
 
 function ChatPage() {
@@ -19,7 +25,7 @@ function ChatPage() {
           <p className="w-full mb-7">짠테커들아 우리 다같이 똑똑한 소비자가 되어 보자구 🔎</p>
           <Link href="/chat/1" className="absolute bottom-0 left-5 lg:relative">
             <div className="flex">
-              <Image src="icons/chat/join.svg" alt="join" width={40} height={40} className="mr-4" />
+              <Image src="icons/chat/join.svg" alt="join" width={40} height={40} className="mr-4" priority />
               <button className="text-xl">입장하기</button>
             </div>
           </Link>
@@ -28,9 +34,10 @@ function ChatPage() {
           <Image
             src="logos/tigglemoaAirplane.svg"
             alt="airplane"
-            width={292}
-            height={220}
+            width={100}
+            height={50}
             className="w-[140px] h-[105px] lg:w-[292px] lg:h-[220px]"
+            priority
           />
         </section>
       </div>

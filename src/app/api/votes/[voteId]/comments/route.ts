@@ -4,6 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest, { params }: { params: { voteId: string } }) => {
   const supabase = createClient();
   const voteId = params.voteId;
+  const { searchParams } = new URL(req.url);
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
+  const offset = (page - 1) * pageSize;
 
   try {
     if (voteId) {
@@ -16,10 +20,19 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: stri
         `
         )
         .eq("vote_post_id", voteId)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .range(offset, offset + pageSize - 1);
+
+      const { count: totalCommentsCount, error: totalCommentsCountsError } = await supabase
+        .from("vote_comments")
+        .select("vote_commentId", { count: "exact" })
+        .eq("vote_post_id", voteId);
 
       if (commentError) {
         throw new Error("댓글을 가져오지 못했습니다");
+      }
+      if (totalCommentsCountsError) {
+        throw new Error("댓글 개수를 가져오지 못했습니다");
       }
 
       const commentsWithNicknameAndBadge = comments.map((comment) => {
@@ -31,7 +44,10 @@ export const GET = async (req: NextRequest, { params }: { params: { voteId: stri
         };
       });
 
-      return NextResponse.json({ comments: commentsWithNicknameAndBadge || [] });
+      return NextResponse.json({
+        comments: commentsWithNicknameAndBadge || [],
+        totalCommentsCount: totalCommentsCount || 0
+      });
     } else {
       return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });
     }
@@ -48,8 +64,6 @@ export const POST = async (req: NextRequest, { params }: { params: { voteId: str
   const supabase = createClient();
   const voteId = params.voteId;
   const newComment = await req.json();
-
-  console.log("POST: ", voteId);
 
   try {
     if (voteId) {
