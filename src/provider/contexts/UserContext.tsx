@@ -45,8 +45,8 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
         const errorData = await response.json();
         throw new Error(errorData.error || "로그인 실패");
       }
-    } catch (error: any) {
-      console.error(error.message);
+    } catch (error) {
+      // console.error(error.message);
       throw error;
     }
   };

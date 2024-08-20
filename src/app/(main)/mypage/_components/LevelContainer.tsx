@@ -25,7 +25,7 @@ function LevelContainer() {
         </div>
       </div>
 
-      <div className="flex gap-8 ">
+      <div className="flex gap-6">
         <div className="w-9 h-9">
           <Image src={levelImageURL} width={36} height={36} alt="badge" />
         </div>

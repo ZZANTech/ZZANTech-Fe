@@ -1,7 +1,6 @@
 "use client";
 
 import { checkDuplicationNickname, updateNickname } from "@/apis/auth";
-import useAlertModal from "@/hooks/useAlertModal";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { TNicknameModalInputs } from "@/types/auth.types";
@@ -29,8 +28,12 @@ function NicknameModal() {
         queryClient.invalidateQueries();
         open({ type: "alert", content: "닉네임 변경 완료" });
       }
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        open({ type: "alert", content: error.message });
+      } else {
+        console.log("error", error);
+      }
     }
   };
 

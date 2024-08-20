@@ -4,6 +4,10 @@ import { NextRequest, NextResponse } from "next/server";
 export const GET = async (req: NextRequest, { params }: { params: { knowhowId: string } }) => {
   const supabase = createClient();
   const knowhowId = params.knowhowId;
+  const { searchParams } = new URL(req.url);
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const pageSize = parseInt(searchParams.get("pageSize") || "10", 10);
+  const offset = (page - 1) * pageSize;
 
   try {
     if (knowhowId) {
@@ -16,10 +20,19 @@ export const GET = async (req: NextRequest, { params }: { params: { knowhowId: s
         `
         )
         .eq("knowhow_post_id", knowhowId)
-        .order("created_at", { ascending: false });
+        .order("created_at", { ascending: false })
+        .range(offset, offset + pageSize - 1);
+
+      const { count: totalCommentsCount, error: totalCommentsCountsError } = await supabase
+        .from("knowhow_comments")
+        .select("knowhow_commentId", { count: "exact" })
+        .eq("knowhow_post_id", knowhowId);
 
       if (commentError) {
         throw new Error("댓글을 가져오지 못했습니다");
+      }
+      if (totalCommentsCountsError) {
+        throw new Error("댓글 개수를 가져오지 못했습니다");
       }
 
       const commentsWithNicknameAndBadge = comments.map((comment) => {
@@ -31,7 +44,10 @@ export const GET = async (req: NextRequest, { params }: { params: { knowhowId: s
         };
       });
 
-      return NextResponse.json({ comments: commentsWithNicknameAndBadge || [] });
+      return NextResponse.json({
+        comments: commentsWithNicknameAndBadge || [],
+        totalCommentsCount: totalCommentsCount || 0
+      });
     } else {
       return NextResponse.json({ error: "유효하지 않은 요청입니다" }, { status: 400 });
     }
