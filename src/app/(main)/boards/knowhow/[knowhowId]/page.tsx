@@ -32,7 +32,7 @@ async function KnowhowDetailPage({ params: { knowhowId } }: KnowhowDetailPagePro
   const knowhow = await getKnowhow(knowhowId);
 
   return (
-    <main className="max-w-[922px] mt-9 mx-auto flex flex-col">
+    <main className="max-w-[922px] md:mt-9 mx-auto flex flex-col">
       <MobileHeader title="짠 노하우" />
       {knowhow.is_banned ? (
         <BlockedPost />
