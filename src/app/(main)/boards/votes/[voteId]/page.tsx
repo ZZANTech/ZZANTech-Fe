@@ -6,12 +6,24 @@ import MobileHeader from "@/components/MobileHeader";
 import { Metadata } from "next";
 import { cookies } from "next/headers";
 import { defaultOpenGraph } from "@/constants";
+
 import BlockedPost from "@/app/(main)/boards/_components/BlockedPost";
+
+import dynamic from "next/dynamic";
+
+const ConditionalVoteContainer = dynamic(
+  () => import("@/app/(main)/boards/votes/_components/ConditionalVoteContainer"),
+  {
+    loading: () => <div className="h-[1490px]"></div>,
+    ssr: false
+  }
+);
 
 type VoteDetailPageProps = {
   params: { voteId: number };
   searchParams: { [key: string]: string | string[] | undefined };
 };
+
 export async function generateMetadata({ params: { voteId } }: { params: { voteId: number } }): Promise<Metadata> {
   const vote = await getVote(voteId);
   return {
@@ -48,6 +60,7 @@ export default async function VoteDetailPage({ params: { voteId } }: VoteDetailP
   return (
     <>
       <MobileHeader title="짠 소비 구경" />
+
       {vote.is_banned ? (
         <BlockedPost />
       ) : (
@@ -63,6 +76,7 @@ export default async function VoteDetailPage({ params: { voteId } }: VoteDetailP
             <NavButton vote={vote} direction="next" />
           </section>
           <CommentsContainer postId={voteId} board="vote" />
+          <ConditionalVoteContainer voteId={voteId} />
         </div>
       )}
     </>

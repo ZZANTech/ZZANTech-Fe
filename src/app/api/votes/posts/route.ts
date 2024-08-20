@@ -6,7 +6,10 @@ export const GET = async (req: Request) => {
   const url = new URL(req.url);
   const sortOrder = url.searchParams.get("sortOrder") || "latest";
   const page = parseInt(url.searchParams.get("page") || "0");
-  const pageSize = 12;
+  const voteId = url.searchParams.get("voteId");
+  const isMobile = url.searchParams.get("isMobile") === "true";
+
+  const pageSize = isMobile ? 3 : 12;
 
   let sortBy = "created_at";
   let order = "desc";
