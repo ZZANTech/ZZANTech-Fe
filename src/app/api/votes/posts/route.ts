@@ -19,9 +19,13 @@ export const GET = async (req: Request) => {
   }
 
   try {
-    const { data, error } = await supabase
-      .rpc("get_votes", { sort_by: sortBy, sort_order: order })
-      .range(page * pageSize, (page + 1) * pageSize - 1);
+    const query = supabase.rpc("get_votes", { sort_by: sortBy, sort_order: order });
+
+    if (isMobile && voteId) {
+      query.lt("vote_postId", voteId);
+    }
+
+    const { data, error } = await query.range(page * pageSize, (page + 1) * pageSize - 1);
 
     if (error) {
       console.log(error);
