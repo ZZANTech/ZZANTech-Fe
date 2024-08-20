@@ -35,11 +35,11 @@ function MobileHeader({ title, onClick }: MobileHeaderProps) {
   return (
     <header
       className={clsx("h-14 flex items-center justify-center md:hidden", {
-        "fixed top-0 left-0 right-0 z-30 bg-white mx-5": isSticky,
+        "fixed top-0 left-0 right-0 z-30 bg-white w-full": isSticky,
         relative: !isSticky
       })}
     >
-      <div className="absolute left-0 flex items-center">
+      <div className={clsx("absolute left-0 flex items-center", { "left-5": isSticky })}>
         <span onClick={onClick || handleGoBack} className="flex items-center cursor-pointer">
           <Image src={arrow} alt="뒤로가기" width={28} height={28} />
         </span>
