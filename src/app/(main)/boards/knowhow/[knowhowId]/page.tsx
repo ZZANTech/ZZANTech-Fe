@@ -1,9 +1,10 @@
 import { getKnowhow } from "@/apis/knowhow";
+import BlockedPost from "@/app/(main)/boards/_components/BlockedPost";
 import CommentsContainer from "@/app/(main)/boards/_components/Comments/CommentsContainer";
 import PostActions from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostActions";
 import PostContent from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostContent";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 import MobileHeader from "@/components/MobileHeader";
-import { defaultOpenGraph } from "@/constants";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
 
@@ -33,10 +34,16 @@ async function KnowhowDetailPage({ params: { knowhowId } }: KnowhowDetailPagePro
   return (
     <main className="max-w-[922px] mt-9 mx-auto flex flex-col">
       <MobileHeader title="짠 노하우" />
-      <PostContent knowhow={knowhow} />
-      <PostActions knowhow={knowhow} />
-      <CommentsContainer postId={knowhowId} board="knowhow" />
-      <ConditionalKnowhowContainer knowhowId={knowhowId} />
+      {knowhow.is_banned ? (
+        <BlockedPost />
+      ) : (
+        <>
+          <PostContent knowhow={knowhow} />
+          <PostActions knowhow={knowhow} />
+          <CommentsContainer postId={knowhowId} board="knowhow" />
+          <ConditionalKnowhowContainer knowhowId={knowhowId} />
+        </>
+      )}
     </main>
   );
 }

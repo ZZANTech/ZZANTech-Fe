@@ -17,10 +17,11 @@ export const GET = async (req: Request) => {
 
   try {
     const { data, error } = await supabase
-      .rpc("get_votes_with_counts_and_nickname", { sort_by: sortBy, sort_order: order })
+      .rpc("get_votes", { sort_by: sortBy, sort_order: order })
       .range(page * pageSize, (page + 1) * pageSize - 1);
 
     if (error) {
+      console.log(error);
       throw new Error("게시글을 불러오지 못했습니다.");
     }
 
