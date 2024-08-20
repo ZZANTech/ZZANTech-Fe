@@ -40,6 +40,11 @@
 <img src="https://github.com/user-attachments/assets/7f6441dc-43d1-488c-b845-e2de6728beb9" alt="서비스 아키텍쳐" width="80%" />
 </p>
 
+## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> ERD
+<p align="center"> 
+   <img src="https://github.com/user-attachments/assets/6ef0ccf0-1337-4ffc-86f3-78b64bff9cb8" alt="ERD" width="80%" />
+</p>
+
 ## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> 기술 스택
 
 - **프론트엔드**  <br/>
@@ -77,6 +82,8 @@
   
 - **배포** <br/>
    <img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=Vercel&logoColor=white"/>
+
+
 
 ## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> 기획 배경 (Background)
 - 고물가 시대에 소비에 대한 관심이 높아지면서, MZ세대 사이에서 합리적이고 효율적인 소비를 추구하는 ‘짠테크’가 유행하고 있어요. 이러한 트렌드 속에서, 소비자들이 자신의 소비를 평가받고 경험을 공유할 수 있는 커뮤니티의 필요성을 느끼게 되었어요. 그래서 본 프로젝트는 이러한 배경에서 출발하여, 사용자들이 자신의 소비에 대한 피드백을 받을 수 있는 플랫폼을 제공하기 위해 기획되었어요.
