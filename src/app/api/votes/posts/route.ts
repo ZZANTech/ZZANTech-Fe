@@ -6,7 +6,10 @@ export const GET = async (req: Request) => {
   const url = new URL(req.url);
   const sortOrder = url.searchParams.get("sortOrder") || "latest";
   const page = parseInt(url.searchParams.get("page") || "0");
-  const pageSize = 12;
+  const voteId = url.searchParams.get("voteId");
+  const isMobile = url.searchParams.get("isMobile") === "true";
+
+  const pageSize = isMobile ? 3 : 12;
 
   let sortBy = "created_at";
   let order = "desc";
@@ -16,9 +19,13 @@ export const GET = async (req: Request) => {
   }
 
   try {
-    const { data, error } = await supabase
-      .rpc("get_votes_with_counts_and_nickname", { sort_by: sortBy, sort_order: order })
-      .range(page * pageSize, (page + 1) * pageSize - 1);
+    const query = supabase.rpc("get_votes_with_counts_and_nickname", { sort_by: sortBy, sort_order: order });
+
+    if (isMobile && voteId) {
+      query.lt("vote_postId", voteId);
+    }
+
+    const { data, error } = await query.range(page * pageSize, (page + 1) * pageSize - 1);
 
     if (error) {
       throw new Error("게시글을 불러오지 못했습니다.");
