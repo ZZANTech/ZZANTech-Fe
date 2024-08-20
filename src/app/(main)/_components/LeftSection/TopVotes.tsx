@@ -35,8 +35,9 @@ function TopVotes() {
             modifier: 1,
             slideShadows: true
           }}
-          pagination={true}
+          pagination={false}
           loop={true}
+          initialSlide={3}
           modules={[EffectCoverflow, Pagination]}
           className="mySwiper"
         >
@@ -61,10 +62,10 @@ function TopVotes() {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
                         <div className="absolute bottom-0 left-0 text-white w-full pl-4 pb-3">
-                          <h6 className="font-semibold">{vote.title}</h6>
+                          <h6 className="font-semibold truncate">{vote.title}</h6>
                         </div>
                       </div>
-                      <div className="flex justify-between bg-gray-200 bg-opacity-95 p-2 rounded-b-xl">
+                      <div className="flex justify-between bg-ivory bg-opacity-95 p-2 rounded-b-xl">
                         <p className="text-sm">{vote.nickname}</p>
                         <div className="flex items-center">
                           <Image src="/icons/eye.png" alt="eye" width={20} height={20} />

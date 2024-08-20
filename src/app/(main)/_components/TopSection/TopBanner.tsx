@@ -31,7 +31,7 @@ function TopBanner() {
               alt="banner"
               width={700}
               height={250}
-              priority
+              priority={true}
               quality={50}
               className="object-cover hidden lg:block"
             />
@@ -42,7 +42,7 @@ function TopBanner() {
               alt="banner"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
+              priority={true}
               quality={50}
               className="object-fill object-center w-full h-full"
             />
@@ -55,7 +55,7 @@ function TopBanner() {
               alt="banner"
               width={700}
               height={250}
-              priority
+              priority={true}
               className="object-cover hidden lg:block"
             />
           </Link>
@@ -65,7 +65,7 @@ function TopBanner() {
               alt="banner"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
+              priority={true}
               className="object-fill object-center w-full h-full"
             />
           </Link>
@@ -77,7 +77,7 @@ function TopBanner() {
               alt="banner"
               width={700}
               height={250}
-              priority
+              priority={true}
               className="object-cover hidden lg:block"
             />
           </Link>
@@ -87,7 +87,7 @@ function TopBanner() {
               alt="banner"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              priority
+              priority={true}
               className="object-fill object-center w-full h-full"
             />
           </Link>
