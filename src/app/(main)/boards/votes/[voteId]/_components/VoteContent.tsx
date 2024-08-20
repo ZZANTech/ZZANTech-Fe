@@ -18,7 +18,7 @@ type VoteContentProps = {
 };
 
 function VoteContent({ vote, initialVoteLikes, accessToken, refreshToken }: VoteContentProps) {
-  const { title, product_name, product_price, nickname, created_at, image_url, vote_postId, content } = vote;
+  const { title, product_name, product_price, nickname, badge_url, created_at, image_url, vote_postId, content } = vote;
   const formattedCreatedAt = dayjs(created_at).fromNow();
 
   return (
@@ -28,7 +28,12 @@ function VoteContent({ vote, initialVoteLikes, accessToken, refreshToken }: Vote
           <div className="text-2xl font-semibold text-center text-basic w-full md:w-[480px]">{title}</div>
           <div className="flex flex-col items-center w-full md:w-[436px]">
             <div className="flex items-center justify-between w-full mb-2 md:mb-10 px-2 md:px-0">
-              <div className="text-sm font-normal text-gray-800">{nickname}</div>
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 flex justify-center items-center relative aspect-square">
+                  <Image className="object-cover" src={badge_url || ""} alt="profile" fill />
+                </div>
+                <div className="text-gray-800 text-sm font-normal leading-tight">{nickname}</div>
+              </div>
               <div className="flex items-center gap-2">
                 <Image src={clockIcon} alt="clock" width={20} height={20} />
                 <div className="text-sm font-normal text-gray-800 text-right">{formattedCreatedAt}</div>

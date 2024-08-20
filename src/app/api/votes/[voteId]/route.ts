@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params: { voteId } }: { params: { 
       .select(
         `
           *,
-          users (nickname)
+          users (nickname, badge_url)
         `
       )
       .eq("vote_postId", voteIdNumber)
@@ -25,7 +25,8 @@ export async function GET(req: NextRequest, { params: { voteId } }: { params: { 
 
     const result = {
       ...voteData,
-      nickname: users?.nickname
+      nickname: users?.nickname,
+      badge_url: users?.badge_url
     };
 
     const { data: allVotes, error: navigationError } = await supabase
