@@ -41,7 +41,6 @@ export async function DELETE() {
 
   try {
     const data = await supabase.auth.signOut();
-    console.log("login >> ", data);
 
     const res = NextResponse.json({ massage: "로그아웃 하였습니다." });
     res.cookies.delete("access_token");

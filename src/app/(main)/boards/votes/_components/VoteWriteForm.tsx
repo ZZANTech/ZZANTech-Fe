@@ -9,8 +9,8 @@ import { uploadImage } from "@/apis/chat";
 import useAlertModal from "@/hooks/useAlertModal";
 import Image from "next/image";
 import { useUserContext } from "@/provider/contexts/UserContext";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import Button from "@/components/Button";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 type VoteWriteFormProps = {
   previousContent?: TVote;
@@ -274,7 +274,7 @@ function VoteWriteForm({ previousContent }: VoteWriteFormProps) {
         </Button>
       </div>
 
-      {(isPostPending || isUploading || isPatchPending) && <LoadingSpinner isSubmitting />}
+      {(isPostPending || isUploading || isPatchPending) && <FlyingTikkle isSubmitting />}
     </form>
   );
 }

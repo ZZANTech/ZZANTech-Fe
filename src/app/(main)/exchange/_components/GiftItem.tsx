@@ -9,7 +9,7 @@ import point from "/public/icons/point.png";
 import { formatNumberWithCommas } from "@/app/(main)/boards/_utils";
 import useAlertModal from "@/hooks/useAlertModal";
 import useExchangeMutation from "@/stores/queries/exchange/useExchangeMutation";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 type GiftItemProps = {
   gift: Tables<"gifts">;
@@ -79,7 +79,7 @@ function GiftItem({ gift }: GiftItemProps) {
       >
         교환하기
       </button>
-      {isPending && <LoadingSpinner isSubmitting />}
+      {isPending && <FlyingTikkle isSubmitting />}
     </li>
   );
 }

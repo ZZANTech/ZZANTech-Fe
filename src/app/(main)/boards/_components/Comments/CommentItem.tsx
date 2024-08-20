@@ -12,8 +12,8 @@ import useAlertModal from "@/hooks/useAlertModal";
 import useVoteCommentMutation from "@/stores/queries/vote/comment/useVoteCommentMutation";
 import Image from "next/image";
 import useConfirmModal from "@/hooks/useConfirmModal";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import clsx from "clsx";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 type CommentItemPropsForKnowhow = {
   comment: TKnowhowComment;
@@ -110,7 +110,7 @@ function CommentItem({ comment, board }: CommentItemPropsForKnowhow | CommentIte
       </div>
       {isPending ? (
         <div className="flex justify-center items-center h-[90px]">
-          <LoadingSpinner />
+          <FlyingTikkle isSubmitting />
         </div>
       ) : (
         <>

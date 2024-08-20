@@ -5,8 +5,6 @@ import ClaimList from "@/app/(main)/exchange/_components/ClaimList";
 import { ITEMS_PER_PAGE } from "@/app/(main)/exchange/_constants";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import FlyingTikkle from "@/components/Loading/FlyingTikkle";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
-import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
 import useAlertModal from "@/hooks/useAlertModal";
 import useIsWideScreen from "@/hooks/useIsWideScreen";
 import usePagination from "@/hooks/usePagination";
@@ -14,15 +12,11 @@ import { useUserContext } from "@/provider/contexts/UserContext";
 import useClaimsQuery from "@/stores/queries/exchange/useClaimsQuery";
 
 function ClaimContainer() {
-  const { isWideScreen } = useIsWideScreen();
   const { user } = useUserContext();
   const { currentPage, handlePageChange } = usePagination();
-  const { displayLoginAlert } = useAlertModal();
   const userId = user?.userId ?? "";
   const { data: claims, isPending } = useClaimsQuery(currentPage, ITEMS_PER_PAGE, userId);
-  console.log(claims);
   const totalItems = claims?.totalCount ?? 0;
-  console.log(totalItems);
   return (
     <article className="w-full md:max-w-[778px] ">
       <div className="flex h-[47px] justify-between border-b mb-[22px] md:mb-8 border-b-gray-900 text-[#000] font-semibold">
