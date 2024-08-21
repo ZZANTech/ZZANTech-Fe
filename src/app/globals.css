@@ -9,6 +9,7 @@
     url("/fonts/subset-Pretendard-Regular.woff2") format("woff2"),
     url("/fonts/subset-Pretendard-Regular.woff") format("woff"),
     url("/fonts/subset-Pretendard-Regular.ttf") format("truetype");
+
   font-weight: 400;
   font-display: swap;
 }
@@ -36,6 +37,7 @@
     url("/fonts/subset-Pretendard-Bold.woff2") format("woff2"),
     url("/fonts/subset-Pretendard-Bold.woff") format("woff"),
     url("/fonts/subset-Pretendard-Bold.ttf") format("truetype");
+
   font-weight: 700;
   font-display: swap;
 }
@@ -45,6 +47,7 @@
     url("/fonts/subset-Pretendard-ExtraBold.woff2") format("woff2"),
     url("/fonts/subset-Pretendard-ExtraBold.woff") format("woff"),
     url("/fonts/subset-Pretendard-ExtraBold.ttf") format("truetype");
+
   font-weight: 800;
   font-display: swap;
 }

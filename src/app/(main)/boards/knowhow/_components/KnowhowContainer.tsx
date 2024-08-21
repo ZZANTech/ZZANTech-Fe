@@ -51,6 +51,7 @@ function KnowhowContainer({ isDetailPage = false }: KnowhowContainerProps) {
   };
 
   useEffect(() => handlePageChange(currentPage), [currentPage, sortOrder, submittedSearchParams]);
+
   return (
     <section>
       {!isDetailPage && (
