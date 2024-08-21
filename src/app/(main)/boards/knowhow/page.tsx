@@ -1,8 +1,6 @@
-import BoardDescription from "@/app/(main)/boards/_components/BoardDescription";
-import DescriptionTagList from "@/app/(main)/boards/knowhow/_components/DescriptionTagList";
 import KnowhowContainer from "@/app/(main)/boards/knowhow/_components/KnowhowContainer";
 import KnowhowDescription from "@/app/(main)/boards/knowhow/_components/KnowhowDescription";
-import { BASE_URL, defaultOpenGraph } from "@/constants";
+import { defaultOpenGraph } from "@/constants";
 import { Metadata } from "next";
 import { Suspense } from "react";
 

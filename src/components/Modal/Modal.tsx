@@ -36,7 +36,6 @@ const Modal = (props: ModalProps) => {
           />
         );
       case "nickname":
-        const nicknameProps = props as NicknameModalProps;
         return <NicknameModal />;
       default:
         return null;

@@ -18,8 +18,11 @@ export const MAX_POINTS_PER_DAY = 1000;
 export async function addPoints(userId: string, points: number, reason: string) {
   try {
     await checkAndAddPoints(userId, points, reason);
-  } catch (error: any) {
-    console.error(`포인트 추가 도중 오류 발생: ${error.message}`);
-    // throw new Error("포인트를 추가하는 도중 문제가 발생했습니다.");
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error(`포인트 추가 도중 오류 발생: ${error.message}`);
+    } else {
+      console.error("포인트 추가 도중 알 수 없는 오류 발생:", error);
+    }
   }
 }

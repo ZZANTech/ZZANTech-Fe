@@ -1,5 +1,4 @@
 "use client";
-import Button from "@/components/Button/Button";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { Tables } from "@/types/supabase";
@@ -9,7 +8,7 @@ import point from "/public/icons/point.png";
 import { formatNumberWithCommas } from "@/app/(main)/boards/_utils";
 import useAlertModal from "@/hooks/useAlertModal";
 import useExchangeMutation from "@/stores/queries/exchange/useExchangeMutation";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 type GiftItemProps = {
   gift: Tables<"gifts">;
@@ -17,7 +16,7 @@ type GiftItemProps = {
 
 function GiftItem({ gift }: GiftItemProps) {
   const { user } = useUserContext();
-  const { open, close } = useModal();
+  const { open } = useModal();
   const { displayDefaultAlert, displayLoginAlert } = useAlertModal();
   const { addClaim, isPending } = useExchangeMutation();
   const formattedPoint = formatNumberWithCommas(gift.point);
@@ -79,7 +78,7 @@ function GiftItem({ gift }: GiftItemProps) {
       >
         교환하기
       </button>
-      {isPending && <LoadingSpinner isSubmitting />}
+      {isPending && <FlyingTikkle isSubmitting />}
     </li>
   );
 }

@@ -35,7 +35,7 @@ export const checkAndAddPoints = async (user_id: string, pointsToAdd: number, re
   }
 
   // 사용자 정보 업데이트
-  const { error: userError } = await (supabase as any).rpc("increment_user_points", {
+  const { error: userError } = await supabase.rpc("increment_user_points", {
     user_id,
     points_to_add: pointsToAdd
   });

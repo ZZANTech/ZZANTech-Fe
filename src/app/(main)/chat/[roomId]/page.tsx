@@ -1,5 +1,4 @@
-import { HydrationBoundary, QueryClient, dehydrate } from "@tanstack/react-query";
-import { fetchChatRooms, fetchInitialChats } from "@/apis/chat";
+import { fetchChatRooms } from "@/apis/chat";
 import ChatMessageContainer from "@/app/(main)/chat/_components/ChatMessageContainer";
 
 async function ChatRoomPage({ params }: { params: { roomId: string } }) {

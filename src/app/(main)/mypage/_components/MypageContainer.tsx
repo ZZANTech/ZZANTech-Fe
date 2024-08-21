@@ -4,13 +4,13 @@ import PointContainer from "@/app/(main)/mypage/_components/PointContainer";
 import LevelContainer from "@/app/(main)/mypage/_components/LevelContainer";
 import MyPostsContainer from "@/app/(main)/mypage/_components/MyPostsContainer";
 import OtherPostsContainer from "@/app/(main)/mypage/_components/OtherPostsContainer";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { useEffect } from "react";
 import useUserQuery from "@/stores/queries/auth/useUserQuery";
 import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 import { revalidateRoute } from "@/utils/revalidation";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 function MypageContainer() {
   const { user, logOut } = useUserContext();
@@ -26,7 +26,7 @@ function MypageContainer() {
     refetch();
   }, []);
 
-  if (!user) return <LoadingSpinner />;
+  if (!user) return <FlyingTikkle />;
   return (
     <div className="max-w-[540px] flex flex-col lg:mt-[90px] mx-auto mt-3">
       <div className="hidden lg:block lg:mb-10">

@@ -1,7 +1,5 @@
 import { TVote } from "@/types/vote.type";
-import { getKnowhows, getMyKnowhows } from "@/apis/knowhow";
 import { BASE_URL } from "@/constants";
-import { TKnowhow, TKnowhowsResponse } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
