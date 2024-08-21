@@ -40,7 +40,7 @@
 <img src="https://github.com/user-attachments/assets/7f6441dc-43d1-488c-b845-e2de6728beb9" alt="서비스 아키텍쳐" width="80%" />
 </p>
 
-## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> ERD
+## <img src="https://github.com/user-attachments/assets/c8f7ae3d-da9b-4134-b6bf-ea139c6c61a9" width="20" /> ERD
 <p align="center"> 
    <img src="https://github.com/user-attachments/assets/6ef0ccf0-1337-4ffc-86f3-78b64bff9cb8" alt="ERD" width="80%" />
 </p>
