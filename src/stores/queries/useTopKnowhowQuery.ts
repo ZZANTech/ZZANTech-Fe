@@ -1,5 +1,5 @@
 import { getTopKnowhows } from "@/apis/knowhow";
-import { TKnowhow, TKnowhowsResponse } from "@/types/knowhow.type";
+import { TKnowhow } from "@/types/knowhow.type";
 import { useQuery } from "@tanstack/react-query";
 
 const useTopKnowhowQuery = () => {

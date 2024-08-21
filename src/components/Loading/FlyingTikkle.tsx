@@ -1,5 +1,5 @@
 import Image from "next/image";
-import eyes from "/public/flying_tikkle.gif";
+import eyes from "/public/loading/flying_tikkle.gif";
 import clsx from "clsx";
 
 type FlyingTikkleProps = {

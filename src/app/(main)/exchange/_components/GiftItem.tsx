@@ -1,5 +1,4 @@
 "use client";
-import Button from "@/components/Button/Button";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { Tables } from "@/types/supabase";
@@ -17,7 +16,7 @@ type GiftItemProps = {
 
 function GiftItem({ gift }: GiftItemProps) {
   const { user } = useUserContext();
-  const { open, close } = useModal();
+  const { open } = useModal();
   const { displayDefaultAlert, displayLoginAlert } = useAlertModal();
   const { addClaim, isPending } = useExchangeMutation();
   const formattedPoint = formatNumberWithCommas(gift.point);

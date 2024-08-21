@@ -30,7 +30,6 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ error: "로그인 실패" }, { status: 500 });
   } catch (error) {
-    // console.error("요청 처리 중 오류 발생:", error);
     return NextResponse.json({ error: "내부 서버 오류가 발생했습니다." }, { status: 500 });
   }
 }

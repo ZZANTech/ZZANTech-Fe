@@ -5,8 +5,6 @@ import ClaimList from "@/app/(main)/exchange/_components/ClaimList";
 import { ITEMS_PER_PAGE } from "@/app/(main)/exchange/_constants";
 import NoPostsMessage from "@/app/(main)/mypage/posts/_components/NoPostsMessage";
 import FlyingTikkle from "@/components/Loading/FlyingTikkle";
-import useAlertModal from "@/hooks/useAlertModal";
-import useIsWideScreen from "@/hooks/useIsWideScreen";
 import usePagination from "@/hooks/usePagination";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import useClaimsQuery from "@/stores/queries/exchange/useClaimsQuery";

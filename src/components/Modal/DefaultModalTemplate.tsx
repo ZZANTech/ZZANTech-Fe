@@ -1,4 +1,4 @@
-import { Children, ReactNode } from "react";
+import { ReactNode } from "react";
 
 type DefaultModalTemplateProps = {
   content: string;

@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import Providers from "@/provider/Providers";
 import HeaderContainer from "@/app/(main)/_components/Header/HeaderContainer";
 import ConditionalFooter from "@/app/(main)/_components/Footer/ConditionalFooter";
-import { BASE_URL, defaultOpenGraph } from "@/constants";
+import { defaultOpenGraph } from "@/constants";
 
 export const metadata: Metadata = {
   title: "ZZAN",

@@ -20,6 +20,5 @@ export async function addPoints(userId: string, points: number, reason: string) 
     await checkAndAddPoints(userId, points, reason);
   } catch (error: any) {
     console.error(`포인트 추가 도중 오류 발생: ${error.message}`);
-    // throw new Error("포인트를 추가하는 도중 문제가 발생했습니다.");
   }
 }

@@ -6,7 +6,6 @@ import useKnowhowCommentMutation from "@/stores/queries/knowhow/comment/useKnowh
 import useVoteCommentMutation from "@/stores/queries/vote/comment/useVoteCommentMutation";
 import Image from "next/image";
 import { FormEventHandler, useRef } from "react";
-import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 type CommentFormProps = {
   postId: number;
