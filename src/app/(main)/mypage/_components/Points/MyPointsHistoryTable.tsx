@@ -5,7 +5,6 @@ import usePointsQuery from "@/stores/queries/usePointsQuery";
 import { formatTime } from "@/app/(main)/boards/_utils";
 import { useEffect } from "react";
 import Pagination from "@/app/(main)/boards/knowhow/_components/Pagination";
-import SmallLoadingSpinner from "@/components/Loading/SmallLoadinSpinner";
 import usePagination from "@/hooks/usePagination";
 import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 

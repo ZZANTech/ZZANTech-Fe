@@ -15,7 +15,6 @@ export const GET = async (req: Request, { params }: { params: { knowhowId: strin
     });
 
     if (error) {
-      console.log(error);
       throw new Error("데이터를 가져오는 데 실패했습니다.");
     }
 

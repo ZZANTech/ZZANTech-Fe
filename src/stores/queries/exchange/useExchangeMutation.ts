@@ -2,7 +2,6 @@ import { postClaim } from "@/apis/exchange";
 import useAlertModal from "@/hooks/useAlertModal";
 import { TResponseStatus } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
-import { revalidateRoute } from "@/utils/revalidation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useExchangeMutation = () => {

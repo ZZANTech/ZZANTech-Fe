@@ -1,7 +1,7 @@
 "use client";
 
 import ChatMessageItem from "@/app/(main)/chat/_components/ChatMessageItem";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 import { useChatMessagesQuery } from "@/stores/queries/chat/useChatMessagesQuery";
 import { TChatWithUser } from "@/types/chat.type";
 import { useEffect, useRef, useState } from "react";
@@ -43,7 +43,7 @@ function ChatMessageList({ roomId }: ChatMessageListProps) {
   }, [chats]);
 
   if (isPending) {
-    return <LoadingSpinner />;
+    return <FlyingTikkle />;
   }
 
   return (

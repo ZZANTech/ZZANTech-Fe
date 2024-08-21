@@ -1,5 +1,4 @@
 import { TChangePassword, TUser } from "@/types/user.type";
-import { Dispatch, SetStateAction } from "react";
 import { BASE_URL } from "@/constants";
 import { TInputs } from "@/types/auth.types";
 
