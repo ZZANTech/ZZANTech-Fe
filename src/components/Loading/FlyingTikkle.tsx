@@ -16,6 +16,7 @@ function FlyingTikkle({ isSubmitting }: FlyingTikkleProps) {
     >
       <div className="flex flex-col  items-center">
         <Image src={eyes} className="bg-opacity-20" loading="eager" alt="플라잉티끌이" width={200} height={200} />
+
         <span className="text-center text-point text-2xl leading-[52px] font-bold">Loading...</span>
       </div>
     </div>
