@@ -2,7 +2,6 @@
 
 import QuizAnswer from "@/app/(main)/quiz/_components/QuizAnswer";
 import QuizQuestion from "@/app/(main)/quiz/_components/QuizQuestion";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import { useModal } from "@/provider/contexts/ModalContext";
 import { useUserContext } from "@/provider/contexts/UserContext";
 import { useQuiz } from "@/stores/queries/quiz/useQuizQuery";
@@ -11,6 +10,7 @@ import { useQuizStore } from "@/stores/zustand/quizStore";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 function QuizContainer() {
   const router = useRouter();
@@ -22,7 +22,7 @@ function QuizContainer() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (isPending) {
-    return <LoadingSpinner />;
+    return <FlyingTikkle isSubmitting />;
   }
 
   if (error) {

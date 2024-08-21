@@ -8,7 +8,6 @@ type knowhowListProps = {
 };
 //
 function KnowhowList({ knowhows, isDetailPage = false }: knowhowListProps) {
-  console.log(knowhows);
   return (
     <ul
       className={clsx(

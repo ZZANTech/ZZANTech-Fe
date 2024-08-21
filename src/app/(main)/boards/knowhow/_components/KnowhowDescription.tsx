@@ -3,7 +3,6 @@ import { KNOWHOW_TAG_LIST } from "@/app/(main)/boards/knowhow/_constants";
 import webImage from "/public/description_images/knowhow_web.png";
 import mobileImage from "/public/description_images/knowhow_mobile.png";
 import Image from "next/image";
-import clsx from "clsx";
 
 function KnowhowDescription() {
   return (

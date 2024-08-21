@@ -1,5 +1,4 @@
 import { BASE_URL } from "@/constants";
-import { TKnowhow, TKnowhowLikesCountResponse } from "@/types/knowhow.type";
 import { TVote } from "@/types/vote.type";
 import { useQuery } from "@tanstack/react-query";
 

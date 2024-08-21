@@ -1,5 +1,7 @@
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
+
 function loading() {
-  return <></>;
+  return <FlyingTikkle />;
 }
 
 export default loading;

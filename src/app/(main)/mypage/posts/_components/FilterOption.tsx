@@ -12,7 +12,6 @@ type FilterOptionProps = {
 };
 
 function FilterOption({ isExchangePage = false, options, onFilterOptionChange, filterOption }: FilterOptionProps) {
-  console.log(isExchangePage);
   const { user } = useUserContext();
   const { displayLoginAlert } = useAlertModal();
   const router = useRouter();

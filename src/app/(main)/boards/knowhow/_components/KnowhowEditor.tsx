@@ -2,7 +2,6 @@
 import { useEffect } from "react";
 import Button from "@/components/Button/Button";
 import ErrorMessage from "@/app/(main)/boards/knowhow/_components/ErrorMessage";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 import ReactQuill, { ReactQuillProps } from "react-quill";
 import useFormValidation from "@/app/(main)/boards/knowhow/_hooks/useFormValidation";
 import useImageHandler from "@/app/(main)/boards/knowhow/_hooks/useImageHandler";
@@ -11,6 +10,7 @@ import { formats, getModules } from "@/app/(main)/boards/knowhow/_utils/quillUti
 import useFormHandlers from "@/app/(main)/boards/knowhow/_hooks/useFormHandlers";
 import { TKnowhow } from "@/types/knowhow.type";
 import dynamic from "next/dynamic";
+import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 
 type ForwardedQuillComponent = ReactQuillProps & {
   forwardedRef: React.Ref<ReactQuill>;
@@ -86,7 +86,7 @@ function KnowhowEditor({ previousContent }: KnowhowEditorProps) {
           등록하기
         </Button>
       </div>
-      {isUploadingImage && <LoadingSpinner isSubmitting />}
+      {isUploadingImage && <FlyingTikkle isSubmitting />}
     </form>
   );
 }

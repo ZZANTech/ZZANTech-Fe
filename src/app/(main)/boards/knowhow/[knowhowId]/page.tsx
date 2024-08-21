@@ -3,7 +3,6 @@ import BlockedPost from "@/app/(main)/boards/_components/BlockedPost";
 import CommentsContainer from "@/app/(main)/boards/_components/Comments/CommentsContainer";
 import PostActions from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostActions";
 import PostContent from "@/app/(main)/boards/knowhow/[knowhowId]/_components/PostContent";
-import FlyingTikkle from "@/components/Loading/FlyingTikkle";
 import MobileHeader from "@/components/MobileHeader";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";

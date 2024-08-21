@@ -1,5 +1,5 @@
 import { getKnowhows, getMyKnowhows } from "@/apis/knowhow";
-import { TKnowhow, TKnowhowsResponse } from "@/types/knowhow.type";
+import { TKnowhow } from "@/types/knowhow.type";
 import { Tables } from "@/types/supabase";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 

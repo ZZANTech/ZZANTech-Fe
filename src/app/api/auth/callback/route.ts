@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { cookies } from "next/headers";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
@@ -41,6 +42,11 @@ export async function GET(request: Request) {
             }
           ])
           .select();
+      }
+      const session = data?.session;
+      if (session) {
+        cookies().set("access_token", session.access_token, { httpOnly: true });
+        cookies().set("refresh_token", session.refresh_token, { httpOnly: true });
       }
     }
 

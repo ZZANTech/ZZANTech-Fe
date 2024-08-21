@@ -6,7 +6,6 @@ import useKnowhowCommentMutation from "@/stores/queries/knowhow/comment/useKnowh
 import useVoteCommentMutation from "@/stores/queries/vote/comment/useVoteCommentMutation";
 import Image from "next/image";
 import { FormEventHandler, useRef } from "react";
-import LoadingSpinner from "@/components/Loading/LoadingSpinner";
 
 type CommentFormProps = {
   postId: number;
@@ -74,16 +73,10 @@ function CommentForm({ postId, board, onCommentSubmit }: CommentFormProps) {
           className="w-[124px] h-[44px] bg-gray-900 text-white text-[13px] font-semibold leading-[30px] rounded-lg flex justify-center items-center gap-2.5"
           disabled={isPending}
         >
-          {isPending ? (
-            <LoadingSpinner />
-          ) : (
-            <>
-              <div className="w-5 h-5 flex justify-center items-center">
-                <Image src="/icons/mypage/pen_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
-              </div>
-              <div className="text-center text-white text-sm font-semibold leading-tight">댓글쓰기</div>
-            </>
-          )}
+          <div className="w-5 h-5 flex justify-center items-center">
+            <Image src="/icons/mypage/pen_white.png" width={20} height={20} alt="연필 이미지" className="w-5 h-5" />
+          </div>
+          <div className="text-center text-white text-sm font-semibold leading-tight">댓글쓰기</div>
         </button>
       </div>
     </form>

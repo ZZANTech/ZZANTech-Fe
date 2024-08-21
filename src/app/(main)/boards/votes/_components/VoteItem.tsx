@@ -11,7 +11,7 @@ type VoteItemProps = {
 function VoteItem({ vote, sortOrder }: VoteItemProps) {
   const { vote_postId, image_url, title, nickname, votes_count, comments_count, is_banned } = vote;
   return (
-    <li className="w-full">
+    <div className="w-full">
       <Link
         href={`/boards/votes/${vote_postId}?sortOrder=${sortOrder}`}
         className="w-full h-[374px] md:h-[310px] flex flex-col justify-start items-center transform transition-transform duration-300 ease-out hover:-translate-y-2 rounded-xl overflow-hidden shadow-lg"
@@ -53,7 +53,7 @@ function VoteItem({ vote, sortOrder }: VoteItemProps) {
           </>
         )}
       </Link>
-    </li>
+    </div>
   );
 }
 
