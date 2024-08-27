@@ -26,9 +26,9 @@ function ChatMessageItem({ message, showNickname, showTime }: ChatMessageItemPro
       {!isCurrentUser && showNickname && (
         <p className="leading-6 text-[#9500DC] mb-1">{getDisplayNickname(message.users?.nickname)}</p>
       )}
-      <div className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} items-center`}>
-        {message.image_url ? (
-          <div className="flex items-end">
+      <div className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"} max-w-[70%]`}>
+        {message.image_url && (
+          <div className="flex items-end mb-2">
             {isCurrentUser && showTime && (
               <div className="text-xs text-gray-500 mr-2 whitespace-nowrap">{formatTime(message.created_at)}</div>
             )}
@@ -44,10 +44,11 @@ function ChatMessageItem({ message, showNickname, showTime }: ChatMessageItemPro
               <div className="text-xs text-gray-500 ml-2 whitespace-nowrap">{formatTime(message.created_at)}</div>
             )}
           </div>
-        ) : (
-          <div className="flex items-center">
+        )}
+        {message.content && (
+          <div className="flex items-center mt-2">
             <div
-              className={`max-w-56 px-5 py-2 flex items-center gap-2 ${
+              className={`px-5 py-2 flex items-center gap-2 ${
                 isCurrentUser
                   ? "bg-main rounded-bl-[28px] rounded-br-[28px] rounded-tl-[28px]"
                   : "bg-[#EEE2FA] rounded-br-[28px] rounded-bl-[28px] rounded-tr-[28px]"
